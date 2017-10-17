@@ -14,3 +14,127 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+ol,ul,li {
+	list-style: none;
+	list-style-image: none;
+	margin: 0;
+	padding: 0;
+}
+dl,dt,dd {
+	margin: 0;
+}
+p {
+	margin: 0;
+}
+h2 {
+	margin: 0;
+}
+.content {
+	background: #f0f0f0;
+}
+.toolbar-background-ios,
+.toolbar-background-md {
+	background: #5e9efe;
+}
+.toolbar-title-ios,
+.toolbar-title-md,
+.bar-button-default-md, 
+.bar-button-clear-md-default, 
+.bar-button-md-default,
+.bar-button-default-ios, 
+.bar-button-default.bar-button-ios-default, 
+.bar-button-clear-ios-default {
+	color: #fff;
+	font-size: 1.7rem;
+	font-weight: normal;
+}
+.header-md::after, 
+.tabs-md[tabsPlacement="top"] > .tabbar::after, 
+.footer-md::before, 
+.tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+	background: none;
+}
+.toolbar-md {
+	min-height: 44px;
+	font-size: 1.4rem;
+}
+//tabs
+.tabs-ios {
+	.tabbar {
+		border: none;
+	}
+}
+.tabbar.show-tabbar {
+	background: #fff;
+	-webkit-box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.22);
+    box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.22);
+}
+.tabs-ios {
+	.tab-button-icon {
+		height: 27px;
+	}
+}
+.tabs-md {
+	.tab-button {
+		min-height: 49px;
+	}
+}
+.button-md {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+//弹出层
+.alert-ios {
+	.alert-wrapper {
+		border-radius: 6px;
+	}
+	.alert-button {
+		span {
+			font-size: 1.4rem;
+			font-weight: normal;
+		}
+	}
+	.alert-message {
+		color: #333;
+		font-size: 1.5rem;
+	}
+}
+.alert-md {
+	.alert-head {
+    	padding: 12px 16px 7px;
+	}
+	.alert-message {
+		color: #333;
+		font-size: 1.5rem;
+		text-align: center;
+	}
+	.alert-message,
+	.alert-input-group {
+		padding: 0 24px 21px;
+	}
+	.alert-button-group {
+		padding: 0;
+		.alert-button {
+			margin: 0;
+		    border-radius: 0;
+		    overflow: hidden;
+		    -webkit-box-flex: 1;
+		    -webkit-flex: 1 1 auto;
+		    -ms-flex: 1 1 auto;
+		    flex: 1 1 auto;
+		    min-width: 50%;
+		    height: 44px;
+		    border-top: 0.55px solid #dbdbdf;
+		    border-right: 0.55px solid #dbdbdf;
+		    font-size: 17px;
+		    color: #488aff;
+		    background-color: transparent;
+		    span {
+		    	text-align: center;
+		    	display: block;
+		    	font-size: 1.4rem;
+		    }
+		}
+	}
+}

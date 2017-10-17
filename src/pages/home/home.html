@@ -1,17 +1,55 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+   <ion-toolbar>
+	<img class="logo-img" src="./assets/image/top.png" alt="淘璞帮">
+	<img class="logo-text" src="./assets/image/tpb.png" alt="淘璞帮">
+	<img class="logo-info" src="./assets/image/info.png" alt="淘璞帮">
+  </ion-toolbar>
 </ion-header>
-
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+	<div class="menu-list">
+		<ion-grid>
+		  <ion-row>
+		    <ion-col>
+		      <img class="logo-img" src="./assets/image/scan.png" alt="扫码确认">
+		      <span>扫一扫</span>
+		    </ion-col>
+		    <ion-col>
+		      <img class="logo-img" src="./assets/image/order.png" alt="生成订单">
+		      <span>生成订单</span>
+		    </ion-col>
+		  </ion-row>
+		</ion-grid>
+	</div>
+	<div class="order-unaudit">
+		<ion-grid>
+		  <ion-row>
+		    <ion-col>
+		      <dl>
+		      	<dt class="order-title">待审核订单<span>15</span></dt>
+		      	<dd>取消订单<span>(5)</span></dd>
+		      	<dd>退货订单<span>(10)</span></dd>
+		      </dl>
+		    </ion-col>
+		    <ion-col>
+		      <button ion-button outline round color="light">立即处理</button>
+		    </ion-col>
+		  </ion-row>
+		</ion-grid>
+	</div>
+	<div class="gift-unhandle">
+		<ion-grid>
+		  <ion-row>
+		    <ion-col>
+		      <dl>
+		      	<dt class="gift-title">待处理赠品<span>28</span></dt>
+		      	<dd>自提赠品<span>(5)</span></dd>
+		      	<dd>快递赠品<span>(10)</span></dd>
+		      </dl>
+		    </ion-col>
+		    <ion-col>
+		      <button ion-button outline round color="light">立即处理</button>
+		    </ion-col>
+		  </ion-row>
+		</ion-grid>
+	</div>
 </ion-content>

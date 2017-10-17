@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title text-center>My First List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen='true'>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon name="{{item.icon}}" item-left></ion-icon>
+      {{item.title}}
+      <div class="item-note" item-right>
+        {{item.note}}
+      </div>
+    </button>
+  </ion-list>
+</ion-content>

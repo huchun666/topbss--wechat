@@ -1,22 +1,55 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+
+import { Platform, MenuController, Nav } from 'ionic-angular';
+
+import { Home } from '../pages/home/home';
+import { ListPage } from '../pages/list/list';
+import { TabsPage } from '../pages/tabs/tabs';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = TabsPage;
+  @ViewChild(Nav) nav: Nav;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
+  // make TabsPage the root (or first) page
+
+  rootPage = TabsPage;
+
+  pages: Array<{title: string, component: any}>;
+
+  constructor(
+    public platform: Platform,
+    public menu: MenuController,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen
+  ) {
+    this.initializeApp();
+
+    // set our app's pages
+    this.pages = [
+      { title: 'Hello Ionic', component: Home },
+      { title: 'My First List', component: ListPage }
+    ];
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
     });
+  }
+  //点击事件出发页面切换
+  openPage(page) {
+    // close the menu when clicking a link from the menu
+    this.menu.close();
+    // navigate to the new page if it is not the current page
+    this.nav.setRoot(page.component);
   }
 }

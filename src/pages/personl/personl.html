@@ -1,0 +1,66 @@
+<ion-content>
+  <div class="person-header">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <img class="my-picture" src="./assets/image/mypicture.png" alt="我的">
+        </ion-col>
+        <ion-col col-8>
+          <h2>137****9650</h2>
+          <button ion-button outline round color="light">
+            <img src="./assets/image/qrcode.png" alt="我的">
+            我的二维码
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="funds">
+    <h2 class="funds-title">
+      我的资金
+      <span class="showTotal">
+        <img src="./assets/image/hide.png" alt="我的资金">
+        隐藏
+      </span>
+    </h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="total"><span>￥</span>69922.36</div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <div class="approve">审核中金额：￥18889.62</div>
+        </ion-col>
+        <ion-col>
+          <div class="withdrawal">已提现：￥2689.63</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <button class="btn-canwithdrawal" ion-button outline round>可提现明细</button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="btn-approve" ion-button outline round>审核中明细</button>
+        </ion-col>
+        <ion-col col-4>
+          <button class="btn-withdrawal" ion-button outline round>提现</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="withdrawal-record">
+      提现记录<span><img src="./assets/image/in.png" alt="提现记录"></span>
+    </div>
+  </div>
+  <div class="help">
+    <ul>
+      <li>帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>
+      <li><a href="tel:4008916161">客服热线<span>400-891-6161<img src="./assets/image/in.png" alt="客服热线"></span></a></li>
+    </ul>
+  </div>
+  <button class="btn-logout" ion-button>退出登录</button>
+</ion-content>
