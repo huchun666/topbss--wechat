@@ -86,9 +86,6 @@ h2 {
 }
 //弹出层
 .alert-ios {
-	.alert-wrapper {
-		border-radius: 6px;
-	}
 	.alert-button {
 		span {
 			font-size: 1.4rem;
@@ -101,6 +98,11 @@ h2 {
 	}
 }
 .alert-md {
+	.alert-wrapper {
+		border-radius: 13px;
+		-webkit-box-shadow: none;
+    	box-shadow: none;
+	}
 	.alert-head {
     	padding: 12px 16px 7px;
 	}
@@ -135,6 +137,9 @@ h2 {
 		    	display: block;
 		    	font-size: 1.4rem;
 		    }
+		}
+		.alert-button:last-child {
+			border-right: none;
 		}
 	}
 }
