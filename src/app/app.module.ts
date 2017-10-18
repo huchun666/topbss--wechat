@@ -10,9 +10,12 @@ import { forget } from '../pages/forget/forget';
 import { Home } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Personl } from '../pages/personl/personl';
-import { OrderInfo } from '../pages/order-info/order-info'
-import { GiftInfo } from '../pages/gift-info/gift-info'
-import { Help } from '../pages/help/help'
+import { OrderInfo } from '../pages/order-info/order-info';
+import { GiftInfo } from '../pages/gift-info/gift-info';
+import { CreatOrder } from '../pages/creat-order/creat-order';
+import { Help } from '../pages/help/help';
+import { OrderLayer } from '../pages/order-layer/order-layer';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,7 +32,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Personl,
     OrderInfo,
     GiftInfo,
-    Help
+    CreatOrder,
+    Help,
+    OrderLayer
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Personl,
     OrderInfo,
     GiftInfo,
-    Help
+    CreatOrder,
+    Help,
+    OrderLayer
   ],
   providers: [
     StatusBar,

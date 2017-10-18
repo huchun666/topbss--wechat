@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { home } from '../home/home';
+import { Home } from '../home/home';
 import { forget } from '../forget/forget';
 @Component({
   selector: 'login',
@@ -15,7 +15,7 @@ export class Login {
   }
   login() {
     if (this.userName === '13761489650' && this.pwd === '123456lb'){
-      this.navCtrl.push(home);
+      this.navCtrl.push(Home);
     } else {
       this.isNameAndPwd = true;
     }

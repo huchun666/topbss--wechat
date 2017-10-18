@@ -1,0 +1,94 @@
+creat-order {
+	.back-button {
+		display: block!important;
+	}
+	.icon-creat-order {
+		color: #fff;
+		font-size: 1.5rem;
+		display: block;
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		margin-top: -11px;
+		padding-left: 22px;
+		line-height: 20px;
+		height: 20px;
+		img {
+			position: absolute;
+			left: 0;
+			width: 1.6rem;
+			margin-right: .5rem;
+		}
+	}
+	.search-box {
+		background: #fff;
+		padding: .8rem 0;
+	}
+	.searchbar {
+		background: none;
+		border: none;
+		height: 34px;
+		margin: 0 1rem;
+		width: auto;
+		padding: 0;
+		min-height: auto;
+		.searchbar-input {
+			font-size: 1.5rem;
+			border-radius: 18px;
+			border: solid 1px #ccc;
+			height: 36px;
+			padding: 0 55px 0 30px;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+	}
+	.searchbar-md {
+		.searchbar-search-icon {
+			left: 9px;
+			top: 9px;
+		}
+	}
+	.searchbar-ios {
+		.searchbar-search-icon {
+			left: 10px;
+    		top: 12px;
+		}
+	}
+	.product-list {
+		&::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		padding-bottom: 30px;
+		li {
+			background: #fff;
+			float: left;
+			width: 47%;
+			margin: 8px 0 0 2%;
+			img {
+				display: block;
+				width: 100%;
+			}
+			p {
+				font-size: 1.4rem;
+				height: 50px;
+				line-height: 20px;
+				padding: 5px 10px;
+			}
+			.btn-add {
+				height: 3.5rem;
+				text-align: right;
+				position: relative;
+			}
+			.button {
+				font-size: 1.2rem;
+				height: 3rem;
+				margin: 0;
+				padding: 0 1.2rem;
+				position: absolute;
+				right: .5rem;
+			}
+		}
+	}
+}
