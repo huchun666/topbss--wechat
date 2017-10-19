@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>收款码</ion-title>
+    <div class="btn-close" (touchstart)="goTabs()">完成</div>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+	<div class="qrcode-box">
+		<div class='qrcode'>
+			<img src="../assets/image/myqrcode.png" alt="">
+			<span>扫码完成支付</span>
+			<div class="total">￥3001.69</div>
+		</div>
+	</div>
+	<div class="btn-list">
+		<button class="btn-update" ion-button outline>修改此单</button>
+		<button class="order-again" ion-button>再来一单</button>
+	</div>
+</ion-content>

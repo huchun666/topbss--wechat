@@ -1,0 +1,54 @@
+payment-code {
+	.btn-close {
+		font-size: 1.4rem;
+		color: #fff;
+		width: 5rem;
+		padding-left: 1rem;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		line-height: 44px;
+	}
+	.qrcode-box {
+		background: #fff;
+		.qrcode {
+			width: 52%;
+			margin: 0 auto;
+			padding: 40px 0 20px;
+			text-align: center;
+			img {
+				display: block;
+				max-width: 100%;
+			}
+			span {
+				font-size: 1.2rem;
+				color: #999;
+				margin-top: 15px;
+				display: block;
+			}
+			.total {
+				color: #5e9eff;
+				font-size: 1.8rem;
+				margin-top: 5px;
+			}
+		}
+	}
+	.btn-list {
+		text-align: center;
+		.button {
+			display: block;
+			font-size: 1.5rem;
+			float: left;
+			width: 44%;
+			margin: 20px 0 0 4%;
+			height: 40px;
+			border-radius: 4px;
+		}
+		.btn-update {
+			border-color: #ccc;
+			color: #333;
+			background: #fff;
+		}
+	}
+}

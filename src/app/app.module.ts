@@ -16,12 +16,17 @@ import { CreatOrder } from '../pages/creat-order/creat-order';
 import { Help } from '../pages/help/help';
 import { OrderLayer } from '../pages/order-layer/order-layer';
 import { OrderStore } from '../pages/order-store/order-store';
+import { PaymentCode } from '../pages/payment-code/payment-code';
+import { UnauditTabs } from '../pages/unaudit-tabs/unaudit-tabs';
+import { UnauditCancelorder } from '../pages/unaudit-cancelorder/unaudit-cancelorder';
+import { UnauditReturnorder } from '../pages/unaudit-returnorder/unaudit-returnorder';
+import { AuditCancelorder } from '../pages/audit-cancelorder/audit-cancelorder';
+import { AuditReturnorder } from '../pages/audit-returnorder/audit-returnorder';
+import { ReturnDetail } from '../pages/return-detail/return-detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-@NgModule({
-  declarations: [
+let componentsList = [
     MyApp,
     Login,
     ItemDetailsPage,
@@ -35,8 +40,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreatOrder,
     Help,
     OrderLayer,
-    OrderStore
-  ],
+    OrderStore,
+    PaymentCode,
+    UnauditTabs,
+    UnauditCancelorder,
+    UnauditReturnorder,
+    AuditCancelorder,
+    AuditReturnorder,
+    ReturnDetail
+];
+@NgModule({
+  declarations: componentsList,
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {
@@ -44,22 +58,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     }),
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    Login,
-    ItemDetailsPage,
-    ListPage,
-    forget,
-    Home,
-    TabsPage,
-    Personl,
-    OrderInfo,
-    GiftInfo,
-    CreatOrder,
-    Help,
-    OrderLayer,
-    OrderStore
-  ],
+  entryComponents: componentsList,
   providers: [
     StatusBar,
     SplashScreen,
