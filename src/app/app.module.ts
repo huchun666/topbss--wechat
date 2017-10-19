@@ -15,7 +15,7 @@ import { GiftInfo } from '../pages/gift-info/gift-info';
 import { CreatOrder } from '../pages/creat-order/creat-order';
 import { Help } from '../pages/help/help';
 import { OrderLayer } from '../pages/order-layer/order-layer';
-
+import { OrderStore } from '../pages/order-store/order-store';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -34,7 +34,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     GiftInfo,
     CreatOrder,
     Help,
-    OrderLayer
+    OrderLayer,
+    OrderStore
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     GiftInfo,
     CreatOrder,
     Help,
-    OrderLayer
+    OrderLayer,
+    OrderStore
   ],
   providers: [
     StatusBar,

@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { ModalController, NavController, NavParams, AlertController} from 'ionic-angular';
 import { OrderLayer } from '../order-layer/order-layer';
+import { OrderStore } from '../order-store/order-store';
 
 @Component({
   selector: 'creat-order',
@@ -14,6 +15,9 @@ export class CreatOrder {
 	   	cssClass: 'order-sku-list'
 	   });
 	   orderModal.present();
+	}
+	orderRepertory () {
+		this.navCtrl.push(OrderStore);
 	}
 
 }
