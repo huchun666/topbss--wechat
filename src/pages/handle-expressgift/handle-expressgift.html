@@ -1,3 +1,8 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>已兑换自提赠品</ion-title>
+  </ion-navbar>
+</ion-header>
 <ion-content>
 
 <div class="gift-list">
@@ -10,13 +15,14 @@
 					<span class="unstart">立即兑换</span>
 				</dd>
 				<dd class="reserve-phone">
-					<span>预约手机：13761489650</span>
+					<span>会员手机：13132322323</span>
 					<a href="tel:13761489650"><img src="assets/image/phone.png"></a>
 				</dd>
-				<dd class="member-phone">会员手机：13132322323</dd>
 				<dd class="get-time">领取时间：2017.09.05  23:59</dd>
+				<dd class="get-time">兑换时间：2017.09.05  23:59</dd>
+				<dd class="get-time">导购员：张三</dd>
 			</dl>
-			<div class="reserve-time">
+			<div class="reserve-time member-box">
 				<div class="member-info">
 					<ul>
 						<li>家长姓名：张某某</li>
@@ -26,9 +32,9 @@
 						<li>宝宝证件号：420117198902080853</li>
 					</ul>
 				</div>
-				<div class="btn-time">
-					<button ion-button round (click)="sendProduct()">发货</button>
-				</div>
+			</div>
+			<div class="reserve-time">
+				<div class="show-time">备注信息：圆通 8221 5521 2152</div>
 			</div>
 		</div>
 
@@ -41,13 +47,14 @@
 					<span class="unstart">立即兑换</span>
 				</dd>
 				<dd class="reserve-phone">
-					<span>预约手机：13761489650</span>
+					<span>会员手机：13132322323</span>
 					<a href="tel:13761489650"><img src="assets/image/phone.png"></a>
 				</dd>
-				<dd class="member-phone">会员手机：13132322323</dd>
 				<dd class="get-time">领取时间：2017.09.05  23:59</dd>
+				<dd class="get-time">兑换时间：2017.09.05  23:59</dd>
+				<dd class="get-time">导购员：张三</dd>
 			</dl>
-			<div class="reserve-time">
+			<div class="reserve-time member-box">
 				<div class="member-info">
 					<ul>
 						<li>家长姓名：张某某</li>
@@ -57,45 +64,14 @@
 						<li>宝宝证件号：420117198902080853</li>
 					</ul>
 				</div>
-				<div class="btn-time">
-					<button ion-button round (click)="sendProduct()">发货</button>
-				</div>
+			</div>
+			<div class="reserve-time">
+				<div class="show-time">备注信息：圆通 8221 5521 2152</div>
 			</div>
 		</div>
 
-		<div class="gift-item">
-			<dl>
-				<dt><img src="../assets/image/productimg.png" alt=""></dt>
-				<dd class="product-title">
-					<h2>爱法贝赠品小马甲</h2>
-					<!-- success unstart -->
-					<span class="unstart">立即兑换</span>
-				</dd>
-				<dd class="reserve-phone">
-					<span>预约手机：13761489650</span>
-					<a href="tel:13761489650"><img src="assets/image/phone.png"></a>
-				</dd>
-				<dd class="member-phone">会员手机：13132322323</dd>
-				<dd class="get-time">领取时间：2017.09.05  23:59</dd>
-			</dl>
-			<div class="reserve-time">
-				<div class="member-info">
-					<ul>
-						<li>家长姓名：张某某</li>
-						<li>家长手机号：13333335555</li>
-						<li>宝宝姓名：张大达</li>
-						<li>宝宝身高：120cm</li>
-						<li>宝宝证件号：420117198902080853</li>
-					</ul>
-				</div>
-				<div class="btn-time">
-					<button ion-button round (click)="sendProduct()">发货</button>
-				</div>
-			</div>
-		</div>
-		
 	</div>
-	<div class="btn-selfview" (click)="goExpressgift()">
+	<div class="btn-selfview">
 		<span>查看已兑换自提赠品</span>
 	</div>
 

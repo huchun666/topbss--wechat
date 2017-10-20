@@ -159,3 +159,24 @@ return-detail {
 		}
 	}
 }
+.detail-alert {
+	.alert-message {
+		padding-bottom: 0;
+		text-align: left;
+		color: #333;
+		span {
+			display: block;
+			margin-top: 10px;
+		}
+	}
+	.alert-input {
+		color: #999;
+		background: #fff;
+		border: 1px solid #ccc!important;
+		border-radius: 4px;
+		height: 30px;
+		margin: 5px 0 0 !important;
+		padding: 6px;
+		text-align: center;
+	}
+}

@@ -1,4 +1,7 @@
-unhandle-expressgift {
+handle-expressgift {
+	.back-button {
+		display: block;
+	}
 	.gift-list {
 		background: #fff;
 		.gift-item {
@@ -25,8 +28,8 @@ unhandle-expressgift {
 				color: #5e9efe;
 				position: relative;
 				font-size: 1.2rem;
-				height: 20px;
-				line-height: 20px;
+				height: 16px;
+				line-height: 16px;
 				h2 {
 					font-size: 1.4rem;
 					color: #333;
@@ -50,7 +53,7 @@ unhandle-expressgift {
 				position: relative;
 				a {
 					position: absolute;
-					top: 5px;
+					top: 10px;
 					right: 0;
 					display: block;
 					width: 32px;
@@ -65,7 +68,8 @@ unhandle-expressgift {
 			}
 			.reserve-time {
 				background: #fff;
-				padding: 1rem;
+				padding: 1rem 1rem 1rem 0;
+				margin-left: 1rem;
 				position: relative;
 				.btn-time {
 					position: absolute;
@@ -94,8 +98,11 @@ unhandle-expressgift {
 					width: 100%;
 				}
 				.show-time {
-					color: #333;
+					color: #999;
 				}
+			}
+			.member-box {
+				border-bottom: dashed 1px #f0f0f0;
 			}
 			.member-info {
 				color: #999;

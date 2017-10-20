@@ -1,4 +1,7 @@
-unhandle-expressgift {
+handle-selfgift {
+	.back-button {
+		display: block;
+	}
 	.gift-list {
 		background: #fff;
 		.gift-item {
@@ -69,7 +72,7 @@ unhandle-expressgift {
 				position: relative;
 				.btn-time {
 					position: absolute;
-					width: 80px;
+					width: 100px;
 					height: 3.334rem;
 					right: 1rem;
 					top: 1rem;
@@ -97,9 +100,6 @@ unhandle-expressgift {
 					color: #333;
 				}
 			}
-			.member-info {
-				color: #999;
-			}
 		}
 	}
 	.btn-selfview {
@@ -111,21 +111,4 @@ unhandle-expressgift {
 			text-decoration: underline;
 		}
 	}
-}
-ion-alert.alert-top {
-	.alert-wrapper {
-		background: #fff;
-		.alert-input-group {
-			padding: 0 24px 11px;
-		}
-		.alert-input {
-			margin: 0 0 10px;
-			height: 30px;
-			border-radius: 4px;
-			border: solid 1px #ccc; 
-			padding: 6px;
-			font-size: 1.2rem;
-		}
-	}
-	
 }

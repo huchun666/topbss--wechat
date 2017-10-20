@@ -4,8 +4,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { Login } from '../pages/login/login';
-import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
 import { forget } from '../pages/forget/forget';
 import { Home } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -18,19 +16,23 @@ import { OrderLayer } from '../pages/order-layer/order-layer';
 import { OrderStore } from '../pages/order-store/order-store';
 import { PaymentCode } from '../pages/payment-code/payment-code';
 import { UnauditTabs } from '../pages/unaudit-tabs/unaudit-tabs';
+import { UnhandleTabs } from '../pages/unhandle-tabs/unhandle-tabs';
 import { UnauditCancelorder } from '../pages/unaudit-cancelorder/unaudit-cancelorder';
 import { UnauditReturnorder } from '../pages/unaudit-returnorder/unaudit-returnorder';
 import { AuditCancelorder } from '../pages/audit-cancelorder/audit-cancelorder';
 import { AuditReturnorder } from '../pages/audit-returnorder/audit-returnorder';
 import { ReturnDetail } from '../pages/return-detail/return-detail';
+import { ReturnedDetail } from '../pages/returned-detail/returned-detail';
+import { UnhandleExpressgift } from '../pages/unhandle-expressgift/unhandle-expressgift';
+import { UnhandleSelfgift } from '../pages/unhandle-selfgift/unhandle-selfgift';
+import { HandleSelfgift } from '../pages/handle-selfgift/handle-selfgift';
+import { HandleExpressgift } from '../pages/handle-expressgift/handle-expressgift';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 let componentsList = [
     MyApp,
     Login,
-    ItemDetailsPage,
-    ListPage,
     forget,
     Home,
     TabsPage,
@@ -47,7 +49,13 @@ let componentsList = [
     UnauditReturnorder,
     AuditCancelorder,
     AuditReturnorder,
-    ReturnDetail
+    ReturnDetail,
+    ReturnedDetail,
+    UnhandleTabs,
+    UnhandleSelfgift,
+    UnhandleExpressgift,
+    HandleSelfgift,
+    HandleExpressgift
 ];
 @NgModule({
   declarations: componentsList,

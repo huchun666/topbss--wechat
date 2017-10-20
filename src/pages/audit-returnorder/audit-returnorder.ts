@@ -1,13 +1,15 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { ReturnedDetail } from '../returned-detail/returned-detail';
 @Component({
   selector: 'audit-returnorder',
   templateUrl: 'audit-returnorder.html'
 })
 export class AuditReturnorder {
-	constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 	}
-	auditOrder() {
-	
+	goReturnedDetail() {
+		let contactModal = this.modalCtrl.create(ReturnedDetail);
+   		contactModal.present();
 	}
 }

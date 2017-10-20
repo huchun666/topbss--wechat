@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title text-center>退货详情</ion-title>
+    <ion-title text-center>已审核退货详情</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -28,30 +28,13 @@
 			    <dd class="count">X4</dd>
 			  </dl>
 			</div>
-			<!-- 商品2 -->
-			<div class="order-item">
-			  <dl>
-			    <dt>
-			      <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
-			    </dt>
-			    <dd class="product-title">可爱的小裙子 厚实的 保暖 秋冬季</dd>
-			    <dd class="sku-list">
-			      <span>140</span>
-			      <span>蓝色</span>
-			      <span>无袖</span>
-			    </dd>
-			    <dd class='price'>￥128.66</dd>
-			    <dd class="count">X4</dd>
-			  </dl>
-			</div>
-			
+
 			<div class="orderOprate">
 				<dl>
 					<dt>
 						
 					</dt>
 					<dd class="total">8件商品，实付￥1029.28</dd>
-					<dd class="member-phone">会员手机：12222223333</dd>
 				</dl>
 			</div>
 		</div>
@@ -68,16 +51,18 @@
 					<img src="../assets/image/productimg.png" alt="">
 					<img src="../assets/image/productimg.png" alt="">
 					<img src="../assets/image/productimg.png" alt="">
-					<img src="../assets/image/productimg.png" alt="">
-					<img src="../assets/image/productimg.png" alt="">
 				</li>
 			</ul>
 		</div>
 	</div>
-
-	<div class="btn-list">
-		<button class="btn-update" ion-button outline (touchstart)="refuseReturn()">拒绝</button>
-		<button class="order-again" ion-button (touchstart)="agreeReturn()">同意</button>
+		
+	<div class="time-list">
+		<ul>
+			<li>退货申请时间：2019.09.09  09:09</li>
+			<li>申请审核时间：2019.09.09  09:09</li>
+			<li>确认收货时间：2019.09.09  09:09</li>
+			<li>货款退换时间：2019.09.09  09:09</li>
+		</ul>
 	</div>
 
 </ion-content>

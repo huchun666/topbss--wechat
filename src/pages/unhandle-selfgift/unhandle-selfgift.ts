@@ -1,13 +1,15 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 @Component({
   selector: 'unhandle-selfgift',
   templateUrl: 'unhandle-selfgift.html'
 })
 export class UnhandleSelfgift {
-	constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 	}
-	auditOrder() {
-	
+	goSelfgift() {
+		const orderModal = this.modalCtrl.create(HandleSelfgift);
+		orderModal.present();
 	}
 }
