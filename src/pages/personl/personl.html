@@ -18,7 +18,7 @@
   <div class="funds">
     <h2 class="funds-title">
       我的资金
-      <span class="showTotal" (touchend)="showMoney()">
+      <span class="showTotal" (touchstart)="showMoney()">
         {{ showText }}
       </span>
       <span class="showImg"><img [src]="'./assets/image/'+showImg" alt="我的资金"></span>
@@ -39,7 +39,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-grid>
+    <ion-grid class="btn-list">
       <ion-row>
         <ion-col col-4>
           <button class="btn-canwithdrawal" ion-button outline round>可提现明细</button>
@@ -54,6 +54,9 @@
     </ion-grid>
     <div class="withdrawal-record">
       提现记录<span><img src="./assets/image/in.png" alt="提现记录"></span>
+    </div>
+    <div class="withdrawal-record">
+      收款账户<span><img src="./assets/image/in.png" alt="提现记录"></span>
     </div>
   </div>
   <div class="help">

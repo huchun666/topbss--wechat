@@ -68,7 +68,7 @@ personl {
 				padding-left: 3rem;
 			}
 			.showImg {
-				right: 2.5rem;
+				right: 2.2rem;
 				z-index: 99;
 			}
 		}
@@ -88,7 +88,6 @@ personl {
 			background: #5e9efe;
 			color: #fff;
 		}
-
 		.total {
 			font-size: 4.8rem;
 			color: #5e9efe;
@@ -111,9 +110,12 @@ personl {
 			border: solid 1px #ccc;
 			color: #333; 
 		}
+		.btn-list {
+			margin-bottom: .5rem;
+		}
 		.withdrawal-record {
-			margin-top: .5rem;
 			border-top: solid 1px #f5f5f5;
+			border-bottom: none;
 			span {
 				right: .65rem;
 				img {
