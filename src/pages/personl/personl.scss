@@ -33,6 +33,9 @@ personl {
 				width: 17px;
 			}
 		}
+		.button-outline-ios-light.activated{
+			background: none !important;
+		}
 		.button-ios {
 			padding: 0 1.9rem;
 			margin-left: 1.2rem;
@@ -51,11 +54,22 @@ personl {
 			span {
 				font-size: 1.2rem;
 				position: absolute;
-				right: 1rem;
+				padding: 0 1rem;
+				top: 0;
+				right: 0;
+				display: block;
 				img {
 					width: 2.4rem;
 					vertical-align: middle;
 				}
+			}
+			.showTotal {
+				z-index: 100;
+				padding-left: 3rem;
+			}
+			.showImg {
+				right: 2.5rem;
+				z-index: 99;
 			}
 		}
 		.button {
@@ -66,6 +80,15 @@ personl {
 			margin: 0 auto;
 			padding: 0;
 		}
+		.button-outline-ios.activated  {
+			background: none;
+		}
+		.btn-withdrawal,
+		.btn-withdrawal.activated  {
+			background: #5e9efe;
+			color: #fff;
+		}
+
 		.total {
 			font-size: 4.8rem;
 			color: #5e9efe;
@@ -81,6 +104,7 @@ personl {
 		.approve,
 		.withdrawal {
 			color: #999;
+			font-size: 1.2rem;
 		}
 		.btn-canwithdrawal,
 		.btn-approve {

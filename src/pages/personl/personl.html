@@ -18,24 +18,24 @@
   <div class="funds">
     <h2 class="funds-title">
       我的资金
-      <span class="showTotal">
-        <img src="./assets/image/hide.png" alt="我的资金">
-        隐藏
+      <span class="showTotal" (touchend)="showMoney()">
+        {{ showText }}
       </span>
+      <span class="showImg"><img [src]="'./assets/image/'+showImg" alt="我的资金"></span>
     </h2>
     <ion-grid>
       <ion-row>
         <ion-col>
-          <div class="total"><span>￥</span>69922.36</div>
+          <div class="total"><span>￥</span>{{ total }}</div>
         </ion-col>
       </ion-row>
       
       <ion-row>
         <ion-col>
-          <div class="approve">审核中金额：￥18889.62</div>
+          <div class="approve">审核中金额：￥{{ unGetMoney }}</div>
         </ion-col>
         <ion-col>
-          <div class="withdrawal">已提现：￥2689.63</div>
+          <div class="withdrawal">已提现：￥{{ gotMoney }}</div>
         </ion-col>
       </ion-row>
     </ion-grid>
