@@ -48,7 +48,7 @@
           <button class="btn-approve" ion-button outline round>审核中明细</button>
         </ion-col>
         <ion-col col-4>
-          <button class="btn-withdrawal" ion-button outline round>提现</button>
+          <button class="btn-withdrawal" ion-button outline round (touchstart)="withdraw()">提现</button>
         </ion-col>
       </ion-row>
     </ion-grid>

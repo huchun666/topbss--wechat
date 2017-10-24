@@ -29,6 +29,14 @@ p {
 h2 {
 	margin: 0;
 }
+.list-md .item-input.item-input-has-focus:last-child,
+.list-md .item-input.input-has-focus:last-child,
+.item-md.item-input.item-input-has-focus .item-inner,
+.item-md.item-input.input-has-focus .item-inner {
+	border: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
 .content {
 	background: #f0f0f0;
 }

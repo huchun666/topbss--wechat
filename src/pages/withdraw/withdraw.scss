@@ -1,0 +1,44 @@
+withdraw {
+	.back-button {
+		display: block;
+	}
+	.content {
+		background: #fff;
+	}
+	.withdraw {
+		padding: 2rem 1rem 1rem;
+		h2 {
+			font-size: 1.5rem;
+			color: #333;
+		}
+		.item {
+			padding-left: 8px;
+			border: solid 1px #ccc;
+			border-radius: 5px;
+			margin: .8rem 0;
+			.item-inner {
+				border-bottom: none;
+				.label {
+					font-size: 2.4rem;
+					color: #333;
+				}
+				input {
+					text-align: right;
+					font-size: 3.6rem;
+					margin: 0;
+					width: 100%;
+				}
+			}
+		}
+		.message {
+			font-size: 1.2rem;
+			color: #999;
+		}
+
+		.btn-confirm {
+			display: block;
+			width: 100%;
+			margin: 2rem 0;
+		}
+	}
+}

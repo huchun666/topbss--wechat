@@ -27,6 +27,12 @@ import { UnhandleExpressgift } from '../pages/unhandle-expressgift/unhandle-expr
 import { UnhandleSelfgift } from '../pages/unhandle-selfgift/unhandle-selfgift';
 import { HandleSelfgift } from '../pages/handle-selfgift/handle-selfgift';
 import { HandleExpressgift } from '../pages/handle-expressgift/handle-expressgift';
+import { Withdraw } from '../pages/withdraw/withdraw';
+import { WithdrawRecord } from '../pages/withdraw-record/withdraw-record';
+import { MyCode } from '../pages/mycode/mycode';
+import { AwardTabs } from '../pages/award-tabs/award-tabs';
+import { AwardActivity } from '../pages/award-activity/award-activity';
+import { AwardOrder } from '../pages/award-order/award-order';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -55,7 +61,13 @@ let componentsList = [
     UnhandleSelfgift,
     UnhandleExpressgift,
     HandleSelfgift,
-    HandleExpressgift
+    HandleExpressgift,
+    Withdraw,
+    WithdrawRecord,
+    MyCode,
+    AwardTabs,
+    AwardActivity,
+    AwardOrder
 ];
 @NgModule({
   declarations: componentsList,

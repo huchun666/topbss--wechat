@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { Withdraw } from '../withdraw/withdraw';
 @Component({
   selector: 'personl',
   templateUrl: 'personl.html'
@@ -11,7 +12,7 @@ export class Personl {
 	isStar: boolean = false;
 	showImg: string = 'hide.png';
 	showText: string = '隐藏';
-	constructor(public navCtrl: NavController) {
+	constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
 	}
 	showMoney() {
 		this.isStar = !this.isStar;
@@ -20,6 +21,10 @@ export class Personl {
 		this.total = !this.isStar ?  69922.36 : '*****';
 		this.gotMoney = !this.isStar ?  2689.63 : '*****';
 		this.unGetMoney = !this.isStar ?  18889.62 : '*****';
+	}
+	withdraw () {
+		const withdrawModal = this.modalCtrl.create(Withdraw);
+		withdrawModal.present();
 	}
   
   

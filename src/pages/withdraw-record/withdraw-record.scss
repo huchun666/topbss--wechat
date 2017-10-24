@@ -1,0 +1,32 @@
+withdraw-record {
+	.back-button {
+		display: block;
+	}
+	.withdraw-record {
+		color: #333;
+	}
+	.withdraw-total {
+		line-height: 46px;
+		padding: 0 1rem;
+	}
+	.withdraw-item {
+		background: #fff;
+		line-height: 24px;
+		margin-bottom: 5px;
+		padding: 10px 1rem;
+		position: relative;
+		.money {
+			color: #5e9efe;
+		}
+		.status {
+			position: absolute;
+			color: #28b63c;
+			font-size: 1.2rem;
+			top: 22px;
+			right: 1rem;
+		}
+		.fail {
+			color: #fd3853;
+		}
+	}
+}

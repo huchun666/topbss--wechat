@@ -1,4 +1,4 @@
-unhandle-tabs {
+award-tabs {
 	.back-button {
 		display: block;
 	}
@@ -7,13 +7,16 @@ unhandle-tabs {
 	    -moz-box-shadow: none;
 	    box-shadow: none;
 	}
+	.back-button {
+		display: block;
+	}
 	.tabs-list {
-		.tab-button-text {
-			font-size: 1.5rem!important;
-		}
 		.tab-button {
-			padding: 0;
-			margin: 0 2rem;
+			padding: 0!important;
+			margin: 0 1.5rem;
+			span {
+				font-size: 1.5rem!important;
+			}
 		}
 		.tab-button[aria-selected=true] {
 			border-bottom: solid 4px #5e9eff;
