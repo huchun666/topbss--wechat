@@ -33,6 +33,9 @@ import { MyCode } from '../pages/mycode/mycode';
 import { AwardTabs } from '../pages/award-tabs/award-tabs';
 import { AwardActivity } from '../pages/award-activity/award-activity';
 import { AwardOrder } from '../pages/award-order/award-order';
+import { BindAccount } from '../pages/account/bind-account/bind-account';
+import { AddAccount } from '../pages/account/add-account/add-account';
+import { EditAccount } from '../pages/account/edit-account/edit-account';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -67,7 +70,10 @@ let componentsList = [
     MyCode,
     AwardTabs,
     AwardActivity,
-    AwardOrder
+    AwardOrder,
+    BindAccount,
+    AddAccount,
+    EditAccount
 ];
 @NgModule({
   declarations: componentsList,
