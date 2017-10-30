@@ -1,0 +1,107 @@
+withdraw-detailTabs {
+    .tabs .tab-button:hover:not(.disable-hover), 
+    .tabs .tab-button {
+        height: 100%;
+        color: #999999;
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+    .tabs .tab-button:hover:not(.disable-hover), 
+    .tabs .tab-button[aria-selected=true]{
+        
+        font-size: 1.5rem;
+    }
+    .tabs[tabsLayout=icon-hide] .tab-button .tab-button-text,
+    .tabs .tab-button.has-title-only .tab-button-text {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+        height: 50px;
+        line-height: 50px;
+        border-bottom: .4rem solid transparent;
+        margin-top: .2rem;
+    }
+    .tabs-ios[tabsLayout=icon-hide] .tab-button,
+    .tabs-ios .tab-button.has-title-only {
+        font-size: 1.5rem;
+    }
+    .tabs-md[tabsLayout=icon-hide] .tab-button, 
+    .tabs-md[tabsLayout=title-hide] .tab-button,
+    .tabs-md .tab-button.icon-only, 
+    .tabs-md .tab-button.has-title-only {
+        height: 50px;
+    }
+    .tabs .tab-button[aria-selected=true] .tab-button-text {
+        transform: none;
+        transition: none;
+        margin-bottom: 0;
+        border-bottom: .4rem solid #5E9EFF;
+        color: #5e9eff;
+        height: 50px;
+        line-height: 50px;
+    }
+    .tabs .tabbar {
+        background: #fff;
+    }
+    .tabs[tabsPlacement=top] .tabbar {
+        border-bottom: 0;
+        height: 50px;
+    }
+    .scroll-content {
+        background: #f5f5f5;
+        padding: 1rem;
+        padding-top: 1.7rem;
+    }
+    .tabs-md .tab-button {
+        min-height: 5.4rem;
+    }
+    .header-md::after, 
+    .tabs-md[tabsPlacement="top"] > .tabbar::after,
+    .footer-md::before, 
+    .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+        background-image: none;
+    }
+    .tabbar.show-tabbar {
+        box-shadow:2px 0px 5px 0px #fff;
+    }
+    ion-header {
+        div {
+            background-color: #5E9EFF;
+            height: 44px;
+            line-height: 44px;
+            text-align: center;
+            font-size: 1.8rem;
+            & > .back {
+                color: #fff;
+                display: inline-block;
+                float: left;
+                width: 7rem;
+                & > ion-icon {
+                    margin-left: -.5rem;
+                }
+                & > span {
+                    display: inline-block;
+                    font-weight: normal;
+                }
+            }
+            .title {
+                color: #fff;
+                display: inline-block;
+                height: 100%;
+                margin-right: 7rem;
+                font-weight: normal;
+            }
+            .pairings {
+                float: right;
+                color: #fff;
+                height: 100%;
+                line-height: 4rem;
+                margin-right: 1rem;
+                img {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    margin-bottom: -.3rem
+                }
+            }
+        }
+    }
+}
