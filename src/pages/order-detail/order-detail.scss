@@ -1,0 +1,26 @@
+withdraw-orderDetail {
+    .totle-money {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    .first-card {
+        background: #fff;
+        width: 100%;
+        min-height: 100px;
+        padding: 1.5rem 1rem;
+        margin-bottom: 1rem;
+        & > li {
+            font-size: 1.5rem;
+            margin-bottom: 1.3rem;
+            & > span  {
+                float: right;
+                color: #96dd91;
+                font-style: normal;
+            }
+        }
+        & > li:last-child{
+            color: #5E9EFF;
+            margin-bottom: 0;
+        }
+    }
+}

@@ -40,6 +40,9 @@ import { AddAccount } from '../pages/account/add-account/add-account';
 import { EditAccount } from '../pages/account/edit-account/edit-account';
 import { OrderList } from '../pages/order-list/order-list';
 import { BrandshopOrderList } from '../pages/brandshop-order-list/brandshop-order-list';
+import { OrderDetail } from '../pages/order-detail/order-detail';
+import { AwardDetail } from '../pages/award-detail/award-detail';
+import { DetailTabs } from '../pages/detail-tabs/detail-tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -80,7 +83,10 @@ let componentsList = [
     AddAccount,
     EditAccount,
     OrderList,
-    BrandshopOrderList
+    BrandshopOrderList,
+    OrderDetail,
+    AwardDetail,
+    DetailTabs
 ];
 @NgModule({
   declarations: componentsList,
