@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ViewController  } from 'ionic-angular';
 import { Withdraw } from '../withdraw/withdraw';
 import { Login } from '../login/login';
 @Component({
@@ -13,7 +13,11 @@ export class Personl {
 	isStar: boolean = false;
 	showImg: string = 'hide.png';
 	showText: string = '隐藏';
-	constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+	constructor(
+		public navCtrl: NavController, 
+		public modalCtrl: ModalController, 
+		public viewCtrl: ViewController
+	) {
 	}
 	showMoney() {
 		this.isStar = !this.isStar;
@@ -28,7 +32,8 @@ export class Personl {
 		withdrawModal.present();
 	}
 	logOut() {
-		window.location.reload();
+		const loginModal = this.modalCtrl.create(Login);
+		loginModal.present();
 	}
   
   
