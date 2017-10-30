@@ -1,10 +1,10 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 @Component({
   selector: 'forget',
   templateUrl: 'forget.html'
 })
-export class forget {
+export class Forget {
   constructor(public navCtrl: NavController) {
   }
   

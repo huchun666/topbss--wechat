@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { Home } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { Login } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,9 +17,8 @@ export class MyApp {
 
   // make TabsPage the root (or first) page
 
-  rootPage = TabsPage;
+  rootPage = Login;
 
-  pages: Array<{title: string, component: any}>;
 
   constructor(
     public platform: Platform,
@@ -28,12 +27,6 @@ export class MyApp {
     public splashScreen: SplashScreen
   ) {
     this.initializeApp();
-
-    // set our app's pages
-    this.pages = [
-      { title: 'Hello Ionic', component: Home },
-      { title: 'My First List', component: Home }
-    ];
   }
 
   initializeApp() {

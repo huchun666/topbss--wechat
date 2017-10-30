@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { CreatOrder } from '../creat-order/creat-order';
-import { EditAccount } from '../account/edit-account/edit-account';
-import { Login } from '../login/login';
+import { Home } from '../home/home';
+import { OrderList } from '../order-list/order-list';
+import { Personl } from '../personl/personl';
 @Component({
   templateUrl: 'tabs.html'
 }) 
 export class TabsPage {
-	tab1Root = EditAccount;
-	tab2Root = Login;
-	tab3Root = Login;
-	constructor() {
-	}
+  tab1Root = Home;
+  tab2Root = OrderList;
+  tab3Root = Personl;
+  constructor() {
+  }
 }

@@ -1,5 +1,8 @@
 import { Component} from '@angular/core';
 import { ModalController, NavController, NavParams } from 'ionic-angular';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { MyCode } from '../mycode/mycode';
+import { CreatOrder } from '../creat-order/creat-order';
 import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
 @Component({
@@ -7,14 +10,31 @@ import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
   templateUrl: 'home.html'
 })
 export class Home {
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController) {
+  constructor(
+    public modalCtrl: ModalController, 
+    public navCtrl: NavController, 
+    private barcodeScanner: BarcodeScanner
+  ) {
   }
   goUnAudit() {
-	let orderModal = this.modalCtrl.create(UnauditTabs);
-	orderModal.present();
+  	let unAuditModal = this.modalCtrl.create(UnauditTabs);
+  	unAuditModal.present();
   }
   goUnHandle() {
-	let orderModal = this.modalCtrl.create(UnhandleTabs);
-	orderModal.present();
+  	let unHandleModal = this.modalCtrl.create(UnhandleTabs);
+  	unHandleModal.present();
+  }
+  qrCodeScan() {
+    this.barcodeScanner.scan().then((barcodeData) => {
+      console.log('扫码成功');
+    }, (err) => {
+        console.log('扫码失败');
+    });
+  }
+  goMyCode() {
+    this.navCtrl.push(MyCode);
+  }
+  goCreatOrder() {
+    this.navCtrl.push(CreatOrder);
   }
 }

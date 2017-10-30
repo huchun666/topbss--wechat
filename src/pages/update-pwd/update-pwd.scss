@@ -1,9 +1,27 @@
-forget {
+update-pwd {
 	.btn-forget {
 		background: #5e9efe;
 	}
 	.content {
 		background: #fff;
+	}
+	.update-instruction {
+		text-align: center;
+		margin: 4rem 0;
+		dt, dd {
+			color: #333;
+			font-size: 1.5rem;
+			display: inline-block;
+			vertical-align: middle;
+			text-align: left;
+		}
+		dt {
+			width: 60px;
+			margin-right: 10px;
+			img {
+				border-radius: 50%;
+			}
+		}
 	}
 	.forget-box {
 		margin: 2.8rem 2.8rem 0;
@@ -17,43 +35,6 @@ forget {
 			margin-bottom: 20px;
 			.item-inner {
 				border: none;
-			}
-		}
-		.img-validate,
-		.msg-validate {
-			border: none;
-			width: 72px;
-			height: 27px;
-			padding: 0;
-			margin: 0;
-			position: relative;
-			float: right;
-			margin: -55px 2px 0 0;
-			.item-inner {
-				padding: 0;
-				.label {
-					margin: 0;
-				}
-			}
-		}
-		.msg-validate {
-			width: 98px;
-			height: 32px;
-			margin: -58px 5px 0 0;
-			.button {
-				height: 32px;
-				margin: 0;
-			}
-		}
-		.img-input,
-		.msg-input {
-			.item-inner {
-				padding-right: 80px;
-			}
-		}
-		.msg-input {
-			.item-inner {
-				padding-right: 120px;
 			}
 		}
 		input {
@@ -75,5 +56,4 @@ forget {
 			}
 		}
 	}
-
 }

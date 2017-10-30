@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { Login } from '../pages/login/login';
-import { forget } from '../pages/forget/forget';
+import { Forget } from '../pages/forget/forget';
+import { UpdatePwd } from '../pages/update-pwd/update-pwd';
 import { Home } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Personl } from '../pages/personl/personl';
@@ -36,13 +38,16 @@ import { AwardOrder } from '../pages/award-order/award-order';
 import { BindAccount } from '../pages/account/bind-account/bind-account';
 import { AddAccount } from '../pages/account/add-account/add-account';
 import { EditAccount } from '../pages/account/edit-account/edit-account';
+import { OrderList } from '../pages/order-list/order-list';
+import { BrandshopOrderList } from '../pages/brandshop-order-list/brandshop-order-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 let componentsList = [
     MyApp,
     Login,
-    forget,
+    Forget,
+    UpdatePwd,
     Home,
     TabsPage,
     Personl,
@@ -73,14 +78,18 @@ let componentsList = [
     AwardOrder,
     BindAccount,
     AddAccount,
-    EditAccount
+    EditAccount,
+    OrderList,
+    BrandshopOrderList
 ];
 @NgModule({
   declarations: componentsList,
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {
-      backButtonText: '返回'
+      backButtonText: '返回',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out'
     }),
   ],
   bootstrap: [IonicApp],
@@ -88,6 +97,7 @@ let componentsList = [
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
