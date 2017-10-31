@@ -11,9 +11,18 @@ export class UnhandleTabs {
 	Expressgift = UnhandleExpressgift;
 	selfCount: string;
 	expressCount: string;
+	expressTotalCount: number;
+	seflGiftArray: any;
 	constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
 		this.selfCount = this.setCount('0', 12);
 		this.expressCount = this.setCount('1', 8);
+		this.seflGiftArray = [
+			{
+				name: "爱法呗赠品小马甲",
+				memberPhone: "12131415161",
+				subscribePhone: "222222222"
+			}
+		]
 	}
 	setCount(type, num) {
 		if (type === '0') {
