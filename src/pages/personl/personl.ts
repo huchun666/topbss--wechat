@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, ModalController, ViewController  } from 'ionic-angular';
+import { App, Nav, NavController, NavParams, ModalController, ViewController  } from 'ionic-angular';
 import { Withdraw } from '../withdraw/withdraw';
 import { Login } from '../login/login';
 @Component({
@@ -14,9 +14,11 @@ export class Personl {
 	showImg: string = 'hide.png';
 	showText: string = '隐藏';
 	constructor(
-		public navCtrl: NavController, 
+		public nav: Nav,
+		public navCtrl: NavController,
 		public modalCtrl: ModalController, 
-		public viewCtrl: ViewController
+		public viewCtrl: ViewController,
+		private app: App
 	) {
 	}
 	showMoney() {
@@ -28,12 +30,12 @@ export class Personl {
 		this.unGetMoney = !this.isStar ?  '18889.62' : '*****';
 	}
 	withdraw() {
-		const withdrawModal = this.modalCtrl.create(Withdraw);
+		let withdrawModal = this.modalCtrl.create(Withdraw);
 		withdrawModal.present();
 	}
 	logOut() {
-		const loginModal = this.modalCtrl.create(Login);
-		loginModal.present();
+		let appNav = this.app.getRootNav();
+		appNav.setRoot(Login);
 	}
   
   

@@ -6,20 +6,21 @@ import { PaymentCode } from '../payment-code/payment-code';
   templateUrl: 'order-store.html'
 })
 export class OrderStore {
-	count: number = 2;
-	total: number = 200.00;
-	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
-	}
-	delete() {
+  count: number = 2;
+  total: number = 200.00;
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController
+  ) {
+  }
+  delete() {
 
-	}
-	resetCount() {
+  }
+  resetCount() {
 
-	}
-	addProductModal() {
-	   const orderModal = this.modalCtrl.create(PaymentCode, {id: 12}, {
-	   	cssClass: 'order-sku-list'
-	   });
-	   orderModal.present();
-	}
+  }
+  addProductModal() {
+    this.navCtrl.push(PaymentCode);
+  }
 }
