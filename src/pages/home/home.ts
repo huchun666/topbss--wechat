@@ -11,30 +11,33 @@ import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
 })
 export class Home {
   constructor(
-    public modalCtrl: ModalController, 
-    public navCtrl: NavController, 
+    public modalCtrl: ModalController,
+    public navCtrl: NavController,
     private barcodeScanner: BarcodeScanner
   ) {
+
   }
   goUnAudit() {
-  	let unAuditModal = this.modalCtrl.create(UnauditTabs);
-  	unAuditModal.present();
+    let unAuditModal = this.modalCtrl.create(UnauditTabs);
+    unAuditModal.present();
   }
   goUnHandle() {
-  	let unHandleModal = this.modalCtrl.create(UnhandleTabs);
-  	unHandleModal.present();
+    let unHandleModal = this.modalCtrl.create(UnhandleTabs);
+    unHandleModal.present();
   }
   qrCodeScan() {
-    this.barcodeScanner.scan().then((barcodeData) => {
-      console.log('扫码成功');
-    }, (err) => {
-        console.log('扫码失败');
-    });
+    //this.barcodeScanner.scan().then((barcodeData) => {
+    //  console.log('扫码成功');
+    //}, (err) => {
+    //    console.log('扫码失败');
+    //});
   }
   goMyCode() {
-    this.navCtrl.push(MyCode);
+    let myCodeModal = this.modalCtrl.create(MyCode);
+    myCodeModal.present();
   }
   goCreatOrder() {
-    this.navCtrl.push(CreatOrder);
+    let creatOrderModal = this.modalCtrl.create(CreatOrder);
+    creatOrderModal.present();
   }
 }
