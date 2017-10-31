@@ -7,9 +7,9 @@ import { Personl } from '../personl/personl';
   templateUrl: 'tabs.html'
 }) 
 export class TabsPage {
-  tab1Root = Home;
-  tab2Root = OrderList;
-  tab3Root = Personl;
+  home = Home;
+  orderList = OrderList;
+  personl = Personl;
   constructor() {
   }
 }
