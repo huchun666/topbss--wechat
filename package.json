@@ -26,10 +26,8 @@
         "@ionic-native/status-bar": "4.3.0",
         "@ionic/storage": "2.0.1",
         "cordova-android": "^6.2.3",
-        "cordova-plugin-advanced-http": "^1.7.1",
         "cordova-plugin-compat": "^1.0.0",
         "cordova-plugin-device": "^1.1.4",
-        "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-ionic-webview": "^1.1.11",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "https://github.com/apache/cordova-plugin-statusbar.git",
@@ -55,8 +53,7 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
-            "phonegap-plugin-barcodescanner": {},
-            "cordova-plugin-advanced-http": {}
+            "phonegap-plugin-barcodescanner": {}
         },
         "platforms": [
             "android"
