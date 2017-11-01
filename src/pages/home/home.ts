@@ -15,7 +15,6 @@ export class Home {
     public navCtrl: NavController,
     private barcodeScanner: BarcodeScanner
   ) {
-
   }
   goUnAudit() {
     let unAuditModal = this.modalCtrl.create(UnauditTabs);
