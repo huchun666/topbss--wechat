@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
-import { App, NavController, NavParams } from 'ionic-angular';
-import { Home } from '../home/home';
+import { App, NavController } from 'ionic-angular';
 import { Forget } from '../forget/forget';
 import { TabsPage } from '../tabs/tabs';
 @Component({
@@ -19,7 +18,7 @@ export class Login {
   login() {
     if (this.userName === '13761489650' && this.pwd === '123456lb'){
       let appNav = this.app.getRootNav();
-      appNav.setRoot(TabsPage); 
+      appNav.setRoot(TabsPage);
     } else {
       this.isNameAndPwd = true;
     }
@@ -27,5 +26,4 @@ export class Login {
   forget() {
     this.navCtrl.push(Forget);
   }
-  
 }
