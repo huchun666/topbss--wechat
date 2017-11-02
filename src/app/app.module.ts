@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import { AppService, AppConfig } from './app.service';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
@@ -92,6 +95,7 @@ let componentsList = [
   declarations: componentsList,
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '返回',
       modalEnter: 'modal-slide-in',
@@ -103,6 +107,9 @@ let componentsList = [
   providers: [
     StatusBar,
     SplashScreen,
+    AppService,
+    AppConfig,
+    Dialogs,
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
