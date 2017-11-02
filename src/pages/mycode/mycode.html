@@ -6,13 +6,13 @@
 <ion-content>
 	<div class="qrcode-box">
 		<div class='qrcode'>
-			<img src="../assets/image/myqrcode.png" alt="">
+			<qr-code [value]="myCode" [size]="180"></qr-code>
 		</div>
 		<div class="total">扫码注册淘璞，享更多优惠</div>
 		<div class="btn-brandshop-code" (touchstart)="showBrandshopCode()">{{ btnText }}</div>
 		<div class="brandshop-code" *ngIf="isShow">
 			<div class='qrcode'>
-				<img src="../assets/image/myqrcode.png" alt="">
+				<qr-code [value]="brandshopCode" [size]="180"></qr-code>
 			</div>
 			<div class="total">扫门店二维码，可快速定位到门店首页</div>
 		</div>

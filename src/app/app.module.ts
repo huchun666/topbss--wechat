@@ -6,6 +6,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { QRCodeModule } from 'angular2-qrcode';
 
 import { Login } from '../pages/login/login';
 import { Forget } from '../pages/forget/forget';
@@ -95,6 +96,7 @@ let componentsList = [
   declarations: componentsList,
   imports: [
     BrowserModule,
+    QRCodeModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '返回',

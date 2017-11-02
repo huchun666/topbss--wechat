@@ -20,23 +20,14 @@ export class Login {
   login() {
     if (this.userName != "13761489650" || this.pwd != "123456lb") {
       this.isNameAndPwd = true;
-      return;
+      let appNav = this.app.getRootNav();
+      appNav.setRoot(TabsPage);
+    } else {
+      this.isNameAndPwd = true;
     }
-
-    let url = `${AppConfig.API.login}?user=${this.userName}&password=${this.pwd}`;
-    this.appService.httpGet(url).then(data => {
-      if (data.success) {
-        let appNav = this.app.getRootNav();
-        appNav.setRoot(TabsPage);
-      } else {
-        this.isNameAndPwd = true;
-      }
-    }).catch(error => {
-      console.log(error);
-    });
-    
+  
     // 登陆实际是post或者put，暂时先使用get模拟
-    //let url = AppConfig.API.login;
+    //let url = AppConfig.API.;
     //let body = {
     //  userName: this.userName,
     //  password: this.pwd

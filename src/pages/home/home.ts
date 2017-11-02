@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { ModalController, NavController, NavParams } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
 import { CreatOrder } from '../creat-order/creat-order';
