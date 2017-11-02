@@ -1,8 +1,8 @@
 creat-order {
-	.back-button {
+  .back-button {
 		display: block!important;
-	}
-	.icon-creat-order {
+  }
+  .icon-creat-order {
 		color: #fff;
 		font-size: 1.5rem;
 		display: block;
@@ -19,12 +19,12 @@ creat-order {
 			width: 1.6rem;
 			margin-right: .5rem;
 		}
-	}
-	.search-box {
+  }
+  .search-box {
 		background: #fff;
 		padding: .8rem 0;
-	}
-	.searchbar {
+  }
+  .searchbar {
 		background: none;
 		border: none;
 		height: 34px;
@@ -41,20 +41,20 @@ creat-order {
 			-webkit-box-shadow: none;
 			box-shadow: none;
 		}
-	}
-	.searchbar-md {
+  }
+  .searchbar-md {
 		.searchbar-search-icon {
 			left: 9px;
 			top: 9px;
 		}
-	}
-	.searchbar-ios {
+  }
+  .searchbar-ios {
 		.searchbar-search-icon {
 			left: 10px;
-    		top: 12px;
+			top: 12px;
 		}
-	}
-	.product-list {
+  }
+  .product-list {
 		&::after {
 			content: '';
 			display: block;
@@ -90,5 +90,5 @@ creat-order {
 				right: .5rem;
 			}
 		}
-	}
+  }
 }

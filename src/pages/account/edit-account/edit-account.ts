@@ -9,7 +9,7 @@ export class EditAccount {
 	phone: string = '';
 	idCard: string = '';
 	constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
-		this.name = '张小花';
+	  this.name = '张小花';
 		this.phone = '13761489650';
 		this.idCard = '420117198902080853';
 	}

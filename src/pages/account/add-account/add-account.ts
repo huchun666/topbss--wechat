@@ -6,5 +6,6 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 })
 export class AddAccount {
   constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+    
   }
 }

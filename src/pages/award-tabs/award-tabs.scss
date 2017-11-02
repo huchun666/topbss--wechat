@@ -1,16 +1,16 @@
 award-tabs {
-	.back-button {
+  .back-button {
 		display: block;
-	}
-	.tabbar.show-tabbar {
+  }
+  .tabbar.show-tabbar {
 		-webkit-box-shadow: none;
-	    -moz-box-shadow: none;
-	    box-shadow: none;
-	}
-	.back-button {
+		-moz-box-shadow: none;
+		box-shadow: none;
+  }
+  .back-button {
 		display: block;
-	}
-	.tabs-list {
+  }
+  .tabs-list {
 		.tab-button {
 			padding: 0!important;
 			margin: 0 1.5rem;
@@ -21,17 +21,17 @@ award-tabs {
 		.tab-button[aria-selected=true] {
 			border-bottom: solid 4px #5e9eff;
 			.tab-button-text {
-				-webkit-transform: scale3d(1, 11, 1);
-	    		transform: scale3d(1, 1, 1);
+			-webkit-transform: scale3d(1, 11, 1);
+				transform: scale3d(1, 1, 1);
 			}
 		}
 		.tab-button {
 			min-height: 49px!important;
 		}
-	}
-	.tabs-list[tabsPlacement=top] {
+  }
+  .tabs-list[tabsPlacement=top] {
 		.tabbar {
 			border-bottom: solid 1px #f0f0f0;
 		}
-	}
+  }
 }

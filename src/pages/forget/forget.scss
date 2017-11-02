@@ -1,15 +1,14 @@
 forget {
-	.btn-forget {
+  .btn-forget {
 		background: #5e9efe;
-	}
-	.content {
+  }
+  .content {
 		background: #fff;
-	}
-	.forget-box {
+  }
+  .forget-box {
 		margin: 2.8rem 2.8rem 0;
-	}
-	.list {
-		
+  }
+  .list {
 		.item {
 			border: solid 1px #ccc;
 			border-radius: 4px;
@@ -34,7 +33,7 @@ forget {
 				.label {
 					margin: 0;
 				}
-			}
+	  	}
 		}
 		.msg-validate {
 			width: 98px;
@@ -58,22 +57,21 @@ forget {
 		}
 		input {
 			&::-webkit-input-placeholder {
-		    	color: #999;
-		    	font-size: 1.5rem;
-		    }
-		    &:-moz-placeholder{ 
-			    color: #999;
-		    	font-size: 1.5rem;
+				color: #999;
+				font-size: 1.5rem;
+			}
+			&:-moz-placeholder{ 
+				color: #999;
+				font-size: 1.5rem;
 			}
 			&::-moz-placeholder{ 
-			   color: #999;
-		    	font-size: 1.5rem;
+				color: #999;
+				font-size: 1.5rem;
 			}
 			&:-ms-input-placeholder{ 
-			    color: #999;
-		    	font-size: 1.5rem;
+				color: #999;
+				font-size: 1.5rem;
 			}
 		}
-	}
-
+  }
 }

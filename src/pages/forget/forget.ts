@@ -7,6 +7,4 @@ import { NavController } from 'ionic-angular';
 export class Forget {
   constructor(public navCtrl: NavController) {
   }
-  
-  
 }

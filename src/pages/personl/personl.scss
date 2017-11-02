@@ -1,11 +1,11 @@
 personl {
-	ol,ul,li {
+  ol,ul,li {
 		list-style: none;
 		list-style-image: none;
 		margin: 0;
 		padding: 0;
-	}
-	.person-header {
+  }
+  .person-header {
 		background: #5e9efe;
 		padding: 1.4rem 1rem;
 		.my-picture {
@@ -40,8 +40,8 @@ personl {
 			padding: 0 1.9rem;
 			margin-left: 1.2rem;
 		}
-	}
-	.funds {
+  }
+  .funds {
 		background: #fff;
 		.funds-title,
 		.withdrawal-record {
@@ -94,10 +94,10 @@ personl {
 			position: relative;
 			padding-left: 1.8rem;
 			span {
-				font-size: 1.8rem;
-				position: absolute;
-				left: 0;
-				top: 8px;
+			font-size: 1.8rem;
+			position: absolute;
+			left: 0;
+			top: 8px;
 			}
 		}
 		.approve,
@@ -123,35 +123,35 @@ personl {
 				}
 			}
 		}
-	}
-	.help {
+  }
+  .help {
 		background: #fff;
 		margin-top: 30px;
 		li {
 			color: #333;
-		    font-size: 1.5rem;
-		    border-bottom: solid 1px #f5f5f5;
-		    line-height: 44px;
-		    padding: 0 0 0 1.3rem;
-		    position: relative;
-		    a {
-	    		color: #333;
-	    		text-decoration: none;
-	    	}
-		    span {
-		    	color: #999;
-		    	font-size: 1.2rem;
-		    	position: absolute;
-		    	right: .65rem;
-		    	img {
+			font-size: 1.5rem;
+			border-bottom: solid 1px #f5f5f5;
+			line-height: 44px;
+			padding: 0 0 0 1.3rem;
+			position: relative;
+			a {
+				color: #333;
+				text-decoration: none;
+			}
+			span {
+				color: #999;
+				font-size: 1.2rem;
+				position: absolute;
+				right: .65rem;
+				img {
 					width: 1.5rem;
 					vertical-align: middle;
 				}
-		    }
+			}
 		}
-	}
-	.btn-logout {
+  }
+  .btn-logout {
 		width: 90%;
 		margin: 30px 5%;
-	}
+  }
 }

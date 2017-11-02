@@ -1,10 +1,10 @@
 order-store {
-	.list {
+  .list {
 		margin: 0;
 		.item-wrapper {
 			overflow: auto;
 			.item-inner {
-				padding-right: 10px;
+			padding-right: 10px;
 			}
 		}
 		ion-item-options {
@@ -37,18 +37,18 @@ order-store {
 				font-size: 1.5rem;
 				white-space: nowrap;
 				overflow: hidden;
-    			text-overflow: ellipsis;
+				text-overflow: ellipsis;
 			}
 		}
 		.btn-delete {
 			padding: 0 40px;
 		}
-	}
-	.list-ios > .item-block:last-child, 
-	.list-ios > .item-wrapper:last-child .item-block {
+  }
+  .list-ios > .item-block:last-child, 
+  .list-ios > .item-wrapper:last-child .item-block {
 		border-color: #f0f0f0;
-	}
-	.count {
+  }
+  .count {
 		position: relative;
 		height: 30px;
 		margin: 10px 0;
@@ -72,15 +72,15 @@ order-store {
 		.add-count {
 			margin: 0 31px;
 			input {
-				width: 100%;
-				border-radius: 4px;
-				border: solid 1px #ccc;
-				height: 30px;
-				text-align: center;
+			width: 100%;
+			border-radius: 4px;
+			border: solid 1px #ccc;
+			height: 30px;
+			text-align: center;
 			}
 		}
-	}
-	.total {
+  }
+  .total {
 		border: solid 1px #ccc;
 		border-radius: 4px;
 		height: 30px;
@@ -104,8 +104,8 @@ order-store {
 			width: 96%;
 			text-align: right;
 		}
-	}
-	.btn-confirm {
+  }
+  .btn-confirm {
 		margin: 30px 5%;
 		width: 90%;
 		border-radius: 4px;
@@ -121,8 +121,8 @@ order-store {
 			font-size: 1.5rem;
 			padding-top: 0.2rem;
 		}
-	}
-	.remark {
+  }
+  .remark {
 		border-top: solid 1px #f0f0f0;
 		margin: 0 10px;
 		padding-top: 10px;
@@ -138,27 +138,26 @@ order-store {
 			width:-moz-calc(100% - 10px); 
 			width:-webkit-calc(100% - 10px);
 			width: calc(100% - 10px);
-		    border-radius: 4px;
-		    border: solid 1px #ccc;
-		    height: 30px;
-		    padding: 0 8px;
-		    &::-webkit-input-placeholder {
-		    	color: #999;
-		    	font-size: 1.2rem;
-		    }
-		    &:-moz-placeholder{ 
-			    color: #999;
-		    	font-size: 1.2rem;
+			border-radius: 4px;
+			border: solid 1px #ccc;
+			height: 30px;
+			padding: 0 8px;
+			&::-webkit-input-placeholder {
+				color: #999;
+				font-size: 1.2rem;
+			}
+			&:-moz-placeholder{ 
+				color: #999;
+				font-size: 1.2rem;
 			}
 			&::-moz-placeholder{ 
-			   color: #999;
-		    	font-size: 1.2rem;
+				color: #999;
+				font-size: 1.2rem;
 			}
 			&:-ms-input-placeholder{ 
-			    color: #999;
-		    	font-size: 1.2rem;
+				color: #999;
+				font-size: 1.2rem;
 			}
 		}
-	}
-	
+  }
 }

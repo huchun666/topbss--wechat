@@ -1,13 +1,13 @@
 unaudit-tabs {
-	.back-button {
+  .back-button {
 		display: block;
-	}
-	.tabbar.show-tabbar {
+  }
+  .tabbar.show-tabbar {
 		-webkit-box-shadow: none;
-	    -moz-box-shadow: none;
-	    box-shadow: none;
-	}
-	.tabs-list {
+		-moz-box-shadow: none;
+		box-shadow: none;
+  }
+  .tabs-list {
 		.tab-button-text {
 			font-size: 1.5rem!important;
 		}
@@ -19,16 +19,16 @@ unaudit-tabs {
 			border-bottom: solid 4px #5e9eff;
 			.tab-button-text {
 				-webkit-transform: scale3d(1, 11, 1);
-	    		transform: scale3d(1, 1, 1);
+				transform: scale3d(1, 1, 1);
 			}
 		}
 		.tab-button {
-			min-height: 49px!important;
+	  	min-height: 49px!important;
 		}
-	}
-	.tabs-list[tabsPlacement=top] {
+  }
+  .tabs-list[tabsPlacement=top] {
 		.tabbar {
-			border-bottom: solid 1px #f0f0f0;
+	  	border-bottom: solid 1px #f0f0f0;
 		}
-	}
+  }
 }

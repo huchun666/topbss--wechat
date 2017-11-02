@@ -8,16 +8,16 @@ import { OrderStore } from '../order-store/order-store';
   templateUrl: 'creat-order.html',
 })
 export class CreatOrder {
-	constructor(public modalCtrl: ModalController, public navCtrl: NavController, public alertCtrl: AlertController) {
-	}
-	addProductModal() {
-	   const orderModal = this.modalCtrl.create(OrderLayer, {id: 12}, {
-	   	cssClass: 'order-sku-list'
-	   });
-	   orderModal.present();
-	}
-	orderRepertory () {
-		this.navCtrl.push(OrderStore);
-	}
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public alertCtrl: AlertController) {
+  }
+  addProductModal() {
+	const orderModal = this.modalCtrl.create(OrderLayer, {id: 12}, {
+	cssClass: 'order-sku-list'
+	});
+	orderModal.present();
+  }
+  orderRepertory () {
+	this.navCtrl.push(OrderStore);
+  }
 
 }

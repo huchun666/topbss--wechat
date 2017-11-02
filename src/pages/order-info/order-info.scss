@@ -1,5 +1,5 @@
 order-info {
-	.order-title {
+  .order-title {
 		background: #fff;
 		line-height: 44px;
 		height: 44px;
@@ -9,8 +9,8 @@ order-info {
 			line-height: 44px;
 			margin: 0 120px 0 40px;
 			white-space: nowrap;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 		img {
 			width: 20px;
@@ -23,8 +23,8 @@ order-info {
 			right: 1rem;
 			top: 0;
 		}
-	}
-	.order-list {
+  }
+  .order-list {
 		background: #fff;
 		margin-top: 1px;
 		.order-item {
@@ -47,14 +47,14 @@ order-info {
 					display: block;
 					max-width: 100%;
 				}
-			}
+	  	}
 			dd {
 				color: #333;
 				font-size: 1.5rem;
 				line-height: 24px;
 				white-space: nowrap;
-			    overflow: hidden;
-			    text-overflow: ellipsis;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 			.sku-list {
 				color: #999;
@@ -66,18 +66,18 @@ order-info {
 				right: 0;
 			}
 			.price {
-				color: #5e9efe;
+			color: #5e9efe;
 			}
 			.sku-list,
 			.count {
-				font-size: 1.2rem;
+			font-size: 1.2rem;
 			}
 		}
-	}
-	.btn-confirm {
+  }
+  .btn-confirm {
 		background: #5e9efe;
 		width: 90%;
 		margin: 2rem 5%;
-	}
+  }
 	
 }

@@ -1,8 +1,8 @@
 bind-account {
-	.bind-account {
-		background: #fff;
-		padding: 4rem 0;
-		.img-list {
+  .bind-account {
+    background: #fff;
+    padding: 4rem 0;
+    .img-list {
 			ul {
 				&::after {
 					content: '';
@@ -10,37 +10,37 @@ bind-account {
 					clear: both;
 				}
 			}
-			li {
+      li {
 				width: 20%;
 				float: left;
 				img {
 					max-width: 100%;
 				}
-			}
-			.bind {
+      }
+      .bind {
 				width: 20%;
 				img {
-					transform: scale(0.7);
-					-ms-transform: scale(0.7); 	/* IE 9 */
-					-moz-transform: scale(0.7); 	/* Firefox */
-					-webkit-transform: scale(0.7); /* Safari 和 Chrome */
-					-o-transform: scale(0.7);
+				transform: scale(0.7);
+				-ms-transform: scale(0.7); 	/* IE 9 */
+				-moz-transform: scale(0.7); 	/* Firefox */
+				-webkit-transform: scale(0.7); /* Safari 和 Chrome */
+				-o-transform: scale(0.7);
 				}
 			}
 			.logo {
 				margin-left: 20%;
 			}
-		}
-		.text {
+    }
+    .text {
 			color: #333;
 			font-size: 1.5rem;
 			margin-top: 1.5rem;
 			text-align: center;
-		}
-	}
-	.btn-bind {
+    }
+  }
+  .btn-bind {
 		width: 90%;
 		margin: 3rem 0 0 5%;
 		background: #5e9efe;
-	}
+  }
 }

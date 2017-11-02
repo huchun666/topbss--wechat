@@ -1,11 +1,11 @@
 add-account {
-	.account-title {
-		background: #fff;
+  .account-title {
+    background: #fff;
 		line-height: 46px;
 		color: #333;
 		text-align: center;
-	}
-	.form-list {
+  }
+  .form-list {
 		padding: 2rem 1rem 0;
 		.item {
 			border: solid 1px #ccc;
@@ -19,38 +19,38 @@ add-account {
 				input {
 					margin: 0;
 					&::-webkit-input-placeholder {
-				    	color: #999;
-				    	font-size: 1.5rem;
-				    }
-				    &:-moz-placeholder{ 
-					    color: #999;
-				    	font-size: 1.5rem;
+						color: #999;
+						font-size: 1.5rem;
+					}
+					&:-moz-placeholder{ 
+						color: #999;
+						font-size: 1.5rem;
 					}
 					&::-moz-placeholder{ 
-					   color: #999;
-				    	font-size: 1.5rem;
+						color: #999;
+						font-size: 1.5rem;
 					}
 					&:-ms-input-placeholder{ 
-					    color: #999;
-				    	font-size: 1.5rem;
+						color: #999;
+						font-size: 1.5rem;
 					}
 				}
 			}
 		}
-	}
-	.list-md .item-input.item-input-has-focus:last-child,
-	.list-md .item-input.input-has-focus:last-child,
-	.list-md .item-input:last-child {
+  }
+  .list-md .item-input.item-input-has-focus:last-child,
+  .list-md .item-input.input-has-focus:last-child,
+  .list-md .item-input:last-child {
 		border: solid 1px #ccc;
-	}
-	.btn-bind {
+  }
+  .btn-bind {
 		width: 100%;
 		margin: 2.5rem 0 0;
 		background: #5e9efe;
-	}
-	.message {
+  }
+  .message {
 		color: #999;
 		text-align: center;
 		margin-top: .5rem;
-	}
+  }
 }
