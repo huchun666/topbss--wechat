@@ -22,7 +22,6 @@ export class Login {
       let appNav = this.app.getRootNav();
       appNav.setRoot(TabsPage);
     }
-  
     // 登陆实际是post或者put，暂时先使用get模拟
     //let url = AppConfig.API.;
     //let body = {
@@ -39,7 +38,6 @@ export class Login {
     //}).catch(error => {
     //  console.log(error);
     //});
-
   }
   forget() {
     this.navCtrl.push(Forget);
