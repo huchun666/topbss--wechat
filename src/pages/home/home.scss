@@ -1,7 +1,6 @@
 home {
   .header-ios, 
   .footer-ios {
-<<<<<<< HEAD
 		.toolbar-background-ios {
 			border: none;
 		}
@@ -85,88 +84,4 @@ home {
 		position: relative;
   }
 
-=======
-    .toolbar-background-ios {
-      border: none;
-    }
-  }
-  .toolbar-content {
-    text-align: center;
-    img {
-      vertical-align: middle;
-    }
-    .logo-text {
-      width: 5.8rem;
-    }
-    .logo-img {
-      width: 3.2rem;
-      position: absolute;
-      left: 1.2rem;
-    }
-    .logo-info {
-      width: 2rem;
-      position: absolute;
-      right: 1.2rem;
-      margin-top: -.2rem;
-    }
-  }
-  .menu-list {
-    color: #fff;
-    background: #5e9efe;
-    text-align: center;
-    padding:  12px 0;
-    img {
-      width: 4rem;
-    }
-    span {
-      display: block;
-      font-size: 1.5rem;
-      margin-top: 5px;
-    }
-  }
-  .order-unaudit, .gift-unhandle {
-    background: #fff;
-    margin-bottom: 1px;
-    padding: 10px 10px 10px 15px;
-    dl {
-      margin: 0;
-    }
-    dt {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      span {
-        margin-left: .5rem;
-      }
-    }
-    dd {
-      font-size: 1.5rem;
-      color: #999;
-      margin: 0;
-      line-height: 24px;
-      span {
-        margin-left: .8rem;
-      }
-    }
-    .button-md, 
-    .button-ios {
-      color: #5e9efe;
-      font-size: 1.5rem;
-      border-color: #e2e2e2;
-      height: 3.334rem;
-      padding: 0 2rem;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-    }
-  }
-  .order-title {
-    color: #f90;
-  }
-  .gift-title{
-    color: #f6657d;
-  }
-  .toolbar-content-md {
-    position: relative;
-  }
->>>>>>> upstream/master
 }
