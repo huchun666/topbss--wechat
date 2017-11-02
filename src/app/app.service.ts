@@ -38,7 +38,7 @@ export class AppService {
     return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
-        console.log('访问错误：'+ error);
+        console.log(`访问错误:${error}`);
         this.handleError(error);
       }
     );
@@ -49,7 +49,7 @@ export class AppService {
     return this.http.post(url, body).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
-        console.log('访问错误：'+ error);
+        console.log(`访问错误:${error}`);
         this.handleError(error);
       }
     );
@@ -60,7 +60,7 @@ export class AppService {
   	return this.http.put(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
-        console.log('访问错误：'+ error);
+        console.log(`访问错误:${error}`);
         this.handleError(error);
       }
     );
@@ -80,7 +80,7 @@ export class AppService {
     this.dialogs.alert(msg, title);
   }
   
-  //加载中的友好提示
+  //加载中的友好提示loader.present();
   public loading(): Loading {
     let loader = this.loadingCtrl.create({
       spinner: "dots",

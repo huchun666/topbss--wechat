@@ -23,7 +23,7 @@ export class Login {
       return;
     }
 
-    let url = AppConfig.API.login;
+    let url = `${AppConfig.API.login}?user=${this.userName}&password=${this.pwd}`;
     this.appService.httpGet(url).then(data => {
       if (data.success) {
         let appNav = this.app.getRootNav();
