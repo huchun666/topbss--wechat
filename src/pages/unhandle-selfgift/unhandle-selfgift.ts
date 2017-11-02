@@ -6,8 +6,8 @@ import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
   templateUrl: 'unhandle-selfgift.html'
 })
 export class UnhandleSelfgift {
-	seflGiftArray: any;
-	seflGiftArray1: any;
+  seflGiftArray: any;
+  seflGiftArray1: any;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 	  this.seflGiftArray = [
 			{
@@ -65,6 +65,12 @@ export class UnhandleSelfgift {
 	  orderModal.present();
   }
   clearSubscribeArriveTime(index) {
-	  this.seflGiftArray[index].subscribeArriveTime = "";
+    this.seflGiftArray[index].subscribeArriveTime = "";
+  }
+  subscribeAffirm(index) {
+	console.log(this.seflGiftArray[index].subscribeArriveTime)
+	this.seflGiftArray[index].subscribeState = "2";
+	// this.seflGiftArray[index].subscribeArriveTime
+	// history.go(0);
   }
 }
