@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoadingController, Loading } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 
@@ -16,8 +17,9 @@ export class AppConfig {
 
   //接口url
   static API: any = {
-    getProductList: '',
-    getOrderList: ''
+    login: "/assets/data/login.json",
+    getProductList: "",
+    getOrderList: ""
   };
 }
 @Injectable()
@@ -67,7 +69,7 @@ export class AppService {
   //错误或者异常处理提示
   private handleError(error: Response) {
     this.alert("提示", error.toString());
-    return Observable.throw(error.json().error || "服务错误");
+    return Observable.throw(error.message || "服务错误");
   }
   
   //弹出提示信息
