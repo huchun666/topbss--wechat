@@ -1,8 +1,8 @@
 audit-cancelorder {
-	.back-button {
+  .back-button {
 		display: block;
-	}
-	.order-title {
+  }
+  .order-title {
 		background: #fff;
 		border-bottom: solid 1px #f5f5f5;
 		line-height: 44px;
@@ -15,11 +15,11 @@ audit-cancelorder {
 			line-height: 44px;
 			margin: 0 90px 0 0;
 			white-space: nowrap;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
-		    span {
-		    	font-weight: normal;
-		    }
+			overflow: hidden;
+			text-overflow: ellipsis;
+			span {
+				font-weight: normal;
+			}
 		}
 		.audit-status {
 			font-size: 1.5rem;
@@ -34,8 +34,8 @@ audit-cancelorder {
 		.pass {
 			color: #35cf2f;
 		}
-	}
-	.order-list {
+  }
+  .order-list {
 		margin: 0 .8rem .8rem;
 		.order-items {
 			background: #fff;
@@ -51,7 +51,7 @@ audit-cancelorder {
 					display: block;
 					clear: both;
 				}
-			}
+	  	}
 			dt {
 				float: left;
 				max-width: 80px;
@@ -60,14 +60,14 @@ audit-cancelorder {
 					display: block;
 					max-width: 100%;
 				}
-			}
+	  	}
 			dd {
 				color: #333;
 				font-size: 1.5rem;
 				line-height: 24px;
 				white-space: nowrap;
-			    overflow: hidden;
-			    text-overflow: ellipsis;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 			.sku-list {
 				color: #999;
@@ -108,10 +108,10 @@ audit-cancelorder {
 				color: #333;
 				font-size: 1.5rem;
 				line-height: 24px;
-			}
-			.member-phone {
+	  	}
+	  	.member-phone {
 				color: #999;
-			}
+	  	}
 		}
 		.btn-cancelView {
 			color: #999;
@@ -122,5 +122,5 @@ audit-cancelorder {
 				text-decoration: underline;
 			}
 		}
-	}
+  }
 }

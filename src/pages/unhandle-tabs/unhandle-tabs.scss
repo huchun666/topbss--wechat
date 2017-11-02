@@ -1,34 +1,34 @@
 unhandle-tabs {
-	.back-button {
-		display: block;
+  .back-button {
+	display: block;
+  }
+  .tabbar.show-tabbar {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+  }
+  .tabs-list {
+	.tab-button-text {
+	  font-size: 1.5rem!important;
 	}
-	.tabbar.show-tabbar {
-		-webkit-box-shadow: none;
-	    -moz-box-shadow: none;
-	    box-shadow: none;
+	.tab-button {
+      padding: 0;
+	  margin: 0 2rem;
 	}
-	.tabs-list {
-		.tab-button-text {
-			font-size: 1.5rem!important;
-		}
-		.tab-button {
-			padding: 0;
-			margin: 0 2rem;
-		}
-		.tab-button[aria-selected=true] {
-			border-bottom: solid 4px #5e9eff;
-			.tab-button-text {
-				-webkit-transform: scale3d(1, 11, 1);
-	    		transform: scale3d(1, 1, 1);
-			}
-		}
-		.tab-button {
-			min-height: 49px!important;
-		}
+	.tab-button[aria-selected=true] {
+	  border-bottom: solid 4px #5e9eff;
+	  .tab-button-text {
+		-webkit-transform: scale3d(1, 11, 1);
+		transform: scale3d(1, 1, 1);
+	  }
 	}
-	.tabs-list[tabsPlacement=top] {
-		.tabbar {
-			border-bottom: solid 1px #f0f0f0;
-		}
+	.tab-button {
+	  min-height: 49px!important;
 	}
+  }
+  .tabs-list[tabsPlacement=top] {
+	.tabbar {
+	  border-bottom: solid 1px #f0f0f0;
+	}
+  }
 }

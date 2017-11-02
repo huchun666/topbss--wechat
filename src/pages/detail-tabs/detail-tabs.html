@@ -1,17 +1,17 @@
 <ion-header>
-    <div>
-        <div (click)="dismiss()" class="back">
-        <ion-icon name="arrow-back"></ion-icon>
-        <span>返回</span>
-        </div>
-        <b class="title">
-        可提现明细
-        </b>
+  <div>
+    <div (click)="dismiss()" class="back">
+    <ion-icon name="arrow-back"></ion-icon>
+    <span>返回</span>
     </div>
+    <b class="title">
+      可提现明细
+    </b>
+  </div>
 </ion-header>
 <ion-content>
-    <ion-tabs class="tabs-basic" tabsPlacement="top">
-        <ion-tab tabTitle="订单处理金额明细" [root]="orderDetail"></ion-tab>
-        <ion-tab tabTitle="奖励活动金额明细" [root]="awardDetail"></ion-tab>
-    </ion-tabs>
+  <ion-tabs class="tabs-basic" tabsPlacement="top">
+    <ion-tab tabTitle="订单处理金额明细" [root]="orderDetail"></ion-tab>
+    <ion-tab tabTitle="奖励活动金额明细" [root]="awardDetail"></ion-tab>
+  </ion-tabs>
 </ion-content>

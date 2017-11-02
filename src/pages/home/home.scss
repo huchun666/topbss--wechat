@@ -1,11 +1,11 @@
 home {
-	.header-ios, 
-	.footer-ios {
+  .header-ios, 
+  .footer-ios {
 		.toolbar-background-ios {
 			border: none;
 		}
-	}
-	.toolbar-content {
+  }
+  .toolbar-content {
 		text-align: center;
 		img {
 			vertical-align: middle;
@@ -24,8 +24,8 @@ home {
 			right: 1.2rem;
 			margin-top: -.2rem;
 		}
-	}
-	.menu-list {
+  }
+  .menu-list {
 		color: #fff;
 		background: #5e9efe;
 		text-align: center;
@@ -38,8 +38,8 @@ home {
 			font-size: 1.5rem;
 			margin-top: 5px;
 		}
-	}
-	.order-unaudit, .gift-unhandle {
+  }
+  .order-unaudit, .gift-unhandle {
 		background: #fff;
 		margin-bottom: 1px;
 		padding: 10px 10px 10px 15px;
@@ -73,15 +73,15 @@ home {
 			right: 0;
 			bottom: 0;
 		}
-	}
-	.order-title {
+  }
+  .order-title {
 		color: #f90;
-	}
-	.gift-title{
+  }
+  .gift-title{
 		color: #f6657d;
-	}
-	.toolbar-content-md {
+  }
+  .toolbar-content-md {
 		position: relative;
-	}
+  }
 
 }

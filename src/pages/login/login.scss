@@ -1,73 +1,73 @@
 login {
-	.content {
+  .content {
 		background: #fff;
-	}
-	.logo {
+  }
+  .logo {
 		margin: 3.4rem 0 4rem;
 		text-align: center;
 		img {
 			width: 7.5rem;
 		}
-	}
-	.item-md, .item-ios {
+  }
+  .item-md, .item-ios {
 		padding-left: 0;
 		font-size: 1.5rem;
-	}
-	.list-ios {
+  }
+  .list-ios {
 		margin-bottom: 16px;
-	}
-	.list-ios > .item-block:last-child,
-	.list-ios > .item-block:first-child,
-	.list-md .item-input:last-child {
+  }
+  .list-ios > .item-block:last-child,
+  .list-ios > .item-block:first-child,
+  .list-md .item-input:last-child {
 		border: none;
-	}
-	.list-ios, .list-md {
+  }
+  .list-ios, .list-md {
 		.item-block {
 			min-height: auto;
 			margin-bottom: 20px;
 			.item-inner {
-				border: none;
-				padding-right: 0;
+			border: none;
+			padding-right: 0;
 			}
 		}
-	}
-	.login-content {
+  }
+  .login-content {
 		padding: 0 2.8rem;
-	}
-	.item-ios.item-block{
+  }
+  .item-ios.item-block{
 		.item-inner {
 			padding-right: 0;
 		}
-	}
-	.input-ios, .input-md {
+  }
+  .input-ios, .input-md {
 		border-radius: 5px;
 		border: solid 1px #ccc;
 		padding: 0;
-	}
-	.text-input {
+  }
+  .text-input {
 		height: 42px;
 		line-height: 24px;
 		margin: 0 0 0 1rem;
-	}
-	.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus){
+  }
+  .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus){
 		.item-inner {
 			border-bottom: none;
 		}
-	}
-	.item.item-md {
+  }
+  .item.item-md {
 		.checkbox-md {
 			margin-right: 10px;
 		}
-	}
-	.item.item-ios {
+  }
+  .item.item-ios {
 		.checkbox-ios {
 			margin-right: 10px;
 		}
-	}
-	.list {
+  }
+  .list {
 		position: relative;
-	}
-	.forget {
+  }
+  .forget {
 		.label-ios, 
 		.label-md {
 			color: #333;
@@ -80,24 +80,24 @@ login {
 		right: 0;
 		bottom: 0;
 	}
-	.label-ios, 
-	.label-md {
+  .label-ios, 
+  .label-md {
 		color: #999;
 		margin-right: 0;
-	}
-	.login-error {
+  }
+  .login-error {
 		font-size: 1.2rem;
 		color: #f00;
 		position: absolute;
 		margin-top: -1.9rem;
-	}
-	.btn-login {
+  }
+  .btn-login {
 		background-color: #5e9efe;
-	}
-	.error3 {
+  }
+  .error3 {
 		text-align: center;
 		margin-top: 10px;
 		color: #f00;
-	}
+  }
 
 }

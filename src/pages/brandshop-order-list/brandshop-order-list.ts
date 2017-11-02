@@ -5,22 +5,22 @@ import { NavController, NavParams} from 'ionic-angular';
   templateUrl: 'brandshop-order-list.html'
 })
 export class BrandshopOrderList {
-	dateStart: string = '';
-	dateEnd: string = '';
-	isShowDetail: boolean = false;
-	orderStatus: string = '';
-	constructor(public navCtrl: NavController, public navParams: NavParams) {
-		this.orderStatus = this.navParams.data;
-		console.log(this.navParams.data);
-	}
-	showDetail() {
-		this.isShowDetail = !this.isShowDetail;
-		console.log(this.isShowDetail);
-	}
-	clearDateStart() {
-		this.dateStart = '';
-	}
-	clearDateEnd() {
-		this.dateEnd = '';
-	}
+  dateStart: string = '';
+  dateEnd: string = '';
+  isShowDetail: boolean = false;
+  orderStatus: string = '';
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+	this.orderStatus = this.navParams.data;
+	console.log(this.navParams.data);
+  }
+  showDetail() {
+	this.isShowDetail = !this.isShowDetail;
+	console.log(this.isShowDetail);
+  }
+  clearDateStart() {
+	this.dateStart = '';
+  }
+  clearDateEnd() {
+	this.dateEnd = '';
+  }
 }

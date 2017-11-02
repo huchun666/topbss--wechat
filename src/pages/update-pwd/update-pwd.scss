@@ -1,11 +1,11 @@
 update-pwd {
-	.btn-forget {
+  .btn-forget {
 		background: #5e9efe;
-	}
-	.content {
+  }
+  .content {
 		background: #fff;
-	}
-	.update-instruction {
+  }
+  .update-instruction {
 		text-align: center;
 		margin: 4rem 0;
 		dt, dd {
@@ -27,7 +27,6 @@ update-pwd {
 		margin: 2.8rem 2.8rem 0;
 	}
 	.list {
-		
 		.item {
 			border: solid 1px #ccc;
 			border-radius: 4px;
@@ -39,21 +38,21 @@ update-pwd {
 		}
 		input {
 			&::-webkit-input-placeholder {
-		    	color: #999;
-		    	font-size: 1.5rem;
-		    }
-		    &:-moz-placeholder{ 
-			    color: #999;
-		    	font-size: 1.5rem;
+				color: #999;
+				font-size: 1.5rem;
+			}
+			&:-moz-placeholder{ 
+				color: #999;
+				font-size: 1.5rem;
 			}
 			&::-moz-placeholder{ 
-			   color: #999;
-		    	font-size: 1.5rem;
+				color: #999;
+				font-size: 1.5rem;
 			}
 			&:-ms-input-placeholder{ 
-			    color: #999;
-		    	font-size: 1.5rem;
+				color: #999;
+				font-size: 1.5rem;
 			}
 		}
-	}
+  }
 }
