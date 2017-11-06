@@ -32,7 +32,7 @@
 			[(ngModel)]="item.subscribeArriveTime"
 			(ionChange)="getSubscribeAffirmState(i)">
 		  </ion-datetime>
-		  <span class="clear" *ngIf="item.subscribeArriveTime" (click)="clearSubscribeArriveTime(item.subscribeArriveTime)">X</span>
+		  <span class="clear" *ngIf="item.subscribeArriveTime" (click)="clearSubscribeArriveTime(i)">X</span>
 		</div>
 		<div class="btn-time">
 		  <button ion-button round (touchend)="subscribeAffirm(i)" [disabled]="item.subscribeAffirmState">预约确认</button>

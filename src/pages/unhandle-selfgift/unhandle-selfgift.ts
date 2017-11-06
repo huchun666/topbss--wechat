@@ -72,8 +72,8 @@ export class UnhandleSelfgift {
 	  const orderModal = this.modalCtrl.create(HandleSelfgift);
 	  orderModal.present();
   }
-  clearSubscribeArriveTime(subscribeArriveTime) {
-    subscribeArriveTime = "";
+  clearSubscribeArriveTime(index) {
+    this.seflGiftArray[index].subscribeArriveTime = "";
   }
   subscribeAffirm(index) {
 		this.seflGiftArray[index].subscribeState = "2";
