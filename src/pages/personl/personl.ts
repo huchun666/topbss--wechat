@@ -13,6 +13,7 @@ import { BindAccount } from '../account/bind-account/bind-account';
   templateUrl: 'personl.html'
 })
 export class Personl {
+  telphone: string = '13761489650';
   total: string = '69922.36';
   gotMoney: string = '2689.63';
   unGetMoney: string = '18889.62';
@@ -27,6 +28,7 @@ export class Personl {
     public viewCtrl: ViewController,
     private app: App
   ) {
+    // 设置组件名称，方便跳转参数调用
     this.pageList = {
       "withdraw": Withdraw,
       "myCode": MyCode,
@@ -36,6 +38,7 @@ export class Personl {
       "bindAccount": BindAccount,
       "help": Help
     }
+    this.formTelphone();
   }
   // 显示和隐藏金额
   showMoney() {
@@ -55,5 +58,9 @@ export class Personl {
   redirectPage(page) {
     let pageModal = this.modalCtrl.create(page);
     pageModal.present();
+  }
+  // 将电话号码格式化
+  formTelphone() {
+    this.telphone = this.telphone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
   }
 }
