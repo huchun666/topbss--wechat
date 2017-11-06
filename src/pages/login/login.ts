@@ -52,6 +52,25 @@ export class Login implements OnInit{
       let appNav = this.app.getRootNav();
       appNav.setRoot(TabsPage);
     }
+<<<<<<< HEAD
+=======
+    // 登陆实际是post或者put，暂时先使用get模拟
+    //let url = AppConfig.API.;
+    //let body = {
+    //  userName: this.userName,
+    //  password: this.pwd
+    //}
+    //this.appService.httpPost(url, body).then(data => {
+    //  if (data.success) {
+    //    let appNav = this.app.getRootNav();
+    //    appNav.setRoot(TabsPage);
+    //  } else {
+    //    this.isNameAndPwd = true;
+    //  }
+    //}).catch(error => {
+    //  console.log(error);
+    //});
+>>>>>>> upstream/master
   }
   forget() {
     this.navCtrl.push(Forget);
