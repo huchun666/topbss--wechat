@@ -19,12 +19,12 @@ export class Login implements OnInit{
   ) {
   }
   ngOnInit() {
-    var userNameAndPwd = sessionStorage.getItem("userNameAndPwd")
+    var userNameAndPwd = this.appService.getItem("userNameAndPwd");
     if ( userNameAndPwd ) {
       if (userNameAndPwd.includes("&")){
-        let userNameAndPwdArray = userNameAndPwd.split("&")
-        let userName = userNameAndPwdArray[0]
-        let pwd = userNameAndPwdArray[1]
+        let userNameAndPwdArray = userNameAndPwd.split("&");
+        let userName = userNameAndPwdArray[0];
+        let pwd = userNameAndPwdArray[1];
         this.userName = userName;
         this.pwd = pwd;
         this.rememberPassword = true;
@@ -38,9 +38,9 @@ export class Login implements OnInit{
   login() {
     
     if (Boolean(this.rememberPassword)){
-      sessionStorage.setItem("userNameAndPwd",this.userName + "&" + this.pwd)
+      this.appService.setItem("userNameAndPwd",this.userName + "&" + this.pwd)
     }else {
-      sessionStorage.setItem("userNameAndPwd",this.userName)
+      this.appService.setItem("userNameAndPwd",this.userName)
     }
     if (this.userName == "15618146206" && this.pwd == "123456hc") {
       let appNav = this.app.getRootNav();

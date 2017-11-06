@@ -8,8 +8,8 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class UnhandleSelfgift {
   seflGiftArray: any;
-	seflGiftArray1: any;
-	page: number = 1;
+  seflGiftArray1: any;
+  page: number = 1;
   constructor(
 		public navCtrl: NavController, 
 		public modalCtrl: ModalController, 
@@ -29,17 +29,17 @@ export class UnhandleSelfgift {
 				getTime: "2017.09.27 23:59",
 				subscribeArriveTime: "",
 				imgUrl: "../assets/image/productimg.png",
-				subscribeState: "1",
+				subscribeState: "1",//1: 预约兑换，2: 预约成功，3: 到店兑换
 				subscribeAffirmState: true
 			}, {
 				id: 2,
 				name: "爱法呗赠品小马甲",
-				memberPhone: "12131415161",
+				memberPhone: "",
 				subscribePhone: "222222222",
 				getTime: "2017.08.27 23:59",
 				subscribeArriveTime: "",
 				imgUrl: "../assets/image/productimg.png",
-				subscribeState: "1",
+				subscribeState: "3",
 				subscribeAffirmState: true
 			}, {
 				id: 3,
@@ -84,21 +84,21 @@ export class UnhandleSelfgift {
     this.seflGiftArray[index].subscribeArriveTime = "";
   }
   subscribeAffirm(index) {
-		if (this.seflGiftArray[index].subscribeArriveTime) {
-			this.seflGiftArray[index].subscribeState = "2";
-			this.changeDetectorRef.detectChanges();
-		} else {
-			let toast = this.toastCtrl.create({
-				message: '请选择会员预约到店时间',
-				duration: 2000,
-				position: 'middle'
-			});
-	
-			toast.present(toast);
-		}
+	if (this.seflGiftArray[index].subscribeArriveTime) {
+		this.seflGiftArray[index].subscribeState = "2";
+		this.changeDetectorRef.detectChanges();
+	} else {
+		let toast = this.toastCtrl.create({
+			message: '请选择会员预约到店时间',
+			duration: 2000,
+			position: 'middle'
+		});
 
-		// 预约确认更改数据
-		//let url = AppConfig.API.;
+		toast.present(toast);
+	}
+
+	// 预约确认更改数据
+	//let url = AppConfig.API.;
     //let body = {
     //  id: this.seflGiftArray[index].id,
     //  subscribeState: this.seflGiftArray[index].subscribeState
@@ -110,12 +110,12 @@ export class UnhandleSelfgift {
     //}).catch(error => {
     //  console.log(error);
     //});
-		
-		// 预约确认请求数据
-		// let url = this.appConFig.API.;page=1
-		// this.appService.httpGet(url).then( data => {
+	
+	// 预约确认请求数据
+	// let url = this.appConFig.API.;page=1
+	// this.appService.httpGet(url).then( data => {
     //   this.seflGiftArray = data;
-		// }).catch(error => {
+	// }).catch(error => {
     //  console.log(error);
     // });
 	}
@@ -125,26 +125,26 @@ export class UnhandleSelfgift {
 		}
 	}
 	doRefreshGetSelfGiftList(refresher) {
-		// 下拉刷新请求数据
-		// let url = this.appConFig.API.;page
-		// this.appService.httpGet(url).then( data => {
-		// 	if(data){
-		// 		this.seflGiftArray = data;
-		// 		refresher.complete();
-		// 	}
-		// }).catch(error => {
+	// 下拉刷新请求数据
+	// let url = this.appConFig.API.;page
+	// this.appService.httpGet(url).then( data => {
+	// 	if(data){
+	// 		this.seflGiftArray = data;
+	// 		refresher.complete();
+	// 	}
+	// }).catch(error => {
     //   console.log(error);
     // });
 	}
 	doInfiniteGetSelfGiftList(infiniteScroll) {
-		// 上拉刷新请求数据（注意记录一下高度，回到当前位置）
-		// let url = this.appConFig.API.;page++
-		// this.appService.httpGet(url).then( data => {
-		// 	if(data){
-		// 		this.seflGiftArray = data;
-		// 		infiniteScroll.complete();
-		// 	}
-		// }).catch(error => {
+	// 上拉刷新请求数据（注意记录一下高度，回到当前位置）
+	// let url = this.appConFig.API.;page++
+	// this.appService.httpGet(url).then( data => {
+	// 	if(data){
+	// 		this.seflGiftArray = data;
+	// 		infiniteScroll.complete();
+	// 	}
+	// }).catch(error => {
     //   console.log(error);
     // });
 	}
