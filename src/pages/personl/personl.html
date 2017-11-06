@@ -7,7 +7,7 @@
         </ion-col>
         <ion-col col-8>
           <h2>137****9650</h2>
-          <button ion-button outline round color="light">
+          <button ion-button outline round color="light" (touchstart)="goMyCode()">
             <img src="./assets/image/qrcode.png" alt="我的">
             我的二维码
           </button>
@@ -29,7 +29,6 @@
           <div class="total"><span>￥</span>{{ total }}</div>
         </ion-col>
       </ion-row>
-      
       <ion-row>
         <ion-col>
           <div class="approve">审核中金额：￥{{ unGetMoney }}</div>
