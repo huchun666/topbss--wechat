@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -10,7 +10,15 @@ export class UnhandleSelfgift {
   seflGiftArray: any;
 	seflGiftArray1: any;
 	page: number = 1;
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public changeDetectorRef: ChangeDetectorRef, public appConFig: AppConfig, public appService: AppService ) {
+  constructor(
+		public navCtrl: NavController, 
+		public modalCtrl: ModalController, 
+		public alertCtrl: AlertController, 
+		public changeDetectorRef: ChangeDetectorRef, 
+		public appConFig: AppConfig, 
+		public appService: AppService,
+		public toastCtrl: ToastController
+	) {
 		// ngOnInit() { 请求数据 }
 		this.seflGiftArray = [
 			{
@@ -76,8 +84,18 @@ export class UnhandleSelfgift {
     this.seflGiftArray[index].subscribeArriveTime = "";
   }
   subscribeAffirm(index) {
-		this.seflGiftArray[index].subscribeState = "2";
-		this.changeDetectorRef.detectChanges();
+		if (this.seflGiftArray[index].subscribeArriveTime) {
+			this.seflGiftArray[index].subscribeState = "2";
+			this.changeDetectorRef.detectChanges();
+		} else {
+			let toast = this.toastCtrl.create({
+				message: '请选择会员预约到店时间',
+				duration: 2000,
+				position: 'middle'
+			});
+	
+			toast.present(toast);
+		}
 
 		// 预约确认更改数据
 		//let url = AppConfig.API.;
@@ -106,7 +124,7 @@ export class UnhandleSelfgift {
 			this.seflGiftArray[index].subscribeAffirmState = false;
 		}
 	}
-	doRefresh(refresher) {
+	doRefreshGetSelfGiftList(refresher) {
 		// 下拉刷新请求数据
 		// let url = this.appConFig.API.;page
 		// this.appService.httpGet(url).then( data => {
@@ -118,7 +136,7 @@ export class UnhandleSelfgift {
     //   console.log(error);
     // });
 	}
-	doInfinite(infiniteScroll) {
+	doInfiniteGetSelfGiftList(infiniteScroll) {
 		// 上拉刷新请求数据（注意记录一下高度，回到当前位置）
 		// let url = this.appConFig.API.;page++
 		// this.appService.httpGet(url).then( data => {

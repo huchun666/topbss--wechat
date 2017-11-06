@@ -10,7 +10,6 @@
 		<dd class="product-title">
 		  <h2>{{ item.name }}</h2>
 		  <!-- success unstart -->
-		  <!-- <span>{{ item.subscribeState | subscribeStateText }}</span> -->
 		  <span class="unstart" *ngIf="item.subscribeState=='1'">预约兑换</span>
 		  <span class="success" *ngIf="item.subscribeState=='2'">预约成功</span>
 		</dd>
@@ -35,7 +34,7 @@
 		  <span class="clear" *ngIf="item.subscribeArriveTime" (click)="clearSubscribeArriveTime(i)">X</span>
 		</div>
 		<div class="btn-time">
-		  <button ion-button round (touchend)="subscribeAffirm(i)" [disabled]="item.subscribeAffirmState">预约确认</button>
+		  <button ion-button round (touchend)="subscribeAffirm(i)">预约确认</button>
 		</div>
 	  </div>
 	  <div class="reserve-time" *ngIf="item.subscribeState=='2'">

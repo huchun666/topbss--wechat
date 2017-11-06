@@ -25,15 +25,13 @@ export class Login implements OnInit{
         let userNameAndPwdArray = userNameAndPwd.split("&")
         let userName = userNameAndPwdArray[0]
         let pwd = userNameAndPwdArray[1]
-        this.userName = userName
-        this.pwd = pwd
-        this.rememberPassword = true
-        console.log(pwd)
+        this.userName = userName;
+        this.pwd = pwd;
+        this.rememberPassword = true;
       }else {
-        this.userName = userNameAndPwd
-        this.pwd = ""
-        this.rememberPassword = false
-        console.log(userNameAndPwd+"2222")
+        this.userName = userNameAndPwd;
+        this.pwd = "";
+        this.rememberPassword = false;
       }
     }
   }
