@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { App, NavController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { Forget } from '../forget/forget';
@@ -7,39 +7,51 @@ import { TabsPage } from '../tabs/tabs';
   selector: 'login',
   templateUrl: 'login.html'
 })
-export class Login {
-  userName: string = "13761489650";
-  pwd: string = "123456lb";
+export class Login implements OnInit{
+  userName: string = "";
+  pwd: string = "";
   isNameAndPwd: boolean = false;
+  rememberPassword: boolean = false;
   constructor(
     public navCtrl: NavController,
     public app: App,
     public appService: AppService
   ) {
   }
+  ngOnInit() {
+    var userNameAndPwd = sessionStorage.getItem("userNameAndPwd")
+    if ( userNameAndPwd ) {
+      if (userNameAndPwd.includes("&")){
+        let userNameAndPwdArray = userNameAndPwd.split("&")
+        let userName = userNameAndPwdArray[0]
+        let pwd = userNameAndPwdArray[1]
+        this.userName = userName
+        this.pwd = pwd
+        this.rememberPassword = true
+        console.log(pwd)
+      }else {
+        this.userName = userNameAndPwd
+        this.pwd = ""
+        this.rememberPassword = false
+        console.log(userNameAndPwd+"2222")
+      }
+    }
+  }
   login() {
-    if (this.userName == "13761489650" || this.pwd == "123456lb") {
+    
+    if (Boolean(this.rememberPassword)){
+      sessionStorage.setItem("userNameAndPwd",this.userName + "&" + this.pwd)
+    }else {
+      sessionStorage.setItem("userNameAndPwd",this.userName)
+    }
+    if (this.userName == "15618146206" && this.pwd == "123456hc") {
       let appNav = this.app.getRootNav();
       appNav.setRoot(TabsPage);
     }
-  
-    // 登陆实际是post或者put，暂时先使用get模拟
-    //let url = AppConfig.API.;
-    //let body = {
-    //  userName: this.userName,
-    //  password: this.pwd
-    //}
-    //this.appService.httpPost(url, body).then(data => {
-    //  if (data.success) {
-    //    let appNav = this.app.getRootNav();
-    //    appNav.setRoot(TabsPage);
-    //  } else {
-    //    this.isNameAndPwd = true;
-    //  }
-    //}).catch(error => {
-    //  console.log(error);
-    //});
-
+    if (this.userName == "15618146666" && this.pwd == "123456") {
+      let appNav = this.app.getRootNav();
+      appNav.setRoot(TabsPage);
+    }
   }
   forget() {
     this.navCtrl.push(Forget);
