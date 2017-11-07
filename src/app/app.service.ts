@@ -21,6 +21,7 @@ export class AppConfig {
     getProductList: "",
     getOrderList: ""
   };
+  
 }
 @Injectable()
 export class AppService {
@@ -110,4 +111,5 @@ export class AppService {
       console.error("window.localStorage error:" + e);
     }
   }
+  
 }

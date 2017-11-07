@@ -7,7 +7,7 @@ import { TabsPage } from '../tabs/tabs';
   selector: 'login',
   templateUrl: 'login.html'
 })
-export class Login implements OnInit{
+export class Login{
   userName: string = "";
   pwd: string = "";
   isNameAndPwd: boolean = false;
@@ -41,6 +41,7 @@ export class Login implements OnInit{
       user.pwd = ""; 
     }
     this.appService.setItem("user", JSON.stringify(user));
+
     // 登录时判断用户名和密码是否正确
     if (this.userName == "15618146206" && this.pwd == "123456hc") {
       let appNav = this.app.getRootNav();
@@ -52,6 +53,7 @@ export class Login implements OnInit{
     } else {
       this.isNameAndPwd = true;
     }
+    
     // 登陆实际是post或者put，暂时先使用get模拟
     //let url = AppConfig.API.;
     //let body = {
