@@ -69,7 +69,7 @@ export class AppService {
   //错误或者异常处理提示
   private handleError(error: Response) {
     this.alert("提示", error.toString());
-    return Observable.throw(error.message || "服务错误");
+    return Observable.throw(error.status || "服务错误");
   }
   
   //弹出提示信息

@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="btn-list">
-		<button class="btn-update" ion-button outline>修改此单</button>
-		<button class="order-again" ion-button>再来一单</button>
+		<button class="btn-update" ion-button outline (touchstart)="updateOrder()">修改此单</button>
+		<button class="order-again" ion-button (touchstart)="orderAgain()">再来一单</button>
 	</div>
 </ion-content>

@@ -28,8 +28,8 @@
 		    cancelText="取消" 
 		    doneText="确定" 
 		    displayFormat="YYYY-MM-DD HH:mm" 
-			[(ngModel)]="item.subscribeArriveTime"
-			(ionChange)="getSubscribeAffirmState(i)">
+			  [(ngModel)]="item.subscribeArriveTime"
+			  (ionChange)="getSubscribeAffirmState(i)">
 		  </ion-datetime>
 		  <span class="clear" *ngIf="item.subscribeArriveTime" (click)="clearSubscribeArriveTime(i)">X</span>
 		</div>

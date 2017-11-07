@@ -51,18 +51,18 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div class="withdrawal-record" (touchstart)="redirectPage(pageList.withdrawRecord)">
+    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord)">
       提现记录
       <span><img src="./assets/image/in.png" alt="提现记录"></span>
     </div>
-    <div class="withdrawal-record" (touchstart)="redirectPage(pageList.bindAccount)">
+    <div class="withdrawal-record" (click)="redirectPage(pageList.bindAccount)">
       收款账户
       <span><img src="./assets/image/in.png" alt="收款账户"></span>
     </div>
   </div>
   <div class="help">
     <ul>
-      <li (touchstart)="redirectPage(pageList.help)">帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>
+      <li (click)="redirectPage(pageList.help)">帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>
       <li><a href="tel:4008916161">客服热线<span>400-891-6161<img src="./assets/image/in.png" alt="客服热线"></span></a></li>
     </ul>
   </div>
