@@ -12,23 +12,25 @@
 		<div class="search-title">时间搜索</div>
 		<div class="search-list">
 			<div class="time-start">
-				<ion-datetime 
-				placeholder="请选择日期" 
-				cancelText="取消" 
-				doneText="确定" 
-				displayFormat="YYYY-MM-DD" 
-				[(ngModel)]="dateStart">
+				<ion-datetime
+				  (ionChange)="getOrderListByDate()"
+				  placeholder="请选择日期" 
+				  cancelText="取消" 
+				  doneText="确定" 
+				  displayFormat="YYYY-MM-DD" 
+				  [(ngModel)]="dateStart">
 				</ion-datetime>
 				<span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>
 			</div>
 			<span class="go">到</span>
 			<div class="time-end">
 				<ion-datetime 
-				placeholder="请选择日期" 
-				cancelText="取消" 
-				doneText="确定" 
-				displayFormat="YYYY-MM-DD" 
-				[(ngModel)]="dateEnd">
+				  (ionChange)="getOrderListByDate()"
+				  placeholder="请选择日期" 
+				  cancelText="取消" 
+				  doneText="确定" 
+				  displayFormat="YYYY-MM-DD" 
+				  [(ngModel)]="dateEnd">
 				</ion-datetime>
 				<span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>
 			</div>
@@ -36,77 +38,60 @@
 	</div>
 	<div class="status-box">
 		<ul>
-			<li class="active">全部</li>
-			<li>待支付</li>
-			<li>已收货</li>
-			<li>已退货</li>
-			<li>已完成</li>
+			<li 
+				*ngFor="let orderStatus of orderStatusList, let i = index" 
+				[ngClass]="{active:currentStaus == orderStatus}"
+				(click)="getCurrentStaus(i)"
+			>{{ orderStatus }}</li>
 		</ul>
 	</div>
     </ion-toolbar>
 	<div class="order-list">
-		<div class="order-items">
+
+		<div class="order-items" *ngFor="let order of orderList">
 			<!-- 订单编号 -->
 			<div class="order-title">
-				<h2>订单编号：<span>201444145695</span></h2>
+				<h2>订单编号：<span>{{ order.orderNumber }}</span></h2>
 				<!--color auditing or pass -->
-				<span class="audit-status pass">已支付</span> 
+				<span class="audit-status pass">{{ order.orderStauts }}</span> 
 			</div>
 			<!-- 商品1 -->
-			<div class="order-item">
+			<div class="order-item" *ngFor="let product of order.productList">
 			  <dl>
 			    <dt>
-			      <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
+			      <img class="my-picture" [src]="product.images" alt="小裙子">
 			    </dt>
-			    <dd class="product-title">可爱的小裙子 厚实的 保暖 秋冬季</dd>
+			    <dd class="product-title">{{ product.name }}</dd>
 			    <dd class="sku-list">
-			      <span>140</span>
-			      <span>蓝色</span>
-			      <span>无袖</span>
+			      <span *ngFor="let sku of product.skuList">{{ sku.value }}</span>
 			    </dd>
-			    <dd class='price'>￥128.66</dd>
-			    <dd class="count">X4</dd>
-			  </dl>
-			</div>
-			<!-- 商品2 -->
-			<div class="order-item">
-			  <dl>
-			    <dt>
-			      <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
-			    </dt>
-			    <dd class="product-title">可爱的小裙子 厚实的 保暖 秋冬季</dd>
-			    <dd class="sku-list">
-			      <span>140</span>
-			      <span>蓝色</span>
-			      <span>无袖</span>
-			    </dd>
-			    <dd class='price'>￥128.66</dd>
-			    <dd class="count">X4</dd>
+			    <dd class='price'>￥{{ product.price }}</dd>
+			    <dd class="count">X{{ product.count }}</dd>
 			  </dl>
 			</div>
 			
 			<div class="orderOprate">
 				<dl>
 					<dt>
-						<a href="tel:13761489650"><img src="../../assets/image/phone.png" alt=""></a>
+						<a href="'tel:'+order.memberMobile"><img src="../../assets/image/phone.png" alt=""></a>
 					</dt>
-					<dd class="total">会员手机：13761489650</dd>
-					<dd class="member-phone">收货时间：2017.10.26</dd>
+					<dd class="total">会员手机：{{ order.memberMobile }}</dd>
+					<dd class="member-phone">收货时间：{{ order.receivedTime }}</dd>
 				</dl>
 			</div>
 			<div class="order-dtail-box">
 				<div class="order-detail" *ngIf="isShowDetail">
 					<ul>
-						<li>订单总额：￥1200.00</li>
-						<li>促销抵扣：￥00.00</li>
-						<li>淘璞券折扣：￥00.00</li>
-						<li>商户券抵扣：￥10.00</li>
-						<li>积分抵扣：￥00.00</li>
+						<li>订单总额：￥{{ order.total }}</li>
+						<li>促销抵扣：￥{{ order.promotions }}</li>
+						<li>淘璞券折扣：￥{{ order.topDiscount }}</li>
+						<li>商户券抵扣：￥{{ order.merchantDiscount }}</li>
+						<li>积分抵扣：￥{{ order.integralDiscount }}</li>
 					</ul>
 				</div>
 				<div class="pay-money">
 					会员实付金额
-					<span>￥566.96</span>
+					<span>￥{{ order.payAmount }}</span>
 				</div>
 				<div class="btn-show" (click)="showDetail()">
 					点击查看明细 
@@ -115,15 +100,15 @@
 			</div>
 		</div>
 
-		<div class="order-items">
+		<!-- <div class="order-items"> -->
 			<!-- 订单编号 -->
-			<div class="order-title">
-				<h2>订单编号：<span>201444145695</span></h2>
+			<!-- <div class="order-title"> -->
+				<!-- <h2>订单编号：<span>201444145695</span></h2> -->
 				<!--color auditing or pass -->
-				<span class="audit-status pass">已支付</span> 
-			</div>
+				<!-- <span class="audit-status pass">已支付</span> 
+			</div> -->
 			<!-- 商品1 -->
-			<div class="order-item">
+			<!-- <div class="order-item">
 			  <dl>
 			    <dt>
 			      <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
@@ -137,9 +122,9 @@
 			    <dd class='price'>￥128.66</dd>
 			    <dd class="count">X4</dd>
 			  </dl>
-			</div>
+			</div> -->
 			<!-- 商品2 -->
-			<div class="order-item">
+			<!-- <div class="order-item">
 			  <dl>
 			    <dt>
 			      <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
@@ -183,6 +168,6 @@
 					<span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail}"></span>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </ion-content>
