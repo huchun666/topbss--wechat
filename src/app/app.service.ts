@@ -94,7 +94,7 @@ export class AppService {
   //localstorage设置key
   setItem(key: string, value: any) {
     try {
-      window.localStorage[key] = JSON.stringify(value);
+      window.localStorage[key] = value;
     }
     catch (e) {
       console.error("window.localStorage error:" + e);
@@ -104,11 +104,10 @@ export class AppService {
   //localstorage获取key
   getItem(key: string) {
     try {
-      return JSON.parse(window.localStorage[key]);
+      return window.localStorage[key];
     }
     catch (e) {
       console.error("window.localStorage error:" + e);
     }
   }
-
 }
