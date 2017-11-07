@@ -6,8 +6,8 @@
           <img class="my-picture" src="./assets/image/mypicture.png" alt="我的">
         </ion-col>
         <ion-col col-8>
-          <h2>137****9650</h2>
-          <button ion-button outline round color="light">
+          <h2>{{ telphone }}</h2>
+          <button ion-button outline round color="light" (touchstart)="redirectPage(pageList.myCode)">
             <img src="./assets/image/qrcode.png" alt="我的">
             我的二维码
           </button>
@@ -29,7 +29,6 @@
           <div class="total"><span>￥</span>{{ total }}</div>
         </ion-col>
       </ion-row>
-      
       <ion-row>
         <ion-col>
           <div class="approve">审核中金额：￥{{ unGetMoney }}</div>
@@ -42,26 +41,28 @@
     <ion-grid class="btn-list">
       <ion-row>
         <ion-col col-4>
-          <button class="btn-canwithdrawal" ion-button outline round (touchstart)="toDetailTabs()">可提现明细</button>
+          <button class="btn-canwithdrawal" ion-button outline round (touchstart)="redirectPage(pageList.detailTabs)">可提现明细</button>
         </ion-col>
         <ion-col col-4>
-          <button class="btn-approve" ion-button outline round>审核中明细</button>
+          <button class="btn-approve" ion-button outline round (touchstart)="redirectPage(pageList.awardTabs)">审核中明细</button>
         </ion-col>
         <ion-col col-4>
-          <button class="btn-withdrawal" ion-button outline round (touchstart)="withdraw()">提现</button>
+          <button class="btn-withdrawal" ion-button outline round (touchstart)="redirectPage(pageList.withdraw)">提现</button>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div class="withdrawal-record">
-      提现记录<span><img src="./assets/image/in.png" alt="提现记录"></span>
+    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord)">
+      提现记录
+      <span><img src="./assets/image/in.png" alt="提现记录"></span>
     </div>
-    <div class="withdrawal-record">
-      收款账户<span><img src="./assets/image/in.png" alt="提现记录"></span>
+    <div class="withdrawal-record" (click)="redirectPage(pageList.bindAccount)">
+      收款账户
+      <span><img src="./assets/image/in.png" alt="收款账户"></span>
     </div>
   </div>
   <div class="help">
     <ul>
-      <li>帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>
+      <li (click)="redirectPage(pageList.help)">帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>
       <li><a href="tel:4008916161">客服热线<span>400-891-6161<img src="./assets/image/in.png" alt="客服热线"></span></a></li>
     </ul>
   </div>

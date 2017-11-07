@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { App, NavController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { Forget } from '../forget/forget';
@@ -7,7 +7,7 @@ import { TabsPage } from '../tabs/tabs';
   selector: 'login',
   templateUrl: 'login.html'
 })
-export class Login implements OnInit{
+export class Login{
   userName: string = "";
   pwd: string = "";
   isNameAndPwd: boolean = false;
@@ -17,39 +17,43 @@ export class Login implements OnInit{
     public app: App,
     public appService: AppService
   ) {
+    this.pageInit();
   }
-  ngOnInit() {
-    var userNameAndPwd = this.appService.getItem("userNameAndPwd");
-    if ( userNameAndPwd ) {
-      if (userNameAndPwd.includes("&")){
-        let userNameAndPwdArray = userNameAndPwd.split("&");
-        let userName = userNameAndPwdArray[0];
-        let pwd = userNameAndPwdArray[1];
-        this.userName = userName;
-        this.pwd = pwd;
+  // 页面初始化时执行
+  pageInit() {
+    let user = this.appService.getItem("user");
+    if (user) {
+      user = JSON.parse(user);
+      this.userName = user.userName;
+      this.pwd = user.pwd;
+      if (this.pwd) {
         this.rememberPassword = true;
-      }else {
-        this.userName = userNameAndPwd;
-        this.pwd = "";
-        this.rememberPassword = false;
       }
     }
   }
   login() {
-    
-    if (Boolean(this.rememberPassword)){
-      this.appService.setItem("userNameAndPwd",this.userName + "&" + this.pwd)
-    }else {
-      this.appService.setItem("userNameAndPwd",this.userName)
+    //存储用户(此代码执行前需要进行用户名和密码非空校验)
+    let user = {
+      userName: this.userName,
+      pwd: this.pwd
+    };
+    if (!this.rememberPassword){
+      user.pwd = ""; 
     }
+    this.appService.setItem("user", JSON.stringify(user));
+
+    // 登录时判断用户名和密码是否正确
     if (this.userName == "15618146206" && this.pwd == "123456hc") {
       let appNav = this.app.getRootNav();
       appNav.setRoot(TabsPage);
     }
-    if (this.userName == "15618146666" && this.pwd == "123456") {
+    else if (this.userName == "13761489650" && this.pwd == "123456") {
       let appNav = this.app.getRootNav();
       appNav.setRoot(TabsPage);
+    } else {
+      this.isNameAndPwd = true;
     }
+    
     // 登陆实际是post或者put，暂时先使用get模拟
     //let url = AppConfig.API.;
     //let body = {

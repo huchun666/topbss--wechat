@@ -21,6 +21,7 @@ export class AppConfig {
     getProductList: "",
     getOrderList: ""
   };
+  
 }
 @Injectable()
 export class AppService {
@@ -69,7 +70,7 @@ export class AppService {
   //错误或者异常处理提示
   private handleError(error: Response) {
     this.alert("提示", error.toString());
-    return Observable.throw(error.message || "服务错误");
+    return Observable.throw(error.status || "服务错误");
   }
   
   //弹出提示信息
@@ -94,7 +95,7 @@ export class AppService {
   //localstorage设置key
   setItem(key: string, value: any) {
     try {
-      window.localStorage[key] = JSON.stringify(value);
+      window.localStorage[key] = value;
     }
     catch (e) {
       console.error("window.localStorage error:" + e);
@@ -104,11 +105,11 @@ export class AppService {
   //localstorage获取key
   getItem(key: string) {
     try {
-      return JSON.parse(window.localStorage[key]);
+      return window.localStorage[key];
     }
     catch (e) {
       console.error("window.localStorage error:" + e);
     }
   }
-
+  
 }

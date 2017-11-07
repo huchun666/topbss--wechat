@@ -2,45 +2,65 @@ import { Component} from '@angular/core';
 import { App, Nav, NavController, NavParams, ModalController, ViewController  } from 'ionic-angular';
 import { Withdraw } from '../withdraw/withdraw';
 import { Login } from '../login/login';
+import { MyCode } from '../mycode/mycode';
 import { DetailTabs } from '../detail-tabs/detail-tabs';
-import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
+import { AwardTabs } from '../award-tabs/award-tabs';
+import { WithdrawRecord } from '../withdraw-record/withdraw-record';
+import { Help } from '../help/help';
+import { BindAccount } from '../account/bind-account/bind-account';
 @Component({
   selector: 'personl',
   templateUrl: 'personl.html'
 })
 export class Personl {
+  telphone: string = '13761489650';
   total: string = '69922.36';
   gotMoney: string = '2689.63';
   unGetMoney: string = '18889.62';
   isStar: boolean = false;
   showImg: string = 'hide.png';
   showText: string = '隐藏';
+  pageList: any = null;
   constructor(
-	public nav: Nav,
-	public navCtrl: NavController,
-	public modalCtrl: ModalController, 
-	public viewCtrl: ViewController,
-	private app: App
+    public nav: Nav,
+    public navCtrl: NavController,
+    public modalCtrl: ModalController, 
+    public viewCtrl: ViewController,
+    private app: App
   ) {
+    // 设置组件名称，方便跳转参数调用
+    this.pageList = {
+      "withdraw": Withdraw,
+      "myCode": MyCode,
+      "detailTabs": DetailTabs,
+      "awardTabs": AwardTabs,
+      "withdrawRecord": WithdrawRecord,
+      "bindAccount": BindAccount,
+      "help": Help
+    }
+    this.formTelphone();
   }
+  // 显示和隐藏金额
   showMoney() {
-	this.isStar = !this.isStar;
-	this.showText = !this.isStar ? '隐藏' : '显示';
-	this.showImg = !this.isStar ? 'hide.png' : 'show.png';
-	this.total = !this.isStar ?  '69922.36' : '*****';
-	this.gotMoney = !this.isStar ?  '2689.63' : '*****';
-	this.unGetMoney = !this.isStar ?  '18889.62' : '*****';
+    this.isStar = !this.isStar;
+    this.showText = !this.isStar ? '隐藏' : '显示';
+    this.showImg = !this.isStar ? 'hide.png' : 'show.png';
+    this.total = !this.isStar ?  '69922.36' : '*****';
+    this.gotMoney = !this.isStar ?  '2689.63' : '*****';
+    this.unGetMoney = !this.isStar ?  '18889.62' : '*****';
   }
-  withdraw() {
-	let withdrawModal = this.modalCtrl.create(Withdraw);
-	withdrawModal.present();
-  }
+  // 退出登录
   logOut() {
-	let appNav = this.app.getRootNav();
-	appNav.setRoot(Login);
+    let appNav = this.app.getRootNav();
+    appNav.setRoot(Login);
   }
-  toDetailTabs() {
-	let detailTabs = this.modalCtrl.create(DetailTabs);
-	detailTabs.present();
+  // 跳转页面
+  redirectPage(page) {
+    let pageModal = this.modalCtrl.create(page);
+    pageModal.present();
+  }
+  // 将电话号码格式化
+  formTelphone() {
+    this.telphone = this.telphone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
   }
 }
