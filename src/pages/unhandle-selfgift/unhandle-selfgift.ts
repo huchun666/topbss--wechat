@@ -120,6 +120,7 @@ export class UnhandleSelfgift {
     // });
 	}
 	getSubscribeAffirmState(index) {
+		console.log(index);
 		if(this.seflGiftArray[index].subscribeArriveTime) {
 			this.seflGiftArray[index].subscribeAffirmState = false;
 		}
