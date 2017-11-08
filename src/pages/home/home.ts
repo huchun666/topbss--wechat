@@ -74,11 +74,6 @@ export class Home {
     // myCodeModal.present();
     // 赠品信息
     let myCodeModal = this.modalCtrl.create(GiftInfo);
-    myCodeModal.onDidDismiss(data => {
-      if (data && data.type == "0") {
-        this.navCtrl.parent.select(1);
-      }
-    });
     myCodeModal.present();
     //this.barcodeScanner.scan().then((barcodeData) => {
     //  let myCodeModal = this.modalCtrl.create(OrderInfo, {});
