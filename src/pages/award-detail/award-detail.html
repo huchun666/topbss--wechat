@@ -1,31 +1,17 @@
 <ion-content>
-  <div class="totle-money">总金额：￥3032.00</div>
-  <ul class="first-card">
+  <div class="totle-money">总金额：￥{{awardDetail.totalMoney}}</div>
+  <ul class="first-card" *ngFor = "let item of awardDetail.basicData">
     <li>
-      订单编号：220010201001<span>已收货</span>
+      订单编号：{{item.orderId}}<span *ngIf = "item.state=='1'">已收货</span><span *ngIf = "item.state=='2'">已完成</span>
     </li>
     <li>
-      结算基数：￥2000.00
+      结算基数：￥{{item.accountCardinalzNumber}}
     </li>
     <li>
-      奖励比例：0.01
+      奖励比例：{{item.accountProportion}}
     </li>
     <li>
-      奖励金额：￥2.00
-    </li>
-  </ul>
-  <ul class="first-card">
-    <li>
-      订单编号：220010201001<span>已完成</span>
-    </li>
-    <li>
-      结算基数：￥2000.00
-    </li>
-    <li>
-      奖励比例：0.01
-    </li>
-    <li>
-      奖励金额：￥2.00
+      奖励金额：￥{{item.awardMoney}}
     </li>
   </ul>
 </ion-content>

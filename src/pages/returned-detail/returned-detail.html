@@ -8,24 +8,26 @@
 		<div class="order-items">
 			<!-- 订单编号 -->
 			<div class="order-title">
-				<h2>订单编号：<span>201444145695</span></h2>
+				<h2>订单编号：<span>{{returnedDetail[0].orderId}}</span></h2>
 				<!--color auditing or pass -->
-				<span class="audit-status auditing">申请审核中</span> 
+				<span class="audit-status auditing" *ngIf = "returnedDetail[0].unauditState=='3'">申请已拒绝</span> 
+				<span class="audit-status auditing" *ngIf = "returnedDetail[0].unauditState=='4'">客户已退货</span> 
+				<span class="audit-status auditing" *ngIf = "returnedDetail[0].unauditState=='5'">退款已完成</span> 
 			</div>
 			<!-- 商品1 -->
-			<div class="order-item">
+			<div class="order-item" *ngFor = "let single of returnedDetail[0].basicData">
 			  <dl>
 			    <dt>
-			      <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
+			      <img class="my-picture" src="{{single.imgUrl}}" alt="小裙子">
 			    </dt>
-			    <dd class="product-title">可爱的小裙子 厚实的 保暖 秋冬季</dd>
+			    <dd class="product-title">{{single.goodsName}}</dd>
 			    <dd class="sku-list">
-			      <span>140</span>
-			      <span>蓝色</span>
-			      <span>无袖</span>
+			      <span>{{single.SKUSize}}</span>
+			      <span>{{single.SKUColor}}</span>
+			      <span>{{single.SKUType}}</span>
 			    </dd>
-			    <dd class='price'>￥128.66</dd>
-			    <dd class="count">X4</dd>
+			    <dd class='price'>￥{{single.unitPrice}}</dd>
+			    <dd class="count">X{{single.number}}</dd>
 			  </dl>
 			</div>
 
@@ -34,34 +36,32 @@
 					<dt>
 						
 					</dt>
-					<dd class="total">8件商品，实付￥1029.28</dd>
+					<dd class="total">{{returnedDetail[0].totleNumber}}件商品，实付￥{{returnedDetail[0].totlePrice}}</dd>
 				</dl>
 			</div>
 		</div>
 
 		<div class="return-detail">
 			<ul>
-				<li>退货数量：1</li>
-				<li>联系方式：15222225555</li>
-				<li>退货方式：其他</li>
-				<li>是否有发票：否</li>
-				<li>退货原因：七天无理由退货</li>
-				<li>问题描述：嗯，哦，啊，这个，东西吗，呜呜...</li>
-				<li class="img-list">
-					<img src="../assets/image/productimg.png" alt="">
-					<img src="../assets/image/productimg.png" alt="">
-					<img src="../assets/image/productimg.png" alt="">
-				</li>
+					<li>退货数量：{{returnedDetail[0].returnNumber}}</li>
+					<li>联系方式：{{returnedDetail[0].contactWay}}</li>
+					<li>退货方式：{{returnedDetail[0].returnWay}}</li>
+					<li>是否有发票：{{returnedDetail[0].hasInvoice}}</li>
+					<li>退货原因：{{returnedDetail[0].returnReason}}</li>
+					<li>问题描述：{{returnedDetail[0].problemDescription}}</li>
+					<li class="img-list">
+						<img src="{{itemImg}}" alt="" *ngFor = "let itemImg of returnedDetail[0].detailImg">
+					</li>
 			</ul>
 		</div>
 	</div>
 		
 	<div class="time-list">
 		<ul>
-			<li>退货申请时间：2019.09.09  09:09</li>
-			<li>申请审核时间：2019.09.09  09:09</li>
-			<li>确认收货时间：2019.09.09  09:09</li>
-			<li>货款退换时间：2019.09.09  09:09</li>
+			<li>退货申请时间：{{returnedDetail[0].applyReturnTime}}</li>
+			<li>申请审核时间：{{returnedDetail[0].applyAuditTime}}</li>
+			<li>确认收货时间：{{returnedDetail[0].affirmTakeGoodsTime}}</li>
+			<li>货款退换时间：{{returnedDetail[0].goodsMoneyReturnChangeTime}}</li>
 		</ul>
 	</div>
 
