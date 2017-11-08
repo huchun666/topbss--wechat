@@ -1,4 +1,9 @@
 order-store {
+	input[type=number],
+	input[type=text]{
+		-webkit-appearance:none;
+		outline:none
+	}
   .list {
 		margin: 0;
 		.item-wrapper {
@@ -99,18 +104,22 @@ order-store {
 			margin-left: 80px;
 		}
 		input {
+			background: none;
 			border: none;
 			height: 26px;
+			line-height: 20px;
 			width: 96%;
 			text-align: right;
 		}
   }
   .btn-confirm {
-		margin: 30px 5%;
-		width: 90%;
+		margin: 30px 1rem;
+		width:-moz-calc(100% - 2rem); 
+		width:-webkit-calc(100% - 2rem);
+		width: calc(100% - 2rem);
 		border-radius: 4px;
 		font-size: 1.4rem;
-		height: 3.33334rem;
+		height: 4rem;
 		span {
 			font-size: 1.2rem;
 			display: block;
@@ -119,7 +128,7 @@ order-store {
 		}
 		.confirm {
 			font-size: 1.5rem;
-			padding-top: 0.2rem;
+			padding-top: 0.5rem;
 		}
   }
   .remark {
