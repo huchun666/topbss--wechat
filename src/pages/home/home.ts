@@ -5,8 +5,10 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
 import { CreatOrder } from '../creat-order/creat-order';
 import { OrderInfo } from '../order-info/order-info';
+import { GiftInfo } from '../gift-info/gift-info';
 import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
+import { OrderList } from '../order-list/order-list';
 @Component({
   selector: 'home',
   templateUrl: 'home.html'
@@ -62,6 +64,22 @@ export class Home {
     unHandleModal.present();
   }
   qrCodeScan() {
+    // 订单
+    // let myCodeModal = this.modalCtrl.create(OrderInfo);
+    // myCodeModal.onDidDismiss(data => {
+    //   if (data && data.type == "0") {
+    //     this.navCtrl.parent.select(1);
+    //   }
+    // });
+    // myCodeModal.present();
+    // 赠品信息
+    let myCodeModal = this.modalCtrl.create(GiftInfo);
+    myCodeModal.onDidDismiss(data => {
+      if (data && data.type == "0") {
+        this.navCtrl.parent.select(1);
+      }
+    });
+    myCodeModal.present();
     //this.barcodeScanner.scan().then((barcodeData) => {
     //  let myCodeModal = this.modalCtrl.create(OrderInfo, {});
     //  myCodeModal.present();
