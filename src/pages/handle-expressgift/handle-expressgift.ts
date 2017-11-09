@@ -216,6 +216,7 @@ export class HandleExpressgift {
 	// loading.present();
     let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=3&start=$(this.start)&limit=10`;
     this.appService.httpGet(url).then( data => {
+		loading.dismiss();
 	    if (data.totalRecord == 0) {
 		    //空空如也
 		    this.noData = false;
@@ -224,11 +225,9 @@ export class HandleExpressgift {
 		    if( this.start < data.totalRecord ) {
 					if (this.up) {
 						this.handleExpressGiftArray.push(...data.data);
-						loading.dismiss();
 		        		this.start+=10;
 					}else if (this.down){
 						this.handleExpressGiftArray = [...data.data];
-						loading.dismiss();
 						this.start+=10;
 					}
 		     
