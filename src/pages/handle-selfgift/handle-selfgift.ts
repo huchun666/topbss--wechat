@@ -10,6 +10,8 @@ export class HandleSelfgift {
   noData: Boolean;
   start: number;
   showNoMoreGift: Boolean = true;
+  up: Boolean;//上拉刷新和第一次进入页面时
+	down: Boolean;//下拉刷新和返回上一级页面时
   constructor(public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public appConFig: AppConfig, 
@@ -102,6 +104,8 @@ export class HandleSelfgift {
   
   //进入页面，请求接口，得到数据
   getHandleSelfGiftList() {
+    let loading = this.appService.loading();
+		// loading.present();
     let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
     this.appService.httpGet(url).then( data => {
     if (data.totalRecord == 0) {
@@ -110,8 +114,15 @@ export class HandleSelfgift {
     }else {
       this.noData = true;
       if( this.start < data.totalRecord ) {
-        this.handleSeflGiftArray.push(...data.data);
-        this.start+=10;
+        if (this.up) {
+          this.handleSeflGiftArray.push(...data.data);
+          loading.dismiss();
+          this.start+=10;
+        }else if (this.down){
+          this.handleSeflGiftArray = [...data.data];
+          loading.dismiss();
+          this.start+=10;
+        }
       }else {
         this.showNoMoreGift = false;
       }

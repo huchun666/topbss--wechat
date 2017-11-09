@@ -214,29 +214,33 @@ export class UnhandleExpressgift {
 		]
 	}
 	getUnhandleExpressGiftList() {
-    let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
-    this.appService.httpGet(url).then( data => {
-	    if (data.totalRecord == 0) {
-		    //空空如也
-		    this.noData = false;
-	    }else {
-		    this.noData = true;
-		    if( this.start < data.totalRecord ) {
-				if (this.up) {
-					this.unhandleExpressGiftArray.push(...data.data);
-					this.start+=10;
-				}else if (this.down){
-					this.unhandleExpressGiftArray = [...data.data];
-					this.start+=10;
+		let loading = this.appService.loading();
+		// loading.present();
+		let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
+		this.appService.httpGet(url).then( data => {
+			if (data.totalRecord == 0) {
+				//空空如也
+				this.noData = false;
+			}else {
+				this.noData = true;
+				if( this.start < data.totalRecord ) {
+					if (this.up) {
+						this.unhandleExpressGiftArray.push(...data.data);
+						loading.dismiss();
+						this.start+=10;
+					}else if (this.down){
+						this.unhandleExpressGiftArray = [...data.data];
+						loading.dismiss();
+						this.start+=10;
+					}
+				}else {
+					this.showNoMoreGift = false;
 				}
-		    }else {
-		        this.showNoMoreGift = false;
-		    }
-	    }
-	
-	  }).catch(error => {
-		  console.log(error);
-	  });
+			}
+		
+		}).catch(error => {
+			console.log(error);
+		});
     }
 	goExpressgift() {
 		const orderModal = this.modalCtrl.create(HandleExpressgift);

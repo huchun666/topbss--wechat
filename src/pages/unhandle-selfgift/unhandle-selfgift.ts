@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -20,11 +20,12 @@ export class UnhandleSelfgift {
 		public changeDetectorRef: ChangeDetectorRef, 
 		public appConFig: AppConfig, 
 		public appService: AppService,
-		public toastCtrl: ToastController
+		public toastCtrl: ToastController,
+		public loadingCtrl: LoadingController
 	) {
 		// this.down = false;
 		// this.up = true;
-		// this.getUnhandleSelfGiftList();
+		this.getUnhandleSelfGiftList();
 		// ngOnInit() { 请求数据 }
 		// 要改下：将this.unhandleSeflGiftArray = []
 		this.unhandleSeflGiftArray = [
@@ -136,29 +137,33 @@ export class UnhandleSelfgift {
 
 }
   getUnhandleSelfGiftList() {
-    let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
+		let loading = this.appService.loading();
+		// loading.present();
+		let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
     this.appService.httpGet(url).then( data => {
-	  if (data.totalRecord == 0) {
-		//空空如也
-		this.noData = false;
-	  }else {
-		this.noData = true;
-		if( this.start < data.totalRecord ) {
-		  if (this.up) {
-			this.unhandleSeflGiftArray.push(...data.data);
-			this.start+=10;
-		  }else if (this.down){
-			this.unhandleSeflGiftArray = [...data.data];
-			this.start+=10;
-		  }
-		}else {
-		    this.showNoMoreGift = false;
-		}
-	  }
-	
-	}).catch(error => {
-		console.log(error);
-	});
+			if (data.totalRecord == 0) {
+				//空空如也
+				this.noData = false;
+			}else {
+				this.noData = true;
+				if( this.start < data.totalRecord ) {
+					if (this.up) {
+						this.unhandleSeflGiftArray.push(...data.data);
+						loading.dismiss();
+						this.start+=10;
+					}else if (this.down){
+						this.unhandleSeflGiftArray = [...data.data];
+						loading.dismiss();
+						this.start+=10;
+					}
+				}else {
+						this.showNoMoreGift = false;
+				}
+			}
+		
+		}).catch(error => {
+			console.log(error);
+		});
   }
   goSelfgift() {
 	const orderModal = this.modalCtrl.create(HandleSelfgift);
