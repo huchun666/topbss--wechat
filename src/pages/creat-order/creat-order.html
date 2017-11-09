@@ -19,36 +19,16 @@
 </div>
 <div class="product-list">
   <ul>
-    <li>
+    <li *ngFor="let product of productList">
+      <img [src]="product.imageName" alt="产品">
+      <p>{{ product.name }}</p>
+      <div class="btn-add"><button ion-button round (click)="addProductModal(product)">加入配单仓</button></div>
+    </li>
+    <!-- <li>
       <img src="../assets/image/productimg2.png" alt="产品">
       <p>可爱小裙子 女童 秋冬 时尚QS1226603</p>
       <div class="btn-add"><button ion-button round (click)="addProductModal()">加入配单仓</button></div>
-    </li>
-    <li>
-      <img src="../assets/image/productimg2.png" alt="产品">
-      <p>可爱小裙子 女童 秋冬 时尚QS1226603</p>
-      <div class="btn-add"><button ion-button round (click)="addProductModal()">加入配单仓</button></div>
-    </li>
-    <li>
-      <img src="../assets/image/productimg2.png" alt="产品">
-      <p>可爱小裙子 女童 秋冬 时尚QS1226603</p>
-      <div class="btn-add"><button ion-button round (click)="addProductModal()">加入配单仓</button></div>
-    </li>
-    <li>
-      <img src="../assets/image/productimg2.png" alt="产品">
-      <p>可爱小裙子 女童 秋冬 时尚QS1226603</p>
-      <div class="btn-add"><button ion-button round (click)="addProductModal()">加入配单仓</button></div>
-    </li>
-    <li>
-      <img src="../assets/image/productimg2.png" alt="产品">
-      <p>可爱小裙子 女童 秋冬 时尚QS1226603</p>
-      <div class="btn-add"><button ion-button round (click)="addProductModal()">加入配单仓</button></div>
-    </li>
-    <li>
-      <img src="../assets/image/productimg2.png" alt="产品">
-      <p>可爱小裙子 女童 秋冬 时尚QS1226603</p>
-      <div class="btn-add"><button ion-button round (click)="addProductModal()">加入配单仓</button></div>
-    </li>
+    </li> -->
   </ul>
 </div>
 </ion-content>

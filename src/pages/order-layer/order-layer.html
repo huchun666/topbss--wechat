@@ -4,9 +4,9 @@
 		<ion-list>
 		  <ion-item>
 		    <ion-thumbnail item-start>
-		      <img src="../assets/image/productimg2.png">
+		      <img [src]="product.imageName">
 		    </ion-thumbnail>
-		    <h2>可爱的小裙子 厚实的 保暖 秋冬季 {{ skuSize }}</h2>
+		    <h2>{{ product.name }}</h2>
 		  </ion-item>
 		</ion-list>
 
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 
-			<button class="btn-add" ion-button full>确认添加</button>
+			<button class="btn-add" ion-button full (click)="goOrderStore()">确认添加</button>
 
 		</div>
 	</div>
