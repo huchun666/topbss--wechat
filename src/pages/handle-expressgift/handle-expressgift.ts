@@ -8,7 +8,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class HandleExpressgift {
   handleExpressGiftArray: any;
   start: number;
-  showNoMoreGift: Boolean = true;
+  showNoMoreGift: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
@@ -219,9 +219,9 @@ export class HandleExpressgift {
 		loading.dismiss();
 	    if (data.totalRecord == 0) {
 		    //空空如也
-		    this.noData = false;
-	    }else {
 		    this.noData = true;
+	    }else {
+		    this.noData = false;
 		    if( this.start < data.totalRecord ) {
 					if (this.up) {
 						this.handleExpressGiftArray.push(...data.data);
@@ -232,7 +232,7 @@ export class HandleExpressgift {
 					}
 		     
 		    }else {
-		      this.showNoMoreGift = false;
+		      this.showNoMoreGift = true;
 		    }
 	    }
 	

@@ -36,11 +36,11 @@
   <div class="btn-selfview" (click)="goExpressgift()">
 		<span>查看已发货赠品</span>
 	</div>
-	<div class="no-data" [hidden] = "true"><!-- noData -->
+	<div class="no-data" *ngIf = "false"><!-- noData -->
 		<img src="../../assets/image/nodata.png" alt="">
 		<p>空空如也</p>
 	</div>
-	<div class="btn-noMore" [hidden] = "showNoMoreGift">
+	<div class="btn-noMore" *ngIf = "showNoMoreGift">
 		<span>—— 没有更多赠品了 ——</span>
 	</div>
   <!-- <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
