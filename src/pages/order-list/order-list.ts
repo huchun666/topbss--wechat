@@ -21,7 +21,7 @@ export class OrderList {
     this.currentStaus = this.orderStatusList[0];
     this.orderList = [{
       orderNumber: "201444145695",
-      orderStauts: 0,
+      orderStauts: "0",
       total: "1200.00",
       promotions: "00.00",
       topDiscount: "00.00",
