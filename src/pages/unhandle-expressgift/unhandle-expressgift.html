@@ -1,29 +1,29 @@
 <ion-content>
+	<!-- <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher> -->
   <div class="gift-list">
 
 		<div class="gift-item" *ngFor = "let item of unhandleExpressGiftArray;let i = index">
-			<dl *ngIf = "item.subscribeState=='1'">
-			<dt><img src="{{item.imgUrl}}" alt=""></dt>
+			<dl>
+			<dt><img src="{{item.imageName}}" alt=""></dt>
 			<dd class="product-title">
-				<h2>{{item.name}}</h2>
+				<h2>{{item.giftName}}</h2>
 				<!-- success unstart -->
 				<span class="unstart">立即兑换</span>
 			</dd>
 			<dd class="reserve-phone">
-						<span>预约手机：{{item.subscribePhone}}</span>
-				<a href="tel:{{item.subscribePhone}}"><img src="assets/image/phone.png"></a>
+						<span>预约手机：{{item.reservePhone}}</span>
+				<a href="tel:{{item.reservePhone}}"><img src="assets/image/phone.png"></a>
 			</dd>
 			<dd class="member-phone">会员手机：{{item.memberPhone}}</dd>
-			<dd class="get-time">领取时间：{{item.getTime}}</dd>
+			<dd class="get-time">领取时间：{{item.receiveDate | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
 			</dl>
-			<div class="reserve-time" *ngIf = "item.subscribeState=='1'">
+			<div class="reserve-time">
 				<div class="member-info">
 					<ul>
-						<li>家长姓名：{{item.patriarchName}}</li>
-						<li>家长手机号：{{item.patriarchPhone}}</li>
-						<li>宝宝姓名：{{item.babyName}}</li>
-						<li>宝宝身高：{{item.babyHeight}}cm</li>
-						<li>宝宝证件号：{{item.babyIDNumber}}</li>
+						<li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>
 					</ul>
 				</div>
 				<div class="btn-time">
@@ -34,7 +34,17 @@
 	
   </div>
   <div class="btn-selfview" (click)="goExpressgift()">
-	<span>查看已兑换快递赠品</span>
-  </div>
+		<span>查看已发货赠品</span>
+	</div>
+	<div class="no-data" [hidden] = "true"><!-- noData -->
+		<img src="../../assets/image/nodata.png" alt="">
+		<p>空空如也</p>
+	</div>
+	<div class="btn-noMore" [hidden] = "showNoMoreGift">
+		<span>—— 没有更多赠品了 ——</span>
+	</div>
+  <!-- <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
 
 </ion-content>
