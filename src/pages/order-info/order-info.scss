@@ -62,6 +62,9 @@ order-info {
 			.sku-list {
 				color: #999;
 				margin-top: 8px;
+				span {
+					margin-right: 5px;
+				}
 			}
 			.count {
 				position: absolute;
@@ -79,8 +82,10 @@ order-info {
   }
   .btn-confirm {
 		background: #5e9efe;
-		width: 90%;
-		margin: 2rem 5%;
+		width:-moz-calc(100% - 2rem); 
+		width:-webkit-calc(100% - 2rem);
+		width: calc(100% - 2rem); 
+		margin: 2rem 1rem;
   }
 	
 }

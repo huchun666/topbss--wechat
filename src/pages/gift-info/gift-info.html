@@ -6,18 +6,18 @@
 <ion-content>
   <div class="order-title">
     <img class="my-picture" src="./assets/image/store.png" alt="店铺">
-    <h2>商汉城市部落速递臻品童装</h2>
+    <h2>{{ giftInfo.brandshopName }}</h2>
   </div>
   <div class="order-list">
 
     <div class="order-item">
       <dl>
         <dt>
-          <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
+          <img class="my-picture" [src]="giftInfo.gift.image" alt="小裙子">
         </dt>
-        <dd class="product-title">可爱的小裙子 厚实的 保暖 秋冬季</dd>
+        <dd class="product-title">{{ giftInfo.gift.name }}</dd>
         <dd class="sku-list">
-          <span>领取时间：2017.09.09 23:59</span>
+          <span>领取时间：{{ giftInfo.gift.receiveTime }}</span>
         </dd>
       </dl>
     </div>
