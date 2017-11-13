@@ -25,7 +25,7 @@ export class UnhandleSelfgift {
 	) {
 		// this.down = false;
 		// this.up = true;
-		this.getUnhandleSelfGiftList();
+		// this.getUnhandleSelfGiftList();
 		// ngOnInit() { 请求数据 }
 		// 要改下：将this.unhandleSeflGiftArray = []
 		this.unhandleSeflGiftArray = [
