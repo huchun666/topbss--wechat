@@ -131,7 +131,7 @@ export class HandleSelfgift {
         console.log(error);
       });
     }
-	refreshGetSelfGiftList(refresher) {
+	refreshGetHandleSelfGiftList(refresher) {
     // 下拉刷新请求数据
     // this.start = 0;
     // this.down = true;
@@ -141,7 +141,7 @@ export class HandleSelfgift {
     //   refresher.complete();
     // },1000)
   }
-  infiniteGetSelfGiftList(infiniteScroll) {
+  infiniteGetHandleSelfGiftList(infiniteScroll) {
     // 上拉刷新请求数据
     // this.down = false;
 	  // this.up = true;

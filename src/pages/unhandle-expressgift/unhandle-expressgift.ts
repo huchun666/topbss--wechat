@@ -304,7 +304,7 @@ export class UnhandleExpressgift {
 		});
 		alert.present();
 	}
-	refreshGetSelfGiftList(refresher) {
+	refreshGetUnhandleExpressGiftList(refresher) {
 	// 下拉刷新请求数据
 	// this.start = 0;
 	// this.down = true;
@@ -314,7 +314,7 @@ export class UnhandleExpressgift {
 	//   refresher.complete();
 	// },1000)
 	}
-	infiniteGetSelfGiftList(infiniteScroll) {
+	infiniteGetUnhandleExpressGiftList(infiniteScroll) {
 	// 上拉刷新请求数据
 	// this.down = false;
 	// this.up = true;

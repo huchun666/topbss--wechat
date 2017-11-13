@@ -62,18 +62,19 @@ order-layer {
 		.sku-key {
 			font-size: 1.5rem;
 			line-height: 30px;
-			position: absolute;
-			top: 0;
-			left: 0;
+			// position: absolute;
+			// top: 0;
+			// left: 0;
 		}
 		.sku-value {
-			margin: 0 10px 0 30px;
+			margin: 0 10px 0 -8px;
 			label {
 				border: solid 1px #ccc;
 				border-radius: 4px;
 				display: block;
 				float: left;
-				width: 72px;
+				// width: 72px;
+				padding: 0 15px;
 				height: 30px;
 				line-height: 30px;
 				text-align: center;
@@ -83,9 +84,12 @@ order-layer {
 				}
 			}
 			.active {
-			background: #5e9efe;
-			color: #fff;
-			border-color: #5e9efe;
+				background: #5e9efe;
+				color: #fff;
+				border-color: #5e9efe;
+			}
+			.invalidAttrValueClass {
+				color: #ccc;
 			}
 		}
 		.count {
@@ -112,6 +116,9 @@ order-layer {
 				line-height: 34px;
 				text-align: center;
 				top: 0;
+			}
+			.changeGray {
+				background: #ccc;
 			}
 			.icon-add {
 				right: 0; 

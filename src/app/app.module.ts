@@ -10,6 +10,9 @@ import { FilterStatusPipe } from './app.pipe';
 import { FilterGiftTypePipe } from './app.pipe';
 import { FilterGiftTypeClassPipe } from './app.pipe';
 import { FilterHandleGiftTypePipe } from './app.pipe';
+import { IsOrIsnotInvalidAttrValuePipe } from './app.pipe';
+import { InvalidAttrValueClassPipe } from './app.pipe';
+import { ChangeGrayPipe } from './app.pipe';
 import { QRCodeModule } from 'angular2-qrcode';
 
 import { Login } from '../pages/login/login';
@@ -102,7 +105,10 @@ let componentsList = [
     FilterStatusPipe, 
     FilterGiftTypePipe, 
     FilterGiftTypeClassPipe, 
-    FilterHandleGiftTypePipe
+    FilterHandleGiftTypePipe,
+    IsOrIsnotInvalidAttrValuePipe,
+    InvalidAttrValueClassPipe,
+    ChangeGrayPipe
   ],
   imports: [
     BrowserModule,

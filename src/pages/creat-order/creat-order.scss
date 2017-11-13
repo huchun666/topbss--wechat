@@ -91,4 +91,24 @@ creat-order {
 			}
 		}
   }
+  .btn-noMore {
+	text-align: center;
+	padding-bottom: 2rem;
+	span {
+		font-size: 1.2rem;
+		color: #999;
+	}
+  }
+  .no-data {
+	margin: 0 auto;
+	text-align: center;
+	img {
+		display: inline-block;
+		width: 10rem;
+		height: 10rem;
+	}
+	p {
+		color: #999;
+	}
+  }
 }

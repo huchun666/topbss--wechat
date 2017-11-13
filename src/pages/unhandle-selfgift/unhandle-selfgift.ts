@@ -137,10 +137,10 @@ export class UnhandleSelfgift {
 
 }
   getUnhandleSelfGiftList() {
-		let loading = this.appService.loading();
-		// loading.present();
-		let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
-    this.appService.httpGet(url).then( data => {
+	let loading = this.appService.loading();
+	// loading.present();
+	let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
+    	this.appService.httpGet(url).then( data => {
 			loading.dismiss();
 			if (data.totalRecord == 0) {
 				//空空如也
@@ -207,7 +207,7 @@ export class UnhandleSelfgift {
 	// 	toast.present(toast);
 	// }
   }
-  refreshGetSelfGiftList(refresher) {
+  refreshGetUnhandleSelfGiftList(refresher) {
 	// 下拉刷新请求数据
 	// this.start = 0;
 	// this.down = true;
@@ -217,7 +217,7 @@ export class UnhandleSelfgift {
 	//   refresher.complete();
 	// },1000)
   }
-  infiniteGetSelfGiftList(infiniteScroll) {
+  infiniteGetUnhandleSelfGiftList(infiniteScroll) {
 	// 上拉刷新请求数据
 	// this.down = false;
 	// this.up = true;

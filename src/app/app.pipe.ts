@@ -52,3 +52,39 @@ export class FilterHandleGiftTypePipe implements PipeTransform {
     }
   }
 }
+
+@Pipe({ name: 'isOrIsnotInvalidAttrValue' })
+export class IsOrIsnotInvalidAttrValuePipe implements PipeTransform {
+  transform(invalidAttrValue: any): any {
+    switch(invalidAttrValue) {
+      case "invalidAttrValue":
+        return false;
+      case null:
+        return "disabled";
+    }
+  }
+}
+
+@Pipe({ name: 'invalidAttrValueClass' })
+export class InvalidAttrValueClassPipe implements PipeTransform {
+  transform(invalidAttrValueClass: any): Boolean {
+    switch(invalidAttrValueClass) {
+      case "invalidAttrValue":
+        return false;
+      case null:
+        return true;
+    }
+  }
+}
+
+@Pipe({ name: 'changeGray' })
+export class ChangeGrayPipe implements PipeTransform {
+  transform(count: number): Boolean {
+    switch(count) {
+      case 1:
+        return true;
+      default:
+        return false;
+    }
+  }
+}

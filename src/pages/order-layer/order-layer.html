@@ -6,41 +6,48 @@
 		    <ion-thumbnail item-start>
 		      <img src="../assets/image/productimg2.png">
 		    </ion-thumbnail>
-		    <h2>可爱的小裙子 厚实的 保暖 秋冬季 {{ skuSize }}</h2>
+				<h2>{{ productName }}</h2>
 		  </ion-item>
 		</ion-list>
 
 		<div class="sku-list">
-			<div class="sku-attr">
-				<div class="sku-key">尺码</div>
+			<div class="sku-attr" *ngFor = "let item of attrMap;let i = index">
+				<div class="sku-key">{{ item[0].attrName }}</div>
 				<div class="sku-value">
-					<label [ngClass]="{active: skuSize === size}" *ngFor="let size of SizeList">
-						<input [(ngModel)]="skuSize" name="Fruit" type="radio" [value]="size" />{{ size }} 
-					</label> 
+					<label [ngClass]="{active: skuAttrValue[i] === skuAttr.attrValue, invalidAttrValueClass: skuAttr.invalidAttrValue | invalidAttrValueClass}" *ngFor="let skuAttr of item">
+						<input 
+						[(ngModel)]="skuAttrValue[i]" 
+						name="Fruit" 
+						type="radio" 
+						[value]="skuAttr.attrValue" 
+						[disabled]="skuAttr.invalidAttrValue | isOrIsnotInvalidAttrValue"
+						(click)="changeRadio($event,i)"
+						/>{{ skuAttr.attrValue }} 
+					</label>
 				</div>
 			</div>
 			
-			<div class="sku-attr">
+			<!-- <div class="sku-attr">
 				<div class="sku-key">颜色</div>
 				<div class="sku-value">
 					<label [ngClass]="{active: skuColor === color}" *ngFor="let color of ColorList">
 						<input [(ngModel)]="skuColor" name="Fruit" type="radio" [value]="color" />{{ color }} 
 					</label> 
 				</div>
-			</div>
+			</div> -->
 			
 			<div class="sku-attr">
 				<div class="sku-key">数量</div>
 				<div class="sku-value count">
 					<ion-icon class="icon-add" name="add" (touchstart)="addCount()"></ion-icon>
-					<ion-icon class="icon-remove" name="remove" (touchstart)="removeCount()"></ion-icon>
+					<ion-icon class="icon-remove" [ngClass]="{changeGray: count | changeGray}" name="remove" (touchstart)="removeCount()"></ion-icon>
 					<div class="add-count">
 						<ion-input (blur)="resetCount()" [(ngModel)]="count" type="number" clearInput=true></ion-input>
 					</div>
 				</div>
 			</div>
 
-			<button class="btn-add" ion-button full>确认添加</button>
+			<button class="btn-add" ion-button full (touchstart)="affirmAdd()">确认添加</button>
 
 		</div>
 	</div>
