@@ -4,6 +4,12 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+
+  <!-- <ion-refresher (ionRefresh)="refreshGetUnhandleSelfGiftList($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher> -->
+
   <ion-list>
     <ion-item-sliding #item *ngFor="let single of orderStoreDataArray;let i = index">
       <ion-item>
@@ -37,37 +43,18 @@
       </ion-item-options>
     </ion-item-sliding>
     
-    <!-- <ion-item-sliding #item>
-      <ion-item>
-        <ion-thumbnail item-start>
-        <img src="../assets/image/productimg2.png" alt="产品">
-        </ion-thumbnail>
-        <h2>可爱的小裙子 厚实的 保暖 秋冬季</h2>
-        <div class="count">
-          <span class="btn-add">+</span>
-          <span class="btn-remove">-</span>
-          <div class="add-count">
-            <input  (blur)="resetCount()" [(ngModel)]="count"  type="number">
-          </div>
-        </div>
-        <div class="total">
-            <div class="total-text">商品总额</div>
-            <div class="total-input">
-              <input (blur)="resetCount()" [(ngModel)]="total"  type="number">
-            </div>
-        </div>
-        <div class="remark">
-          <input placeholder="备注一下商品信息吧"  type="text">
-        </div>
-      </ion-item>
-      <ion-item-options side="right">
-        <button class="btn-delete" ion-button color="danger" (click)="delete(item)">
-          <ion-icon name="trash"></ion-icon>
-          删除
-        </button>
-      </ion-item-options>
-    </ion-item-sliding> -->
   </ion-list>
+
+  <div class="no-data" *ngIf = "false"><!-- noData -->
+		<img src="../../assets/image/nodata.png" alt="">
+		<p>空空如也</p>
+	</div>
+	<div class="btn-noMore" *ngIf = "showNoMoreGift">
+		<span>—— 没有更多赠品了 ——</span>
+	</div>
+  <!-- <ion-infinite-scroll (ionInfinite)="infiniteGetUnhandleSelfGiftList($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
   
   <button class="btn-confirm" ion-button full (touchstart)="addProductModal()">
     <span class="confirm">确认订单</span>

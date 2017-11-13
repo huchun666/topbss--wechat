@@ -1,25 +1,32 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { PaymentCode } from '../payment-code/payment-code';
+import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'order-store',
   templateUrl: 'order-store.html'
 })
 export class OrderStore {
+  start: number = 0;
+  limit: number = 10;
+  showNoMoreGift: Boolean = false;
+  noData: Boolean;
+  up: Boolean;//上拉刷新和第一次进入页面时
+  down: Boolean;//下拉刷新和返回上一级页面时
   // count: number = 2;
   total: number = 200.00;
 
-  orderStoreData: any;
   orderStoreDataArray: any;//得到的数据里面的data数组
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
+    public appService: AppService,
   ) {
-    this.orderStoreData = {
-      "count": 2,
-      "data": [
+    // this.getOrderStore();
+    this.orderStoreDataArray = 
+      [
           {
               "warehouseItemId": 1,
               "warehouseId": 3,
@@ -106,15 +113,36 @@ export class OrderStore {
                 "fallback": null
               }
           }
-      ],
-      "pageParamModel": null
-    }
-    this.orderStoreDataArray = this.orderStoreData.data;
-    console.log(this.orderStoreDataArray)
+      ]
   }
 
   getOrderStore() {
-
+    // let loading = this.appService.loading();
+    // // loading.present();
+    // let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
+    //     this.appService.httpGet(url).then( data => {
+    //     loading.dismiss();
+    //     if (data.totalRecord == 0) {
+    //       //空空如也
+    //       this.noData = true;
+    //     }else {
+    //       this.noData = false;
+    //       if( this.start < data.totalRecord ) {
+    //         if (this.up) {
+    //           this.orderStoreDataArray.push(...data.data);
+    //           this.start+=10;
+    //         }else if (this.down){
+    //           this.orderStoreDataArray = [...data.data];
+    //           this.start+=10;
+    //         }
+    //       }else {
+    //           this.showNoMoreGift = true;
+    //       }
+    //     }
+      
+    //   }).catch(error => {
+    //     console.log(error);
+    //   });
   }
   addCount(index) {
     if (this.orderStoreDataArray[index].stock > this.orderStoreDataArray[index].productNum) {
@@ -134,12 +162,32 @@ export class OrderStore {
 	  this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
   }
   delete() {
-    
+    console.log("delete")
   }
   resetCount() {
 
   }
   addProductModal() {
     this.navCtrl.push(PaymentCode);
+  }
+
+  refreshGetOrderStoreList(refresher) {
+    // 下拉刷新请求数据
+    // this.start = 0;
+    // this.down = true;
+    // this.up = false;
+    // setTimeout(() => {
+    //   this.getOrderStore();
+    //   refresher.complete();
+    // },1000)
+  }
+  infiniteGetOrderStoreList(infiniteScroll) {
+    // 上拉刷新请求数据
+    // this.down = false;
+    // this.up = true;
+    // setTimeout(() => {
+    //   this.getOrderStore();
+    //   infiniteScroll.complete();
+    // },1000)
   }
 }

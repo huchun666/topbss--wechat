@@ -19,7 +19,17 @@ export class AppConfig {
   static API: any = {
     login: "/assets/data/login.json",
     getProductList: "",
-    getOrderList: ""
+    getOrderList: "",
+    getGiftList: "/promotion/member/gift/account/getGiftList",//各种赠品列表
+    getUnhandleGiftCount: "/promotion/member/gift/account/getUnhandleGiftCount",//待处理自提订单列表
+    confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",//确认预约时间
+    confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
+    getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
+    getCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
+    getProductSkuWithDefault: "/product/getProductSkuWithDefault",//SKU初始加载
+    getValidSKUAttrValue: "/product/getValidSKUAttrValue",//SKU切换
+    affirmAdd: "/rest/order/warehouse/add",//添加配单行接口
+    warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
   };
   
 }

@@ -12,7 +12,8 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class CreatOrder {
   creatOrderArray: any;
   noData: Boolean;
-  start: number;
+  start: number = 0;
+  limit: number = 10;
   showNoMoreGift: Boolean = false;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
@@ -20,7 +21,7 @@ export class CreatOrder {
   constructor(public modalCtrl: ModalController, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
-    public appService: 
+    public appService: AppService
   ) {
     // this.down = false;
 		// this.up = true;
@@ -78,32 +79,32 @@ export class CreatOrder {
 
   //进入页面，请求接口，得到数据
   getCreatOrderList() {
-    let loading = this.appService.loading();
+    // let loading = this.appService.loading();
 		// loading.present();
-    let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&start=$(this.start)&limit=10`;
-    this.appService.httpGet(url).then( data => {
-      loading.dismiss();
-      if (data.totalRecord == 0) {
-        //空空如也
-        this.noData = true;
-      }else {
-        this.noData = false;
-        if( this.start < data.totalRecord ) {
-          if (this.up) {
-            this.creatOrderArray.push(...data.data);
-            this.start+=10;
-          }else if (this.down){
-            this.creatOrderArray = [...data.data];
-            this.start+=10;
-          }
-        }else {
-          this.showNoMoreGift = true;
-        }
-      }
+    // let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=${this.brandshopSeqId}&start=${this.start}&limit=${this.limit}`;
+    // this.appService.httpGet(url).then( data => {
+    //   loading.dismiss();
+    //   if (data.totalRecord == 0) {
+    //     //空空如也
+    //     this.noData = true;
+    //   }else {
+    //     this.noData = false;
+    //     if( this.start < data.totalRecord ) {
+    //       if (this.up) {
+    //         this.creatOrderArray.push(...data.data);
+    //         this.start+=10;
+    //       }else if (this.down){
+    //         this.creatOrderArray = [...data.data];
+    //         this.start+=10;
+    //       }
+    //     }else {
+    //       this.showNoMoreGift = true;
+    //     }
+    //   }
       
-      }).catch(error => {
-        console.log(error);
-      });
+    //   }).catch(error => {
+    //     console.log(error);
+    //   });
   }
   addProductModal(index) {
 	  const orderModal = this.modalCtrl.create(OrderLayer, {
@@ -147,7 +148,7 @@ export class CreatOrder {
 
   //查看配单仓订单总数
   getWarehouseCount() {
-    // let url = `$(AppConfig.API.)`;
+    // let url = `${AppConfig.API.getCount}`;
     //   this.appService.httpGet(url).then( number => {
     //     this.warehouseCount = number;
     //   }).catch(error => {

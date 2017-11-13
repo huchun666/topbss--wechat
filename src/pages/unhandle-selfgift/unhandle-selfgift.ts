@@ -8,7 +8,8 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class UnhandleSelfgift {
   unhandleSeflGiftArray: any;
-  start: number;
+  start: number = 0;
+  limit: number = 10;
   showNoMoreGift: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
@@ -134,34 +135,34 @@ export class UnhandleSelfgift {
 			}
 		]
 
-}
+	}
   getUnhandleSelfGiftList() {
-	let loading = this.appService.loading();
+	// let loading = this.appService.loading();
 	// loading.present();
-	let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
-    	this.appService.httpGet(url).then( data => {
-			loading.dismiss();
-			if (data.totalRecord == 0) {
-				//空空如也
-				this.noData = true;
-			}else {
-				this.noData = false;
-				if( this.start < data.totalRecord ) {
-					if (this.up) {
-						this.unhandleSeflGiftArray.push(...data.data);
-						this.start+=10;
-					}else if (this.down){
-						this.unhandleSeflGiftArray = [...data.data];
-						this.start+=10;
-					}
-				}else {
-						this.showNoMoreGift = true;
-				}
-			}
+	// let url = `${AppConfig.API.getGiftList}?brandshopSeq=${this.brandshopSeqId}&type=0&start=${this.start}&limit=${this.limit}`;
+    // 	this.appService.httpGet(url).then( data => {
+	// 		loading.dismiss();
+	// 		if (data.totalRecord == 0) {
+	// 			//空空如也
+	// 			this.noData = true;
+	// 		}else {
+	// 			this.noData = false;
+	// 			if( this.start < data.totalRecord ) {
+	// 				if (this.up) {
+	// 					this.unhandleSeflGiftArray.push(...data.data);
+	// 					this.start+=10;
+	// 				}else if (this.down){
+	// 					this.unhandleSeflGiftArray = [...data.data];
+	// 					this.start+=10;
+	// 				}
+	// 			}else {
+	// 					this.showNoMoreGift = true;
+	// 			}
+	// 		}
 		
-		}).catch(error => {
-			console.log(error);
-		});
+	// 	}).catch(error => {
+	// 		console.log(error);
+	// 	});
   }
   goSelfgift() {
 	const orderModal = this.modalCtrl.create(HandleSelfgift);
@@ -184,7 +185,7 @@ export class UnhandleSelfgift {
 	// 	   memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
 	// 	   reserveShopTime: new Date(this.unhandleSeflGiftArray[index].reserveShopTime).getTime()
 	//   }
-	//   let url = AppConfig.API.;
+	//   let url = AppConfig.API.confirmReserveShopTime;
 	//   this.appService.httpPost(url, body).then( data => {
 	// 	if (data.type == "success") {
 	// 	  this.start = 0;

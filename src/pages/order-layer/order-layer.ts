@@ -161,24 +161,24 @@ export class OrderLayer {
 
   //初始化sku属性
   getProductSkuWithDefault() {
-    let loading = this.appService.loading();
+    // let loading = this.appService.loading();
 		// loading.present();
-    let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&productSeq=$(this.productSeq)`;
-    this.appService.httpGet(url).then( data => {
-      loading.dismiss();
-      if (data.skuLength != 0) {
-        this.orderLayerData = data;
+    // let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=${this.brandshopSeqId}&productSeq=${this.productSeq}`;
+    // this.appService.httpGet(url).then( data => {
+    //   loading.dismiss();
+    //   if (data.skuLength != 0) {
+    //     this.orderLayerData = data;
         // this.orderLayerData.attrArray = [];
         // for(let key in this.orderLayerData.attrMap){
         //   this.orderLayerData.attrArray.push(this.orderLayerData.attrMap[key])
         // }
-      }else {
-        this.orderLayerData = {}
-      }
+    //   }else {
+    //     this.orderLayerData = {}
+    //   }
       
-    }).catch(error => {
-      console.log(error);
-    });
+    // }).catch(error => {
+    //   console.log(error);
+    // });
   }
 
   dismiss() {
@@ -214,7 +214,7 @@ export class OrderLayer {
     var currentValue = event.target.getAttribute("ng-reflect-value");
     if (this.attrValueArr[index] != currentValue){
       this.attrValueArr[index] = currentValue;
-      // let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&productSeq=$(this.orderLayerData.productSeq)&skulength=$(this.orderLayerData.skulength)&attrSeqArr=(this.attrSeqArr)&attrValueArr=$(this.attrValueArr)`;
+      // let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeqId}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skulength}&attrSeqArr={this.attrSeqArr}&attrValueArr=${this.attrValueArr}`;
       //   this.appService.httpGet(url).then( data => {
       //     this.orderLayerData = data;
       //   }).catch(error => {
@@ -230,7 +230,7 @@ export class OrderLayer {
 
   //确认添加
   affirmAdd() {
-    // let url = AppConfig.API.;
+    // let url = AppConfig.API.affirmAdd;
     // let body = {
     //   "productId": this.orderLayerData.productSeq,
     //   "skuId": this.orderLayerData.skuSeq,
