@@ -18,7 +18,6 @@ export class UnhandleSelfgift {
 		public modalCtrl: ModalController, 
 		public alertCtrl: AlertController, 
 		public changeDetectorRef: ChangeDetectorRef, 
-		public appConFig: AppConfig, 
 		public appService: AppService,
 		public toastCtrl: ToastController,
 		public loadingCtrl: LoadingController
@@ -139,7 +138,7 @@ export class UnhandleSelfgift {
   getUnhandleSelfGiftList() {
 	let loading = this.appService.loading();
 	// loading.present();
-	let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
+	let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
     	this.appService.httpGet(url).then( data => {
 			loading.dismiss();
 			if (data.totalRecord == 0) {
@@ -185,7 +184,7 @@ export class UnhandleSelfgift {
 	// 	   memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
 	// 	   reserveShopTime: new Date(this.unhandleSeflGiftArray[index].reserveShopTime).getTime()
 	//   }
-	//   let url = this.appConFig.API.;
+	//   let url = AppConfig.API.;
 	//   this.appService.httpPost(url, body).then( data => {
 	// 	if (data.type == "success") {
 	// 	  this.start = 0;

@@ -5,27 +5,27 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-sliding #item>
+    <ion-item-sliding #item *ngFor="let single of orderStoreDataArray;let i = index">
       <ion-item>
         <ion-thumbnail item-start>
-        <img src="../assets/image/productimg2.png" alt="产品">
+          <img [src]="single.productSkuDTO.attrValueList[0].fileSeq" alt="产品">
         </ion-thumbnail>
-        <h2>可爱的小裙子 厚实的 保暖 秋冬季</h2>
+        <h2>{{single.productSkuDTO.productName}}</h2>
         <div class="count">
-          <span class="btn-add">+</span>
-          <span class="btn-remove">-</span>
+          <span class="btn-add" (touchstart)="addCount(i)">+</span>
+          <span class="btn-remove" [ngClass]="{changeGray: single.productNum | changeGray}" (touchstart)="removeCount(i)">-</span>
           <div class="add-count">
-            <input  (blur)="resetCount()" [(ngModel)]="count"  type="number">
+            <input  (blur)="resetCount()" [(ngModel)]="single.productNum"  type="number">
           </div>
         </div>
         <div class="total">
             <div class="total-text">商品总额</div>
             <div class="total-input">
-              <input (blur)="resetCount()" [(ngModel)]="total"  type="number">
+              <input (blur)="resetCount()" [(ngModel)]="single.itemPrice"  type="number">
             </div>
         </div>
         <div class="remark">
-          <input placeholder="备注一下商品信息吧"  type="text">
+          <input placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">
         </div>
       </ion-item>
       
@@ -37,7 +37,7 @@
       </ion-item-options>
     </ion-item-sliding>
     
-    <ion-item-sliding #item>
+    <!-- <ion-item-sliding #item>
       <ion-item>
         <ion-thumbnail item-start>
         <img src="../assets/image/productimg2.png" alt="产品">
@@ -66,7 +66,7 @@
           删除
         </button>
       </ion-item-options>
-    </ion-item-sliding>
+    </ion-item-sliding> -->
   </ion-list>
   
   <button class="btn-confirm" ion-button full (touchstart)="addProductModal()">

@@ -22,17 +22,19 @@ export class OrderLayer {
   skuAttrValue: any;//sku切换时选中的值
   attrSeqArr: any;//选中属性的attrSeq数组
   attrValueArr: any;//选中属性的attrValue数组
+  warehouseCount: number;
+
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
     public navParams: NavParams,
-    public appConFig: AppConfig, 
     public appService: AppService,
     public toastCtrl: ToastController,
   ) {
     //this.getProductSkuWithDefault();
     this.productSeq = navParams.get('productSeq');
     this.productName = navParams.get('productName');
+    this.warehouseCount = navParams.get('warehouseCount');
     this.attrSeqArr = [];
     this.attrValueArr = [];
     
@@ -161,7 +163,7 @@ export class OrderLayer {
   getProductSkuWithDefault() {
     let loading = this.appService.loading();
 		// loading.present();
-    let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&productSeq=$(this.productSeq)`;
+    let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&productSeq=$(this.productSeq)`;
     this.appService.httpGet(url).then( data => {
       loading.dismiss();
       if (data.skuLength != 0) {
@@ -180,7 +182,7 @@ export class OrderLayer {
   }
 
   dismiss() {
-    let data = { 'foo': 'bar' };
+    let data = { 'warehouseCount': this.warehouseCount };
     this.viewCtrl.dismiss(data);
   }
 
@@ -212,7 +214,7 @@ export class OrderLayer {
     var currentValue = event.target.getAttribute("ng-reflect-value");
     if (this.attrValueArr[index] != currentValue){
       this.attrValueArr[index] = currentValue;
-      // let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&productSeq=$(this.orderLayerData.productSeq)&skulength=$(this.orderLayerData.skulength)&attrSeqArr=(this.attrSeqArr)&attrValueArr=$(this.attrValueArr)`;
+      // let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&productSeq=$(this.orderLayerData.productSeq)&skulength=$(this.orderLayerData.skulength)&attrSeqArr=(this.attrSeqArr)&attrValueArr=$(this.attrValueArr)`;
       //   this.appService.httpGet(url).then( data => {
       //     this.orderLayerData = data;
       //   }).catch(error => {
@@ -228,7 +230,22 @@ export class OrderLayer {
 
   //确认添加
   affirmAdd() {
-    console.log("add")
+    // let url = AppConfig.API.;
+    // let body = {
+    //   "productId": this.orderLayerData.productSeq,
+    //   "skuId": this.orderLayerData.skuSeq,
+    //   "itemPrice": this.orderLayerData.price,
+    //   "productNum": this.count,
+    //   "remark": ""
+    // }
+    // this.appService.httpPost(url, body).then( data => {
+    //   if (data.type=='success') {
+    //     this.warehouseCount++;
+    //     this.dismiss();
+    //   }
+    // }).catch( error => {
+    //   console.log(error.message);
+    // })
   }
 
 }

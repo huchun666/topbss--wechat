@@ -6,13 +6,15 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { FilterStatusPipe } from './app.pipe';
-import { FilterGiftTypePipe } from './app.pipe';
-import { FilterGiftTypeClassPipe } from './app.pipe';
-import { FilterHandleGiftTypePipe } from './app.pipe';
-import { IsOrIsnotInvalidAttrValuePipe } from './app.pipe';
-import { InvalidAttrValueClassPipe } from './app.pipe';
-import { ChangeGrayPipe } from './app.pipe';
+import { 
+  FilterStatusPipe, 
+  FilterGiftTypePipe,
+  FilterGiftTypeClassPipe, 
+  FilterHandleGiftTypePipe, 
+  IsOrIsnotInvalidAttrValuePipe, 
+  InvalidAttrValueClassPipe, 
+  ChangeGrayPipe 
+} from './app.pipe';
 import { QRCodeModule } from 'angular2-qrcode';
 
 import { Login } from '../pages/login/login';

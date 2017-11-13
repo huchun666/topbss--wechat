@@ -16,7 +16,6 @@ export class UnhandleExpressgift {
 	constructor(public navCtrl: NavController, 
 		public modalCtrl: ModalController, 
 		public alertCtrl: AlertController,
-		public appConFig: AppConfig, 
 		public appService: AppService,
 		public toastCtrl: ToastController
 	) {
@@ -216,7 +215,7 @@ export class UnhandleExpressgift {
 	getUnhandleExpressGiftList() {
 		let loading = this.appService.loading();
 		// loading.present();
-		let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
+		let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
 		this.appService.httpGet(url).then( data => {
 			loading.dismiss();
 			if (data.totalRecord == 0) {
@@ -282,7 +281,7 @@ export class UnhandleExpressgift {
 						// 	expressCompany: data.companyName,
 						// 	expressNo: data.orderNum
 						// }
-						// let url = this.appConFig.API.;
+						// let url = AppConfig.API.;
 						// this.appService.httpPost(url, body).then( data => {
 						// 	if (data.type =="success") {
 						// 		this.start = 0;

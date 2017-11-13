@@ -15,7 +15,6 @@ export class HandleExpressgift {
 	constructor(
 		public navCtrl: NavController, 
 		public alertCtrl: AlertController,
-		public appConFig: AppConfig, 
 		public appService: AppService,
 	) {
 	// 获取已兑换快递赠品列表
@@ -214,7 +213,7 @@ export class HandleExpressgift {
   getHandleExpressGiftList() {
 	let loading = this.appService.loading();
 	// loading.present();
-    let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=3&start=$(this.start)&limit=10`;
+    let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=3&start=$(this.start)&limit=10`;
     this.appService.httpGet(url).then( data => {
 		loading.dismiss();
 	    if (data.totalRecord == 0) {

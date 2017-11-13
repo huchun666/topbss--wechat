@@ -65,7 +65,7 @@ export class AuditCancelorder {
 	}
 	getAuditCancelorder() {
 		// 待审核已取消订单 请求数据
-	  // let url = this.appConFig.API.;page=1
+	  // let url = AppConfig.API.;page=1
 	  // this.appService.httpGet(url).then( data => {
     //   this.audutCancelorderArray = data;
 	  // }).catch(error => {

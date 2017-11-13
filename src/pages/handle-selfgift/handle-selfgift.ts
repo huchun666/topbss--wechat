@@ -14,7 +14,6 @@ export class HandleSelfgift {
 	down: Boolean;//下拉刷新和返回上一级页面时
   constructor(public navCtrl: NavController, 
     public alertCtrl: AlertController, 
-    public appConFig: AppConfig, 
     public appService: AppService,
   ) {
     // this.down = false;
@@ -106,7 +105,7 @@ export class HandleSelfgift {
   getHandleSelfGiftList() {
     let loading = this.appService.loading();
 		// loading.present();
-    let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
+    let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
     this.appService.httpGet(url).then( data => {
       loading.dismiss();
       if (data.totalRecord == 0) {

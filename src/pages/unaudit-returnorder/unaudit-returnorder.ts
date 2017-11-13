@@ -122,7 +122,7 @@ export class UnauditReturnorder implements OnInit {
 	}
 	getUnauditReturnorderList() {
 		// 待审核退货订单 请求数据
-	  // let url = this.appConFig.API.;page=1;unauditState=1,2 ;
+	  // let url = AppConfig.API.;page=1;unauditState=1,2 ;
 	  // this.appService.httpGet(url).then( data => {
     //   this.unauditReturnorderArray = data;
 	  // }).catch(error => {

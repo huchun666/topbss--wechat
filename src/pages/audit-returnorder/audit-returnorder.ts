@@ -154,7 +154,7 @@ export class AuditReturnorder {
 	}
 	getAuditReturnorderList() {
 		// 已审核退货订单 请求数据
-	  // let url = this.appConFig.API.;page=1;unauditState=3,4,5 ;
+	  // let url = AppConfig.API.;page=1;unauditState=3,4,5 ;
 	  // this.appService.httpGet(url).then( data => {
     //   this.auditReturnorderArray = data;
 	  // }).catch(error => {

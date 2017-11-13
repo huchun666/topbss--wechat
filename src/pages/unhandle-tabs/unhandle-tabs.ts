@@ -28,7 +28,7 @@ export class UnhandleTabs {
 	  }
   }
   getUnhandleGiftNumber() {
-    // let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)`;
+    // let url = `$(AppConfig.API.)?brandshopSeq=$(this.brandshopSeqId)`;
 	  // this.appService.httpGet(url).then( data => {
     //   this.reserved = data.reserved;
     //   this.undelivered = data.undelivered;
