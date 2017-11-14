@@ -164,8 +164,19 @@ export class OrderStore {
 	  this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
   }
   //删除
-  delete() {
+  delete(index) {
     console.log("delete")
+    let parameters = {
+      id: this.orderStoreDataArray[index].warehouseItemId
+    }
+    let url = AppConfig.API.deleteById;
+    this.appService.httpDelete(url, parameters).then( data => {
+      if (data.type == "success") {
+
+      }
+    }).catch(error => {
+      console.log(error);
+    })
   }
   resetCount() {
 
