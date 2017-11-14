@@ -24,6 +24,8 @@ export class OrderStore {
     public toastCtrl: ToastController,
     public appService: AppService,
   ) {
+    // this.down = true;
+	  // this.up = false;
     // this.getOrderStore();
     this.orderStoreDataArray = 
       [

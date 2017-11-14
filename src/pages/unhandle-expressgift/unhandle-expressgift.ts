@@ -21,8 +21,8 @@ export class UnhandleExpressgift {
 		public toastCtrl: ToastController
 	) {
 		//请求接口得到数据
-		//this.down = false;
-		//this.up = true;
+		//this.down = true;
+		//this.up = false;
 		//getUnhandleExpressGiftList();
 		this.unhandleExpressGiftArray = [
 			{

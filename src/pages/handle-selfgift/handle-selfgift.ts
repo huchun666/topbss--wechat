@@ -17,8 +17,8 @@ export class HandleSelfgift {
     public alertCtrl: AlertController, 
     public appService: AppService,
   ) {
-    // this.down = false;
-		// this.up = true;
+    // this.down = true;
+	  // this.up = false;
     //this.getHandleSelfGiftList()
 
     //模拟数据

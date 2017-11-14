@@ -19,8 +19,8 @@ export class HandleExpressgift {
 		public appService: AppService,
 	) {
 	// 获取已兑换快递赠品列表
-	// this.down = false;
-	// this.up = true;
+	// this.down = true;
+	// this.up = false;
     // getHandleExpressGiftList()
     this.handleExpressGiftArray = [
 			{

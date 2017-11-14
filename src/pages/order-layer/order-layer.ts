@@ -12,6 +12,7 @@ export class OrderLayer {
 
   orderLayerData: any;//请求接口得到的数据
   attrMap: any = [];//转换后的数据（数组格式）
+  attrMap1: any = [];
   productSeq: number;//商品ID
   productName: string;//商品名称
   noData: Boolean;
@@ -104,6 +105,19 @@ export class OrderLayer {
             "invalidAttrValue": null    //是否置灰,null-不置灰,"invalidAttrValue"-置灰不可选
           }
         ],
+        "1124": [
+          {
+            "skuSeq": 1049,
+            "attrSeq": 1124,
+            "attrName": "入园",
+            "attrValue": "无",
+            "type": "S",
+            "fileSeq": "../assets/image/productimg2.png",
+            "price": 333.00,
+            "selectedAttrValue": "无",
+            "invalidAttrValue": "invalidAttrValue"
+          }
+        ],
         "1158": [
           {
             "skuSeq": 1049,
@@ -128,26 +142,19 @@ export class OrderLayer {
             "invalidAttrValue": "invalidAttrValue"
           }
         ],
-        "1124": [
-          {
-            "skuSeq": 1049,
-            "attrSeq": 1124,
-            "attrName": "入园",
-            "attrValue": "无",
-            "type": "S",
-            "fileSeq": null,
-            "price": 333.00,
-            "selectedAttrValue": "无",
-            "invalidAttrValue": "invalidAttrValue"
-          }
-        ]
+        [Symbol.iterator]: Array.prototype[Symbol.iterator]
       }
     }
-    // this.attrMap = [];
     this.skuAttrValue = [];
     for(let key in this.orderLayerData.attrMap){//后面需要将这个转换数据的注释掉
       this.attrMap.push(this.orderLayerData.attrMap[key])
     }
+    for(let item of this.orderLayerData.attrMap){
+      console.log(item)
+      this.attrMap1.push(item);
+    }
+    console.log("attr1:")
+    console.log(this.attrMap1)
     console.log(this.attrMap)
     for(let i=0;i<this.attrMap.length;i++){
       this.skuAttrValue.push(this.attrMap[i][0].selectedAttrValue);

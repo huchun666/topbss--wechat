@@ -23,9 +23,9 @@ export class CreatOrder {
     public alertCtrl: AlertController,
     public appService: AppService
   ) {
-    // this.down = false;
-		// this.up = true;
-    // this.getHandleSelfGiftList();
+    // this.down = true;
+		// this.up = false;
+    // this.getCreatOrderList();
     // this.getWarehouseCount();
     this.warehouseCount = 6;//后面要删除
     this.creatOrderArray = [
@@ -125,7 +125,43 @@ export class CreatOrder {
   }
   // 搜索
   onInput(event) {
-    console.log(event.target.value)
+    let searchKeyWord = event.target.value;
+    console.log(searchKeyWord)
+    // if (searchKeyWord){
+    //   let loading = this.appService.loading();
+    //   loading.present();
+    //   this.start = 0;
+    //   this.down = true;
+    //   this.up = false;
+    //   let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=${this.brandshopSeqId}&searchKeyWord=searchKeyWord&start=${this.start}&limit=${this.limit}`;
+    //   this.appService.httpGet(url).then( data => {
+    //     loading.dismiss();
+    //     if (data.totalRecord == 0) {
+    //       //空空如也
+    //       this.noData = true;
+    //     }else {
+    //       this.noData = false;
+    //       if( this.start < data.totalRecord ) {
+    //         if (this.up) {
+    //           this.creatOrderArray.push(...data.data);
+    //           this.start += this.limit;
+    //         }else if (this.down){
+    //           this.creatOrderArray = [...data.data];
+    //           this.start += this.limit;
+    //         }
+    //       }else {
+    //         this.showNoMoreGift = true;
+    //       }
+    //     }
+    //   }).catch(error => {
+    //     console.log(error);
+    //   });
+    // }else {
+    //   this.down = true;
+    //   this.up = false;
+    //   this.getCreatOrderList();
+    // }
+    
   }
   refreshGetCreatOrderList(refresher) {
     // 下拉刷新请求数据

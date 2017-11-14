@@ -23,8 +23,8 @@ export class UnhandleSelfgift {
 		public toastCtrl: ToastController,
 		public loadingCtrl: LoadingController
 	) {
-		// this.down = false;
-		// this.up = true;
+		// this.down = true;
+		// this.up = false;
 		// this.getUnhandleSelfGiftList();
 		// ngOnInit() { 请求数据 }
 		// 要改下：将this.unhandleSeflGiftArray = []
