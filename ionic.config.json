@@ -5,4 +5,8 @@
   "integrations": {
     "cordova": {}
   }
+  // "proxies": [{//代理(解决跨域问题)
+  //   "path": "/rest",  
+  //   "proxyUrl": "http://192.168.31.202:8080/rest"  
+  // }]
 }

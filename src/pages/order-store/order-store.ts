@@ -15,8 +15,8 @@ export class OrderStore {
   down: Boolean;//下拉刷新和返回上一级页面时
   // count: number = 2;
   total: number = 200.00;
-
   orderStoreDataArray: any;//得到的数据里面的data数组
+  returnUrl: string;//返回得到的url字符串
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -114,6 +114,7 @@ export class OrderStore {
               }
           }
       ]
+      this.orderStoreDataArray.map((x,i)=>console.log(x,i))
   }
 
   getOrderStore() {
@@ -144,6 +145,7 @@ export class OrderStore {
     //     console.log(error);
     //   });
   }
+  //加
   addCount(index) {
     if (this.orderStoreDataArray[index].stock > this.orderStoreDataArray[index].productNum) {
       this.orderStoreDataArray[index].productNum++;
@@ -157,18 +159,41 @@ export class OrderStore {
     }
 	  
   }
-
+  //减
   removeCount(index) {
 	  this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
   }
+  //删除
   delete() {
     console.log("delete")
   }
   resetCount() {
 
   }
+  //确认订单
   addProductModal() {
-    this.navCtrl.push(PaymentCode);
+    // let body = [];
+    // let url = AppConfig.API.generateCode;
+    // this.orderStoreDataArray.map(function(item) {
+    //   let order = {};
+    //   order['warehouseItemId'] = item.warehouseItemId;
+    //   order['skuId'] = item.skuId;
+    //   order['itemPrice'] = item.itemPrice;
+    //   order['productNum'] = item.productNum;
+    //   order['isSelected'] = item.isSelected;
+    //   order['remark'] = item.remark;
+    //   body.push(order);
+    // })
+    // this.appService.httpPut(url, body).then( data => {
+    //   this.returnUrl = data;
+    // }).catch(error=>{
+    //   console.log(error);
+    // })
+    this.returnUrl = "http://www.61topbaby.com/evercos/payment/generateOrder.html?warehouseId=1";//后面要删除
+    
+    this.navCtrl.push(PaymentCode,{
+      returnUrl: this.returnUrl
+    });
   }
 
   refreshGetOrderStoreList(refresher) {

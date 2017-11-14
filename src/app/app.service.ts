@@ -30,6 +30,7 @@ export class AppConfig {
     getValidSKUAttrValue: "/product/getValidSKUAttrValue",//SKU切换
     affirmAdd: "/rest/order/warehouse/add",//添加配单行接口
     warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
+    generateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
   };
   
 }
