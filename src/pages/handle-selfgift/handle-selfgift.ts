@@ -117,10 +117,10 @@ export class HandleSelfgift {
     //     if( this.start < data.totalRecord ) {
     //       if (this.up) {
     //         this.handleSeflGiftArray.push(...data.data);
-    //         this.start+=10;
+    //         this.start += this.limit;
     //       }else if (this.down){
     //         this.handleSeflGiftArray = [...data.data];
-    //         this.start+=10;
+    //         this.start += this.limit;
     //       }
     //     }else {
     //       this.showNoMoreGift = true;

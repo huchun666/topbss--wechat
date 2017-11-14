@@ -227,10 +227,10 @@ export class UnhandleExpressgift {
 		// 		if( this.start < data.totalRecord ) {
 		// 			if (this.up) {
 		// 				this.unhandleExpressGiftArray.push(...data.data);
-		// 				this.start+=10;
+		// 				this.start += this.limit;
 		// 			}else if (this.down){
 		// 				this.unhandleExpressGiftArray = [...data.data];
-		// 				this.start+=10;
+		// 				this.start += this.limit;
 		// 			}
 		// 		}else {
 		// 			this.showNoMoreGift = true;

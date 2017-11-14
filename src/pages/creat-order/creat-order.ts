@@ -92,10 +92,10 @@ export class CreatOrder {
     //     if( this.start < data.totalRecord ) {
     //       if (this.up) {
     //         this.creatOrderArray.push(...data.data);
-    //         this.start+=10;
+    //         this.start += this.limit;
     //       }else if (this.down){
     //         this.creatOrderArray = [...data.data];
-    //         this.start+=10;
+    //         this.start += this.limit;
     //       }
     //     }else {
     //       this.showNoMoreGift = true;

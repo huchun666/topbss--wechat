@@ -131,10 +131,10 @@ export class OrderStore {
     //       if( this.start < data.totalRecord ) {
     //         if (this.up) {
     //           this.orderStoreDataArray.push(...data.data);
-    //           this.start+=10;
+    //           this.start += this.limit;
     //         }else if (this.down){
     //           this.orderStoreDataArray = [...data.data];
-    //           this.start+=10;
+    //           this.start += this.limit;
     //         }
     //       }else {
     //           this.showNoMoreGift = true;

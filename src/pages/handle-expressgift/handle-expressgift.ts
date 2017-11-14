@@ -223,14 +223,13 @@ export class HandleExpressgift {
 	//     }else {
 	// 	    this.noData = false;
 	// 	    if( this.start < data.totalRecord ) {
-	// 				if (this.up) {
-	// 					this.handleExpressGiftArray.push(...data.data);
-	// 	        		this.start+=10;
-	// 				}else if (this.down){
-	// 					this.handleExpressGiftArray = [...data.data];
-	// 					this.start+=10;
-	// 				}
-		     
+	// 		  if (this.up) {
+	// 			this.handleExpressGiftArray.push(...data.data);
+	// 	        this.start += this.limit;
+	// 		  }else if (this.down){
+	// 			this.handleExpressGiftArray = [...data.data];
+	// 			this.start += this.limit;
+	// 		  }
 	// 	    }else {
 	// 	      this.showNoMoreGift = true;
 	// 	    }
