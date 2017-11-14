@@ -110,7 +110,8 @@ export class CreatOrder {
 	  const orderModal = this.modalCtrl.create(OrderLayer, {
       productSeq: this.creatOrderArray[index].productSeq,
       productName: this.creatOrderArray[index].productName,
-      warehouseCount: this.warehouseCount
+      warehouseCount: this.warehouseCount,
+      fileSeq: this.creatOrderArray[index].fileSeq
     }, {
 	    cssClass: 'order-sku-list'
     });

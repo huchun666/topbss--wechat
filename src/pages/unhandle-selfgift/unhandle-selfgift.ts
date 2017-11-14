@@ -150,31 +150,31 @@ export class UnhandleSelfgift {
 	});
   }
   getUnhandleSelfGiftList() {
-    let loading = this.appService.loading();
-    loading.present();
-	let url = `${AppConfig.API.getGiftList}?brandshopSeq=${this.brandshopSeqId}&type=0&start=${this.start}&limit=${this.limit}`;
-	this.appService.httpGet(url).then( data => {
-	loading.dismiss();
-	if (data.totalRecord == 0) {
-	  //空空如也
-	  this.noData = true;
-	}else {
-	  this.noData = false;
-	  if( this.start < data.totalRecord ) {
-		if (this.up) {
-		  this.unhandleSeflGiftArray.push(...data.data);
-		  this.start += this.limit;
-		}else if (this.down){
-		  this.unhandleSeflGiftArray = [...data.data];
-		  this.start += this.limit;
-		}
-	  }else {
-		this.showNoMoreGift = true;
-	  }
-	}
-	}).catch(error => {
-		console.log(error);
-	});
+    // let loading = this.appService.loading();
+    // loading.present();
+		// let url = `${AppConfig.API.getGiftList}?brandshopSeq=${this.brandshopSeqId}&type=0&start=${this.start}&limit=${this.limit}`;
+		// this.appService.httpGet(url).then( data => {
+		// loading.dismiss();
+		// if (data.totalRecord == 0) {
+		// 	//空空如也
+		// 	this.noData = true;
+		// }else {
+		// 	this.noData = false;
+		// 	if( this.start < data.totalRecord ) {
+		// 	if (this.up) {
+		// 		this.unhandleSeflGiftArray.push(...data.data);
+		// 		this.start += this.limit;
+		// 	}else if (this.down){
+		// 		this.unhandleSeflGiftArray = [...data.data];
+		// 		this.start += this.limit;
+		// 	}
+		// 	}else {
+		// 	this.showNoMoreGift = true;
+		// 	}
+		// }
+		// }).catch(error => {
+		// 	console.log(error);
+		// });
   }
   goSelfgift() {
 	const orderModal = this.modalCtrl.create(HandleSelfgift);

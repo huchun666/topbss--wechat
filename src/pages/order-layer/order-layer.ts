@@ -23,7 +23,7 @@ export class OrderLayer {
   attrSeqArr: any;//选中属性的attrSeq数组
   attrValueArr: any;//选中属性的attrValue数组
   warehouseCount: number;
-
+  fileSeq: string;//图片
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -35,6 +35,7 @@ export class OrderLayer {
     this.productSeq = navParams.get('productSeq');
     this.productName = navParams.get('productName');
     this.warehouseCount = navParams.get('warehouseCount');
+    this.fileSeq = navParams.get('fileSeq');
     this.attrSeqArr = [];
     this.attrValueArr = [];
     

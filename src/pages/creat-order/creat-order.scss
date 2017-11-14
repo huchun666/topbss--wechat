@@ -72,9 +72,11 @@ creat-order {
 			}
 			p {
 				font-size: 1.4rem;
-				height: 50px;
+				height: 48px;
 				line-height: 20px;
 				padding: 5px 10px;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 			.btn-add {
 				height: 3.5rem;
