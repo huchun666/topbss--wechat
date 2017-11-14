@@ -230,6 +230,8 @@ export class OrderLayer {
 
   //确认添加
   affirmAdd() {
+    this.warehouseCount++;//后面注释掉
+    this.dismiss();//后面注释掉
     // let url = AppConfig.API.affirmAdd;
     // let body = {
     //   "productId": this.orderLayerData.productSeq,

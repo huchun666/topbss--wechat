@@ -10,7 +10,7 @@
 			<dd class="product-title">
 				<h2>{{ item.giftName }}</h2>
 				<!-- success unstart -->
-				<span class="{{ item.giftType | setGiftTypeClass: item.status }}">{{ item.giftType | setGiftType: item.status }}</span>
+				<span [ngClass]="item.className">{{ item.giftType | setGiftType: item.status }}</span>
 			</dd>
 			<dd class="reserve-phone">
 				<span>预约手机：{{ item.reservePhone }}</span>

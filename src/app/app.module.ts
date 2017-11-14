@@ -9,7 +9,6 @@ import { MyApp } from './app.component';
 import { 
   FilterStatusPipe, 
   FilterGiftTypePipe,
-  FilterGiftTypeClassPipe, 
   FilterHandleGiftTypePipe, 
   IsOrIsnotInvalidAttrValuePipe, 
   InvalidAttrValueClassPipe, 
@@ -106,7 +105,6 @@ let componentsList = [
     ...componentsList, 
     FilterStatusPipe, 
     FilterGiftTypePipe, 
-    FilterGiftTypeClassPipe, 
     FilterHandleGiftTypePipe,
     IsOrIsnotInvalidAttrValuePipe,
     InvalidAttrValueClassPipe,

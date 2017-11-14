@@ -133,9 +133,22 @@ export class UnhandleSelfgift {
 				"brandshopUserName": null,
 				"attrValueList": []
 			}
-		]
+		];
+		this.addOrderStatusClass(this.unhandleSeflGiftArray);
 
-	}
+  }
+  addOrderStatusClass(param: any) {
+    param.map(function(item) {
+		if (item.giftType=='0' && item.status=='2') {
+			item.className = 'unstart';
+		} else if (item.giftType=='1') {
+			item.className = 'unstart';
+		} else {
+			item.className = 'success';
+		}
+		
+	});
+  }
   getUnhandleSelfGiftList() {
 	// let loading = this.appService.loading();
 	// loading.present();

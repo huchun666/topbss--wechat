@@ -28,19 +28,6 @@ export class FilterGiftTypePipe implements PipeTransform {
   }
 }
 
-@Pipe({ name: 'setGiftTypeClass' })
-export class FilterGiftTypeClassPipe implements PipeTransform {
-  transform(giftType: string, expoent: string): string {
-    if (giftType=='0' && expoent=='2'){
-      return "unstart";
-    }else if (giftType=='0' && expoent=='3'){
-      return "success";
-    }else if (giftType=='1') {
-      return "unstart";
-    }
-  }
-}
-
 @Pipe({ name: 'setHandleGiftType' })
 export class FilterHandleGiftTypePipe implements PipeTransform {
   transform(giftType: string): string {
