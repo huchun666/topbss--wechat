@@ -37,8 +37,8 @@ export class OrderLayer {
     this.productName = navParams.get('productName');
     this.warehouseCount = navParams.get('warehouseCount');
     this.fileSeq = navParams.get('fileSeq');
-    this.attrSeqArr = [];
-    this.attrValueArr = [];
+    this.attrSeqArr = [];//属性id
+    this.attrValueArr = [];//选中的sku属性
     
     this.orderLayerData = {
       "brandshopSeq": 133,  //门店ID
@@ -149,12 +149,6 @@ export class OrderLayer {
     for(let key in this.orderLayerData.attrMap){//后面需要将这个转换数据的注释掉
       this.attrMap.push(this.orderLayerData.attrMap[key])
     }
-    for(let item of this.orderLayerData.attrMap){
-      console.log(item)
-      this.attrMap1.push(item);
-    }
-    console.log("attr1:")
-    console.log(this.attrMap1)
     console.log(this.attrMap)
     for(let i=0;i<this.attrMap.length;i++){
       this.skuAttrValue.push(this.attrMap[i][0].selectedAttrValue);
@@ -163,8 +157,6 @@ export class OrderLayer {
       this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
     }
     this.attrValueArr = this.skuAttrValue;
-    console.log(this.attrSeqArr)
-    console.log(this.attrValueArr)
   }
 
   //初始化sku属性
