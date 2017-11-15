@@ -8,7 +8,8 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class UnhandleSelfgift {
   unhandleSeflGiftArray: any;
-  start: number;
+  start: number = 0;
+  limit: number = 10;
   showNoMoreGift: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
@@ -18,13 +19,12 @@ export class UnhandleSelfgift {
 		public modalCtrl: ModalController, 
 		public alertCtrl: AlertController, 
 		public changeDetectorRef: ChangeDetectorRef, 
-		public appConFig: AppConfig, 
 		public appService: AppService,
 		public toastCtrl: ToastController,
 		public loadingCtrl: LoadingController
 	) {
-		// this.down = false;
-		// this.up = true;
+		// this.down = true;
+		// this.up = false;
 		// this.getUnhandleSelfGiftList();
 		// ngOnInit() { 请求数据 }
 		// 要改下：将this.unhandleSeflGiftArray = []
@@ -133,36 +133,48 @@ export class UnhandleSelfgift {
 				"brandshopUserName": null,
 				"attrValueList": []
 			}
-		]
+		];
+		this.addOrderStatusClass(this.unhandleSeflGiftArray);
 
-}
-  getUnhandleSelfGiftList() {
-		let loading = this.appService.loading();
-		// loading.present();
-		let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=0&start=$(this.start)&limit=10`;
-    this.appService.httpGet(url).then( data => {
-			loading.dismiss();
-			if (data.totalRecord == 0) {
-				//空空如也
-				this.noData = true;
-			}else {
-				this.noData = false;
-				if( this.start < data.totalRecord ) {
-					if (this.up) {
-						this.unhandleSeflGiftArray.push(...data.data);
-						this.start+=10;
-					}else if (this.down){
-						this.unhandleSeflGiftArray = [...data.data];
-						this.start+=10;
-					}
-				}else {
-						this.showNoMoreGift = true;
-				}
-			}
+  }
+  addOrderStatusClass(param: any) {
+    param.map(function(item) {
+		if (item.giftType=='0' && item.status=='2') {
+			item.className = 'unstart';
+		} else if (item.giftType=='1') {
+			item.className = 'unstart';
+		} else {
+			item.className = 'success';
+		}
 		
-		}).catch(error => {
-			console.log(error);
-		});
+	});
+  }
+  getUnhandleSelfGiftList() {
+    // let loading = this.appService.loading();
+    // loading.present();
+		// let url = `${AppConfig.API.getGiftList}?brandshopSeq=${this.brandshopSeqId}&type=0&start=${this.start}&limit=${this.limit}`;
+		// this.appService.httpGet(url).then( data => {
+		// loading.dismiss();
+		// if (data.totalRecord == 0) {
+		// 	//空空如也
+		// 	this.noData = true;
+		// }else {
+		// 	this.noData = false;
+		// 	if( this.start < data.totalRecord ) {
+		// 	if (this.up) {
+		// 		this.unhandleSeflGiftArray.push(...data.data);
+		// 		this.start += this.limit;
+		// 	}else if (this.down){
+		// 		this.unhandleSeflGiftArray = [...data.data];
+		// 		this.start += this.limit;
+		// 	}
+		// 	}else {
+		// 	this.showNoMoreGift = true;
+		// 	}
+		// }
+		// }).catch(error => {
+		// 	console.log(error);
+		// });
   }
   goSelfgift() {
 	const orderModal = this.modalCtrl.create(HandleSelfgift);
@@ -185,7 +197,7 @@ export class UnhandleSelfgift {
 	// 	   memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
 	// 	   reserveShopTime: new Date(this.unhandleSeflGiftArray[index].reserveShopTime).getTime()
 	//   }
-	//   let url = this.appConFig.API.;
+	//   let url = AppConfig.API.confirmReserveShopTime;
 	//   this.appService.httpPost(url, body).then( data => {
 	// 	if (data.type == "success") {
 	// 	  this.start = 0;
@@ -207,7 +219,7 @@ export class UnhandleSelfgift {
 	// 	toast.present(toast);
 	// }
   }
-  refreshGetSelfGiftList(refresher) {
+  refreshGetUnhandleSelfGiftList(refresher) {
 	// 下拉刷新请求数据
 	// this.start = 0;
 	// this.down = true;
@@ -217,7 +229,7 @@ export class UnhandleSelfgift {
 	//   refresher.complete();
 	// },1000)
   }
-  infiniteGetSelfGiftList(infiniteScroll) {
+  infiniteGetUnhandleSelfGiftList(infiniteScroll) {
 	// 上拉刷新请求数据
 	// this.down = false;
 	// this.up = true;

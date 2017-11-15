@@ -30,7 +30,7 @@ export class AwardActivity {
     }
   }
   getOrderDetail() {
-    // let url = this.appConFig.API.;
+    // let url = AppConfig.API.;
     // 所需参数：page=1,moneyDetailType='2'  //1、订单金额明细  2、奖励活动金额明细
 	  // this.appService.httpGet(url).then( data => {
     //   this.awardActivity = data;

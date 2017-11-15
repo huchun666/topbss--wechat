@@ -63,7 +63,7 @@ export class ReturnedDetail {
 
 	getReturnedDetailList(listIndexId){
 		// 待审核退货订单 点击审核时的详情页 请求数据
-		// let url = this.appConFig.API.;
+		// let url = AppConfig.API.;
 		// 所需参数：page=1; listIndexId;
 	  // this.appService.httpGet(url).then( data => {
     //   this.returnDetail = data;

@@ -113,7 +113,7 @@ export class UnauditCancelorder {
 	}
 	getUnauditCancelorder() {
 		// 待审核取消订单 请求数据
-	  // let url = this.appConFig.API.;page=1
+	  // let url = AppConfig.API.;page=1
 	  // this.appService.httpGet(url).then( data => {
     //   this.unauditCancelorderArray = data;
 	  // }).catch(error => {

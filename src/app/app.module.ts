@@ -6,7 +6,14 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { FilterStatusPipe } from './app.pipe';
+import { 
+  FilterStatusPipe, 
+  FilterGiftTypePipe,
+  FilterHandleGiftTypePipe, 
+  IsOrIsnotInvalidAttrValuePipe, 
+  InvalidAttrValueClassPipe, 
+  ChangeGrayPipe 
+} from './app.pipe';
 import { QRCodeModule } from 'angular2-qrcode';
 
 import { Login } from '../pages/login/login';
@@ -94,7 +101,15 @@ let componentsList = [
   DetailTabs
 ];
 @NgModule({
-  declarations: [...componentsList, FilterStatusPipe],
+  declarations: [
+    ...componentsList, 
+    FilterStatusPipe, 
+    FilterGiftTypePipe, 
+    FilterHandleGiftTypePipe,
+    IsOrIsnotInvalidAttrValuePipe,
+    InvalidAttrValueClassPipe,
+    ChangeGrayPipe
+  ],
   imports: [
     BrowserModule,
     QRCodeModule,
