@@ -7,8 +7,8 @@
   },
   "proxies": [
     {
-      "path": "/promotion",
-      "proxyUrl": "http://192.168.31.215:8089/promotion"
+      "path": "/",
+      "proxyUrl": "http://192.168.31.215:8088/"
     }
   ]
 }

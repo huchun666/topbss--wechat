@@ -9,10 +9,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-<!-- <ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)">
-  <ion-refresher-content>
+<ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)">
+  <ion-refresher-content pullingText="下拉刷新" refreshingText="获取中...">
   </ion-refresher-content>
-</ion-refresher> -->
+</ion-refresher>
 <div class="search-box">
   <!-- 搜索框 -->
   <ion-searchbar
@@ -25,7 +25,7 @@
 <div class="product-list">
   <ul>
     <li *ngFor = "let item of creatOrderArray;let i = index">
-      <img [src]="item.fileSeq" alt="产品">
+      <img src="http://www.91topbaby.com/evercos/common/file/content/{{item.fileSeq}}" alt="产品">
       <p>{{item.productName}}</p>
       <div class="btn-add"><button ion-button round (click)="addProductModal(i)">加入配单仓</button></div>
     </li>
@@ -38,7 +38,7 @@
 <div class="btn-noMore" *ngIf = "showNoMoreGift">
   <span>—— 没有更多已兑换赠品了 ——</span>
 </div>
-<!-- <ion-infinite-scroll (ionInfinite)="infiniteGetCreatOrderList($event)">
-  <ion-infinite-scroll-content></ion-infinite-scroll-content>
-</ion-infinite-scroll> -->
+<ion-infinite-scroll (ionInfinite)="infiniteGetCreatOrderList($event)">
+  <ion-infinite-scroll-content loadingText="Loading more data..."></ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>

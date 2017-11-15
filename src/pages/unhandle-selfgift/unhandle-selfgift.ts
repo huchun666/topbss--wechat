@@ -45,38 +45,38 @@ export class UnhandleSelfgift {
   getUnhandleSelfGiftList() {
     let loading = this.appService.loading();
     loading.present();
-	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
-	this.appService.httpGet(url).then( data => {
-		loading.dismiss();
-		if (data.totalRecord == 0) {
-			//空空如也
-			this.noData = true;
-		}else {
-			this.noData = false;
-			if( this.start < data.totalRecord ) {
-				if (this.up) {
-					this.unhandleSeflGiftArray.push(...data.data);
-					this.start += this.limit;
-				}else if (this.down){
-					this.unhandleSeflGiftArray = [...data.data];
-					this.start += this.limit;
-					this.content.scrollTo(0,0,0); 
-				}
-				this.addOrderStatusClass(this.unhandleSeflGiftArray);
+		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
+		this.appService.httpGet(url).then( data => {
+			loading.dismiss();
+			if (data.totalRecord == 0) {
+				//空空如也
+				this.noData = true;
 			}else {
-				this.showNoMoreGift = true;
+				this.noData = false;
+				if( this.start < data.totalRecord ) {
+					if (this.up) {
+						this.unhandleSeflGiftArray.push(...data.data);
+						this.start += this.limit;
+					}else if (this.down){
+						this.unhandleSeflGiftArray = [...data.data];
+						this.start += this.limit;
+						this.content.scrollTo(0,0,0); 
+					}
+					this.addOrderStatusClass(this.unhandleSeflGiftArray);
+				}else {
+					this.showNoMoreGift = true;
+				}
 			}
-		}
-	}).catch(error => {
-		loading.dismiss();
-		console.log(error);
-			let toast = this.toastCtrl.create({
-			message: '网络异常，请稍后再试',
-			duration: 1000,
-			position: 'middle'
+		}).catch(error => {
+			loading.dismiss();
+			console.log(error);
+				let toast = this.toastCtrl.create({
+				message: '网络异常，请稍后再试',
+				duration: 1000,
+				position: 'middle'
+			});
+			toast.present(toast);
 		});
-		toast.present(toast);
-	});
   }
 
   goSelfgift() {
