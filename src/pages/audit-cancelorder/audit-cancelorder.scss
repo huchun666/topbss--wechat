@@ -23,7 +23,6 @@ audit-cancelorder {
 		}
 		.audit-status {
 			font-size: 1.5rem;
-			color: #ff384f;
 			position: absolute;
 			right: 1rem;
 			top: 0;
@@ -36,7 +35,7 @@ audit-cancelorder {
 		}
   }
   .order-list {
-		margin: 0 .8rem .8rem;
+		margin: 0 .8rem 2.4rem;
 		.order-items {
 			background: #fff;
 			margin-top: .8rem;
@@ -51,7 +50,7 @@ audit-cancelorder {
 					display: block;
 					clear: both;
 				}
-	  	}
+			}
 			dt {
 				float: left;
 				max-width: 80px;
@@ -60,7 +59,7 @@ audit-cancelorder {
 					display: block;
 					max-width: 100%;
 				}
-	  	}
+			}
 			dd {
 				color: #333;
 				font-size: 1.5rem;
@@ -108,10 +107,10 @@ audit-cancelorder {
 				color: #333;
 				font-size: 1.5rem;
 				line-height: 24px;
-	  	}
-	  	.member-phone {
+			}
+			.member-phone {
 				color: #999;
-	  	}
+			}
 		}
 		.btn-cancelView {
 			color: #999;
@@ -121,6 +120,18 @@ audit-cancelorder {
 			span {
 				text-decoration: underline;
 			}
-		}
+    }
+    .no-data {
+      margin: 0 auto;
+      text-align: center;
+      img {
+        display: inline-block;
+        width: 10rem;
+        height: 10rem;
+      }
+      p {
+        color: #999;
+      }
+    }
   }
 }

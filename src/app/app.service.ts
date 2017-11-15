@@ -10,7 +10,7 @@ import 'rxjs/add/operator/timeout';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://www.61topbaby.com";
+  static hostUrl: string = "http://192.168.31.202:8080";
 
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -18,8 +18,13 @@ export class AppConfig {
   //接口url
   static API: any = {
     login: "/assets/data/login.json",
-    getProductList: "",
-    getOrderList: ""
+    getOrderList: "/rest/order/bssList",    //门店/导购员订单列表
+    getCancelorder: "/rest/order/cancel/list",    //待审核/已审核取消订单列表
+    auditCancelOrder: "/rest/order/cancel/approval",    //审核取消订单
+    getReturnorderList: '/rest/order/return/list',    //未处理/已处理退货订单列表
+    returnDetail: '/rest/order/return/details',    //退货订单详情
+    returnReceived: '/rest/order/return/received',    // 退货-确认收货
+    auditReturnOrder: '/rest/order/return/approval',    //审核退货订单
   };
   
 }

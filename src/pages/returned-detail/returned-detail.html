@@ -1,68 +1,55 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title text-center>已审核退货详情</ion-title>
-  </ion-navbar>
-</ion-header>
-<ion-content>
-	<div class="order-list">
-		<div class="order-items">
-			<!-- 订单编号 -->
-			<div class="order-title">
-				<h2>订单编号：<span>{{returnedDetail[0].orderId}}</span></h2>
-				<!--color auditing or pass -->
-				<span class="audit-status auditing" *ngIf = "returnedDetail[0].unauditState=='3'">申请已拒绝</span> 
-				<span class="audit-status auditing" *ngIf = "returnedDetail[0].unauditState=='4'">客户已退货</span> 
-				<span class="audit-status auditing" *ngIf = "returnedDetail[0].unauditState=='5'">退款已完成</span> 
-			</div>
-			<!-- 商品1 -->
-			<div class="order-item" *ngFor = "let single of returnedDetail[0].basicData">
-			  <dl>
-			    <dt>
-			      <img class="my-picture" src="{{single.imgUrl}}" alt="小裙子">
-			    </dt>
-			    <dd class="product-title">{{single.goodsName}}</dd>
-			    <dd class="sku-list">
-			      <span>{{single.SKUSize}}</span>
-			      <span>{{single.SKUColor}}</span>
-			      <span>{{single.SKUType}}</span>
-			    </dd>
-			    <dd class='price'>￥{{single.unitPrice}}</dd>
-			    <dd class="count">X{{single.number}}</dd>
-			  </dl>
-			</div>
-
-			<div class="orderOprate">
-				<dl>
-					<dt>
-						
-					</dt>
-					<dd class="total">{{returnedDetail[0].totleNumber}}件商品，实付￥{{returnedDetail[0].totlePrice}}</dd>
-				</dl>
-			</div>
-		</div>
-
-		<div class="return-detail">
-			<ul>
-					<li>退货数量：{{returnedDetail[0].returnNumber}}</li>
-					<li>联系方式：{{returnedDetail[0].contactWay}}</li>
-					<li>退货方式：{{returnedDetail[0].returnWay}}</li>
-					<li>是否有发票：{{returnedDetail[0].hasInvoice}}</li>
-					<li>退货原因：{{returnedDetail[0].returnReason}}</li>
-					<li>问题描述：{{returnedDetail[0].problemDescription}}</li>
-					<li class="img-list">
-						<img src="{{itemImg}}" alt="" *ngFor = "let itemImg of returnedDetail[0].detailImg">
-					</li>
-			</ul>
-		</div>
-	</div>
-		
-	<div class="time-list">
-		<ul>
-			<li>退货申请时间：{{returnedDetail[0].applyReturnTime}}</li>
-			<li>申请审核时间：{{returnedDetail[0].applyAuditTime}}</li>
-			<li>确认收货时间：{{returnedDetail[0].affirmTakeGoodsTime}}</li>
-			<li>货款退换时间：{{returnedDetail[0].goodsMoneyReturnChangeTime}}</li>
-		</ul>
-	</div>
-
-</ion-content>
+    <ion-navbar>
+      <ion-title text-center>退货详情</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content>
+    <div class="order-list">
+      <div class="order-items">
+        <!-- 订单编号 -->
+        <div class="order-title">
+          <h2>订单编号：<span>{{returnedDetail.orderReturn.returnOrderId}}</span></h2>
+          <!--color auditing or pass -->
+          <span class="audit-status pass">{{returnedDetail.orderReturn.status | setReturnOrderStatus}}</span> 
+        </div>
+        <!-- 商品1 -->
+        <div class="order-item">
+          <dl>
+            <dt>
+              <img class="my-picture" [src]="returnedDetail.itemProductSkuDTO.productSkuDTO.fileName" [alt]="returnedDetail.itemProductSkuDTO.productSkuDTO.productName">
+            </dt>
+            <dd class="product-title">{{returnedDetail.itemProductSkuDTO.productSkuDTO.productName}}</dd>
+            <dd class="sku-list">
+              <!-- <span>{{returnedDetail.itemProductSkuDTO.productSkuDTO.attrValueList}}</span> -->
+              <span *ngFor="let sku of returnedDetail.itemProductSkuDTO.productSkuDTO.attrValueList"> {{sku.attrValue}} </span>
+            </dd>
+            <dd class='price'>￥{{returnedDetail.itemProductSkuDTO.unitPrice}}</dd>
+            <dd class="count">X{{returnedDetail.itemProductSkuDTO.number}}</dd>
+          </dl>
+        </div>
+        
+        <div class="orderOprate">
+          <dl>
+            <dt>
+            </dt>
+            <dd class="total">共{{returnedDetail.orderReturn.number}}件商品，实付￥{{returnedDetail.orderReturn.totalReturnPrice}}</dd>
+          </dl>
+        </div>
+      </div>
+  
+      <div class="return-detail">
+        <ul>
+          <li>退货数量：{{returnedDetail.orderReturn.number}}</li>
+          <li>联系方式：{{returnedDetail.orderReturn.mobile}}</li> 
+          <li>退货方式：{{returnedDetail.orderReturn.returnType==1?'其他': '快递'}}</li>
+          <li>是否有发票：{{returnedDetail.orderReturn.invoiced==1?'有': '无'}}</li>
+          <li>退货原因：{{returnedDetail.orderReturn.returnReason}}</li>
+          <li>问题描述：{{returnedDetail.orderReturn.detail}}</li>
+          <!-- <li class="img-list">
+            <img src="{{itemImg}}" alt="" *ngFor = "let itemImg of returnedDetail[0].detailImg">
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </ion-content>
+  

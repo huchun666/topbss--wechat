@@ -17,9 +17,9 @@ export class UnauditTabs {
   }
   setCount(type, num) {
 	if (type === '0') {
-	  return "取消订单" + "(" + num + ")";
+	  return "待审核取消订单" + "(" + num + ")";
 	} else {
-	  return "退货订单" + "(" + num + ")";
+	  return "待处理退货订单" + "(" + num + ")";
 	}
   }
 }

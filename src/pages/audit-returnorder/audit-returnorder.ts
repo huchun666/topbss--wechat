@@ -1,164 +1,129 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { ReturnedDetail } from '../returned-detail/returned-detail';
+import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'audit-returnorder',
   templateUrl: 'audit-returnorder.html'
 })
 export class AuditReturnorder {
-	auditReturnorderArray: any;
-	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
-		//getAuditReturnorderList();
-		this.auditReturnorderArray = [
-			{
-				id: 3,
-				orderId: '20161104054453',
-				totlePrice: '606',
-				memberPhone: '123333333333',
-				unauditState: '3',//1、 申请审核中 2、申请已通过 3、申请已拒绝 4、客户已退货 5、退款已完成
-				totleNumber: '8',
-				returnNumber: '4',
-				contactWay: '1568888888',
-				returnWay: '其他',//退货方式
-				hasInvoice: false,//是否要发票
-				returnReason: '七天无理由退换',
-				problemDescription: "嗯，啊，哦，这个嘛",
-				detailImg: [
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png'
-				],
-				returnPrice: '',//拟退金额
-				applyReturnTime: '',//申请退货时间
-				applyAuditTime: '',//申请审核时间
-				affirmTakeGoodsTime: '',//确认收货时间
-				goodsMoneyReturnChangeTime: '',//货款退换时间
-				basicData: [
-					{
-						goodsName: '可爱的小裙子 厚实的 保暖 秋冬季',
-						SKUSize: '140',
-						SKUColor: '蓝色',
-						SKUType: '无袖',
-						unitPrice: '128',
-						number: 4,
-						imgUrl: "./assets/image/productimg.png"
-					},
-					{
-						goodsName: '可爱的小裙子 厚实的 保暖 秋冬季',
-						SKUSize: '150',
-						SKUColor: '红色',
-						SKUType: '有袖',
-						unitPrice: '128',
-						number: 4,
-						imgUrl: "./assets/image/productimg.png"
-					}
-				]
-			},{
-				id: 4,
-				orderId: '20161104054453',
-				totlePrice: '606',
-				memberPhone: '123333333333',
-				unauditState: '4',//1、 申请审核中 2、申请已通过 3、申请已拒绝 4、客户已退货 5、退款已完成
-				totleNumber: '8',
-				returnNumber: '4',
-				contactWay: '1568888888',
-				returnWay: '其他',//退货方式
-				hasInvoice: false,//是否要发票
-				returnReason: '七天无理由退换',
-				problemDescription: "嗯，啊，哦，这个嘛",
-				detailImg: [
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png'
-				],
-				returnPrice: '',//拟退金额
-				applyReturnTime: '',//申请退货时间
-				applyAuditTime: '',//申请审核时间
-				affirmTakeGoodsTime: '',//确认收货时间
-				goodsMoneyReturnChangeTime: '',//货款退换时间
-				basicData: [
-					{
-						goodsName: '可爱的小裙子 厚实的 保暖 秋冬季',
-						SKUSize: '140',
-						SKUColor: '蓝色',
-						SKUType: '无袖',
-						unitPrice: '128',
-						number: 4,
-						imgUrl: "./assets/image/productimg.png"
-					},
-					{
-						goodsName: '可爱的小裙子 厚实的 保暖 秋冬季',
-						SKUSize: '150',
-						SKUColor: '红色',
-						SKUType: '有袖',
-						unitPrice: '128',
-						number: 4,
-						imgUrl: "./assets/image/productimg.png"
-					}
-				]
-			},{
-				id: 5,
-				orderId: '20161104054453',
-				totlePrice: '606',
-				memberPhone: '123333333333',
-				unauditState: '5',//1、 申请审核中 2、申请已通过 3、申请已拒绝 4、客户已退货 5、退款已完成
-				totleNumber: '8',
-				returnNumber: '4',
-				contactWay: '1568888888',
-				returnWay: '其他',//退货方式
-				hasInvoice: false,//是否要发票
-				returnReason: '七天无理由退换',
-				problemDescription: "嗯，啊，哦，这个嘛",
-				detailImg: [
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png',
-					'./assets/image/productimg.png'
-				],
-				returnPrice: '',//拟退金额
-				applyReturnTime: '',//申请退货时间
-				applyAuditTime: '',//申请审核时间
-				affirmTakeGoodsTime: '',//确认收货时间
-				goodsMoneyReturnChangeTime: '',//货款退换时间
-				basicData: [
-					{
-						goodsName: '可爱的小裙子 厚实的 保暖 秋冬季',
-						SKUSize: '140',
-						SKUColor: '蓝色',
-						SKUType: '无袖',
-						unitPrice: '128',
-						number: 4,
-						imgUrl: "./assets/image/productimg.png"
-					},
-					{
-						goodsName: '可爱的小裙子 厚实的 保暖 秋冬季',
-						SKUSize: '150',
-						SKUColor: '红色',
-						SKUType: '有袖',
-						unitPrice: '128',
-						number: 4,
-						imgUrl: "./assets/image/productimg.png"
-					}
-				]
-			}
-		]
+  auditReturnorderArray: any;
+  currentPage: number = 1;
+  pageSize: number = 10;up: Boolean = true;//上拉刷新和第一次进入页面时
+  down: Boolean = false;//下拉刷新和返回上一级页面时
+  noData:Boolean = false;
+	constructor(
+    public navCtrl: NavController, 
+    public modalCtrl: ModalController, 
+    public alertCtrl: AlertController, 
+    public appService: AppService) {
+      //getAuditReturnorderList();
+      this.auditReturnorderArray = [
+        { 
+          orderId: "20170110068552",
+          orderReturnSeq: "20170110068552",
+          mobile: "18321763810",
+          number: 1,
+          unitPrice: 100,
+          status: "0",
+          productSkuDTO: {
+            productSeq: 289,
+            skuSeq: 939,
+            productName: "MQD2016夏季印花短袖T恤216220510",
+            fileName: './assets/image/productimg.png',
+            fileSeq: 7954,
+            attrValueList: [
+              {
+                skuSeq: null,
+                attrSeq: 322,
+                attrName: "尺码",
+                attrValue: "100（3-4岁）",
+                type: null,
+                fileSeq: null,
+                price: null,
+                selectedAttrValue: null,
+                invalidAttrValue: null
+              }
+            ],
+            fallback: null
+          }
+        },
+        { 
+          orderId: "20170110068552",
+          orderReturnSeq: "20170110068552",
+          mobile: "18321763810",
+          number: 1,
+          unitPrice: 100,
+          status: "1",
+          productSkuDTO: {
+            productSeq: 289,
+            skuSeq: 939,
+            productName: "MQD2016夏季印花短袖T恤216220510",
+            fileName: './assets/image/productimg.png',
+            fileSeq: 7954,
+            attrValueList: [
+              {
+                skuSeq: null,
+                attrSeq: 322,
+                attrName: "尺码",
+                attrValue: "100（3-4岁）",
+                type: null,
+                fileSeq: null,
+                price: null,
+                selectedAttrValue: null,
+                invalidAttrValue: null
+              }
+            ],
+            fallback: null
+          }
+        },
+      ]
 	}
 	goReturnedDetail(index) {
-		let contactModal = this.modalCtrl.create(ReturnedDetail,{ indexId: this.auditReturnorderArray[index].id });
+		let contactModal = this.modalCtrl.create(ReturnedDetail,{ indexId: this.auditReturnorderArray[index].orderReturnSeq });
     contactModal.present();
 	}
 	getAuditReturnorderList() {
 		// 已审核退货订单 请求数据
-	  // let url = this.appConFig.API.;page=1;unauditState=3,4,5 ;
-	  // this.appService.httpGet(url).then( data => {
-    //   this.auditReturnorderArray = data;
-	  // }).catch(error => {
-    //  console.log(error);
-    // });
-	}
+	  let loading = this.appService.loading();
+	  let url = `${AppConfig.hostUrl + AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.pageSize * (this.currentPage - 1)}&limit=${this.pageSize}`
+	  this.appService.httpGet(url).then( data => {
+      loading.dismiss();
+      if (data.count == 0 && this.auditReturnorderArray.length == 0) {
+		    //空空如也
+		    this.noData = true;
+	    } else {
+        this.noData = false;
+        if(this.up){
+          this.auditReturnorderArray.push(...data.data);
+          this.currentPage++;
+        } else if(this.down){
+          this.auditReturnorderArray = data.data;
+        }
+      }
+	  }).catch(error => {
+     console.log(error);
+    });
+  }
+  
+  // 下拉刷新请求数据
+  doRefresh(refresher) {
+    this.down = true;
+    this.up = false;
+    setTimeout(() => {
+      this.currentPage = 1;
+      // this.getAuditReturnorderList();
+      refresher.complete();
+    },1000)
+  }
+  
+  // 上拉刷新请求数据
+  infiniteGetSelfGiftList(infiniteScroll) {
+    this.down = false;
+    this.up = true;
+    setTimeout(() => {
+      // this.getAuditReturnorderList();
+      infiniteScroll.complete();
+    },1000)
+  }
 }

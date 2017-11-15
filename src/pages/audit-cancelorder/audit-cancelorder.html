@@ -4,33 +4,52 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-	<div class="order-list">
-		<div class="order-items" *ngFor = "let item of audutCancelorderArray;let i = index">
-			<!-- 订单编号 -->
-			<div class="order-title">
-				<h2>订单编号：<span>{{item.orderId}}</span></h2>
-				<!--color auditing or pass -->
-				<span class="audit-status pass" *ngIf = "item.unauditState=='2'">申请已通过</span> 
-				<span class="audit-status auditing" *ngIf = "item.unauditState=='3'">审核已拒绝</span> 
-			</div>
-			<!-- 商品1 -->
-			<div class="order-item" *ngFor = "let single of item.basicData">
-			  <dl>
-			    <dt>
-			      <img class="my-picture" src="{{single.imgUrl}}" alt="小裙子">
-			    </dt>
-			    <dd class="product-title">{{single.goodsName}}</dd>
-			    <dd class="sku-list">
-			      <span>{{single.SKUSize}}</span>
-			      <span>{{single.SKUColor}}</span>
-			      <span>{{single.SKUType}}</span>
-			    </dd>
-			    <dd class='price'>￥{{single.unitPrice}}</dd>
-			    <dd class="count">X{{single.number}}</dd>
-			  </dl>
-			</div>
-		</div>
 
-	</div>
+  <div class="order-list">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+    </ion-refresher>
+    <div class="order-items" *ngFor="let item of audutCancelorderArray;let i = index">
+      <!-- 订单编号 -->
+      <div class="order-title">
+        <h2>订单编号：
+          <span>{{item.orderId}}</span>
+        </h2>
+        <!--color auditing or pass -->
+        <span class="audit-status pass">{{item.status | setCancelOrderStatus}}</span>
+      </div>
+
+      <div class="order-item" *ngFor="let single of item.itemList">
+        <dl>
+          <dt>
+            <img class="my-picture" [src]="single.productSkuDTO.fileName" [alt]="single.productSkuDTO.productName">
+          </dt>
+          <dd class="product-title">{{ single.productSkuDTO.productName }}</dd>
+          <dd class="sku-list">
+            <span *ngFor="let sku of single.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>
+          </dd>
+          <dd class='price'>￥{{ single.unitPrice }}</dd>
+          <dd class="count">X{{ single.number }}</dd>
+        </dl>
+      </div>
+
+      <div class="orderOprate">
+        <dl>
+          <dd class="total">{{item.amount}}件商品，实付￥{{item.payAmount}}</dd>
+          <dd class="member-phone">会员手机：{{item.memberMobile}}</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="no-data" *ngIf = "noData">
+      <img src="../../assets/image/nodata.png" alt="">
+      <p>空空如也</p>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </div>
 
 </ion-content>

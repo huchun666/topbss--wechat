@@ -121,6 +121,18 @@ audit-returnorder {
 			span {
 				text-decoration: underline;
 			}
-		}
+    }
+    .no-data {
+      margin: 0 auto;
+      text-align: center;
+      img {
+        display: inline-block;
+        width: 10rem;
+        height: 10rem;
+      }
+      p {
+        color: #999;
+      }
+    }
   }
 }
