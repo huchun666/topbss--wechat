@@ -12,7 +12,7 @@
           <span>{{item.orderId}}</span>
         </h2>
         <!--color auditing or pass -->
-        <span class="audit-status pass">{{item.status | setReturnOrderStatus}}</span>
+        <span [ngClass]="{auditStatus: true, pass:(item.status | setReturnOrderStatus).pass , auditing:(item.status | setReturnOrderStatus).audit} ">{{(item.status | setReturnOrderStatus).status}}</span>
       </div>
   
       <div class="order-item">

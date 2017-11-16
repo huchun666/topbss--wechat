@@ -8,7 +8,8 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class UnhandleExpressgift {
 	unhandleExpressGiftArray: any;
-	start: number;
+	start: number = 0;
+	limit: number = 10;
     showNoMoreGift: Boolean = false;
 	noData: Boolean;
 	up: Boolean;//上拉刷新和第一次进入页面时
@@ -16,13 +17,12 @@ export class UnhandleExpressgift {
 	constructor(public navCtrl: NavController, 
 		public modalCtrl: ModalController, 
 		public alertCtrl: AlertController,
-		public appConFig: AppConfig, 
 		public appService: AppService,
 		public toastCtrl: ToastController
 	) {
 		//请求接口得到数据
-		//this.down = false;
-		//this.up = true;
+		//this.down = true;
+		//this.up = false;
 		//getUnhandleExpressGiftList();
 		this.unhandleExpressGiftArray = [
 			{
@@ -214,32 +214,32 @@ export class UnhandleExpressgift {
 		]
 	}
 	getUnhandleExpressGiftList() {
-		let loading = this.appService.loading();
+		// let loading = this.appService.loading();
 		// loading.present();
-		let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=2&start=$(this.start)&limit=10`;
-		this.appService.httpGet(url).then( data => {
-			loading.dismiss();
-			if (data.totalRecord == 0) {
-				//空空如也
-				this.noData = true;
-			}else {
-				this.noData = false;
-				if( this.start < data.totalRecord ) {
-					if (this.up) {
-						this.unhandleExpressGiftArray.push(...data.data);
-						this.start+=10;
-					}else if (this.down){
-						this.unhandleExpressGiftArray = [...data.data];
-						this.start+=10;
-					}
-				}else {
-					this.showNoMoreGift = true;
-				}
-			}
+		// let url = `${AppConfig.API.getGiftList}?brandshopSeq=${this.brandshopSeqId}&type=2&start=${this.start}&limit=${this.limit}`;
+		// this.appService.httpGet(url).then( data => {
+		// 	loading.dismiss();
+		// 	if (data.totalRecord == 0) {
+		// 		//空空如也
+		// 		this.noData = true;
+		// 	}else {
+		// 		this.noData = false;
+		// 		if( this.start < data.totalRecord ) {
+		// 			if (this.up) {
+		// 				this.unhandleExpressGiftArray.push(...data.data);
+		// 				this.start += this.limit;
+		// 			}else if (this.down){
+		// 				this.unhandleExpressGiftArray = [...data.data];
+		// 				this.start += this.limit;
+		// 			}
+		// 		}else {
+		// 			this.showNoMoreGift = true;
+		// 		}
+		// 	}
 		
-		}).catch(error => {
-			console.log(error);
-		});
+		// }).catch(error => {
+		// 	console.log(error);
+		// });
     }
 	goExpressgift() {
 		const orderModal = this.modalCtrl.create(HandleExpressgift);
@@ -282,7 +282,7 @@ export class UnhandleExpressgift {
 						// 	expressCompany: data.companyName,
 						// 	expressNo: data.orderNum
 						// }
-						// let url = this.appConFig.API.;
+						// let url = AppConfig.API.confirmExpressInfo;
 						// this.appService.httpPost(url, body).then( data => {
 						// 	if (data.type =="success") {
 						// 		this.start = 0;
@@ -304,7 +304,7 @@ export class UnhandleExpressgift {
 		});
 		alert.present();
 	}
-	refreshGetSelfGiftList(refresher) {
+	refreshGetUnhandleExpressGiftList(refresher) {
 	// 下拉刷新请求数据
 	// this.start = 0;
 	// this.down = true;
@@ -314,7 +314,7 @@ export class UnhandleExpressgift {
 	//   refresher.complete();
 	// },1000)
 	}
-	infiniteGetSelfGiftList(infiniteScroll) {
+	infiniteGetUnhandleExpressGiftList(infiniteScroll) {
 	// 上拉刷新请求数据
 	// this.down = false;
 	// this.up = true;

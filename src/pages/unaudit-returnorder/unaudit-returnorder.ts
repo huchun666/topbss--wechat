@@ -19,7 +19,7 @@ export class UnauditReturnorder{
     public modalCtrl: ModalController, 
     public alertCtrl: AlertController, 
     public appService: AppService) {
-      //getUnauditReturnorderList();
+      //this.getUnauditReturnorderList();
       
       this.unauditReturnorderArray = [
         { 
@@ -89,7 +89,7 @@ export class UnauditReturnorder{
           number: 1,
           buyNumber: 2,
           unitPrice: 100,
-          status: "1",
+          status: "2",
           productSkuDTO: {
             productSeq: 289,
             skuSeq: 939,
@@ -119,7 +119,7 @@ export class UnauditReturnorder{
           number: 1,
           buyNumber: 2,
           unitPrice: 100,
-          status: "1",
+          status: "3",
           productSkuDTO: {
             productSeq: 289,
             skuSeq: 939,
@@ -149,7 +149,7 @@ export class UnauditReturnorder{
           number: 1,
           buyNumber: 2,
           unitPrice: 100,
-          status: "1",
+          status: "4",
           productSkuDTO: {
             productSeq: 289,
             skuSeq: 939,
@@ -189,7 +189,7 @@ export class UnauditReturnorder{
 			    handler: () => {
 						// 点击确认后的执行代码
 						// 将当前点击的index状态改成4
-						let url = `${AppConfig.hostUrl}${AppConfig.API.returnReceived}`;
+						let url = `${AppConfig.hostUrl+AppConfig.API.returnReceived}`;
 						let body = {
              id: this.unauditReturnorderArray[index].orderReturnSeq
             }

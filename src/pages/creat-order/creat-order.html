@@ -4,10 +4,15 @@
     <span class='icon-creat-order' (touchstart)="orderRepertory()">
       <img src="../assets/image/creatorder.png" alt="配单仓">
       配单仓
+      <ion-badge item-end>{{warehouseCount}}</ion-badge>
     </span>
   </ion-navbar>
 </ion-header>
 <ion-content>
+<!-- <ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)">
+  <ion-refresher-content>
+  </ion-refresher-content>
+</ion-refresher> -->
 <div class="search-box">
   <!-- 搜索框 -->
   <ion-searchbar
@@ -19,16 +24,21 @@
 </div>
 <div class="product-list">
   <ul>
-    <li *ngFor="let product of productList">
-      <img [src]="product.imageName" alt="产品">
-      <p>{{ product.name }}</p>
-      <div class="btn-add"><button ion-button round (click)="addProductModal(product)">加入配单仓</button></div>
+    <li *ngFor = "let item of creatOrderArray;let i = index">
+      <img [src]="item.fileSeq" alt="产品">
+      <p>{{item.productName}}</p>
+      <div class="btn-add"><button ion-button round (click)="addProductModal(i)">加入配单仓</button></div>
     </li>
-    <!-- <li>
-      <img src="../assets/image/productimg2.png" alt="产品">
-      <p>可爱小裙子 女童 秋冬 时尚QS1226603</p>
-      <div class="btn-add"><button ion-button round (click)="addProductModal()">加入配单仓</button></div>
-    </li> -->
   </ul>
 </div>
+<div class="no-data" *ngIf = "false"><!-- noData -->
+  <img src="../../assets/image/nodata.png" alt="">
+  <p>空空如也</p>
+</div>
+<div class="btn-noMore" *ngIf = "showNoMoreGift">
+  <span>—— 没有更多已兑换赠品了 ——</span>
+</div>
+<!-- <ion-infinite-scroll (ionInfinite)="infiniteGetCreatOrderList($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll> -->
 </ion-content>

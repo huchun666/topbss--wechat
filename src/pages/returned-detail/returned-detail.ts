@@ -80,7 +80,7 @@ export class ReturnedDetail {
 
 	getReturnedDetailList(listIndexId){
 		// 点击审核时的详情页 请求数据
-		// let url = `${AppConfig.hostUrl}${AppConfig.API.returnDetail}?id=${this.listIndexId}`;
+		// let url = `${AppConfig.hostUrl+AppConfig.API.returnDetail}?id=${this.listIndexId}`;
 		// this.appService.httpGet(url).then( data=>{
     //   this.returnedDetail = data;
     // }).catch( error=>{

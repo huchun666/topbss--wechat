@@ -32,6 +32,7 @@ export class UnauditCancelorder {
           orderStatus: "4",
           cancelTime: 1473157207000,
           createTime: 1473157148000,
+          audit: true,
           itemList: [
             {
               orderItemSeq: 2971,

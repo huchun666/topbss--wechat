@@ -57,7 +57,7 @@
 			<div class="order-title">
 				<h2>订单编号：<span>{{ order.orderId }}</span></h2>
 				<!--color auditing or pass -->
-				<span class="audit-status pass">{{ order.status | setOrderStatus }}</span> 
+        <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>
 			</div>
 			<!-- 商品1 -->
 			<div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">

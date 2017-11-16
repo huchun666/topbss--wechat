@@ -7,7 +7,8 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class HandleExpressgift {
   handleExpressGiftArray: any;
-  start: number;
+  start: number = 0;
+  limit: number = 10;
   showNoMoreGift: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
@@ -15,12 +16,11 @@ export class HandleExpressgift {
 	constructor(
 		public navCtrl: NavController, 
 		public alertCtrl: AlertController,
-		public appConFig: AppConfig, 
 		public appService: AppService,
 	) {
 	// 获取已兑换快递赠品列表
-	// this.down = false;
-	// this.up = true;
+	// this.down = true;
+	// this.up = false;
     // getHandleExpressGiftList()
     this.handleExpressGiftArray = [
 			{
@@ -212,35 +212,34 @@ export class HandleExpressgift {
 		]
   }
   getHandleExpressGiftList() {
-	let loading = this.appService.loading();
+	// let loading = this.appService.loading();
 	// loading.present();
-    let url = `$(this.appConFig.API.)?brandshopSeq=$(this.brandshopSeqId)&type=3&start=$(this.start)&limit=10`;
-    this.appService.httpGet(url).then( data => {
-		loading.dismiss();
-	    if (data.totalRecord == 0) {
-		    //空空如也
-		    this.noData = true;
-	    }else {
-		    this.noData = false;
-		    if( this.start < data.totalRecord ) {
-					if (this.up) {
-						this.handleExpressGiftArray.push(...data.data);
-		        		this.start+=10;
-					}else if (this.down){
-						this.handleExpressGiftArray = [...data.data];
-						this.start+=10;
-					}
-		     
-		    }else {
-		      this.showNoMoreGift = true;
-		    }
-	    }
+    // let url = `${AppConfig.API.getGiftList}?brandshopSeq=${this.brandshopSeqId}&type=3&start=${this.start}&limit=${this.limit}`;
+    // this.appService.httpGet(url).then( data => {
+	// 	loading.dismiss();
+	//     if (data.totalRecord == 0) {
+	// 	    //空空如也
+	// 	    this.noData = true;
+	//     }else {
+	// 	    this.noData = false;
+	// 	    if( this.start < data.totalRecord ) {
+	// 		  if (this.up) {
+	// 			this.handleExpressGiftArray.push(...data.data);
+	// 	        this.start += this.limit;
+	// 		  }else if (this.down){
+	// 			this.handleExpressGiftArray = [...data.data];
+	// 			this.start += this.limit;
+	// 		  }
+	// 	    }else {
+	// 	      this.showNoMoreGift = true;
+	// 	    }
+	//     }
 	
-	  }).catch(error => {
-		  console.log(error);
-	  });
+	//   }).catch(error => {
+	// 	  console.log(error);
+	//   });
   }
-  refreshGetSelfGiftList(refresher) {
+  refreshGetHandleExpressGiftList(refresher) {
 	// 下拉刷新请求数据
 	// this.start = 0;
 	// this.down = true;
@@ -250,7 +249,7 @@ export class HandleExpressgift {
 	//   refresher.complete();
 	// },1000)
   }
-  infiniteGetSelfGiftList(infiniteScroll) {
+  infiniteGetHandleExpressGiftList(infiniteScroll) {
 	// 上拉刷新请求数据
 	// this.down = false;
 	// this.up = true;

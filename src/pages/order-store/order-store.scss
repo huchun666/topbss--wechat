@@ -84,6 +84,9 @@ order-store {
 			text-align: center;
 			}
 		}
+		.changeGray {
+			background: #ccc;
+		}
   }
   .total {
 		border: solid 1px #ccc;
@@ -168,5 +171,25 @@ order-store {
 				font-size: 1.2rem;
 			}
 		}
+  }
+  .btn-noMore {
+	text-align: center;
+	padding-bottom: 2rem;
+	span {
+		font-size: 1.2rem;
+		color: #999;
+	}
+  }
+  .no-data {
+	margin: 0 auto;
+	text-align: center;
+	img {
+		display: inline-block;
+		width: 10rem;
+		height: 10rem;
+	}
+	p {
+		color: #999;
+	}
   }
 }

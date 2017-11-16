@@ -27,6 +27,7 @@ export class ReturnDetail {
           name: '18888888888',
           returnType: '1',
           totalReturnPrice: '100',
+          status: '1',
           returnReason: '七天无理由退货'
         },
         order: {
@@ -74,7 +75,6 @@ export class ReturnDetail {
             fallback: null
           }
         },
-
       }
 	}
 	agreeReturn() {
@@ -97,7 +97,7 @@ export class ReturnDetail {
 			  {
 			    text: '确认',
 			    handler: data => {
-            let url = `${AppConfig.hostUrl}${AppConfig.API.auditReturnOrder}`;
+            let url = `${AppConfig.hostUrl+AppConfig.API.auditReturnOrder}`;
 			    	let body = {
               id: this.listIndexId,
               isAgree: 1,
@@ -129,7 +129,7 @@ export class ReturnDetail {
 			  {
 			    text: '确认',
 			    handler: () => {
-            let url = `${AppConfig.hostUrl}${AppConfig.API.auditReturnOrder}`;
+            let url = `${AppConfig.hostUrl+AppConfig.API.auditReturnOrder}`;
 			    	let data = {
               id: this.listIndexId,
               isAgree: 0,
@@ -148,7 +148,7 @@ export class ReturnDetail {
 	}
 	getReturnDetailList(){
     // 待审核退货订单 点击审核时的详情页 请求数据
-    let url = `${AppConfig.hostUrl}${AppConfig.API.returnDetail}?id=${this.listIndexId}`;
+    let url = `${AppConfig.hostUrl+AppConfig.API.returnDetail}?id=${this.listIndexId}`;
 		this.appService.httpGet(url).then( data=>{
       this.returnDetail = data;
     }).catch( error=>{

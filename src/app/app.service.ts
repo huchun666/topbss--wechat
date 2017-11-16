@@ -25,6 +25,18 @@ export class AppConfig {
     returnDetail: '/rest/order/return/details',    //退货订单详情
     returnReceived: '/rest/order/return/received',    // 退货-确认收货
     auditReturnOrder: '/rest/order/return/approval',    //审核退货订单
+    getGiftList: "/promotion/member/gift/account/getGiftList",//各种赠品列表
+    getUnhandleGiftCount: "/promotion/member/gift/account/getUnhandleGiftCount",//待处理自提订单列表
+    confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",//确认预约时间
+    confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
+    getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
+    getCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
+    getProductSkuWithDefault: "/product/getProductSkuWithDefault",//SKU初始加载
+    getValidSKUAttrValue: "/product/getValidSKUAttrValue",//SKU切换
+    affirmAdd: "/rest/order/warehouse/add",//添加配单行接口
+    warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
+    generateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
+    deleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
   };
   
 }
@@ -64,6 +76,17 @@ export class AppService {
   //put request
   httpPut(url: string, parameters: any) {
   	return this.http.put(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json())
+      .catch(error => {
+        console.log(`访问错误:${error}`);
+        this.handleError(error);
+      }
+    );
+  }
+
+  //delete request
+  httpDelete(url: string, parameters: any) {
+    return this.http.delete(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);

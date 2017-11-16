@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-	<!-- <ion-refresher (ionRefresh)="doRefresh($event)">
+	<!-- <ion-refresher (ionRefresh)="refreshGetHandleSelfGiftList($event)">
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher> -->
@@ -16,8 +16,9 @@
 		<dd class="product-title">
 		  <h2>{{item.giftName}}</h2>
 			<!-- success unstart -->
-			<span class="unstart" *ngIf = "item.giftType=='0'">预约兑换</span>
-		  <span class="unstart" *ngIf = "item.giftType=='1'">到店兑换</span>
+			<!-- <span class="unstart" *ngIf = "item.giftType=='0'">预约兑换</span>
+			<span class="unstart" *ngIf = "item.giftType=='1'">到店兑换</span> -->
+			<span class="unstart">{{ item.giftType | setHandleGiftType }}</span>
 		</dd>
 		  <!-- <dd class="reserve-phone">
 			<span>预约手机：13761489650</span>
@@ -42,7 +43,7 @@
 	<div class="btn-noMore" *ngIf = "showNoMoreGift">
 		<span>—— 没有更多已兑换赠品了 ——</span>
 	</div>
-	<!-- <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
+	<!-- <ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll> -->
 </ion-content>
