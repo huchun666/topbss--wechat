@@ -4,7 +4,7 @@
 		<ion-list>
 		  <ion-item>
 		    <ion-thumbnail item-start>
-		      <img [src]="attrMap[0][0].fileSeq">
+					<img [src]="attrImageSeq | skuImage">
 		    </ion-thumbnail>
 				<h2>{{ productName }}</h2>
 		  </ion-item>
@@ -22,7 +22,7 @@
 						[value]="skuAttr.attrValue" 
 						[disabled]="skuAttr.invalidAttrValue | isOrIsnotInvalidAttrValue"
 						(click)="changeRadio($event,i)"
-						/>{{ skuAttr.attrValue }} 
+						/>{{ skuAttr.attrValue }}
 					</label>
 				</div>
 			</div>

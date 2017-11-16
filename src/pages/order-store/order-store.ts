@@ -116,7 +116,6 @@ export class OrderStore {
               }
           }
       ]
-      this.orderStoreDataArray.map((x,i)=>console.log(x,i))
   }
 
   getOrderStore() {
@@ -147,10 +146,28 @@ export class OrderStore {
     //     console.log(error);
     //   });
   }
+
   //加
   addCount(index) {
     if (this.orderStoreDataArray[index].stock > this.orderStoreDataArray[index].productNum) {
       this.orderStoreDataArray[index].productNum++;
+      // let body = [];
+      // let url = AppConfig.API.update;
+      // this.orderStoreDataArray.map(function(item) {
+      //   let order = {};
+      //   order['warehouseItemId'] = item.warehouseItemId;
+      //   order['itemPrice'] = item.itemPrice;
+      //   order['productNum'] = item.productNum;
+      //   order['remark'] = item.remark;
+      //   body.push(order);
+      // })
+      // this.appService.httpPut(url, body).then( data => {
+      //   if (data.type=="success") {
+      //     console.log("success!")
+      //   }
+      // }).catch(error=>{
+      //   console.log(error);
+      // })
     }else {
       let toast = this.toastCtrl.create({
         message: '不能添加更多宝贝了哦',
@@ -163,22 +180,39 @@ export class OrderStore {
   }
   //减
   removeCount(index) {
-	  this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
+    this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
+    // let body = [];
+    // let url = AppConfig.API.update;
+    // this.orderStoreDataArray.map(function(item) {
+    //   let order = {};
+    //   order['warehouseItemId'] = item.warehouseItemId;
+    //   order['itemPrice'] = item.itemPrice;
+    //   order['productNum'] = item.productNum;
+    //   order['remark'] = item.remark;
+    //   body.push(order);
+    // })
+    // this.appService.httpPut(url, body).then( data => {
+    //   if (data.type=="success") {
+    //     console.log("success!")
+    //   }
+    // }).catch(error=>{
+    //   console.log(error);
+    // })
   }
   //删除
   delete(index) {
     console.log("delete")
-    let parameters = {
-      id: this.orderStoreDataArray[index].warehouseItemId
-    }
-    let url = AppConfig.API.deleteById;
-    this.appService.httpDelete(url, parameters).then( data => {
-      if (data.type == "success") {
+    // let parameters = {
+    //   id: this.orderStoreDataArray[index].warehouseItemId
+    // }
+    // let url = AppConfig.API.deleteById;
+    // this.appService.httpDelete(url, parameters).then( data => {
+    //   if (data.type == "success") {
 
-      }
-    }).catch(error => {
-      console.log(error);
-    })
+    //   }
+    // }).catch(error => {
+    //   console.log(error);
+    // })
   }
   resetCount() {
 
@@ -186,18 +220,8 @@ export class OrderStore {
   //确认订单
   addProductModal() {
     // let body = [];
-    // let url = AppConfig.API.generateCode;
-    // this.orderStoreDataArray.map(function(item) {
-    //   let order = {};
-    //   order['warehouseItemId'] = item.warehouseItemId;
-    //   order['skuId'] = item.skuId;
-    //   order['itemPrice'] = item.itemPrice;
-    //   order['productNum'] = item.productNum;
-    //   order['isSelected'] = item.isSelected;
-    //   order['remark'] = item.remark;
-    //   body.push(order);
-    // })
-    // this.appService.httpPut(url, body).then( data => {
+    // let url = `${AppConfig.API.generateCode}`;
+    // this.appService.httpGet(url).then( data => {
     //   this.returnUrl = data;
     // }).catch(error=>{
     //   console.log(error);

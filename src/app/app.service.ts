@@ -32,7 +32,11 @@ export class AppConfig {
     warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
     generateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
     deleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
+<<<<<<< HEAD
     current: "/brandshop/user/current" //查询当前导购员基本信息
+=======
+    update: "/rest/order/warehouse/item/update",//修改配单行接口
+>>>>>>> 66256b83414c24353dbe96bf6d94c9573ee63ec0
   };
   
 }
