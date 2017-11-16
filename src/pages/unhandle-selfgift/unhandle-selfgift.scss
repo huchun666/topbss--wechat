@@ -45,6 +45,12 @@ unhandle-selfgift {
 				.success {
 					color: #5ad112;
 				}
+				h2 {
+					width: 200px;
+					overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
+				}
 			}
 			.reserve-phone {
 				position: relative;
@@ -121,6 +127,15 @@ unhandle-selfgift {
 				}
 			}
 		}
+	}
+	.toTop {
+		display: inline-block;
+		position: fixed;
+		right: 40px;
+		bottom: 80px;
+		width: 50px;
+		height: 50px;
+
 	}
 	.btn-selfview {
 		text-align: center;

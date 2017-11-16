@@ -12,7 +12,6 @@ export class OrderLayer {
 
   orderLayerData: any;//请求接口得到的数据
   attrMap: any = [];//转换后的数据（数组格式）
-  attrMap1: any = [];
   productSeq: number;//商品ID
   productName: string;//商品名称
   noData: Boolean;
@@ -20,11 +19,12 @@ export class OrderLayer {
   showNoMoreGift: Boolean = false;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
-  skuAttrValue: any;//sku切换时选中的值
-  attrSeqArr: any;//选中属性的attrSeq数组
-  attrValueArr: any;//选中属性的attrValue数组
+  skuAttrValue: any = [];//sku切换时选中的值
+  attrSeqArr: any = [];//选中属性的attrSeq数组
+  attrValueArr: any = [];//选中属性的attrValue数组
   warehouseCount: number;
   fileSeq: string;//图片
+  attrImageSeq: number;
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -32,161 +32,44 @@ export class OrderLayer {
     public appService: AppService,
     public toastCtrl: ToastController,
   ) {
-    //this.getProductSkuWithDefault();
     this.productSeq = navParams.get('productSeq');
     this.productName = navParams.get('productName');
     this.warehouseCount = navParams.get('warehouseCount');
     this.fileSeq = navParams.get('fileSeq');
-    this.attrSeqArr = [];
-    this.attrValueArr = [];
+    this.getProductSkuWithDefault();
     
-    this.orderLayerData = {
-      "brandshopSeq": 133,  //门店ID
-      "productSeq": 367,    //商品ID
-      "skuLength": 7,       //sku属性组合长度
-      "skuSeq": 1049,       //sku ID
-      "price": 333.00,      //淘璞价
-      "stock": 5,                   //库存整数/null
-      "attrMap": {          //sku属性组合
-        "1136": [               //属性ID
-          {
-            "skuSeq": 1049, 
-            "attrSeq": 1136,    
-            "attrName": "颜色", //属性名
-            "attrValue": "白色",      //属性值
-            "type": "S",                    
-            "fileSeq": null,                //属性图片
-            "price": 333.00,
-            "selectedAttrValue": "白色",   //默认选中的属性
-            "invalidAttrValue": "invalidAttrValue"    //是否置灰,null-不置灰,"invalidAttrValue"-置灰不可选
-          },
-          {
-            "skuSeq": 1049, 
-            "attrSeq": 1136,    
-            "attrName": "颜色", //属性名
-            "attrValue": "红色",      //属性值
-            "type": "S",                    
-            "fileSeq": null,                //属性图片
-            "price": 333.00,
-            "selectedAttrValue": "白色",   //默认选中的属性
-            "invalidAttrValue": "invalidAttrValue"    //是否置灰,null-不置灰,"invalidAttrValue"-置灰不可选
-          },
-          {
-            "skuSeq": 1049, 
-            "attrSeq": 1136,    
-            "attrName": "颜色", //属性名
-            "attrValue": "绿色",      //属性值
-            "type": "S",                    
-            "fileSeq": null,                //属性图片
-            "price": 333.00,
-            "selectedAttrValue": "白色",   //默认选中的属性
-            "invalidAttrValue": "invalidAttrValue"    //是否置灰,null-不置灰,"invalidAttrValue"-置灰不可选
-          },
-          {
-            "skuSeq": 1049, 
-            "attrSeq": 1136,    
-            "attrName": "颜色", //属性名
-            "attrValue": "蓝色",      //属性值
-            "type": "S",                    
-            "fileSeq": null,                //属性图片
-            "price": 333.00,
-            "selectedAttrValue": "白色",   //默认选中的属性
-            "invalidAttrValue": null    //是否置灰,null-不置灰,"invalidAttrValue"-置灰不可选
-          },
-          {
-            "skuSeq": 1049, 
-            "attrSeq": 1136,    
-            "attrName": "颜色", //属性名
-            "attrValue": "黄色",      //属性值
-            "type": "S",                    
-            "fileSeq": null,                //属性图片
-            "price": 333.00,
-            "selectedAttrValue": "白色",   //默认选中的属性
-            "invalidAttrValue": null    //是否置灰,null-不置灰,"invalidAttrValue"-置灰不可选
-          }
-        ],
-        "1124": [
-          {
-            "skuSeq": 1049,
-            "attrSeq": 1124,
-            "attrName": "入园",
-            "attrValue": "无",
-            "type": "S",
-            "fileSeq": "../assets/image/productimg2.png",
-            "price": 333.00,
-            "selectedAttrValue": "无",
-            "invalidAttrValue": "invalidAttrValue"
-          }
-        ],
-        "1158": [
-          {
-            "skuSeq": 1049,
-            "attrSeq": 1158,
-            "attrName": "入园",
-            "attrValue": "凭借门票凭证换取门票入园",
-            "type": "S",
-            "fileSeq": null,
-            "price": 333.00,
-            "selectedAttrValue": "刷身份证件入园",
-            "invalidAttrValue": "invalidAttrValue"
-          },
-          {
-            "skuSeq": 1052,
-            "attrSeq": 1158,
-            "attrName": "入园",
-            "attrValue": "刷身份证件入园",
-            "type": "S",
-            "fileSeq": null,
-            "price": 333.00,
-            "selectedAttrValue": "刷身份证件入园",
-            "invalidAttrValue": "invalidAttrValue"
-          }
-        ],
-        [Symbol.iterator]: Array.prototype[Symbol.iterator]
-      }
-    }
-    this.skuAttrValue = [];
-    for(let key in this.orderLayerData.attrMap){//后面需要将这个转换数据的注释掉
-      this.attrMap.push(this.orderLayerData.attrMap[key])
-    }
-    for(let item of this.orderLayerData.attrMap){
-      console.log(item)
-      this.attrMap1.push(item);
-    }
-    console.log("attr1:")
-    console.log(this.attrMap1)
-    console.log(this.attrMap)
-    for(let i=0;i<this.attrMap.length;i++){
-      this.skuAttrValue.push(this.attrMap[i][0].selectedAttrValue);
-    }
-    for(let i=0;i<this.attrMap.length;i++){
-      this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
-    }
-    this.attrValueArr = this.skuAttrValue;
-    console.log(this.attrSeqArr)
-    console.log(this.attrValueArr)
   }
 
   //初始化sku属性
   getProductSkuWithDefault() {
-    // let loading = this.appService.loading();
-		// loading.present();
-    // let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=${this.brandshopSeqId}&productSeq=${this.productSeq}`;
-    // this.appService.httpGet(url).then( data => {
-    //   loading.dismiss();
-    //   if (data.skuLength != 0) {
-    //     this.orderLayerData = data;
-        // this.orderLayerData.attrArray = [];
-        // for(let key in this.orderLayerData.attrMap){
-        //   this.orderLayerData.attrArray.push(this.orderLayerData.attrMap[key])
-        // }
-    //   }else {
-    //     this.orderLayerData = {}
-    //   }
-      
-    // }).catch(error => {
-    //   console.log(error);
-    // });
+    let loading = this.appService.loading();
+		loading.present();
+    let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=133&productSeq=${this.productSeq}`;//brandshopSeq=${this.brandshopSeqId}
+    this.appService.httpGet(url).then( data => {
+      loading.dismiss();
+      if (data.skuLength != 0) {
+        this.orderLayerData = data;
+        this.attrImageSeq = this.orderLayerData.attrImageSeq
+        for(let key in this.orderLayerData.attrMap){
+          this.attrMap.push(this.orderLayerData.attrMap[key])
+        }
+        for(let i=0;i<this.attrMap.length;i++){
+          for(let j=0;j<this.attrMap[i].length;j++){
+            if (this.attrMap[i][j].selectedAttrValue=="selectedAttrValue") {
+              this.skuAttrValue.push(this.attrMap[i][j].attrValue)
+            }
+          }
+        }
+        for(let i=0;i<this.attrMap.length;i++){
+          this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
+        }
+        this.attrValueArr = this.skuAttrValue;
+      }else {
+        this.orderLayerData = {}
+      }
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   dismiss() {
@@ -222,13 +105,23 @@ export class OrderLayer {
     var currentValue = event.target.getAttribute("ng-reflect-value");
     if (this.attrValueArr[index] != currentValue){
       this.attrValueArr[index] = currentValue;
-      // let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeqId}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skulength}&attrSeqArr={this.attrSeqArr}&attrValueArr=${this.attrValueArr}`;
-      //   this.appService.httpGet(url).then( data => {
-      //     this.orderLayerData = data;
-      //   }).catch(error => {
-      //   console.log(error);
-      // });
-      console.log(this.attrValueArr);
+      let attrSeqString = "";
+      let attrValueString = "";
+      let attrString = "";
+      this.attrSeqArr.map(function(item,i){
+        attrSeqString += "&" + "attrSeqArr=" + item;
+      })
+      this.attrValueArr.map(function(item,i){
+        attrValueString += "&" + "attrValueArr=" + item;
+      })
+      attrString = attrSeqString + attrValueString;
+      let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=133&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
+      this.appService.httpGet(url).then( data => {
+        this.orderLayerData = data;
+        this.attrImageSeq = this.orderLayerData.attrImageSeq;
+      }).catch(error => {
+        console.log(error);
+      });
     }else{
       this.attrValueArr[index] = "";
       event.target.setAttribute("checked",false);

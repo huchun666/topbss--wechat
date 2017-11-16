@@ -69,14 +69,16 @@ creat-order {
 			img {
 				display: block;
 				width: 100%;
+				height: 180px;
 			}
 			p {
 				font-size: 1.4rem;
-				height: 48px;
+				height: 46px;
 				line-height: 20px;
 				padding: 5px 10px;
 				overflow: hidden;
 				text-overflow: ellipsis;
+				white-space: normal;
 			}
 			.btn-add {
 				height: 3.5rem;
