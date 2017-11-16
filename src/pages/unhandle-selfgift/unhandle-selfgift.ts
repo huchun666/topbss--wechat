@@ -10,7 +10,7 @@ export class UnhandleSelfgift {
   @ViewChild(Content) content: Content;
   unhandleSeflGiftArray: any;
   start: number = 0;
-  limit: number = 5;
+  limit: number = 10;
   showNoMoreGift: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时

@@ -12,7 +12,6 @@ export class OrderLayer {
 
   orderLayerData: any;//请求接口得到的数据
   attrMap: any = [];//转换后的数据（数组格式）
-  attrMap1: any = [];
   productSeq: number;//商品ID
   productName: string;//商品名称
   noData: Boolean;
@@ -25,6 +24,7 @@ export class OrderLayer {
   attrValueArr: any = [];//选中属性的attrValue数组
   warehouseCount: number;
   fileSeq: string;//图片
+  attrImageSeq: number;
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -49,14 +49,16 @@ export class OrderLayer {
       loading.dismiss();
       if (data.skuLength != 0) {
         this.orderLayerData = data;
-        console.log(this.orderLayerData)
-        // this.attrMap = [];
+        this.attrImageSeq = this.orderLayerData.attrImageSeq
         for(let key in this.orderLayerData.attrMap){
           this.attrMap.push(this.orderLayerData.attrMap[key])
         }
-        console.log(this.attrMap)
         for(let i=0;i<this.attrMap.length;i++){
-          this.skuAttrValue.push(this.attrMap[i][0].selectedAttrValue);
+          for(let j=0;j<this.attrMap[i].length;j++){
+            if (this.attrMap[i][j].selectedAttrValue=="selectedAttrValue") {
+              this.skuAttrValue.push(this.attrMap[i][j].attrValue)
+            }
+          }
         }
         for(let i=0;i<this.attrMap.length;i++){
           this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
@@ -101,17 +103,25 @@ export class OrderLayer {
   // 切换sku属性时
   changeRadio(event,index) {
     var currentValue = event.target.getAttribute("ng-reflect-value");
-    console.log(`${this.orderLayerData.skuLength}`)
     if (this.attrValueArr[index] != currentValue){
       this.attrValueArr[index] = currentValue;
-      let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=133&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}&attrSeqArr={this.attrSeqArr}&attrValueArr=${this.attrValueArr}`;
-        this.appService.httpGet(url).then( data => {
-          this.orderLayerData = data;
-          console.log(this.orderLayerData)
-        }).catch(error => {
+      let attrSeqString = "";
+      let attrValueString = "";
+      let attrString = "";
+      this.attrSeqArr.map(function(item,i){
+        attrSeqString += "&" + "attrSeqArr=" + item;
+      })
+      this.attrValueArr.map(function(item,i){
+        attrValueString += "&" + "attrValueArr=" + item;
+      })
+      attrString = attrSeqString + attrValueString;
+      let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=133&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
+      this.appService.httpGet(url).then( data => {
+        this.orderLayerData = data;
+        this.attrImageSeq = this.orderLayerData.attrImageSeq;
+      }).catch(error => {
         console.log(error);
       });
-      console.log(this.attrValueArr);
     }else{
       this.attrValueArr[index] = "";
       event.target.setAttribute("checked",false);

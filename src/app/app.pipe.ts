@@ -45,9 +45,9 @@ export class IsOrIsnotInvalidAttrValuePipe implements PipeTransform {
   transform(invalidAttrValue: any): any {
     switch(invalidAttrValue) {
       case "invalidAttrValue":
-        return false;
-      case null:
         return "disabled";
+      case null:
+        return false;
     }
   }
 }
@@ -57,9 +57,9 @@ export class InvalidAttrValueClassPipe implements PipeTransform {
   transform(invalidAttrValueClass: any): Boolean {
     switch(invalidAttrValueClass) {
       case "invalidAttrValue":
-        return false;
-      case null:
         return true;
+      case null:
+        return false;
     }
   }
 }
@@ -73,5 +73,22 @@ export class ChangeGrayPipe implements PipeTransform {
       default:
         return false;
     }
+  }
+}
+
+@Pipe({ name: 'skuImage' })
+export class SkuImagePipe implements PipeTransform {
+  transform(skuImage: string): string {
+    if (skuImage) {
+      return "http://www.91topbaby.com/evercos/common/file/content/"+skuImage;
+    }else {
+      return "../../assets/image/nodata.png";
+    }
+    // switch(skuImage) {
+    //   case "":
+    //     return "../../assets/image/nodata.png";
+    //   default:
+    //     return "http://www.91topbaby.com/evercos/common/file/content/"+skuImage;
+    // }
   }
 }
