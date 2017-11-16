@@ -63,8 +63,7 @@ export class Personl {
       "bindAccount": BindAccount,
       "help": Help
     }
-    /* 获取当前用户 */
-    this.getCurrent();
+    /* this.getCurrent(); */
   }
   /* 显示和隐藏金额 */
   showMoney() {
@@ -104,4 +103,5 @@ export class Personl {
         console.log(error);
       });
   }
+
 }
