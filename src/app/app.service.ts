@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
@@ -15,9 +15,12 @@ export class AppConfig {
   //请求超时时间
   static TIME_OUT: number = 30000;
 
+  //获取token的url
+  static oauthTokenUrl: string = "/uaa/oauth/token";
+
   //接口url
   static API: any = {
-    login: "/assets/data/login.json",
+    login: "/demo-resource-server/me",
     getProductList: "",
     getOrderList: "",
     getGiftList: "/promotion/member/gift/account/getGiftList",//各种赠品列表
@@ -25,14 +28,14 @@ export class AppConfig {
     confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",//确认预约时间
     confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
     getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
-    getCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
+    warehouseGetCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
     getProductSkuWithDefault: "/product/getProductSkuWithDefault",//SKU初始加载
     getValidSKUAttrValue: "/product/getValidSKUAttrValue",//SKU切换
-    affirmAdd: "/rest/order/warehouse/add",//添加配单行接口
+    warehouseAdd: "/rest/order/warehouse/add",//添加配单行接口
     warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
-    generateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
-    deleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
-    update: "/rest/order/warehouse/item/update",//修改配单行接口
+    warehouseGenerateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
+    warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
+    warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
   };
   
 }
@@ -57,10 +60,30 @@ export class AppService {
       }
     );
   }
+  httpGetHeader(url: string, header: any) {
+    return this.http.get(url, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json())
+      .catch(error => {
+        console.log(`访问错误:${error}`);
+        this.handleError(error);
+      }
+    );
+  }
   
   //post request
   httpPost(url: string, body: any) {
     return this.http.post(url, body).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json())
+      .catch(error => {
+        console.log(`访问错误:${error}`);
+        this.handleError(error);
+      }
+    );
+  }
+
+  //post 带有headers 
+  httpPostHeader(url: string, body: any, header: any) {
+    return this.http.post(url, body, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);

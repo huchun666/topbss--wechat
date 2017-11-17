@@ -15,7 +15,7 @@ export class OrderStore {
   down: Boolean;//下拉刷新和返回上一级页面时
   // count: number = 2;
   total: number = 200.00;
-  orderStoreDataArray: any;//得到的数据里面的data数组
+  orderStoreDataArray: any = [];//得到的数据里面的data数组
   returnUrl: string;//返回得到的url字符串
   constructor(
     public navCtrl: NavController,
@@ -24,127 +24,137 @@ export class OrderStore {
     public toastCtrl: ToastController,
     public appService: AppService,
   ) {
-    // this.down = true;
-	  // this.up = false;
-    // this.getOrderStore();
-    this.orderStoreDataArray = 
-      [
-          {
-              "warehouseItemId": 1,
-              "warehouseId": 3,
-              "skuId": 1020,
-              "itemPrice": 23.34,
-              "productNum": 2,
-              "remark": "测试添加配单仓商品1号",
-              "isSelected": 1,
-              "status": 1,
-              "createTime": 1509507135000,
-              "stock": 4,
-              "productSkuDTO": {
-                  "productSeq": 347,
-                  "skuSeq": 1020,
-                  "productName": "1031测试门票1",
-                  "fileName": null,
-                  "attrValueList": [
-                      {
-                          "skuSeq": null,
-                          "attrSeq": 1136,
-                          "attrName": "门票颜色",
-                          "attrValue": "白色",
-                          "type": null,
-                          "fileSeq": "../assets/image/productimg2.png",
-                          "price": null,
-                          "selectedAttrValue": null,
-                          "invalidAttrValue": null
-                      },
-                      {
-                          "skuSeq": null,
-                          "attrSeq": 1121,
-                          "attrName": "门票种类",
-                          "attrValue": "标准票",
-                          "type": null,
-                          "fileSeq": "../assets/image/productimg2.png",
-                          "price": null,
-                          "selectedAttrValue": null,
-                          "invalidAttrValue": null
-                      },
-                  ],
-                  "fallback": null
-              }
-          },
-          {
-              "warehouseItemId": 2,
-              "warehouseId": 3,
-              "skuId": 998,
-              "itemPrice": 23.34,
-              "productNum": 3,
-              "remark": "测试添加配单仓商品1号",
-              "isSelected": 1,
-              "status": 1,
-              "createTime": 1509514319000,
-              "stock": 5,
-              "productSkuDTO": {
-                "productSeq": 347,
-                "skuSeq": 1020,
-                "productName": "1031测试门票1",
-                "fileName": null,
-                "attrValueList": [
-                    {
-                        "skuSeq": null,
-                        "attrSeq": 1136,
-                        "attrName": "门票颜色",
-                        "attrValue": "白色",
-                        "type": null,
-                        "fileSeq": "../assets/image/productimg2.png",
-                        "price": null,
-                        "selectedAttrValue": null,
-                        "invalidAttrValue": null
-                    },
-                    {
-                        "skuSeq": null,
-                        "attrSeq": 1121,
-                        "attrName": "门票种类",
-                        "attrValue": "标准票",
-                        "type": null,
-                        "fileSeq": "../assets/image/productimg2.png",
-                        "price": null,
-                        "selectedAttrValue": null,
-                        "invalidAttrValue": null
-                    },
-                ],
-                "fallback": null
-              }
-          }
-      ]
+    this.start = 0;
+    this.down = true;
+	  this.up = false;
+    this.getOrderStore();
+    // this.orderStoreDataArray = 
+    //   [
+    //       {
+    //           "warehouseItemId": 1,
+    //           "warehouseId": 3,
+    //           "skuId": 1020,
+    //           "itemPrice": 23.34,
+    //           "productNum": 2,
+    //           "remark": "测试添加配单仓商品1号",
+    //           "isSelected": 1,
+    //           "status": 1,
+    //           "createTime": 1509507135000,
+    //           "stock": 4,
+    //           "productSkuDTO": {
+    //               "productSeq": 347,
+    //               "skuSeq": 1020,
+    //               "productName": "1031测试门票1",
+    //               "fileName": null,
+    //               "attrValueList": [
+    //                   {
+    //                       "skuSeq": null,
+    //                       "attrSeq": 1136,
+    //                       "attrName": "门票颜色",
+    //                       "attrValue": "白色",
+    //                       "type": null,
+    //                       "fileSeq": "../assets/image/productimg2.png",
+    //                       "price": null,
+    //                       "selectedAttrValue": null,
+    //                       "invalidAttrValue": null
+    //                   },
+    //                   {
+    //                       "skuSeq": null,
+    //                       "attrSeq": 1121,
+    //                       "attrName": "门票种类",
+    //                       "attrValue": "标准票",
+    //                       "type": null,
+    //                       "fileSeq": "../assets/image/productimg2.png",
+    //                       "price": null,
+    //                       "selectedAttrValue": null,
+    //                       "invalidAttrValue": null
+    //                   },
+    //               ],
+    //               "fallback": null
+    //           }
+    //       },
+    //       {
+    //           "warehouseItemId": 2,
+    //           "warehouseId": 3,
+    //           "skuId": 998,
+    //           "itemPrice": 23.34,
+    //           "productNum": 3,
+    //           "remark": "测试添加配单仓商品1号",
+    //           "isSelected": 1,
+    //           "status": 1,
+    //           "createTime": 1509514319000,
+    //           "stock": 5,
+    //           "productSkuDTO": {
+    //             "productSeq": 347,
+    //             "skuSeq": 1020,
+    //             "productName": "1031测试门票1",
+    //             "fileName": null,
+    //             "attrValueList": [
+    //                 {
+    //                     "skuSeq": null,
+    //                     "attrSeq": 1136,
+    //                     "attrName": "门票颜色",
+    //                     "attrValue": "白色",
+    //                     "type": null,
+    //                     "fileSeq": "../assets/image/productimg2.png",
+    //                     "price": null,
+    //                     "selectedAttrValue": null,
+    //                     "invalidAttrValue": null
+    //                 },
+    //                 {
+    //                     "skuSeq": null,
+    //                     "attrSeq": 1121,
+    //                     "attrName": "门票种类",
+    //                     "attrValue": "标准票",
+    //                     "type": null,
+    //                     "fileSeq": "../assets/image/productimg2.png",
+    //                     "price": null,
+    //                     "selectedAttrValue": null,
+    //                     "invalidAttrValue": null
+    //                 },
+    //             ],
+    //             "fallback": null
+    //           }
+    //       }
+    //   ]
   }
 
   getOrderStore() {
-    // let loading = this.appService.loading();
-    // // loading.present();
-    // let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
-    //     this.appService.httpGet(url).then( data => {
-    //     loading.dismiss();
-    //     if (data.totalRecord == 0) {
-    //       //空空如也
-    //       this.noData = true;
-    //     }else {
-    //       this.noData = false;
-    //       if( this.start < data.totalRecord ) {
-    //         if (this.up) {
-    //           this.orderStoreDataArray.push(...data.data);
-    //           this.start += this.limit;
-    //         }else if (this.down){
-    //           this.orderStoreDataArray = [...data.data];
-    //           this.start += this.limit;
-    //         }
-    //       }else {
-    //           this.showNoMoreGift = true;
-    //       }
-    //     }
+    let loading = this.appService.loading();
+    loading.present();
+    let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
+        this.appService.httpGet(url).then( data => {
+        loading.dismiss();
+        if (data.totalRecord == 0) {
+          //空空如也
+          this.noData = true;
+        }else {
+          this.noData = false;
+          if( this.start < data.totalRecord ) {
+            if (this.up) {
+              this.orderStoreDataArray.push(...data.data);
+              console.log(this.orderStoreDataArray)
+              this.start += this.limit;
+            }else if (this.down){
+              this.orderStoreDataArray = [...data.data];
+              console.log(this.orderStoreDataArray)
+              this.start += this.limit;
+            }
+          }else {
+              this.showNoMoreGift = true;
+          }
+        }
       
-    //   }).catch(error => {
-    //     console.log(error);
-    //   });
+      }).catch(error => {
+        loading.dismiss();
+        console.log(error);
+        let toast = this.toastCtrl.create({
+          message: '网络异常，请稍后再试',
+          duration: 1000,
+          position: 'middle'
+        });
+        toast.present(toast);
+      });
   }
 
   //加
@@ -152,7 +162,7 @@ export class OrderStore {
     if (this.orderStoreDataArray[index].stock > this.orderStoreDataArray[index].productNum) {
       this.orderStoreDataArray[index].productNum++;
       // let body = [];
-      // let url = AppConfig.API.update;
+      // let url = AppConfig.API.warehouseUpdate;
       // this.orderStoreDataArray.map(function(item) {
       //   let order = {};
       //   order['warehouseItemId'] = item.warehouseItemId;
@@ -182,7 +192,7 @@ export class OrderStore {
   removeCount(index) {
     this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
     // let body = [];
-    // let url = AppConfig.API.update;
+    // let url = AppConfig.API.warehouseUpdate;
     // this.orderStoreDataArray.map(function(item) {
     //   let order = {};
     //   order['warehouseItemId'] = item.warehouseItemId;
@@ -205,7 +215,7 @@ export class OrderStore {
     // let parameters = {
     //   id: this.orderStoreDataArray[index].warehouseItemId
     // }
-    // let url = AppConfig.API.deleteById;
+    // let url = AppConfig.API.warehouseDeleteById;
     // this.appService.httpDelete(url, parameters).then( data => {
     //   if (data.type == "success") {
 
@@ -220,7 +230,7 @@ export class OrderStore {
   //确认订单
   addProductModal() {
     // let body = [];
-    // let url = `${AppConfig.API.generateCode}`;
+    // let url = `${AppConfig.API.warehouseGenerateCode}`;
     // this.appService.httpGet(url).then( data => {
     //   this.returnUrl = data;
     // }).catch(error=>{

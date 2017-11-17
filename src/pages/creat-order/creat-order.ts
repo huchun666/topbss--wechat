@@ -29,8 +29,8 @@ export class CreatOrder {
 		this.up = false;
     this.getCreatOrderList();
     this.getWarehouseCount();
-    this.warehouseCount = 6;//后面要删除
-    // this.creatOrderArray = [];
+    // this.warehouseCount = 6;//后面要删除
+    this.creatOrderArray = [];
   }
 
   //进入页面，请求接口，得到数据
@@ -230,13 +230,13 @@ export class CreatOrder {
 
   //查看配单仓订单总数
   getWarehouseCount() {
-    // let url = `${AppConfig.API.getCount}`;
-    // this.appService.httpGet(url).then( number => {
-    //   this.warehouseCount = number;
-    //   console.log(this.warehouseCount)
-    // }).catch(error => {
-    //   console.log(error);
-    // });
+    let url = `${AppConfig.API.warehouseGetCount}`;
+    this.appService.httpGet(url).then( number => {
+      this.warehouseCount = number;
+      console.log(this.warehouseCount)
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
 }

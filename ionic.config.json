@@ -7,8 +7,20 @@
   },
   "proxies": [
     {
-      "path": "/",
-      "proxyUrl": "http://192.168.31.215:8088/"
+      "path": "/uaa",
+      "proxyUrl": "http://192.168.31.172:8081/uaa"
+    },
+    {
+      "path": "/demo-resource-server",
+      "proxyUrl": "http://192.168.31.172:8081/demo-resource-server"
+    },
+    {
+      "path": "/rest",
+      "proxyUrl": "http://192.168.31.202:6666/rest"
+    },
+    {
+      "path": "/product",
+      "proxyUrl": "http://192.168.31.215:8088/product"
     }
   ]
 }

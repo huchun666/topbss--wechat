@@ -68,7 +68,14 @@ export class OrderLayer {
         this.orderLayerData = {}
       }
     }).catch(error => {
+      loading.dismiss();
       console.log(error);
+      let toast = this.toastCtrl.create({
+        message: '网络异常，请稍后再试',
+        duration: 1000,
+        position: 'middle'
+      });
+      toast.present(toast);
     });
   }
 
@@ -130,10 +137,10 @@ export class OrderLayer {
   }
 
   //确认添加
-  affirmAdd() {
+  warehouseAdd() {
     this.warehouseCount++;//后面注释掉
     this.dismiss();//后面注释掉
-    // let url = AppConfig.API.affirmAdd;
+    // let url = AppConfig.API.warehouseAdd;
     // let body = {
     //   "productId": this.orderLayerData.productSeq,
     //   "skuId": this.orderLayerData.skuSeq,
