@@ -23,7 +23,6 @@ export class Login{
     public http: Http
   ) {
     // this.pageInit();
-    console.log(new Buffer('admin').toString('base64'));
   }
   // 页面初始化时执行
   // pageInit() {
@@ -61,15 +60,15 @@ export class Login{
     // }
     
     
-    let base64encode = new Buffer('fooClientIdPassword:secret').toString('base64');
-    this.oauthTokenHeaders = new Headers({
-      'Authorization': 'Basic '+ base64encode,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    let oauthTokenUrl = AppConfig.oauthTokenUrl;
-    let loginUrl = AppConfig.API.login;
-    // let body = `username=restUser&password=1234&grant_type=password&client_id=fooClientIdPassword`;
-    let body = `username=${this.username}&password=${this.pwd}&grant_type=password&client_id=fooClientIdPassword`;
+    // let base64encode = new Buffer('fooClientIdPassword:secret').toString('base64');
+    // this.oauthTokenHeaders = new Headers({
+    //   'Authorization': 'Basic '+ base64encode,
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+    // let oauthTokenUrl = AppConfig.oauthTokenUrl;
+    // let loginUrl = AppConfig.API.login;
+    // // let body = `username=restUser&password=1234&grant_type=password&client_id=fooClientIdPassword`;
+    // let body = `username=${this.username}&password=${this.pwd}&grant_type=password&client_id=fooClientIdPassword`;
     let appNav = this.app.getRootNav();//后面注释
     appNav.setRoot(TabsPage);
     // this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders)

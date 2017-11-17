@@ -138,24 +138,25 @@ export class OrderLayer {
 
   //确认添加
   warehouseAdd() {
-    this.warehouseCount++;//后面注释掉
-    this.dismiss();//后面注释掉
-    // let url = AppConfig.API.warehouseAdd;
-    // let body = {
-    //   "productId": this.orderLayerData.productSeq,
-    //   "skuId": this.orderLayerData.skuSeq,
-    //   "itemPrice": this.orderLayerData.price,
-    //   "productNum": this.count,
-    //   "remark": ""
-    // }
-    // this.appService.httpPost(url, body).then( data => {
-    //   if (data.type=='success') {
-    //     this.warehouseCount++;
-    //     this.dismiss();
-    //   }
-    // }).catch( error => {
-    //   console.log(error.message);
-    // })
+    // this.warehouseCount++;//后面注释掉
+    // this.dismiss();//后面注释掉
+    let url = AppConfig.API.warehouseAdd;
+    let body = {
+      "productId": this.orderLayerData.productSeq,
+      "skuId": this.orderLayerData.skuSeq,
+      "itemPrice": this.orderLayerData.price,
+      "productNum": this.count,
+      "remark": ""
+    }
+    this.appService.httpPost(url, body).then( data => {
+      console.log(data)
+      if (data.type=='success') {
+        this.warehouseCount++;
+        this.dismiss();
+      }
+    }).catch( error => {
+      console.log(error.message);
+    })
   }
 
 }

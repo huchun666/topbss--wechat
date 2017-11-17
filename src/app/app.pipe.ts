@@ -84,11 +84,16 @@ export class SkuImagePipe implements PipeTransform {
     }else {
       return "../../assets/image/nodata.png";
     }
-    // switch(skuImage) {
-    //   case "":
-    //     return "../../assets/image/nodata.png";
-    //   default:
-    //     return "http://www.91topbaby.com/evercos/common/file/content/"+skuImage;
-    // }
+  }
+}
+
+@Pipe({ name: 'productSkuDTOImage' })
+export class ProductSkuDTOImagePipe implements PipeTransform {
+  transform(productSkuDTOImage: string): string {
+    if (productSkuDTOImage) {
+      return "http://www.91topbaby.com/evercos/common/file/content/"+productSkuDTOImage;
+    }else {
+      return "../../assets/image/nodata.png";
+    }
   }
 }

@@ -60,6 +60,8 @@ export class AppService {
       }
     );
   }
+
+  //get request with headers
   httpGetHeader(url: string, header: any) {
     return this.http.get(url, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
@@ -104,8 +106,8 @@ export class AppService {
   }
 
   //delete request
-  httpDelete(url: string, parameters: any) {
-    return this.http.delete(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
+  httpDelete(url: string) {
+    return this.http.delete(url).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
