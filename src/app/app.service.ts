@@ -36,6 +36,7 @@ export class AppConfig {
     warehouseGenerateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
     warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
     warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
+    current: "/brandshop/user/current", //查询当前导购员基本信息
   };
   
 }
