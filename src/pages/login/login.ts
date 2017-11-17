@@ -4,6 +4,7 @@ import { App, NavController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { Forget } from '../forget/forget';
 import { TabsPage } from '../tabs/tabs';
+import { Buffer } from 'buffer';
 @Component({
   selector: 'login',
   templateUrl: 'login.html'
@@ -22,6 +23,7 @@ export class Login{
     public http: Http
   ) {
     // this.pageInit();
+    console.log(new Buffer('admin').toString('base64'));
   }
   // 页面初始化时执行
   // pageInit() {
@@ -59,42 +61,43 @@ export class Login{
     // }
     
     
-    // 登陆实际是post或者put，暂时先使用get模拟
+    let base64encode = new Buffer('fooClientIdPassword:secret').toString('base64');
     this.oauthTokenHeaders = new Headers({
-      'Authorization': 'Basic '+ this.base64encode("fooClientIdPassword:secret"),
+      'Authorization': 'Basic '+ base64encode,
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     let oauthTokenUrl = AppConfig.oauthTokenUrl;
     let loginUrl = AppConfig.API.login;
     // let body = `username=restUser&password=1234&grant_type=password&client_id=fooClientIdPassword`;
     let body = `username=${this.username}&password=${this.pwd}&grant_type=password&client_id=fooClientIdPassword`;
-
-    this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders)
-    .then(data => {
-      console.log(data.access_token)
-      if (data.access_token) {
-        this.appService.setItem("tpb_token",data.access_token);
-        console.log("inter...");
-        this.loginHeaders = new Headers(
-        {
-          'Authorization': 'Bearer '+ data.access_token
-        });
-        this.appService.httpGetHeader(loginUrl, this.loginHeaders).then(data => {
-          console.log(data);
-          let appNav = this.app.getRootNav();
-          appNav.setRoot(TabsPage);
-        }).catch(error => {
-          this.isNameAndPwd = true;
-          console.log(`访问错误1:${error}`);
-        });
-      }else {
-        console.log("没有token值");
-      }
-    })
-    .catch(error => {
-      console.log(`访问错误:${error}`);
-      console.log("认证失败");
-    })
+    let appNav = this.app.getRootNav();//后面注释
+    appNav.setRoot(TabsPage);
+    // this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders)
+    // .then(data => {
+    //   console.log(data.access_token)
+    //   if (data.access_token) {
+    //     this.appService.setItem("tpb_token",data.access_token);
+    //     console.log("inter...");
+    //     this.loginHeaders = new Headers(
+    //     {
+    //       'Authorization': 'Bearer '+ data.access_token
+    //     });
+    //     this.appService.httpGetHeader(loginUrl, this.loginHeaders).then(data => {
+    //       console.log(data);
+    //       let appNav = this.app.getRootNav();
+    //       appNav.setRoot(TabsPage);
+    //     }).catch(error => {
+    //       this.isNameAndPwd = true;
+    //       console.log(`访问错误1:${error}`);
+    //     });
+    //   }else {
+    //     console.log("没有token值");
+    //   }
+    // })
+    // .catch(error => {
+    //   console.log(`访问错误:${error}`);
+    //   console.log("认证失败");
+    // })
 
     
   }
@@ -119,38 +122,4 @@ export class Login{
     //  console.log(error);
     //});
   }
-  
-  base64encode(str) {
-        var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    　　var out, i, len;
-    　　var c1, c2, c3;
-    　　len = str.length;
-    　　i = 0;
-    　　out = "";
-    　　while(i < len) {
-     c1 = str.charCodeAt(i++) & 0xff;
-     if(i == len)
-     {
-    　　 out += base64EncodeChars.charAt(c1 >> 2);
-    　　 out += base64EncodeChars.charAt((c1 & 0x3) << 4);
-    　　 out += "==";
-    　　 break;
-     }
-     c2 = str.charCodeAt(i++);
-     if(i == len)
-     {
-    　　 out += base64EncodeChars.charAt(c1 >> 2);
-    　　 out += base64EncodeChars.charAt(((c1 & 0x3)<< 4) | ((c2 & 0xF0) >> 4));
-    　　 out += base64EncodeChars.charAt((c2 & 0xF) << 2);
-    　　 out += "=";
-    　　 break;
-     }
-     c3 = str.charCodeAt(i++);
-     out += base64EncodeChars.charAt(c1 >> 2);
-     out += base64EncodeChars.charAt(((c1 & 0x3)<< 4) | ((c2 & 0xF0) >> 4));
-     out += base64EncodeChars.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >>6));
-     out += base64EncodeChars.charAt(c3 & 0x3F);
-    　　}
-    　　return out;
-    }
 }
