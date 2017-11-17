@@ -89,7 +89,7 @@ order-list {
 				font-size: 1.2rem;
       }
 		}
-		.orderOprate {
+		.orderOperate {
       position: relative;
 			padding: 10px 1rem;
 			border-top: solid 1px #f5f5f5;
@@ -280,6 +280,14 @@ order-list {
 			}
 		}
   }
+  .btn-noMore {
+		text-align: center;
+		padding-bottom: 2rem;
+		span {
+			font-size: 1.2rem;
+			color: #999;
+		}
+	}
   .no-data {
 		margin: 0 auto;
 		text-align: center;
@@ -293,4 +301,10 @@ order-list {
 		}
   }
 
+}
+.has-refresher > .scroll-content {
+  border-top: 0;
+}
+ion-infinite-scroll-content {
+  min-height: 1px;
 }

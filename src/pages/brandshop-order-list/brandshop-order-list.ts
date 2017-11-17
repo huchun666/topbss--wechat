@@ -16,9 +16,11 @@ export class BrandshopOrderList {
   pageSize: number = 10;
   paramsStatus: string = '';
   paramsDate: string = '';
-  up: Boolean;
-  down: Boolean;
-  noData:Boolean;
+  up: Boolean = true;
+  down: Boolean = false;
+  noData:Boolean = false;
+  start: number = 0;
+  showNoMore: Boolean = false;
   constructor(
     public navCtrl: NavController, 
     public appService: AppService) {
@@ -339,6 +341,7 @@ export class BrandshopOrderList {
   }
   // 获取订单列表
   getOrderList() {
+    let loading = this.appService.loading();
     var url = `${AppConfig.hostUrl + AppConfig.API.getOrderList}?userType=A&start=${this.pageSize * (this.currentPage - 1)}&limit=${this.pageSize}`;
     if(this.paramsDate != ''){
       url += this.paramsDate;
@@ -346,20 +349,28 @@ export class BrandshopOrderList {
     if(this.paramsStatus != ''){
       url += this.paramsStatus;
     }
-    // this.appService.httpGet(url).then(data => {
-    //   if (data.count == 0 && this.orderList.length == 0) {
-		//     //空空如也
-		//     this.noData = true;
-	  //   } else {
-    //     this.noData = false;
-    //     if(this.up){
-    //       this.orderList.push(...data.data);
-    //       this.currentPage++;
-    //     }
-    //   }
-    // }).catch(error => {
-    //   console.log(error);
-    // })
+    this.appService.httpGet(url).then(data => {
+      loading.dismiss(); 
+      if (data.count == 0 && this.orderList.length == 0) {
+		    //空空如也
+		    this.noData = true;
+	    } else {
+        this.noData = false;
+        if (this.start < data.count) {
+          if (this.up) {
+            this.orderList.push(...data.data);
+            this.start += this.pageSize;
+          } else if (this.down) {
+            this.orderList = [...data.data];
+            this.start += this.pageSize;
+          }
+        } else {
+          this.showNoMore = true;
+        }
+      }
+    }).catch(error => {
+      console.log(error);
+    })
   }
   getOrderListByDate() {
     this.currentPage = 1;
@@ -370,7 +381,7 @@ export class BrandshopOrderList {
     if(this.dateEnd != ''){
       this.paramsDate+= `&dateEnd=${this.dateEnd}`;
     }
-    this.getOrderList();
+    // this.getOrderList();
   }
   // 点击状态时切换，获取当前订单状态
   getCurrentStatus(index) {
@@ -380,7 +391,7 @@ export class BrandshopOrderList {
     if(this.orderStatusList[index].status != 'all'){
       this.paramsStatus+= '&status='+this.currentStatus
     }
-    this.getOrderList();
+    // this.getOrderList();
   }
   // 是否显示明细
   showDetail() {
@@ -401,10 +412,10 @@ export class BrandshopOrderList {
    
   // 下拉刷新请求数据
   doRefresh(refresher) {
+    this.start = 0;
     this.down = true;
     this.up = false;
     setTimeout(() => {
-      this.currentPage = 1;
       // this.getOrderList();
       refresher.complete();
     },1000)

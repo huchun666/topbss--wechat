@@ -14,6 +14,8 @@ export class UnauditReturnorder{
   up: Boolean = true;//上拉刷新和第一次进入页面时
   down: Boolean = false;//下拉刷新和返回上一级页面时
   noData:Boolean = false;
+  start: number = 0;
+  showNoMore: Boolean = false;
 	constructor(
     public navCtrl: NavController, 
     public modalCtrl: ModalController, 
@@ -225,11 +227,16 @@ export class UnauditReturnorder{
 		    this.noData = true;
 	    } else {
         this.noData = false;
-        if(this.up){
-          this.unauditReturnorderArray.push(...data.data);
-          this.currentPage++;
-        } else if(this.down){
-          this.unauditReturnorderArray = data.data;
+        if (this.start < data.count) {
+          if (this.up) {
+            this.unauditReturnorderArray.push(...data.data);
+            this.start += this.pageSize;
+          } else if (this.down) {
+            this.unauditReturnorderArray = [...data.data];
+            this.start += this.pageSize;
+          }
+        } else {
+          this.showNoMore = true;
         }
       }
 	  }).catch(error => {
@@ -239,10 +246,10 @@ export class UnauditReturnorder{
   
   // 下拉刷新请求数据
   doRefresh(refresher) {
-    this.down = true;
+    this.start = 0;
     this.up = false;
+    this.down = true;
     setTimeout(() => {
-      this.currentPage = 1;
       // this.getUnauditReturnorderList();
       refresher.complete();
     },1000)
@@ -250,6 +257,7 @@ export class UnauditReturnorder{
   
   // 上拉刷新请求数据
   infiniteGetSelfGiftList(infiniteScroll) {
+    this.up = true;
     this.down = false;
     this.up = true;
     setTimeout(() => {

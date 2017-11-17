@@ -38,7 +38,7 @@ export class AppConfig {
     generateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
     deleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
   };
-  
+
 }
 @Injectable()
 export class AppService {
@@ -50,7 +50,7 @@ export class AppService {
   ) {
 
   }
-  
+
   //get request
   httpGet(url: string) {
     return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
@@ -59,9 +59,9 @@ export class AppService {
         console.log(`访问错误:${error}`);
         this.handleError(error);
       }
-    );
+      );
   }
-  
+
   //post request
   httpPost(url: string, body: any) {
     return this.http.post(url, body).timeout(AppConfig.TIME_OUT).toPromise()
@@ -70,18 +70,18 @@ export class AppService {
         console.log(`访问错误:${error}`);
         this.handleError(error);
       }
-    );
+      );
   }
-  
+
   //put request
   httpPut(url: string, parameters: any) {
-  	return this.http.put(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.put(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
       }
-    );
+      );
   }
 
   //delete request
@@ -92,15 +92,15 @@ export class AppService {
         console.log(`访问错误:${error}`);
         this.handleError(error);
       }
-    );
+      );
   }
-  
+
   //错误或者异常处理提示
   private handleError(error: Response) {
     this.alert("提示", error.toString());
     return Observable.throw(error.status || "服务错误");
   }
-  
+
   //弹出提示信息
   public alert(msg: string, title?: string) {
     if (!title) {
@@ -108,7 +108,7 @@ export class AppService {
     }
     this.dialogs.alert(msg, title);
   }
-  
+
   //加载中的友好提示loader.present();
   public loading(): Loading {
     let loader = this.loadingCtrl.create({
@@ -129,7 +129,7 @@ export class AppService {
       console.error("window.localStorage error:" + e);
     }
   }
-  
+
   //localstorage获取key
   getItem(key: string) {
     try {
@@ -139,5 +139,5 @@ export class AppService {
       console.error("window.localStorage error:" + e);
     }
   }
-  
+
 }

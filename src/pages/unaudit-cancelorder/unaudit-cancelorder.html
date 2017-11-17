@@ -26,7 +26,7 @@
         </dl>
 			</div>
 			
-			<div class="orderOprate">
+			<div class="orderOperate">
 				<dl>
 					<dt>
 						<button class="btn-audit" ion-button (click)="auditOrder(i)">审核</button>
@@ -40,6 +40,9 @@
     <div class="no-data" *ngIf = "noData">
       <img src="../../assets/image/nodata.png" alt="">
       <p>空空如也</p>
+    </div>
+    <div class="btn-noMore" *ngIf = "showNoMore">
+      <span>—— 没有更多信息了 ——</span>
     </div>
 		
 		<div class="btn-cancelView" (touchstart)="goAuditCancel()">

@@ -1,5 +1,4 @@
 <ion-content>
-
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>
     </ion-refresher-content>
@@ -29,7 +28,7 @@
         </dl>
       </div>
 			    
-      <div class="orderOprate">
+      <div class="orderOperate">
         <dl>
           <dt>
             <button class="btn-audit" ion-button (click)="auditReturn(i)" *ngIf = "item.status==0">审核</button>
@@ -45,13 +44,18 @@
       <img src="../../assets/image/nodata.png" alt="">
       <p>空空如也</p>
     </div>
+
+    <div class="btn-noMore" *ngIf = "showNoMore">
+      <span>—— 没有更多信息了 ——</span>
+    </div>
     
 		<div class="btn-cancelView" (touchstart)="goAuditReturn()">
 			<span>查看已处理退货订单</span>
-		</div>
+    </div>
+    
     <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
+
   </div>
-  
 </ion-content>

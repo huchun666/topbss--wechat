@@ -33,7 +33,7 @@
           </dl>
         </div>
 			
-			<div class="orderOprate">
+			<div class="orderOperate">
 				<dl>
 					<dt>
 						
@@ -47,6 +47,9 @@
 		<div class="no-data" *ngIf = "noData">
       <img src="../../assets/image/nodata.png" alt="">
       <p>空空如也</p>
+    </div>
+    <div class="btn-noMore" *ngIf = "showNoMore">
+      <span>—— 没有更多信息了 ——</span>
     </div>
     <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
