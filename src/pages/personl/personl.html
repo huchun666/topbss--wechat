@@ -6,7 +6,7 @@
           <img class="my-picture" src="./assets/image/mypicture.png" alt="我的">
         </ion-col>
         <ion-col col-8>
-          <h2>{{ telphone }}</h2>
+          <h2>{{ userCurrent.telphone }}</h2>
           <button ion-button outline round color="light" (touchstart)="redirectPage(pageList.myCode)">
             <img src="./assets/image/qrcode.png" alt="我的">
             我的二维码
@@ -26,15 +26,15 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <div class="total"><span>￥</span>{{ total }}</div>
+          <div class="total"><span>￥</span>{{ userAccount.balance }}</div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <div class="approve">审核中金额：￥{{ unGetMoney }}</div>
+          <div class="approve">审核中金额：￥{{ userAccount.verifyAmount }}</div>
         </ion-col>
         <ion-col>
-          <div class="withdrawal">已提现：￥{{ gotMoney }}</div>
+          <div class="withdrawal">已提现：￥{{ userAccount.withdrawAmount }}</div>
         </ion-col>
       </ion-row>
     </ion-grid>

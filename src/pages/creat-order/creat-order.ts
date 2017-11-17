@@ -1,6 +1,6 @@
 import { Login } from './../login/login';
 import { Component} from '@angular/core';
-import { ModalController, NavController, NavParams, AlertController} from 'ionic-angular';
+import { ModalController, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { OrderLayer } from '../order-layer/order-layer';
 import { OrderStore } from '../order-store/order-store';
 import { AppService, AppConfig } from '../../app/app.service';
@@ -13,99 +13,63 @@ export class CreatOrder {
   creatOrderArray: any;
   noData: Boolean;
   start: number = 0;
-  limit: number = 10;
+  limit: number = 20;
   showNoMoreGift: Boolean = false;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
   warehouseCount: number;//配单仓数目
+  searchKeyWord: string;//搜索内容
   constructor(public modalCtrl: ModalController, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
-    public appService: AppService
+    public appService: AppService,
+    public toastCtrl: ToastController,
   ) {
-    // this.down = true;
-		// this.up = false;
-    // this.getCreatOrderList();
-    // this.getWarehouseCount();
+    this.down = true;
+		this.up = false;
+    this.getCreatOrderList();
+    this.getWarehouseCount();
     this.warehouseCount = 6;//后面要删除
-    this.creatOrderArray = [
-      {
-        "brandshopSeq": 286,  //门店id
-        "productSeq": 485,        //商品id
-        "productName": "多乐米 背心",    //商品名称
-        "productNo": "PROD0000006607",
-        "productCreateDate": 1487670689000,
-        "salesVolume": 43,        
-        "fileSeq": "../assets/image/productimg2.png"           //商品图片
-      },
-      {
-        "brandshopSeq": 286,
-        "productSeq": 496,
-        "productName": "迪士尼门票（门票类商品）",
-        "productNo": "PROD0000006801",
-        "productCreateDate": 1493185732000,
-        "salesVolume": 1,
-        "fileSeq": "../assets/image/productimg2.png"
-      },
-      {
-        "brandshopSeq": 286,
-        "productSeq": 496,
-        "productName": "迪士尼门票（门票类商品）",
-        "productNo": "PROD0000006801",
-        "productCreateDate": 1493185732000,
-        "salesVolume": 1,
-        "fileSeq": "../assets/image/productimg2.png"
-      },
-      {
-        "brandshopSeq": 286,
-        "productSeq": 496,
-        "productName": "迪士尼门票（门票类商品）",
-        "productNo": "PROD0000006801",
-        "productCreateDate": 1493185732000,
-        "salesVolume": 1,
-        "fileSeq": "../assets/image/productimg2.png"
-      },
-      {
-        "brandshopSeq": 286,
-        "productSeq": 496,
-        "productName": "迪士尼门票（门票类商品）",
-        "productNo": "PROD0000006801",
-        "productCreateDate": 1493185732000,
-        "salesVolume": 1,
-        "fileSeq": "../assets/image/productimg2.png"
-      }
-    ]
+    // this.creatOrderArray = [];
   }
 
   //进入页面，请求接口，得到数据
   getCreatOrderList() {
-    // let loading = this.appService.loading();
-		// loading.present();
-    // let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=${this.brandshopSeqId}&start=${this.start}&limit=${this.limit}`;
-    // this.appService.httpGet(url).then( data => {
-    //   loading.dismiss();
-    //   if (data.totalRecord == 0) {
-    //     //空空如也
-    //     this.noData = true;
-    //   }else {
-    //     this.noData = false;
-    //     if( this.start < data.totalRecord ) {
-    //       if (this.up) {
-    //         this.creatOrderArray.push(...data.data);
-    //         this.start += this.limit;
-    //       }else if (this.down){
-    //         this.creatOrderArray = [...data.data];
-    //         this.start += this.limit;
-    //       }
-    //     }else {
-    //       this.showNoMoreGift = true;
-    //     }
-    //   }
+    let loading = this.appService.loading();
+		loading.present();
+    let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
+    this.appService.httpGet(url).then( data => {
+      loading.dismiss();
+      if (data.totalRecord == 0) {
+        //空空如也
+        this.noData = true;
+      }else {
+        this.noData = false;
+        if( this.start < data.totalRecord ) {
+          if (this.up) {
+            this.creatOrderArray.push(...data.data);
+            this.start += this.limit;
+          }else if (this.down){
+            this.creatOrderArray = [...data.data];
+            this.start += this.limit;
+          }
+        }else {
+          this.showNoMoreGift = true;
+        }
+      }
       
-    //   }).catch(error => {
-    //     console.log(error);
-    //   });
+    }).catch(error => {
+      loading.dismiss();
+      console.log(error);
+      let toast = this.toastCtrl.create({
+        message: '网络异常，请稍后再试',
+        duration: 1000,
+        position: 'middle'
+      });
+      toast.present(toast);
+    });
   }
+
   addProductModal(index) {
 	  const orderModal = this.modalCtrl.create(OrderLayer, {
       productSeq: this.creatOrderArray[index].productSeq,
@@ -123,72 +87,154 @@ export class CreatOrder {
   orderRepertory () {
 	  this.navCtrl.push(OrderStore);
   }
+
   // 搜索
   onInput(event) {
-    let searchKeyWord = event.target.value;
-    console.log(searchKeyWord)
-    // if (searchKeyWord){
-    //   let loading = this.appService.loading();
-    //   loading.present();
-    //   this.start = 0;
-    //   this.down = true;
-    //   this.up = false;
-    //   let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=${this.brandshopSeqId}&searchKeyWord=searchKeyWord&start=${this.start}&limit=${this.limit}`;
-    //   this.appService.httpGet(url).then( data => {
-    //     loading.dismiss();
-    //     if (data.totalRecord == 0) {
-    //       //空空如也
-    //       this.noData = true;
-    //     }else {
-    //       this.noData = false;
-    //       if( this.start < data.totalRecord ) {
-    //         if (this.up) {
-    //           this.creatOrderArray.push(...data.data);
-    //           this.start += this.limit;
-    //         }else if (this.down){
-    //           this.creatOrderArray = [...data.data];
-    //           this.start += this.limit;
-    //         }
-    //       }else {
-    //         this.showNoMoreGift = true;
-    //       }
-    //     }
-    //   }).catch(error => {
-    //     console.log(error);
-    //   });
-    // }else {
-    //   this.down = true;
-    //   this.up = false;
-    //   this.getCreatOrderList();
-    // }
-    
+    this.down = true;
+    this.up = false;
+    this.start = 0;
+    this.searchKeyWord = event.target.value;
+    console.log(this.searchKeyWord)
+    if (this.searchKeyWord){
+      let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
+      this.appService.httpGet(url).then( data => {
+        console.log(data)
+        if (data.totalRecord == 0) {
+          //空空如也
+          this.noData = true;
+          this.showNoMoreGift = false;
+        }else {
+          this.noData = false;
+          if( this.start < data.totalRecord ) {
+            if (this.up) {
+              this.creatOrderArray.push(...data.data);
+              this.start += this.limit;
+            }else if (this.down){
+              this.creatOrderArray = [...data.data];
+              this.start += this.limit;
+            }
+          }else {
+            this.showNoMoreGift = true;
+          }
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+    }else {
+      this.getCreatOrderList();
+    }
   }
+
+  // 下拉刷新请求数据
   refreshGetCreatOrderList(refresher) {
-    // 下拉刷新请求数据
-    // this.start = 0;
-    // this.down = true;
-	  // this.up = false;
-    // setTimeout(() => {
-    //   this.getCreatOrderList();
-    //   refresher.complete();
-    // },1000)
+    this.start = 0;
+    this.down = true;
+	  this.up = false;
+    let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
+    this.appService.httpGet(url).then( data => {
+      refresher.complete();
+      if (data.totalRecord == 0) {
+        //空空如也
+        this.noData = true;
+      }else {
+        this.noData = false;
+        if( this.start < data.totalRecord ) {
+          if (this.up) {
+            this.creatOrderArray.push(...data.data);
+            this.start += this.limit;
+          }else if (this.down){
+            this.creatOrderArray = [...data.data];
+            this.start += this.limit;
+          }
+        }else {
+          this.showNoMoreGift = true;
+        }
+      }
+    }).catch(error => {
+      refresher.complete();
+      console.log(error);
+      let toast = this.toastCtrl.create({
+        message: '网络异常，请稍后再试',
+        duration: 1000,
+        position: 'middle'
+      });
+      toast.present(toast);
+    });
   }
+
+  // 上拉刷新请求数据
   infiniteGetCreatOrderList(infiniteScroll) {
-    // 上拉刷新请求数据
-    // this.down = false;
-	  // this.up = true;
-    // setTimeout(() => {
-    //   this.getCreatOrderList();
-    //   infiniteScroll.complete();
-    // },1000)
+    this.down = false;
+	  this.up = true;
+    if (this.searchKeyWord) {
+      let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
+      this.appService.httpGet(url).then( data => {
+        infiniteScroll.complete();
+        console.log(data)
+        if (data.totalRecord == 0) {
+          //空空如也
+          this.noData = true;
+          this.showNoMoreGift = false;
+        }else {
+          this.noData = false;
+          if( this.start < data.totalRecord ) {
+            if (this.up) {
+              this.creatOrderArray.push(...data.data);
+              this.start += this.limit;
+            }else if (this.down){
+              this.creatOrderArray = [...data.data];
+              this.start += this.limit;
+            }
+          }else {
+            this.showNoMoreGift = true;
+          }
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+    }else {
+      let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
+          this.appService.httpGet(url).then( data => {
+            infiniteScroll.complete();
+            if (data.totalRecord == 0) {
+              //空空如也
+              this.noData = true;
+            }else {
+              this.noData = false;
+              if( this.start < data.totalRecord ) {
+                if (this.up) {
+                  this.creatOrderArray.push(...data.data);
+                  this.start += this.limit;
+                }else if (this.down){
+                  this.creatOrderArray = [...data.data];
+                  this.start += this.limit;
+                }
+              }else {
+                this.showNoMoreGift = true;
+              }
+            }
+          }).catch(error => {
+            infiniteScroll.complete();
+            console.log(error);
+            let toast = this.toastCtrl.create({
+              message: '网络异常，请稍后再试',
+              duration: 1000,
+              position: 'middle'
+            });
+            toast.present(toast);
+          });
+    }
+    
+    
   }
 
   //查看配单仓订单总数
   getWarehouseCount() {
     // let url = `${AppConfig.API.getCount}`;
-    //   this.appService.httpGet(url).then( number => {
-    //     this.warehouseCount = number;
-    //   }).catch(error => {
+    // this.appService.httpGet(url).then( number => {
+    //   this.warehouseCount = number;
+    //   console.log(this.warehouseCount)
+    // }).catch(error => {
     //   console.log(error);
     // });
   }

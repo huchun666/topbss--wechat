@@ -1,12 +1,12 @@
-<ion-content>
-  <!-- <ion-refresher (ionRefresh)="refreshGetUnhandleSelfGiftList($event)">
-    <ion-refresher-content>
+<ion-content (ionScroll)="scrollHandler($event)">
+  <ion-refresher (ionRefresh)="refreshGetUnhandleSelfGiftList($event)">
+		<ion-refresher-content pullingText="下拉刷新" refreshingText="获取中...">
     </ion-refresher-content>
-  </ion-refresher> -->
+  </ion-refresher>
   <div class="gift-list">
 	<div class="gift-item" *ngFor="let item of unhandleSeflGiftArray;let i = index">
 	  <dl>
-			<dt><img src="{{item.imageName}}" alt=""></dt>
+			<dt><img src="http://images.91topbaby.com/{{item.imageName}}" alt=""></dt>
 			<dd class="product-title">
 				<h2>{{ item.giftName }}</h2>
 				<!-- success unstart -->
@@ -40,7 +40,10 @@
 	  </div>
 	
 	</div>
-  </div>
+	</div>
+	<div class="toTop" (click)="scrollTo()" *ngIf="toTop">
+		<img src="../../assets/image/toTop.png" alt="">
+	</div>
   <div class="btn-selfview" (click)="goSelfgift()">
     <span>查看已兑换自提赠品</span>
 	</div>
@@ -51,7 +54,7 @@
 	<div class="btn-noMore" *ngIf = "showNoMoreGift">
 		<span>—— 没有更多赠品了 ——</span>
 	</div>
-  <!-- <ion-infinite-scroll (ionInfinite)="infiniteGetUnhandleSelfGiftList($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll> -->
+  <ion-infinite-scroll (ionInfinite)="infiniteGetUnhandleSelfGiftList($event)">
+    <ion-infinite-scroll-content loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
