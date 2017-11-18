@@ -117,6 +117,7 @@ order-store {
   }
   .btn-confirm {
 		margin: 30px 1rem;
+		margin-top: 0;
 		width:-moz-calc(100% - 2rem); 
 		width:-webkit-calc(100% - 2rem);
 		width: calc(100% - 2rem);
@@ -174,7 +175,7 @@ order-store {
   }
   .btn-noMore {
 	text-align: center;
-	padding-bottom: 2rem;
+	padding-top: 2rem;
 	span {
 		font-size: 1.2rem;
 		color: #999;

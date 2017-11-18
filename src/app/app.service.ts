@@ -37,6 +37,7 @@ export class AppConfig {
     warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
     warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
     current: "/brandshop/user/current", //查询当前导购员基本信息
+    warehouseEmpty: "/rest/order/warehouse/empty",//清空配单仓接口
   };
   
 }
@@ -55,6 +56,17 @@ export class AppService {
   httpGet(url: string) {
     return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
+      .catch(error => {
+        console.log(`访问错误:${error}`);
+        this.handleError(error);
+      }
+    );
+  }
+
+  //get request
+  httpGetReturnData(url: string) {
+    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res)
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);

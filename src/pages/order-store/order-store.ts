@@ -176,6 +176,12 @@ export class OrderStore {
       }
     }).catch(error=>{
       console.log(error);
+      let toast = this.toastCtrl.create({
+        message: '更新失败！',
+        duration: 1000,
+        position: 'middle'
+      });
+		  toast.present(toast);
     })
   }
 
@@ -211,6 +217,12 @@ export class OrderStore {
       }
     }).catch(error => {
       console.log(error);
+      let toast = this.toastCtrl.create({
+        message: '删除失败！',
+        duration: 1000,
+        position: 'middle'
+      });
+		  toast.present(toast);
     })
   }
   //失去焦点
@@ -219,14 +231,20 @@ export class OrderStore {
   }
   //确认订单
   addProductModal() {
-    // let url = `${AppConfig.API.warehouseGenerateCode}`;
-    // this.appService.httpGet(url).then( data => {
-    //   // this.returnUrl = data['_body'];
-    //   console.log(data);
-    // }).catch(error=>{
-    //   console.log(error);
-    // })
-    this.returnUrl = "http://www.61topbaby.com/evercos/payment/generateOrder.html?warehouseId=1";//后面要删除
+    let url = `${AppConfig.API.warehouseGenerateCode}`;
+    this.appService.httpGetReturnData(url).then( data => {
+      this.returnUrl = data['_body'];
+      console.log(this.returnUrl);
+    }).catch(error=>{
+      console.log(error);
+      let toast = this.toastCtrl.create({
+        message: '操作失败！',
+        duration: 1000,
+        position: 'middle'
+      });
+		  toast.present(toast);
+    })
+    // this.returnUrl = "http://www.61topbaby.com/evercos/payment/generateOrder.html?warehouseId=1";//后面要删除
     
     this.navCtrl.push(PaymentCode,{
       returnUrl: this.returnUrl

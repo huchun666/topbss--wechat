@@ -21,7 +21,7 @@
           <span class="btn-add" (touchstart)="addCount(i)">+</span>
           <span class="btn-remove" [ngClass]="{changeGray: single.productNum | changeGray}" (touchstart)="removeCount(i)">-</span>
           <div class="add-count">
-            <input  (blur)="resetCount(i)" [(ngModel)]="single.productNum"  type="number">
+            <input (blur)="resetCount(i)" [(ngModel)]="single.productNum"  type="number">
           </div>
         </div>
         <div class="total">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="remark">
-          <input placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">
+          <input (blur)="resetCount(i)" placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">
         </div>
       </ion-item>
       
