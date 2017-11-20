@@ -16,7 +16,7 @@
 			<div class="order-item">
 			  <dl>
 			    <dt>
-			      <img class="my-picture" [src]="returnDetail.itemProductSkuDTO.productSkuDTO.fileName" [alt]="returnDetail.itemProductSkuDTO.productSkuDTO.productName">
+			      <img class="my-picture" [src]="returnDetail.itemProductSkuDTO.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="returnDetail.itemProductSkuDTO.productSkuDTO.productName">
 			    </dt>
 			    <dd class="product-title">{{returnDetail.itemProductSkuDTO.productSkuDTO.productName}}</dd>
 			    <dd class="sku-list">

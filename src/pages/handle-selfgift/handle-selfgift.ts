@@ -68,14 +68,9 @@ export class HandleSelfgift {
         this.noData = true;
       }else {
         this.noData = false;
-        if( this.start < data.totalRecord ) {
-          if (this.up) {
-            this.handleSeflGiftArray.push(...data.data);
-            this.start += this.limit;
-          }else if (this.down){
-            this.handleSeflGiftArray = data.data;
-            this.start += this.limit;
-          }
+        if (data.data.length != 0) {
+          this.handleSeflGiftArray = data.data;
+          this.start += this.limit;
         }else {
           this.showNoMoreGift = true;
         }
@@ -94,12 +89,18 @@ export class HandleSelfgift {
     let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       infiniteScroll.complete();
-      if (data.data.length != 0) {
-				this.handleSeflGiftArray.push(...data.data);
-				this.start += this.limit;
-			}else {
-				this.showNoMoreGift = true;
-			}
+      if (data.count == 0) {
+        //空空如也
+        this.noData = true;
+      }else {
+        this.noData = false;
+        if (data.data.length != 0) {
+          this.handleSeflGiftArray.push(...data.data);
+          this.start += this.limit;
+        }else {
+          this.showNoMoreGift = true;
+        }
+      }
     }).catch(error => {
       infiniteScroll.complete();
       console.log(error);

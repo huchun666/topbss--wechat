@@ -115,34 +115,14 @@ unaudit-cancelorder {
         background-color: #5e9efe;
       }
 		}
-    .btn-noMore {
-      text-align: center;
-      padding-bottom: 2rem;
-      span {
-        font-size: 1.2rem;
-        color: #999;
-      }
-    }
 		.btn-cancelView {
 			color: #999;
 			font-size: 1.5rem;
 			text-align: center;
-			padding-top: 2rem;
+			padding: 2rem 0;
 			span {
 				text-decoration: underline;
 			}
-    }
-    .no-data {
-      margin: 0 auto;
-      text-align: center;
-      img {
-        display: inline-block;
-        width: 10rem;
-        height: 10rem;
-      }
-      p {
-        color: #999;
-      }
     }
   }
 }

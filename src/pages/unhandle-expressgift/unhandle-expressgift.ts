@@ -132,24 +132,19 @@ export class UnhandleExpressgift {
 	this.up = false;
 	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
-      refresher.complete();
-      if (data.totalRecord == 0) {
+			refresher.complete();
+			if (data.count == 0) {
         //空空如也
         this.noData = true;
       }else {
         this.noData = false;
-        if( this.start < data.totalRecord ) {
-          if (this.up) {
-            this.unhandleExpressGiftArray.push(...data.data);
-            this.start += this.limit;
-          }else if (this.down){
-            this.unhandleExpressGiftArray = data.data;
-            this.start += this.limit;
-          }
-        }else {
-          this.showNoMoreGift = true;
-        }
-      }
+				if (data.data.length != 0) {
+					this.unhandleExpressGiftArray = data.data;
+					this.start += this.limit;
+				}else {
+					this.showNoMoreGift = true;
+				}
+			}
     }).catch(error => {
       refresher.complete();
       console.log(error);
@@ -163,11 +158,17 @@ export class UnhandleExpressgift {
 		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
 		this.appService.httpGet(url).then( data => {
 			infiniteScroll.complete();
-			if (data.data.length != 0) {
-				this.unhandleExpressGiftArray.push(...data.data);
-				this.start += this.limit;
-			}else {
-				this.showNoMoreGift = true;
+			if (data.count == 0) {
+        //空空如也
+        this.noData = true;
+      }else {
+        this.noData = false;
+				if (data.data.length != 0) {
+					this.unhandleExpressGiftArray.push(...data.data);
+					this.start += this.limit;
+				}else {
+					this.showNoMoreGift = true;
+				}
 			}
 		}).catch(error => {
 			infiniteScroll.complete();
