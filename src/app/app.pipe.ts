@@ -1,17 +1,126 @@
-// 订单状态
-import { PipeTransform, Pipe } from '@angular/core';
+import { PipeTransform, Pipe, transition } from '@angular/core';
+
+// 订单状态的转换
 @Pipe({ name: 'setOrderStatus' })
 export class FilterStatusPipe implements PipeTransform {
-  transform(param: string): string {
+  transform(param: string): any {
     switch(param) {
       case "0":
-        return "待支付";
+        return {
+          status: "待支付",
+          pass: false,
+          audit: true
+        };
       case "1":
-        return "已收货";
+        return {
+          status: "已支付",
+          pass: true,
+          audit: false
+        };
       case "2":
-        return "已退货";
+        return {
+          status: "已发货",
+          pass: true,
+          audit: false
+        };
       case "3":
-        return "已完成";
+        return {
+          status: "已收货",
+          pass: true,
+          audit: false
+        };
+      case "4":
+        return {
+          status: "已取消",
+          pass: false,
+          audit: true
+        };
+      case "6":
+        return {
+          status: "取消中",
+          pass: true,
+          audit: false
+        };
+      case "C":
+        return {
+          status: "已完成",
+          pass: true,
+          audit: false
+        }
+    }
+  }
+}
+
+// 退货订单的状态转换
+@Pipe({ name: 'setReturnOrderStatus' })
+export class FilterReturnStatusPipe implements PipeTransform {
+  transform(param: string): any {
+    let value = "";
+    switch(param) {
+      case "0":
+        return {
+          status: "申请审核中",
+          pass: true,
+          audit: false
+        };
+      case "1":
+        return {
+          status: "申请已同意",
+          pass: true,
+          audit: false
+        };
+      case "2":
+        return {
+          status: "商家已收货",
+          pass: true,
+          audit: false
+        };
+      case "3":
+        return {
+          status: "申请已完成",
+          pass: true,
+          audit: false
+        };
+      case "4":
+        return {
+          status: "申请拒绝",
+          pass: false,
+          audit: true
+        };
+    }
+  }
+}
+
+// 取消订单的状态转换
+@Pipe({ name: 'setCancelOrderStatus' })
+export class FilterCancelStatusPipe implements PipeTransform {
+  transform(param: string): any {
+    let value = "";
+    switch(param) {
+      case "0":
+        return {
+          status: "未处理",
+          pass: false,
+          audit: true
+        }
+      case "1":
+        return {
+          status: "同意",
+          pass: true,
+          audit: false
+        }
+      case "2":
+        return {
+          status: "拒绝",
+          pass: false,
+          audit: true
+        }
+      case "3":
+        return {
+          status: "已完成",
+          pass: true,
+          audit: false
+        }
     }
   }
 }
@@ -100,11 +209,5 @@ export class SkuImagePipe implements PipeTransform {
     }else {
       return "../../assets/image/nodata.png";
     }
-    // switch(skuImage) {
-    //   case "":
-    //     return "../../assets/image/nodata.png";
-    //   default:
-    //     return "http://www.91topbaby.com/evercos/common/file/content/"+skuImage;
-    // }
   }
 }

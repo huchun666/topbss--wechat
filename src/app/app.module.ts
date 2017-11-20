@@ -6,8 +6,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
 import { 
-  FilterStatusPipe,
+  FilterStatusPipe, 
+  FilterReturnStatusPipe,
+  FilterCancelStatusPipe,
   FilterWithdrawStatusPipe,
   FilterGiftTypePipe,
   FilterHandleGiftTypePipe, 
@@ -105,7 +108,9 @@ let componentsList = [
 @NgModule({
   declarations: [
     ...componentsList, 
-    FilterStatusPipe,
+    FilterStatusPipe, 
+    FilterReturnStatusPipe,
+    FilterCancelStatusPipe,
     FilterWithdrawStatusPipe,
     FilterGiftTypePipe, 
     FilterHandleGiftTypePipe,

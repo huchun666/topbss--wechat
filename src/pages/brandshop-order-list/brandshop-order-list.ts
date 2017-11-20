@@ -9,63 +9,397 @@ export class BrandshopOrderList {
   dateStart: string = '';
   dateEnd: string = '';
   isShowDetail: boolean = false;
-  orderStatus: string = '';
   orderList: any;
   orderStatusList: any;
-  currentStaus: any;
+  currentStatus: any;
   currentPage: number = 1;
   pageSize: number = 10;
-  constructor(public navCtrl: NavController, public appService: AppService) {
-    this.orderStatusList = ["全部", "待支付", "已收货", "取消中", "已取消", "已完成"];
-    this.currentStaus = this.orderStatusList[0];
-    this.orderList = [{
-      orderNumber: "201444145695",
-      orderStauts: 0,
-      total: "1200.00",
-      promotions: "00.00",
-      topDiscount: "00.00",
-      merchantDiscount: "10.00",
-      integralDiscount: "00.00",
-      payAmount: "566.96",
-      memberMobile: "13761489650",
-      receivedTime: "2017.10.26",
-      productList: [{
-        images: "./assets/image/productimg.png",
-        name: "可爱的小裙子 厚实的 保暖 秋冬季",
-        skuList: [{
-          value: "140"
-        },{
-          value: "蓝色"
-        },{
-          value: "无袖"
-        }],
-        price: "128.00",
-        count: "4"
-      }]
-    }]
+  paramsStatus: string = '';
+  paramsDate: string = '';
+  up: Boolean = true;
+  down: Boolean = false;
+  noData:Boolean = false;
+  start: number = 0;
+  showNoMore: Boolean = false;
+  constructor(
+    public navCtrl: NavController, 
+    public appService: AppService) {
+      this.orderStatusList = [
+        {
+          label: "全部",
+          status: 'all'
+        },
+        {
+          label: "待支付",
+          status: '0'
+        },
+        {
+          label: "已收货",
+          status: '3'
+        },
+        {
+          label: "已取消",
+          status: '4'
+        },
+        {
+          label: "取消中",
+          status: '6'
+        },
+        {
+          label: "已完成",
+          status: 'C'
+        } ];
+      this.currentStatus = this.orderStatusList[0].status;
+      this.orderList = [
+        {
+          orderSeq: 1336,
+          splited: false,
+          orderId: "20160426028456",
+          deliveryType: "1",
+          status: "0",
+          totalAmount: 1998.4,
+          discountAmount: 0,
+          integralAmount: 0,
+          couponAmount: null,
+          merchantCouponAmount: 0,
+          payAmount: 1998.4,
+          companyName: null,
+          feeRate: null,
+          parentOrderId: null,
+          brandshopName: null,
+          orderItemProductSkuDTOS: [
+            {
+              orderItemSeq: 1470,
+              prodSeq: 101,
+              skuSeq: 387,
+              unitPrice: 1998.4,
+              number: 1,
+              productSkuDTO: {
+                productSeq: 101,
+                skuSeq: 387,
+                productName: "德国Kiddy守护者2代Isofix接口汽车用宝宝儿童安全座椅9个月-12岁",
+                fileName: './assets/image/productimg.png',
+                attrValueList: [
+                  {
+                    skuSeq: null,
+                    attrSeq: 537,
+                    attrName: "颜色",
+                    attrValue: "灰色",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  },
+                  {
+                    skuSeq: null,
+                    attrSeq: 538,
+                    attrName: "适合体重",
+                    attrValue: "24-36kg",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  }
+                ],
+                fallbac: null
+              }
+            },
+          ]
+        },
+        {
+          orderSeq: 1336,
+          splited: false,
+          orderId: "20160426028456",
+          deliveryType: "1",
+          status: "1",
+          totalAmount: 1998.4,
+          discountAmount: 0,
+          integralAmount: 0,
+          couponAmount: null,
+          merchantCouponAmount: 0,
+          payAmount: 1998.4,
+          companyName: null,
+          feeRate: null,
+          parentOrderId: null,
+          brandshopName: null,
+          orderItemProductSkuDTOS: [
+            {
+              orderItemSeq: 1470,
+              prodSeq: 101,
+              skuSeq: 387,
+              unitPrice: 1998.4,
+              number: 1,
+              productSkuDTO: {
+                productSeq: 101,
+                skuSeq: 387,
+                productName: "德国Kiddy守护者2代Isofix接口汽车用宝宝儿童安全座椅9个月-12岁",
+                fileName: './assets/image/productimg.png',
+                attrValueList: [
+                  {
+                    skuSeq: null,
+                    attrSeq: 537,
+                    attrName: "颜色",
+                    attrValue: "灰色",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  },
+                  {
+                    skuSeq: null,
+                    attrSeq: 538,
+                    attrName: "适合体重",
+                    attrValue: "24-36kg",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  }
+                ],
+                fallbac: null
+              }
+            },
+          ]
+        },
+        {
+          orderSeq: 1336,
+          splited: false,
+          orderId: "20160426028456",
+          deliveryType: "1",
+          status: "2",
+          totalAmount: 1998.4,
+          discountAmount: 0,
+          integralAmount: 0,
+          couponAmount: null,
+          merchantCouponAmount: 0,
+          payAmount: 1998.4,
+          companyName: null,
+          feeRate: null,
+          parentOrderId: null,
+          brandshopName: null,
+          orderItemProductSkuDTOS: [
+            {
+              orderItemSeq: 1470,
+              prodSeq: 101,
+              skuSeq: 387,
+              unitPrice: 1998.4,
+              number: 1,
+              productSkuDTO: {
+                productSeq: 101,
+                skuSeq: 387,
+                productName: "德国Kiddy守护者2代Isofix接口汽车用宝宝儿童安全座椅9个月-12岁",
+                fileName: './assets/image/productimg.png',
+                attrValueList: [
+                  {
+                    skuSeq: null,
+                    attrSeq: 537,
+                    attrName: "颜色",
+                    attrValue: "灰色",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  },
+                  {
+                    skuSeq: null,
+                    attrSeq: 538,
+                    attrName: "适合体重",
+                    attrValue: "24-36kg",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  }
+                ],
+                fallbac: null
+              }
+            },
+          ]
+        },
+        {
+          orderSeq: 1336,
+          splited: false,
+          orderId: "20160426028456",
+          deliveryType: "1",
+          status: "3",
+          totalAmount: 1998.4,
+          discountAmount: 0,
+          integralAmount: 0,
+          couponAmount: null,
+          merchantCouponAmount: 0,
+          payAmount: 1998.4,
+          companyName: null,
+          feeRate: null,
+          parentOrderId: null,
+          brandshopName: null,
+          orderItemProductSkuDTOS: [
+            {
+              orderItemSeq: 1470,
+              prodSeq: 101,
+              skuSeq: 387,
+              unitPrice: 1998.4,
+              number: 1,
+              productSkuDTO: {
+                productSeq: 101,
+                skuSeq: 387,
+                productName: "德国Kiddy守护者2代Isofix接口汽车用宝宝儿童安全座椅9个月-12岁",
+                fileName: './assets/image/productimg.png',
+                attrValueList: [
+                  {
+                    skuSeq: null,
+                    attrSeq: 537,
+                    attrName: "颜色",
+                    attrValue: "灰色",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  },
+                  {
+                    skuSeq: null,
+                    attrSeq: 538,
+                    attrName: "适合体重",
+                    attrValue: "24-36kg",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  }
+                ],
+                fallbac: null
+              }
+            },
+          ]
+        },
+        {
+          orderSeq: 1336,
+          splited: false,
+          orderId: "20160426028456",
+          deliveryType: "1",
+          status: "4",
+          totalAmount: 1998.4,
+          discountAmount: 0,
+          integralAmount: 0,
+          couponAmount: null,
+          merchantCouponAmount: 0,
+          payAmount: 1998.4,
+          companyName: null,
+          feeRate: null,
+          parentOrderId: null,
+          brandshopName: null,
+          orderItemProductSkuDTOS: [
+            {
+              orderItemSeq: 1470,
+              prodSeq: 101,
+              skuSeq: 387,
+              unitPrice: 1998.4,
+              number: 1,
+              productSkuDTO: {
+                productSeq: 101,
+                skuSeq: 387,
+                productName: "德国Kiddy守护者2代Isofix接口汽车用宝宝儿童安全座椅9个月-12岁",
+                fileName: './assets/image/productimg.png',
+                attrValueList: [
+                  {
+                    skuSeq: null,
+                    attrSeq: 537,
+                    attrName: "颜色",
+                    attrValue: "灰色",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  },
+                  {
+                    skuSeq: null,
+                    attrSeq: 538,
+                    attrName: "适合体重",
+                    attrValue: "24-36kg",
+                    type: null,
+                    fileSeq: null,
+                    price: null,
+                    selectedAttrValue: null,
+                    invalidAttrValue: null
+                  }
+                ],
+                fallbac: null
+              }
+            },
+          ]
+        },
+      ];
+      this.getOrderList(); 
   }
-  // 获取门店订单列表
-  getOrderList(parmas) {
-    let url = `${AppConfig.API}?status=${this.currentStaus}&start=${this.pageSize * (this.currentPage) - 1}&limit=${this.pageSize}&${parmas}`;
+  // 获取订单列表
+  getOrderList() {
+    let loading = this.appService.loading();
+    var url = `${AppConfig.hostUrl + AppConfig.API.getOrderList}?userType=A&start=${this.pageSize * (this.currentPage - 1)}&limit=${this.pageSize}`;
+    if(this.paramsDate != ''){
+      url += this.paramsDate;
+    }
+    if(this.paramsStatus != ''){
+      url += this.paramsStatus;
+    }
     this.appService.httpGet(url).then(data => {
-      this.orderList = data.body.orderList;
-      this.currentPage++;
+      loading.dismiss(); 
+      if (data.count == 0 && this.orderList.length == 0) {
+		    //空空如也
+		    this.noData = true;
+	    } else {
+        this.noData = false;
+        if (this.start < data.count) {
+          if (this.up) {
+            this.orderList.push(...data.data);
+            this.start += this.pageSize;
+          } else if (this.down) {
+            this.orderList = [...data.data];
+            this.start += this.pageSize;
+          }
+        } else {
+          this.showNoMore = true;
+        }
+      }
     }).catch(error => {
       console.log(error);
     })
   }
   getOrderListByDate() {
-    // let parmas= `&dateStart=${this.dateStart}&dateEnd=${this.dateEnd}`;
-    // this.getOrderList(parmas);
+    this.currentPage = 1;
+    this.paramsDate = '';
+    if(this.dateStart != ''){
+      this.paramsDate+= `&dateStart=${this.dateStart}`;
+    }
+    if(this.dateEnd != ''){
+      this.paramsDate+= `&dateEnd=${this.dateEnd}`;
+    }
+    // this.getOrderList();
   }
-  // 点击状态时切换，获取当前门店订单状态
-  getCurrentStaus(index) {
-    this.currentStaus = this.orderStatusList[index];
-    // this.getOrderList(url);
+  // 点击状态时切换，获取当前订单状态
+  getCurrentStatus(index) {
+    this.currentPage = 1;
+    this.paramsStatus = ''
+    this.currentStatus = this.orderStatusList[index].status
+    if(this.orderStatusList[index].status != 'all'){
+      this.paramsStatus+= '&status='+this.currentStatus
+    }
+    // this.getOrderList();
   }
   // 是否显示明细
   showDetail() {
     this.isShowDetail = !this.isShowDetail;
+  }
+  // 进入门店所有订单
+  goBrandshoOrder() {
+    this.navCtrl.push(BrandshopOrderList);
   }
   // 清除开始日期
   clearDateStart() {
@@ -74,5 +408,26 @@ export class BrandshopOrderList {
   // 清除结束日期
   clearDateEnd() {
     this.dateEnd = '';
+  }
+   
+  // 下拉刷新请求数据
+  doRefresh(refresher) {
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    setTimeout(() => {
+      // this.getOrderList();
+      refresher.complete();
+    },1000)
+  }
+  
+  // 上拉刷新请求数据
+  infiniteGetSelfGiftList(infiniteScroll) {
+    this.down = false;
+    this.up = true;
+    setTimeout(() => {
+      // this.getOrderList();
+      infiniteScroll.complete();
+    },1000)
   }
 }
