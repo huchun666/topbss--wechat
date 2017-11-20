@@ -1,5 +1,5 @@
 import { Component, ViewChild} from '@angular/core';
-import { NavController, NavParams, AlertController, Content, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Content } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'handle-selfgift',
@@ -17,7 +17,6 @@ export class HandleSelfgift {
   constructor(public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public appService: AppService,
-    public toastCtrl: ToastController,
   ) {
     this.down = true;
 	  this.up = false;
@@ -52,12 +51,7 @@ export class HandleSelfgift {
 		}).catch(error => {
 			loading.dismiss();
 			console.log(error);
-				let toast = this.toastCtrl.create({
-				message: '网络异常，请稍后再试',
-				duration: 1000,
-				position: 'middle'
-			});
-			toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 		});
   }
 
@@ -89,12 +83,7 @@ export class HandleSelfgift {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-        let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -125,12 +114,7 @@ export class HandleSelfgift {
     }).catch(error => {
       infiniteScroll.complete();
       console.log(error);
-        let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 }

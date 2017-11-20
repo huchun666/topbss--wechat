@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { App, NavController, NavParams, ToastController } from 'ionic-angular';
+import { App, NavController, NavParams } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'payment-code',
@@ -12,7 +12,6 @@ export class PaymentCode {
     public app: App,
     public navParams: NavParams,
     public appService: AppService,
-    public toastCtrl: ToastController,
   ) {
     if (this.navParams.get('returnUrl')){
       this.myCode = this.navParams.get('returnUrl');
@@ -35,12 +34,7 @@ export class PaymentCode {
       }
     }).catch(error=>{
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '操作失败！',
-        duration: 1000,
-        position: 'middle'
-      });
-		  toast.present(toast);
+      this.appService.toast('操作失败', 1000, 'middle');
     })
   }
   //关闭(完成)移除所有的view,直接显示home

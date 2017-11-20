@@ -9,7 +9,8 @@
      提现总计：￥169999.36
     </div>
     <div class="record-list">
-      <div class="withdraw-item">
+      
+      <!-- <div class="withdraw-item">
         <ul>
           <li class="money">
            提现金额：￥800.00
@@ -19,55 +20,22 @@
            <span class="status fail">失败</span>
           </li>
         </ul>
-      </div>
-      <div class="withdraw-item">
-        <ul>
-          <li class="money">
-           提现金额：￥800.00
-          </li>
-          <li class='date'>
-           提现日期：2017.10.09
-           <!-- success or fail   -->
-           <span class="status">成功</span>
-          </li>
-        </ul>
-      </div>
-      <div class="withdraw-item">
-        <ul>
-          <li class="money">
-           提现金额：￥800.00
-          </li>
-          <li class='date'>
-           提现日期：2017.10.09
-           <!-- success or fail   -->
-           <span class="status">成功</span>
-          </li>
-        </ul>
-      </div>
-      <div class="withdraw-item">
-        <ul>
-          <li class="money">
-           提现金额：￥800.00
-          </li>
-          <li class='date'>
-           提现日期：2017.10.09
-           <!-- success or fail   -->
-           <span class="status">成功</span>
-          </li>
-        </ul>
-      </div>
-      <div class="withdraw-item">
-        <ul>
-          <li class="money">
-           提现金额：￥800.00
-          </li>
-          <li class='date'>
-           提现日期：2017.10.09
-           <!-- success or fail   -->
-           <span class="status">成功</span>
-          </li>
-        </ul>
-      </div>
+      </div> -->
+      
+      <div class="withdraw-item" *ngFor="let item of withdrawList; let i = index">
+          <ul>
+            <li class="money">
+              提现金额：￥{{ item.realAmount }}
+            </li>
+            <li class='date'>
+              提现日期：{{ item.processDate | date:'yyyy.MM.dd' }}
+              <span [ngClass]="{status:true, fail: item.status!= '1', success: item.status== '1' }">{{ item.status | setWithdrawStatus}}</span>
+            </li>
+          </ul>
+        </div>
+
+      
+      
     </div>
   </div>
 </ion-content>

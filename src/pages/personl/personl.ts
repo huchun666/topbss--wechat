@@ -9,6 +9,7 @@ import { WithdrawRecord } from '../withdraw-record/withdraw-record';
 import { Help } from '../help/help';
 import { BindAccount } from '../account/bind-account/bind-account';
 import { AppService, AppConfig } from '../../app/app.service';
+
 @Component({
   selector: 'personl',
   templateUrl: 'personl.html'
@@ -25,7 +26,7 @@ export class Personl {
     idcard: '' //身份证
   }
   /* 当前导购员账户信息
-   * 导购员ID,类型账户，已审核金额（旧版本的总金额），可提现金额，审核中金额，已提取金额
+   * 导购员ID，类型账户，已审核金额（旧版本的总金额），可提现金额，审核中金额，已提取金额
    */
   userAccount: any = {
     userId: null,
@@ -83,8 +84,8 @@ export class Personl {
     appNav.setRoot(Login);
   }
   /* 跳转页面 */
-  redirectPage(page) {
-    let pageModal = this.modalCtrl.create(page);
+  redirectPage(page, param) {
+    let pageModal = this.modalCtrl.create(page, {'param': param});
     pageModal.present();
   }
   /* 将电话号码格式化 */
@@ -103,5 +104,19 @@ export class Personl {
         console.log(error);
       });
   }
+  getAccount() {
+    let url = `${AppConfig.hostUrl + AppConfig.API.account}`;
+    this.appService.httpGet(url)
+      .then( data => {
+        this.moneyList.balance = data.balance;
+        this.moneyList.verifyAmount = data.verifyAmount;
+        this.moneyList.withdrawAmount = data.withdrawAmount;
+        this.userAccount = data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  
 
 }

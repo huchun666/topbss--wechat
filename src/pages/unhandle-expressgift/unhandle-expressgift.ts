@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ToastController, Content } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, Content } from 'ionic-angular';
 import { HandleExpressgift } from '../handle-expressgift/handle-expressgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -19,7 +19,6 @@ export class UnhandleExpressgift {
 		public modalCtrl: ModalController, 
 		public alertCtrl: AlertController,
 		public appService: AppService,
-		public toastCtrl: ToastController
 	) {
 		//请求接口得到数据
 		this.down = true;
@@ -55,12 +54,7 @@ export class UnhandleExpressgift {
 		}).catch(error => {
 			loading.dismiss();
 			console.log(error);
-				let toast = this.toastCtrl.create({
-				message: '网络异常，请稍后再试',
-				duration: 1000,
-				position: 'middle'
-			});
-			toast.present(toast);
+			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 		});
     }
 	goExpressgift() {
@@ -98,7 +92,7 @@ export class UnhandleExpressgift {
 			  {
 			    text: '确认',
 			    handler: data => {
-					if (data.companyName!="" && data.orderNum!=""){
+					if (data.companyName != "" && data.orderNum != ""){
 						let body = {
 							memberGiftAccountSeq: this.unhandleExpressGiftArray[index].memberGiftAccountSeq,
 							expressCompany: data.companyName,
@@ -109,7 +103,7 @@ export class UnhandleExpressgift {
 						console.log(url)
 						this.appService.httpPost(url, body).then( data => {
 							console.log(data)
-							if (data.type =="success") {
+							if (data.type == "success") {
 								this.start = 0;
 								this.down = true;
 								this.up = false;
@@ -117,26 +111,12 @@ export class UnhandleExpressgift {
 							}
 						}).catch(error => {
 							console.log(error);
-							let toast = this.toastCtrl.create({
-								message: '操作失败，请稍后重试！',
-								duration: 1000,
-								position: 'middle'
-							});
-							toast.present(toast);
+							this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 						});
-					}else if (data.companyName!="") {
-						let toast = this.toastCtrl.create({
-							message: '请填写公司名称',
-							duration: 1000,
-							position: 'middle'
-						});
-						toast.present(toast);
-					}else if (data.orderNum!="") {
-						let toast = this.toastCtrl.create({
-							message: '请填写快递单号',
-							duration: 1000,
-							position: 'middle'
-						});
+					}else if (data.companyName != "") {
+						this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+					}else if (data.orderNum != "") {
+						this.appService.toast('请填写快递单号', 1000, 'middle');
 					}
 			    }
 			  }
@@ -173,12 +153,7 @@ export class UnhandleExpressgift {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-        let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
 	}
 	infiniteGetUnhandleExpressGiftList(infiniteScroll) {
@@ -208,12 +183,7 @@ export class UnhandleExpressgift {
 		}).catch(error => {
 			infiniteScroll.complete();
 			console.log(error);
-			let toast = this.toastCtrl.create({
-			message: '网络异常，请稍后再试',
-			duration: 1000,
-			position: 'middle'
-			});
-			toast.present(toast);
+			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 		});
 	}
 }

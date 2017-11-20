@@ -12,7 +12,7 @@
 		<div class="btn-brandshop-code" (touchstart)="showBrandshopCode()">{{ btnText }}</div>
 		<div class="brandshop-code" *ngIf="isShow">
 			<div class='qrcode'>
-				<qr-code [value]="brandshopCode" [size]="180"></qr-code>
+				<qr-code [value]="brandshopIndexUrl" [size]="180"></qr-code>
 			</div>
 			<div class="total">扫门店二维码，可快速定位到门店首页</div>
 		</div>

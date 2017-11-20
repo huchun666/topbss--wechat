@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'order-layer',
@@ -30,7 +30,6 @@ export class OrderLayer {
     public viewCtrl: ViewController, 
     public navParams: NavParams,
     public appService: AppService,
-    public toastCtrl: ToastController,
   ) {
     this.productSeq = navParams.get('productSeq');
     this.productName = navParams.get('productName');
@@ -70,12 +69,7 @@ export class OrderLayer {
     }).catch(error => {
       loading.dismiss();
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -88,12 +82,7 @@ export class OrderLayer {
     if (this.orderLayerData.stock > this.count) {
       this.count++;
     }else {
-      let toast = this.toastCtrl.create({
-        message: '不能添加更多宝贝了哦',
-        duration: 1000,
-        position: 'middle'
-      });
-		  toast.present(toast);
+      this.appService.toast('不能添加更多宝贝了哦', 1000, 'middle');
     }
 	  
   }

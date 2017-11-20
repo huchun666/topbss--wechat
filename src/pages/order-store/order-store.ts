@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { PaymentCode } from '../payment-code/payment-code';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -21,7 +21,6 @@ export class OrderStore {
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController,
     public appService: AppService,
   ) {
     this.start = 0;
@@ -60,12 +59,7 @@ export class OrderStore {
       }).catch(error => {
         loading.dismiss();
         console.log(error);
-        let toast = this.toastCtrl.create({
-          message: '网络异常，请稍后再试',
-          duration: 1000,
-          position: 'middle'
-        });
-        toast.present(toast);
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
   }
 
@@ -87,12 +81,7 @@ export class OrderStore {
       }
     }).catch(error=>{
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '更新失败！',
-        duration: 1000,
-        position: 'middle'
-      });
-		  toast.present(toast);
+      this.appService.toast('更新失败！', 1000, 'middle');
     })
   }
 
@@ -102,12 +91,7 @@ export class OrderStore {
       this.orderStoreDataArray[index].productNum++;
       this.warehouseUpdate(index);
     }else {
-      let toast = this.toastCtrl.create({
-        message: '不能添加更多宝贝了哦',
-        duration: 1000,
-        position: 'middle'
-      });
-		  toast.present(toast);
+      this.appService.toast('不能添加更多宝贝了哦！', 1000, 'middle');
     }
 	  
   }
@@ -128,12 +112,7 @@ export class OrderStore {
       }
     }).catch(error => {
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '删除失败！',
-        duration: 1000,
-        position: 'middle'
-      });
-		  toast.present(toast);
+      this.appService.toast('删除失败', 1000, 'middle');
     })
   }
   //失去焦点
@@ -148,12 +127,7 @@ export class OrderStore {
       console.log(this.returnUrl);
     }).catch(error=>{
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '操作失败！',
-        duration: 1000,
-        position: 'middle'
-      });
-		  toast.present(toast);
+      this.appService.toast('操作失败', 1000, 'middle');
     })
     // this.returnUrl = "http://www.61topbaby.com/evercos/payment/generateOrder.html?warehouseId=1";//后面要删除
     
@@ -193,12 +167,7 @@ export class OrderStore {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -232,12 +201,7 @@ export class OrderStore {
     }).catch(error => {
       infiniteScroll.complete();
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, ViewChild, NgZone } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ToastController, Content } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, Content } from 'ionic-angular';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -22,7 +22,6 @@ export class UnhandleSelfgift {
 	public alertCtrl: AlertController, 
 	public changeDetectorRef: ChangeDetectorRef, 
 	public appService: AppService,
-	public toastCtrl: ToastController,
 	public zone: NgZone
   ) {
 	this.unhandleSeflGiftArray = [];
@@ -69,12 +68,7 @@ export class UnhandleSelfgift {
 		}).catch(error => {
 			loading.dismiss();
 			console.log(error);
-				let toast = this.toastCtrl.create({
-				message: '网络异常，请稍后再试',
-				duration: 1000,
-				position: 'middle'
-			});
-			toast.present(toast);
+			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 		});
   }
 
@@ -103,7 +97,6 @@ export class UnhandleSelfgift {
 	  }
 	  let url = AppConfig.API.confirmReserveShopTime;
 	  this.appService.httpPost(url, body).then( data => {
-		  console.log("inter...")
 		if (data.type == "success") {
 		  this.start = 0;
 		  this.down = true;
@@ -115,51 +108,41 @@ export class UnhandleSelfgift {
 	    console.log(error.message);
 	  });
 	} else {
-		let toast = this.toastCtrl.create({
-			message: '请选择会员预约到店时间',
-			duration: 1000,
-			position: 'middle'
-		});
-		toast.present(toast);
+		this.appService.toast('请选择会员预约到店时间', 1000, 'middle');
 	}
   }
 
   refreshGetUnhandleSelfGiftList(refresher) {
 	// 下拉刷新请求数据
-	this.start = 0;
-	this.down = true;
-	this.up = false;
-	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
-	this.appService.httpGet(url).then( data => {
-		refresher.complete();
-		if (data.totalRecord == 0) {
-			//空空如也
-			this.noData = true;
-		}else {
-			this.noData = false;
-			if( this.start < data.totalRecord ) {
-				if (this.up) {
-					this.unhandleSeflGiftArray.push(...data.data);
-					this.start += this.limit;
-				}else if (this.down){
-					this.unhandleSeflGiftArray = data.data;
-					this.start += this.limit;
-				}
-				this.addOrderStatusClass(this.unhandleSeflGiftArray);
+		this.start = 0;
+		this.down = true;
+		this.up = false;
+		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
+		this.appService.httpGet(url).then( data => {
+			refresher.complete();
+			if (data.totalRecord == 0) {
+				//空空如也
+				this.noData = true;
 			}else {
-				this.showNoMoreGift = true;
+				this.noData = false;
+				if( this.start < data.totalRecord ) {
+					if (this.up) {
+						this.unhandleSeflGiftArray.push(...data.data);
+						this.start += this.limit;
+					}else if (this.down){
+						this.unhandleSeflGiftArray = data.data;
+						this.start += this.limit;
+					}
+					this.addOrderStatusClass(this.unhandleSeflGiftArray);
+				}else {
+					this.showNoMoreGift = true;
+				}
 			}
-		}
-	}).catch(error => {
-		refresher.complete();
-		console.log(error);
-			let toast = this.toastCtrl.create({
-			message: '网络异常，请稍后再试',
-			duration: 1000,
-			position: 'middle'
+		}).catch(error => {
+			refresher.complete();
+			console.log(error);
+			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 		});
-		toast.present(toast);
-	});
   }
 
   infiniteGetUnhandleSelfGiftList(infiniteScroll) {
@@ -190,28 +173,23 @@ export class UnhandleSelfgift {
 	}).catch(error => {
 		infiniteScroll.complete();
 		console.log(error);
-		let toast = this.toastCtrl.create({
-			message: '网络异常，请稍后再试',
-			duration: 1000,
-			position: 'middle'
-		});
-		toast.present(toast);
+		this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 	});
   }
   
   //回到顶部
   scrollTo() {
-	this.content.scrollTo(0, 0, 300);
+		this.content.scrollTo(0, 0, 300);
   }
 
   //获取当前距离顶部位置
   scrollHandler(event) {
-	this.zone.run(()=>{
-	  if (event.scrollTop >= 300) {
-		this.toTop = true;
-	  }else {
-		this.toTop = false;
-	  }
-	})
+		this.zone.run(()=>{
+			if (event.scrollTop >= 300) {
+			this.toTop = true;
+			}else {
+			this.toTop = false;
+			}
+		})
   }
 }

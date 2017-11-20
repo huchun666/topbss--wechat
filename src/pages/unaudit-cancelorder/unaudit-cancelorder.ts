@@ -8,7 +8,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class UnauditCancelorder {
   @ViewChild(Content) content: Content;
-  unauditCancelorderArray: any;
+  unauditCancelorderArray: any = [];
   limit: number = 10;
   up: Boolean = true;//上拉刷新和第一次进入页面时
   down: Boolean = false;//下拉刷新和返回上一级页面时
@@ -26,61 +26,61 @@ export class UnauditCancelorder {
     this.down = true;
     this.up = false;
     this.getUnauditCancelorder();
-    this.unauditCancelorderArray = [
-      {
-        orderSeq: 2946,
-        cancelOrderId: "20160906047616",
-        amount: 39.75,
-        status: "3",
-        memberMobile: 11111111111, //会员手机号
-        orderId: "20160905047352",
-        payAmount: 39.75,
-        orderStatus: "4",
-        cancelTime: 1473157207000,
-        createTime: 1473157148000,
-        audit: true,
-        itemList: [
-          {
-            orderItemSeq: 2971,
-            prodSeq: 289,
-            skuSeq: 939,
-            unitPrice: 78.75,
-            number: 1,
-            productSkuDTO: {
-              productSeq: 289,
-              skuSeq: 939,
-              productName: "MQD2016夏季印花短袖T恤216220510",
-              fileName: './assets/image/productimg.png',
-              attrValueList: [
-                {
-                  skuSeq: null,
-                  attrSeq: 300,
-                  attrName: "颜色",
-                  attrValue: "蓝色",
-                  type: null,
-                  fileSeq: null,
-                  price: null,
-                  selectedAttrValue: null,
-                  invalidAttrValue: null
-                },
-                {
-                  skuSeq: null,
-                  attrSeq: 322,
-                  attrName: "尺码",
-                  attrValue: "100（3-4岁）",
-                  type: null,
-                  fileSeq: null,
-                  price: null,
-                  selectedAttrValue: null,
-                  invalidAttrValue: null
-                }
-              ],
-              fallback: null
-            }
-          },
-        ]
-      },
-    ]
+    // this.unauditCancelorderArray = [
+    //   {
+    //     orderSeq: 2946,
+    //     cancelOrderId: "20160906047616",
+    //     amount: 39.75,
+    //     status: "3",
+    //     memberMobile: 11111111111, //会员手机号
+    //     orderId: "20160905047352",
+    //     payAmount: 39.75,
+    //     orderStatus: "4",
+    //     cancelTime: 1473157207000,
+    //     createTime: 1473157148000,
+    //     audit: true,
+    //     itemList: [
+    //       {
+    //         orderItemSeq: 2971,
+    //         prodSeq: 289,
+    //         skuSeq: 939,
+    //         unitPrice: 78.75,
+    //         number: 1,
+    //         productSkuDTO: {
+    //           productSeq: 289,
+    //           skuSeq: 939,
+    //           productName: "MQD2016夏季印花短袖T恤216220510",
+    //           fileName: './assets/image/productimg.png',
+    //           attrValueList: [
+    //             {
+    //               skuSeq: null,
+    //               attrSeq: 300,
+    //               attrName: "颜色",
+    //               attrValue: "蓝色",
+    //               type: null,
+    //               fileSeq: null,
+    //               price: null,
+    //               selectedAttrValue: null,
+    //               invalidAttrValue: null
+    //             },
+    //             {
+    //               skuSeq: null,
+    //               attrSeq: 322,
+    //               attrName: "尺码",
+    //               attrValue: "100（3-4岁）",
+    //               type: null,
+    //               fileSeq: null,
+    //               price: null,
+    //               selectedAttrValue: null,
+    //               invalidAttrValue: null
+    //             }
+    //           ],
+    //           fallback: null
+    //         }
+    //       },
+    //     ]
+    //   },
+    // ]
   }
   //审核点击事件
   auditOrder(index) {
@@ -136,10 +136,10 @@ export class UnauditCancelorder {
   getUnauditCancelorder() {
     // 待审核取消订单 请求数据
     let loading = this.appService.loading();
+    loading.present();
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
       loading.dismiss();
-      loading.present();
       console.log(data)
       if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
         //空空如也
@@ -160,13 +160,9 @@ export class UnauditCancelorder {
         }
       }
     }).catch(error => {
+      loading.dismiss();
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -175,19 +171,63 @@ export class UnauditCancelorder {
     this.start = 0;
     this.down = true;
     this.up = false;
-    setTimeout(() => {
-      // this.getUnauditCancelorder();
+    let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
+    this.appService.httpGet(url).then(data => {
       refresher.complete();
-    }, 1000)
+      console.log(data)
+      if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
+        //空空如也
+        this.noData = true;
+      } else {
+        this.noData = false;
+        if (this.start < data.count) {
+          if (this.up) {
+            this.unauditCancelorderArray.push(...data.data);
+            this.start += this.limit;
+          } else if (this.down) {
+            this.unauditCancelorderArray = data.data;
+            this.start += this.limit;
+          }
+        } else {
+          this.showNoMore = true;
+        }
+      }
+    }).catch(error => {
+      refresher.complete();
+      console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    });
   }
 
   // 上拉刷新请求数据
   infiniteGetSelfGiftList(infiniteScroll) {
     this.down = false;
     this.up = true;
-    setTimeout(() => {
-      // this.getUnauditCancelorder();
+    let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
+    this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
-    }, 1000)
+      console.log(data)
+      if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
+        //空空如也
+        this.noData = true;
+      } else {
+        this.noData = false;
+        if (this.start < data.count) {
+          if (this.up) {
+            this.unauditCancelorderArray.push(...data.data);
+            this.start += this.limit;
+          } else if (this.down) {
+            this.unauditCancelorderArray = data.data;
+            this.start += this.limit;
+          }
+        } else {
+          this.showNoMore = true;
+        }
+      }
+    }).catch(error => {
+      infiniteScroll.complete();
+      console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    });
   }
 }
