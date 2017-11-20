@@ -76,10 +76,10 @@ export class UnhandleSelfgift {
 	const orderModal = this.modalCtrl.create(HandleSelfgift);
 	orderModal.onDidDismiss(() => {
 	// 返回自提赠品页重新请求接口，渲染页面
-		this.start = 0;
-		this.down = true;
-		this.up = false;
-		this.getUnhandleSelfGiftList();
+	this.start = 0;
+	this.down = true;
+	this.up = false;
+	this.getUnhandleSelfGiftList();
 	})
 	orderModal.present();
   }
