@@ -124,7 +124,22 @@ export class FilterCancelStatusPipe implements PipeTransform {
     }
   }
 }
-
+// 提现明细
+@Pipe({ name: 'setWithdrawStatus' })
+export class FilterWithdrawStatusPipe implements PipeTransform {
+  transform(param: string): string {
+    switch(param) {
+      case "0":
+        return "失败";
+      case "1":
+        return "成功";
+      case "3":
+        return "拒绝";
+      case "9":
+        return "处理中";
+    }
+  }
+}
 @Pipe({ name: 'setGiftType' })
 export class FilterGiftTypePipe implements PipeTransform {
   transform(giftType: string, expoent: string): string {

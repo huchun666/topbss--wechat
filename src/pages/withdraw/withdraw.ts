@@ -7,26 +7,34 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class Withdraw {
   amout: number;
-  allAmout: number = 123.00;
+  balance: string = '';
   isAllow: boolean = true;
   constructor(
     public navCtrl: NavController, 
+    public navParams: NavParams,
     public alertCtrl: AlertController,
     public appService: AppService
   ) {
+    this.getBalance();
   }
+  /* 获取可提现金额 */
+  getBalance () {
+    console.log(this.navParams.get("param"));
+    this.balance = this.navParams.get("param");
+  }
+  /* 提现 */
   withdraw() {
-    console.log(2222);
-    // 防重复提交
-    if (!this.isAllow) {
-      return;
-    }
-    this.isAllow = false;
-    // let url = `${AppConfig.API}`;
+    this.appService.toast('提现成功', 300000, 'middle');
+    return;
+    // if (!this.isAllow) {
+    //   return;
+    // }
+    // this.isAllow = false;
+    // let url = `${AppConfig.hostUrl + AppConfig.API.withdraw}`;
     // let body = {
-    //   "amout": this.amout
-    // };
-    // this.appService.httpPost(url,body).then(data => {
+    //   amout: this.amout
+    // }
+    // this.appService.httpPost(url, body).then(data => {
     //   this.isAllow = true;
     // }).catch(error => {
     //   console.log(error);

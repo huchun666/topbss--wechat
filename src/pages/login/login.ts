@@ -17,6 +17,7 @@ export class Login{
     public app: App,
     public appService: AppService
   ) {
+    console.log(this.navCtrl);
     this.pageInit();
   }
   // 页面初始化时执行
