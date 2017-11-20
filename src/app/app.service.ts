@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 
 @Injectable()
 export class AppConfig {
-y
+
   //域名基地址
   static hostUrl: string = "http://192.168.31.202:8080";
 
@@ -61,7 +61,9 @@ export class AppService {
 
   //get request
   httpGet(url: string) {
-    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(url, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
@@ -72,7 +74,9 @@ export class AppService {
 
   //post request
   httpPost(url: string, body: any) {
-    return this.http.post(url, body).timeout(AppConfig.TIME_OUT).toPromise()
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(url, body, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
@@ -83,7 +87,9 @@ export class AppService {
 
   //put request
   httpPut(url: string, parameters: any) {
-    return this.http.put(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(url, parameters, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);

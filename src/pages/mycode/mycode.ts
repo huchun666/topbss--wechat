@@ -31,8 +31,7 @@ export class MyCode {
     this.appService.httpGet(url)
       .then(data => {
         this.brandshopIndexUrl = data.brandshopIndexUrl;
-        let myCodeUrl = `${data.userRecommendWechatQrCodeUrl}?type=U&userId=${data.brandshopUserId}
-          &accessKeyId=topbabyBs&signature=${obj.signature}&expires=${obj.expires}`;
+        let myCodeUrl = `${data.userRecommendWechatQrCodeUrl}?type=U&userId=${data.brandshopUserId}&accessKeyId=topbabyBs&signature=${obj.signature}&expires=${obj.expires}`;
         this.getMyQRcode(myCodeUrl);
       })
       .catch(error => {
@@ -69,7 +68,7 @@ export class MyCode {
     url           = RequestMethod + "\n" + url + "\n" + expired + "\n";
     let signature = CryptoJS.HmacSHA1(url, topbabysecret);
     signature     = Base64.Base64.encode(signature)
-    var obj       = {
+    let obj       = {
       expires: expired,
       signature: signature
     }
