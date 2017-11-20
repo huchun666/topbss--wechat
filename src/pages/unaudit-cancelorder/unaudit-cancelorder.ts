@@ -206,24 +206,12 @@ export class UnauditCancelorder {
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
-      console.log(data)
-      if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
-        //空空如也
-        this.noData = true;
-      } else {
-        this.noData = false;
-        if (this.start < data.count) {
-          if (this.up) {
-            this.unauditCancelorderArray.push(...data.data);
-            this.start += this.limit;
-          } else if (this.down) {
-            this.unauditCancelorderArray = data.data;
-            this.start += this.limit;
-          }
-        } else {
-          this.showNoMore = true;
-        }
-      }
+      if (data.data.length != 0) {
+				this.unauditCancelorderArray.push(...data.data);
+				this.start += this.limit;
+			}else {
+				this.showNoMore = true;
+			}
     }).catch(error => {
       infiniteScroll.complete();
       console.log(error);
