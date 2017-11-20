@@ -5,33 +5,33 @@
 </ion-header>
 <ion-content>
 
-  <!-- <ion-refresher (ionRefresh)="refreshGetUnhandleSelfGiftList($event)">
-    <ion-refresher-content>
+  <ion-refresher (ionRefresh)="refreshGetOrderStoreList($event)">
+    <ion-refresher-content pullingText="下拉刷新" refreshingText="获取中...">
     </ion-refresher-content>
-  </ion-refresher> -->
+  </ion-refresher>
 
   <ion-list>
     <ion-item-sliding #item *ngFor="let single of orderStoreDataArray;let i = index">
       <ion-item>
         <ion-thumbnail item-start>
-          <img [src]="single.productSkuDTO.attrValueList[0].fileSeq" alt="产品">
+          <img [src]="single.productSkuDTO.fileSeq | productSkuDTOImage" alt="产品">
         </ion-thumbnail>
         <h2>{{single.productSkuDTO.productName}}</h2>
         <div class="count">
           <span class="btn-add" (touchstart)="addCount(i)">+</span>
           <span class="btn-remove" [ngClass]="{changeGray: single.productNum | changeGray}" (touchstart)="removeCount(i)">-</span>
           <div class="add-count">
-            <input  (blur)="resetCount()" [(ngModel)]="single.productNum"  type="number">
+            <input (blur)="resetCount(i)" [(ngModel)]="single.productNum"  type="number">
           </div>
         </div>
         <div class="total">
             <div class="total-text">商品总额</div>
             <div class="total-input">
-              <input (blur)="resetCount()" [(ngModel)]="single.itemPrice"  type="number">
+              <input (blur)="resetCount(i)" [(ngModel)]="single.itemPrice"  type="number">
             </div>
         </div>
         <div class="remark">
-          <input placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">
+          <input (blur)="resetCount(i)" placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">
         </div>
       </ion-item>
       
@@ -52,9 +52,9 @@
 	<div class="btn-noMore" *ngIf = "showNoMoreGift">
 		<span>—— 没有更多赠品了 ——</span>
 	</div>
-  <!-- <ion-infinite-scroll (ionInfinite)="infiniteGetUnhandleSelfGiftList($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll> -->
+  <ion-infinite-scroll (ionInfinite)="infiniteGetOrderStoreList($event)">
+    <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
   
   <button class="btn-confirm" ion-button full (touchstart)="addProductModal()">
     <span class="confirm">确认订单</span>

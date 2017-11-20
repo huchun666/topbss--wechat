@@ -15,9 +15,12 @@ export class AppConfig {
   //请求超时时间
   static TIME_OUT: number = 30000;
 
+  //获取token的url
+  static oauthTokenUrl: string = "/uaa/oauth/token";
+
   //接口url
   static API: any = {
-    login: "/assets/data/login.json",
+    login: "/demo-resource-server/me",
     getOrderList: "/rest/order/bssList",    //门店/导购员订单列表
     getCancelorder: "/rest/order/cancel/list",    //待审核/已审核取消订单列表
     auditCancelOrder: "/rest/order/cancel/approval",    //审核取消订单
@@ -30,14 +33,15 @@ export class AppConfig {
     confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",//确认预约时间
     confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
     getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
-    getCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
+    warehouseGetCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
     getProductSkuWithDefault: "/product/getProductSkuWithDefault",//SKU初始加载
     getValidSKUAttrValue: "/product/getValidSKUAttrValue",//SKU切换
-    affirmAdd: "/rest/order/warehouse/add",//添加配单行接口
+    warehouseAdd: "/rest/order/warehouse/add",//添加配单行接口
     warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
-    generateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
-    deleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
-    update: "/rest/order/warehouse/item/update", //修改配单行接口
+    warehouseGenerateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
+    warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
+    warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
+    warehouseEmpty: "/rest/order/warehouse/empty",//清空配单仓接口
     current: "/brandshop/user/current", //查询当前导购员基本信息
     account: "/brandshop/user/account", //查询当前导购员基本信息
     withdraw: "/brandshop/user/withdraw/", //提现
@@ -72,6 +76,28 @@ export class AppService {
       );
   }
 
+  //get request
+  httpGetReturnData(url: string) {
+    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res)
+      .catch(error => {
+        console.log(`访问错误:${error}`);
+        this.handleError(error);
+      }
+    );
+  }
+
+  //get request with headers
+  httpGetHeader(url: string, header: any) {
+    return this.http.get(url, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json())
+      .catch(error => {
+        console.log(`访问错误:${error}`);
+        this.handleError(error);
+      }
+    );
+  }
+  
   //post request
   httpPost(url: string, body: any) {
     let headers = new Headers();
@@ -85,6 +111,17 @@ export class AppService {
       );
   }
 
+  //post 带有headers 
+  httpPostHeader(url: string, body: any, header: any) {
+    return this.http.post(url, body, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json())
+      .catch(error => {
+        console.log(`访问错误:${error}`);
+        this.handleError(error);
+      }
+    );
+  }
+  
   //put request
   httpPut(url: string, parameters: any) {
     let headers = new Headers();
@@ -99,8 +136,8 @@ export class AppService {
   }
 
   //delete request
-  httpDelete(url: string, parameters: any) {
-    return this.http.delete(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
+  httpDelete(url: string) {
+    return this.http.delete(url).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
