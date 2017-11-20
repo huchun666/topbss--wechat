@@ -8,49 +8,46 @@
 		<div class="order-items">
 			<!-- 订单编号 -->
 			<div class="order-title">
-				<h2>订单编号：<span>{{returnDetail[0].orderId}}</span></h2>
+				<h2>订单编号：<span>{{returnDetail.orderReturn.returnOrderId}}</span></h2>
 				<!--color auditing or pass -->
-				<span class="audit-status auditing">申请审核中</span> 
+				<span [ngClass]="{auditStatus: true, pass:(returnDetail.orderReturn.status | setReturnOrderStatus).pass , auditing:(returnDetail.orderReturn.status | setReturnOrderStatus).audit} ">{{(returnDetail.orderReturn.status | setReturnOrderStatus).status}}</span>
 			</div>
 			<!-- 商品1 -->
-			<div class="order-item" *ngFor = "let single of returnDetail[0].basicData">
+			<div class="order-item">
 			  <dl>
 			    <dt>
-			      <img class="my-picture" src="{{single.imgUrl}}" alt="小裙子">
+			      <img class="my-picture" [src]="returnDetail.itemProductSkuDTO.productSkuDTO.fileName" [alt]="returnDetail.itemProductSkuDTO.productSkuDTO.productName">
 			    </dt>
-			    <dd class="product-title">{{single.goodsName}}</dd>
+			    <dd class="product-title">{{returnDetail.itemProductSkuDTO.productSkuDTO.productName}}</dd>
 			    <dd class="sku-list">
-			      <span>{{single.SKUSize}}</span>
-			      <span>{{single.SKUColor}}</span>
-			      <span>{{single.SKUType}}</span>
+            <!-- <span>{{returnDetail.itemProductSkuDTO.productSkuDTO.attrValueList}}</span> -->
+			      <span *ngFor="let sku of returnDetail.itemProductSkuDTO.productSkuDTO.attrValueList"> {{sku.attrValue}} </span>
 			    </dd>
-			    <dd class='price'>￥{{single.unitPrice}}</dd>
-			    <dd class="count">X{{single.number}}</dd>
+			    <dd class='price'>￥{{returnDetail.itemProductSkuDTO.unitPrice}}</dd>
+			    <dd class="count">X{{returnDetail.itemProductSkuDTO.number}}</dd>
 			  </dl>
 			</div>
 			
-			<div class="orderOprate">
+			<div class="orderOperate">
 				<dl>
 					<dt>
-						
 					</dt>
-					<dd class="total">{{returnDetail[0].totleNumber}}件商品，实付￥{{returnDetail[0].totlePrice}}</dd>
-					<dd class="member-phone">会员手机：{{returnDetail[0].memberPhone}}</dd>
+					<dd class="total">共{{returnDetail.orderReturn.number}}件商品，实付￥{{returnDetail.orderReturn.totalReturnPrice}}</dd>
 				</dl>
 			</div>
 		</div>
 
 		<div class="return-detail">
 			<ul>
-				<li>退货数量：{{returnDetail[0].returnNumber}}</li>
-				<li>联系方式：{{returnDetail[0].contactWay}}</li>
-				<li>退货方式：{{returnDetail[0].returnWay}}</li>
-				<li>是否有发票：{{returnDetail[0].hasInvoice}}</li>
-				<li>退货原因：{{returnDetail[0].returnReason}}</li>
-				<li>问题描述：{{returnDetail[0].problemDescription}}</li>
-				<li class="img-list">
+				<li>退货数量：{{returnDetail.orderReturn.number}}</li>
+				<li>联系方式：{{returnDetail.orderReturn.mobile}}</li> 
+				<li>退货方式：{{returnDetail.orderReturn.returnType==1?'其他': '快递'}}</li>
+				<li>是否有发票：{{returnDetail.orderReturn.invoiced==1?'有': '无'}}</li>
+				<li>退货原因：{{returnDetail.orderReturn.returnReason}}</li>
+				<li>问题描述：{{returnDetail.orderReturn.detail}}</li>
+				<!-- <li class="img-list">
 					<img src="{{itemImg}}" alt="" *ngFor = "let itemImg of returnDetail[0].detailImg">
-				</li>
+				</li> -->
 			</ul>
 		</div>
 	</div>
