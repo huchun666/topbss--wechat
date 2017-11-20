@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, Loading } from 'ionic-angular';
+import { LoadingController, Loading, ToastController } from 'ionic-angular';
 import { Dialogs } from '@ionic-native/dialogs';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/observable';
@@ -8,7 +8,7 @@ import 'rxjs/add/operator/timeout';
 
 @Injectable()
 export class AppConfig {
-
+y
   //域名基地址
   static hostUrl: string = "https://www.61topbaby.com";
 
@@ -32,8 +32,13 @@ export class AppConfig {
     warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
     generateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
     deleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
+    update: "/rest/order/warehouse/item/update", //修改配单行接口
     current: "/brandshop/user/current", //查询当前导购员基本信息
-    update: "/rest/order/warehouse/item/update"//修改配单行接口
+    account: "/brandshop/user/account", //查询当前导购员基本信息
+    withdraw: "/brandshop/user/withdraw/", //提现
+    qrcode: "/brandshop/user/qrcode", //我的二维码
+    withdrawList: "/brandshop/user/withdraw/list", //提现记录
+    bonusList: "/brandshop/user/bonus/list" //查询可提现余额明显、审核中余额明细
   };
   
 }
@@ -43,6 +48,7 @@ export class AppService {
   constructor(
     private http: Http,
     public loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
     private dialogs: Dialogs
   ) {
 
@@ -111,10 +117,19 @@ export class AppService {
     let loader = this.loadingCtrl.create({
       spinner: "dots",
       content: "加载中...",
-      dismissOnPageChange: true, //切换页面之后关闭loading框 
+      dismissOnPageChange: true, //切换页面之后关闭loading框
       showBackdrop: false //不显示遮罩层
     });
     return loader;
+  }
+  // 提示信息
+  toast(message: string, duration: number, position: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: duration,
+      position: position
+    });
+    toast.present();
   }
 
   //localstorage设置key

@@ -7,7 +7,8 @@ import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { 
-  FilterStatusPipe, 
+  FilterStatusPipe,
+  FilterWithdrawStatusPipe,
   FilterGiftTypePipe,
   FilterHandleGiftTypePipe, 
   IsOrIsnotInvalidAttrValuePipe, 
@@ -104,7 +105,8 @@ let componentsList = [
 @NgModule({
   declarations: [
     ...componentsList, 
-    FilterStatusPipe, 
+    FilterStatusPipe,
+    FilterWithdrawStatusPipe,
     FilterGiftTypePipe, 
     FilterHandleGiftTypePipe,
     IsOrIsnotInvalidAttrValuePipe,

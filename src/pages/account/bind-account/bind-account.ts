@@ -6,10 +6,16 @@ import { AddAccount } from '../add-account/add-account';
   templateUrl: 'bind-account.html'
 })
 export class BindAccount {
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  userId: any;
+  constructor(
+    public navCtrl: NavController, 
+    public modalCtrl: ModalController,
+    public navParams: NavParams
+  ) {
+    this.userId = this.navParams.get('param');
   }
   goAccount() {
-    let accountModal = this.modalCtrl.create(AddAccount);
+    let accountModal = this.modalCtrl.create(AddAccount, {userId: this.userId});
     accountModal.present();
   }
 }
