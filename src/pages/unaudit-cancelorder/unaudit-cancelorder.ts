@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, AlertController, ToastController, Content } from 'ionic-angular';
 import { AuditCancelorder } from '../audit-cancelorder/audit-cancelorder';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -7,6 +7,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'unaudit-cancelorder.html'
 })
 export class UnauditCancelorder {
+  @ViewChild(Content) content: Content;
   unauditCancelorderArray: any;
   currentPage: number = 1;
   pageSize: number = 10;
@@ -19,9 +20,13 @@ export class UnauditCancelorder {
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public appService: AppService) {
     // 请求接口得到数据
-    // this.getUnauditCancelorder();
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getUnauditCancelorder();
     this.unauditCancelorderArray = [
       {
         orderSeq: 2946,
@@ -132,28 +137,36 @@ export class UnauditCancelorder {
   getUnauditCancelorder() {
     // 待审核取消订单 请求数据
     let loading = this.appService.loading();
-    let url = `${AppConfig.hostUrl + AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.pageSize * (this.currentPage - 1)}&limit=${this.pageSize}`
+    let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.pageSize * (this.currentPage - 1)}&limit=${this.pageSize}`
     this.appService.httpGet(url).then(data => {
       loading.dismiss();
-      if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
-        //空空如也
-        this.noData = true;
-      } else {
-        this.noData = false;
-        if (this.start < data.count) {
-          if (this.up) {
-            this.unauditCancelorderArray.push(...data.data);
-            this.start += this.pageSize;
-          } else if (this.down) {
-            this.unauditCancelorderArray = [...data.data];
-            this.start += this.pageSize;
-          }
-        } else {
-          this.showNoMore = true;
-        }
-      }
+      console.log(data)
+      // if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
+      //   //空空如也
+      //   this.noData = true;
+      // } else {
+      //   this.noData = false;
+      //   if (this.start < data.count) {
+      //     if (this.up) {
+      //       this.unauditCancelorderArray.push(...data.data);
+      //       this.start += this.pageSize;
+      //     } else if (this.down) {
+      //       this.unauditCancelorderArray = data.data;
+      //       this.start += this.pageSize;
+      //       this.content.scrollTo(0,0,0);
+      //     }
+      //   } else {
+      //     this.showNoMore = true;
+      //   }
+      // }
     }).catch(error => {
       console.log(error);
+      let toast = this.toastCtrl.create({
+        message: '网络异常，请稍后再试',
+        duration: 1000,
+        position: 'middle'
+      });
+      toast.present(toast);
     });
   }
 

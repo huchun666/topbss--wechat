@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, ViewChild, NgZone } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ToastController, LoadingController, Content } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, ToastController, Content } from 'ionic-angular';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -23,7 +23,6 @@ export class UnhandleSelfgift {
 	public changeDetectorRef: ChangeDetectorRef, 
 	public appService: AppService,
 	public toastCtrl: ToastController,
-	public loadingCtrl: LoadingController,
 	public zone: NgZone
   ) {
 	this.unhandleSeflGiftArray = [];
@@ -191,7 +190,7 @@ export class UnhandleSelfgift {
 	}).catch(error => {
 		infiniteScroll.complete();
 		console.log(error);
-			let toast = this.toastCtrl.create({
+		let toast = this.toastCtrl.create({
 			message: '网络异常，请稍后再试',
 			duration: 1000,
 			position: 'middle'

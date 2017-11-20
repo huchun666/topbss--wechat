@@ -201,7 +201,7 @@ export class SkuImagePipe implements PipeTransform {
 export class ProductSkuDTOImagePipe implements PipeTransform {
   transform(productSkuDTOImage: string): string {
     if (productSkuDTOImage) {
-      return "http://www.91topbaby.com/evercos/common/file/content/"+productSkuDTOImage;
+      return "http://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage;
     }else {
       return "../../assets/image/nodata.png";
     }
