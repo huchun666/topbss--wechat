@@ -342,7 +342,8 @@ export class BrandshopOrderList {
   // 获取订单列表
   getOrderList() {
     let loading = this.appService.loading();
-    var url = `${AppConfig.hostUrl + AppConfig.API.getOrderList}?userType=A&start=${this.pageSize * (this.currentPage - 1)}&limit=${this.pageSize}`;
+    loading.present();
+    var url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
     if(this.paramsDate != ''){
       url += this.paramsDate;
     }
@@ -351,23 +352,18 @@ export class BrandshopOrderList {
     }
     this.appService.httpGet(url).then(data => {
       loading.dismiss(); 
-      if (data.count == 0 && this.orderList.length == 0) {
-		    //空空如也
-		    this.noData = true;
-	    } else {
-        this.noData = false;
-        if (this.start < data.count) {
-          if (this.up) {
-            this.orderList.push(...data.data);
-            this.start += this.pageSize;
-          } else if (this.down) {
-            this.orderList = [...data.data];
-            this.start += this.pageSize;
-          }
-        } else {
-          this.showNoMore = true;
-        }
-      }
+      console.log(data);
+      // if (this.start < data.count) {
+      //   if (this.up) {
+      //     this.orderList.push(...data.data);
+      //     this.start += this.pageSize;
+      //   } else if (this.down) {
+      //     this.orderList = [...data.data];
+      //     this.start += this.pageSize;
+      //   }
+      // } else {
+      //   this.showNoMore = true;
+      // }
     }).catch(error => {
       console.log(error);
     })

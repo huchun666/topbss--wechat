@@ -12,6 +12,7 @@ log.txt
 .vscode/
 npm-debug.log*
 
+.ionic.config.json
 .idea/
 .sourcemaps/
 .sass-cache/
@@ -33,3 +34,4 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+ionic.config.json

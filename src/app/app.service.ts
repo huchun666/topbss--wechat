@@ -10,7 +10,7 @@ import 'rxjs/add/operator/timeout';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "http://192.168.31.202:8080";
+  static hostUrl: string = "http://192.168.31.202:6333";
 
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -60,8 +60,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //post request
