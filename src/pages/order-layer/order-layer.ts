@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'order-layer',
@@ -30,7 +30,6 @@ export class OrderLayer {
     public viewCtrl: ViewController, 
     public navParams: NavParams,
     public appService: AppService,
-    public toastCtrl: ToastController,
   ) {
     this.productSeq = navParams.get('productSeq');
     this.productName = navParams.get('productName');
@@ -68,7 +67,9 @@ export class OrderLayer {
         this.orderLayerData = {}
       }
     }).catch(error => {
+      loading.dismiss();
       console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -81,12 +82,7 @@ export class OrderLayer {
     if (this.orderLayerData.stock > this.count) {
       this.count++;
     }else {
-      let toast = this.toastCtrl.create({
-        message: '不能添加更多宝贝了哦',
-        duration: 1000,
-        position: 'middle'
-      });
-		  toast.present(toast);
+      this.appService.toast('不能添加更多宝贝了哦', 1000, 'middle');
     }
 	  
   }
@@ -130,25 +126,26 @@ export class OrderLayer {
   }
 
   //确认添加
-  affirmAdd() {
-    this.warehouseCount++;//后面注释掉
-    this.dismiss();//后面注释掉
-    // let url = AppConfig.API.affirmAdd;
-    // let body = {
-    //   "productId": this.orderLayerData.productSeq,
-    //   "skuId": this.orderLayerData.skuSeq,
-    //   "itemPrice": this.orderLayerData.price,
-    //   "productNum": this.count,
-    //   "remark": ""
-    // }
-    // this.appService.httpPost(url, body).then( data => {
-    //   if (data.type=='success') {
-    //     this.warehouseCount++;
-    //     this.dismiss();
-    //   }
-    // }).catch( error => {
-    //   console.log(error.message);
-    // })
+  warehouseAdd() {
+    // this.warehouseCount++;//后面注释掉
+    // this.dismiss();//后面注释掉
+    let url = AppConfig.API.warehouseAdd;
+    let body = {
+      "productId": this.orderLayerData.productSeq,
+      "skuId": this.orderLayerData.skuSeq,
+      "itemPrice": this.orderLayerData.price,
+      "productNum": this.count,
+      "remark": ""
+    }
+    this.appService.httpPost(url, body).then( data => {
+      console.log(data)
+      if (data.type=='success') {
+        this.warehouseCount++;
+        this.dismiss();
+      }
+    }).catch( error => {
+      console.log(error.message);
+    })
   }
 
 }

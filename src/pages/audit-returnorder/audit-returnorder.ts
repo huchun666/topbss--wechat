@@ -102,7 +102,7 @@ export class AuditReturnorder {
             this.auditReturnorderArray.push(...data.data);
             this.start += this.pageSize;
           } else if (this.down) {
-            this.auditReturnorderArray = [...data.data];
+            this.auditReturnorderArray = data.data;
             this.start += this.pageSize;
           }
         } else {

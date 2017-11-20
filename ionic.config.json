@@ -24,7 +24,7 @@
     },
     {
       "path": "/promotion",
-      "proxyUrl": "http://192.168.31.215:8089/promotion"
+      "proxyUrl": "http://192.168.31.215:8684/promotion"
     }
   ]
 }

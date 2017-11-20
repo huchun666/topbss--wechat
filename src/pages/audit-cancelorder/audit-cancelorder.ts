@@ -144,7 +144,7 @@ export class AuditCancelorder {
             this.auditCancelorderArray.push(...data.data);
             this.start += this.pageSize;
           } else if (this.down) {
-            this.auditCancelorderArray = [...data.data];
+            this.auditCancelorderArray = data.data;
             this.start += this.pageSize;
           }
         } else {
