@@ -1,17 +1,17 @@
 <ion-content>
   <div class="withdraw-record">
     <div class="withdraw-total">
-     总金额：￥{{awardActivity.totalMoney}}
+     总金额：￥
     </div>
     <div class="record-list">
 
-      <div class="withdraw-item" *ngFor = "let item of awardActivity.basicData">
+      <div class="withdraw-item" *ngFor = "let item of awardActivity">
         <ul>
-          <li class='order-number'>订单编号：{{item.orderId}} <span>已收货</span></li>
-          <li class='date'>活动时间：{{item.activityTime}}</li>
-          <li class='base-number'>结算基数：￥{{item.accountCardinalzNumber}}</li>
-          <li class='percentage'>奖励比例：{{item.accountProportion}}</li>
-          <li class="money">奖励金额：￥{{item.awardMoney}}</li>
+          <li class='order-number'>订单编号：{{ item.relateId }} <span *ngIf = "item.status==1">已收货</span><span *ngIf = "item.status==2">已完成</span></li>
+          <li class='date'>活动时间：{{ item.createTime | date:'yyyy.MM.dd' }}</li>
+          <li class='base-number'>结算基数：￥{{ item.baseAmount }}</li>
+          <li class='percentage'>奖励比例：{{ item.percent }}</li>
+          <li class="money">奖励金额：￥{{ item.amount }}</li>
         </ul>
       </div>
       
