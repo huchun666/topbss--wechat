@@ -82,7 +82,9 @@ export class BrandshopOrderList{
         this.showNoMore = true;
       }
     }).catch(error => {
-      console.log('this is a error!',error);
+      loading.dismiss();
+      console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
   }
   // 选中时间获取订单
