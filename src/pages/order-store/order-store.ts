@@ -48,7 +48,7 @@ export class OrderStore {
               console.log(this.orderStoreDataArray)
               this.start += this.limit;
             }else if (this.down){
-              this.orderStoreDataArray = [...data.data];
+              this.orderStoreDataArray = data.data;
               console.log(this.orderStoreDataArray)
               this.start += this.limit;
             }
@@ -181,7 +181,7 @@ export class OrderStore {
             console.log(this.orderStoreDataArray)
             this.start += this.limit;
           }else if (this.down){
-            this.orderStoreDataArray = [...data.data];
+            this.orderStoreDataArray = data.data;
             console.log(this.orderStoreDataArray)
             this.start += this.limit;
           }
@@ -220,7 +220,7 @@ export class OrderStore {
             console.log(this.orderStoreDataArray)
             this.start += this.limit;
           }else if (this.down){
-            this.orderStoreDataArray = [...data.data];
+            this.orderStoreDataArray = data.data;
             console.log(this.orderStoreDataArray)
             this.start += this.limit;
           }

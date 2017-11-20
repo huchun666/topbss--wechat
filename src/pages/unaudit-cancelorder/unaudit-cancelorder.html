@@ -15,7 +15,7 @@
 			<div class="order-item" *ngFor = "let single of item.itemList">
         <dl>
           <dt>
-            <img class="my-picture" [src]="single.productSkuDTO.fileName" [alt]="single.productSkuDTO.productName">
+            <img class="my-picture" [src]="single.productSkuDTO.fileName | productSkuDTOImage" [alt]="single.productSkuDTO.productName">
           </dt>
           <dd class="product-title">{{ single.productSkuDTO.productName }}</dd>
           <dd class="sku-list">

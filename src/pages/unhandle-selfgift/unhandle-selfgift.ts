@@ -57,7 +57,7 @@ export class UnhandleSelfgift {
 						this.unhandleSeflGiftArray.push(...data.data);
 						this.start += this.limit;
 					}else if (this.down){
-						this.unhandleSeflGiftArray = [...data.data];
+						this.unhandleSeflGiftArray = data.data;
 						this.start += this.limit;
 						this.content.scrollTo(0,0,0); 
 					}
@@ -142,7 +142,7 @@ export class UnhandleSelfgift {
 					this.unhandleSeflGiftArray.push(...data.data);
 					this.start += this.limit;
 				}else if (this.down){
-					this.unhandleSeflGiftArray = [...data.data];
+					this.unhandleSeflGiftArray = data.data;
 					this.start += this.limit;
 				}
 				this.addOrderStatusClass(this.unhandleSeflGiftArray);
@@ -179,7 +179,7 @@ export class UnhandleSelfgift {
 					this.unhandleSeflGiftArray.push(...data.data);
 					this.start += this.limit;
 				}else if (this.down){
-					this.unhandleSeflGiftArray = [...data.data];
+					this.unhandleSeflGiftArray = data.data;
 					this.start += this.limit;
 				}
 				this.addOrderStatusClass(this.unhandleSeflGiftArray);

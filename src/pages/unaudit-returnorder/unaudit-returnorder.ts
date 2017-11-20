@@ -232,7 +232,7 @@ export class UnauditReturnorder{
             this.unauditReturnorderArray.push(...data.data);
             this.start += this.pageSize;
           } else if (this.down) {
-            this.unauditReturnorderArray = [...data.data];
+            this.unauditReturnorderArray = data.data;
             this.start += this.pageSize;
           }
         } else {

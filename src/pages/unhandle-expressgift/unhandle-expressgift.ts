@@ -44,7 +44,7 @@ export class UnhandleExpressgift {
 						this.unhandleExpressGiftArray.push(...data.data);
 						this.start += this.limit;
 					}else if (this.down){
-						this.unhandleExpressGiftArray = [...data.data];
+						this.unhandleExpressGiftArray = data.data;
 						this.start += this.limit;
 						this.content.scrollTo(0,0,0); 
 					}
@@ -163,7 +163,7 @@ export class UnhandleExpressgift {
             this.unhandleExpressGiftArray.push(...data.data);
             this.start += this.limit;
           }else if (this.down){
-            this.unhandleExpressGiftArray = [...data.data];
+            this.unhandleExpressGiftArray = data.data;
             this.start += this.limit;
           }
         }else {
@@ -198,7 +198,7 @@ export class UnhandleExpressgift {
 				this.unhandleExpressGiftArray.push(...data.data);
 				this.start += this.limit;
 				}else if (this.down){
-				this.unhandleExpressGiftArray = [...data.data];
+				this.unhandleExpressGiftArray = data.data;
 				this.start += this.limit;
 				}
 			}else {

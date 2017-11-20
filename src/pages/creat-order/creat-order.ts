@@ -50,7 +50,7 @@ export class CreatOrder {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
           }else if (this.down){
-            this.creatOrderArray = [...data.data];
+            this.creatOrderArray = data.data;
             this.start += this.limit;
           }
         }else {
@@ -110,7 +110,7 @@ export class CreatOrder {
               this.creatOrderArray.push(...data.data);
               this.start += this.limit;
             }else if (this.down){
-              this.creatOrderArray = [...data.data];
+              this.creatOrderArray = data.data;
               this.start += this.limit;
             }
           }else {
@@ -143,7 +143,7 @@ export class CreatOrder {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
           }else if (this.down){
-            this.creatOrderArray = [...data.data];
+            this.creatOrderArray = data.data;
             this.start += this.limit;
           }
         }else {
@@ -182,7 +182,7 @@ export class CreatOrder {
               this.creatOrderArray.push(...data.data);
               this.start += this.limit;
             }else if (this.down){
-              this.creatOrderArray = [...data.data];
+              this.creatOrderArray = data.data;
               this.start += this.limit;
             }
           }else {
@@ -206,7 +206,7 @@ export class CreatOrder {
                   this.creatOrderArray.push(...data.data);
                   this.start += this.limit;
                 }else if (this.down){
-                  this.creatOrderArray = [...data.data];
+                  this.creatOrderArray = data.data;
                   this.start += this.limit;
                 }
               }else {

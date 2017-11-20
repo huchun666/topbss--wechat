@@ -42,7 +42,7 @@ export class HandleExpressgift {
 					this.handleExpressGiftArray.push(...data.data);
 					this.start += this.limit;
 				}else if (this.down){
-					this.handleExpressGiftArray = [...data.data];
+					this.handleExpressGiftArray = data.data;
 					this.start += this.limit;
 					this.content.scrollTo(0,0,0); 
 				}
@@ -80,7 +80,7 @@ export class HandleExpressgift {
             this.handleExpressGiftArray.push(...data.data);
             this.start += this.limit;
           }else if (this.down){
-            this.handleExpressGiftArray = [...data.data];
+            this.handleExpressGiftArray = data.data;
             this.start += this.limit;
           }
         }else {
@@ -116,7 +116,7 @@ export class HandleExpressgift {
 				this.handleExpressGiftArray.push(...data.data);
 				this.start += this.limit;
 			}else if (this.down){
-				this.handleExpressGiftArray = [...data.data];
+				this.handleExpressGiftArray = data.data;
 				this.start += this.limit;
 			}
 		}else {

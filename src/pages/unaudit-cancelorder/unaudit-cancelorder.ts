@@ -9,8 +9,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class UnauditCancelorder {
   @ViewChild(Content) content: Content;
   unauditCancelorderArray: any;
-  currentPage: number = 1;
-  pageSize: number = 10;
+  limit: number = 10;
   up: Boolean = true;//上拉刷新和第一次进入页面时
   down: Boolean = false;//下拉刷新和返回上一级页面时
   noData: Boolean = false;
@@ -137,28 +136,29 @@ export class UnauditCancelorder {
   getUnauditCancelorder() {
     // 待审核取消订单 请求数据
     let loading = this.appService.loading();
-    let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.pageSize * (this.currentPage - 1)}&limit=${this.pageSize}`
+    let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
       loading.dismiss();
+      loading.present();
       console.log(data)
-      // if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
-      //   //空空如也
-      //   this.noData = true;
-      // } else {
-      //   this.noData = false;
-      //   if (this.start < data.count) {
-      //     if (this.up) {
-      //       this.unauditCancelorderArray.push(...data.data);
-      //       this.start += this.pageSize;
-      //     } else if (this.down) {
-      //       this.unauditCancelorderArray = data.data;
-      //       this.start += this.pageSize;
-      //       this.content.scrollTo(0,0,0);
-      //     }
-      //   } else {
-      //     this.showNoMore = true;
-      //   }
-      // }
+      if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
+        //空空如也
+        this.noData = true;
+      } else {
+        this.noData = false;
+        if (this.start < data.count) {
+          if (this.up) {
+            this.unauditCancelorderArray.push(...data.data);
+            this.start += this.limit;
+          } else if (this.down) {
+            this.unauditCancelorderArray = data.data;
+            this.start += this.limit;
+            this.content.scrollTo(0,0,0);
+          }
+        } else {
+          this.showNoMore = true;
+        }
+      }
     }).catch(error => {
       console.log(error);
       let toast = this.toastCtrl.create({
