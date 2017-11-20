@@ -416,7 +416,7 @@ export class OrderList {
             this.orderList.push(...data.data);
             this.start += this.pageSize;
           } else if (this.down) {
-            this.orderList = [...data.data];
+            this.orderList = data.data;
             this.start += this.pageSize;
           }
         } else {

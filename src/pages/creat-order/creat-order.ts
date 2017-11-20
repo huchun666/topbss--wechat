@@ -1,6 +1,6 @@
 import { Login } from './../login/login';
 import { Component} from '@angular/core';
-import { ModalController, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { ModalController, NavController, NavParams, AlertController } from 'ionic-angular';
 import { OrderLayer } from '../order-layer/order-layer';
 import { OrderStore } from '../order-store/order-store';
 import { AppService, AppConfig } from '../../app/app.service';
@@ -23,14 +23,13 @@ export class CreatOrder {
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
     public appService: AppService,
-    public toastCtrl: ToastController,
   ) {
     this.down = true;
 		this.up = false;
     this.getCreatOrderList();
     this.getWarehouseCount();
-    this.warehouseCount = 6;//后面要删除
-    // this.creatOrderArray = [];
+    // this.warehouseCount = 6;//后面要删除
+    this.creatOrderArray = [];
   }
 
   //进入页面，请求接口，得到数据
@@ -50,7 +49,7 @@ export class CreatOrder {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
           }else if (this.down){
-            this.creatOrderArray = [...data.data];
+            this.creatOrderArray = data.data;
             this.start += this.limit;
           }
         }else {
@@ -61,12 +60,7 @@ export class CreatOrder {
     }).catch(error => {
       loading.dismiss();
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -110,7 +104,7 @@ export class CreatOrder {
               this.creatOrderArray.push(...data.data);
               this.start += this.limit;
             }else if (this.down){
-              this.creatOrderArray = [...data.data];
+              this.creatOrderArray = data.data;
               this.start += this.limit;
             }
           }else {
@@ -143,7 +137,7 @@ export class CreatOrder {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
           }else if (this.down){
-            this.creatOrderArray = [...data.data];
+            this.creatOrderArray = data.data;
             this.start += this.limit;
           }
         }else {
@@ -153,12 +147,7 @@ export class CreatOrder {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-      let toast = this.toastCtrl.create({
-        message: '网络异常，请稍后再试',
-        duration: 1000,
-        position: 'middle'
-      });
-      toast.present(toast);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -170,73 +159,42 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
-        console.log(data)
-        if (data.totalRecord == 0) {
-          //空空如也
-          this.noData = true;
-          this.showNoMoreGift = false;
+        if (data.data.length != 0) {
+          this.creatOrderArray.push(...data.data);
+          this.start += this.limit;
         }else {
-          this.noData = false;
-          if( this.start < data.totalRecord ) {
-            if (this.up) {
-              this.creatOrderArray.push(...data.data);
-              this.start += this.limit;
-            }else if (this.down){
-              this.creatOrderArray = [...data.data];
-              this.start += this.limit;
-            }
-          }else {
-            this.showNoMoreGift = true;
-          }
+          this.showNoMoreGift = true;
         }
       }).catch(error => {
         console.log(error);
       });
     }else {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
-          this.appService.httpGet(url).then( data => {
-            infiniteScroll.complete();
-            if (data.totalRecord == 0) {
-              //空空如也
-              this.noData = true;
-            }else {
-              this.noData = false;
-              if( this.start < data.totalRecord ) {
-                if (this.up) {
-                  this.creatOrderArray.push(...data.data);
-                  this.start += this.limit;
-                }else if (this.down){
-                  this.creatOrderArray = [...data.data];
-                  this.start += this.limit;
-                }
-              }else {
-                this.showNoMoreGift = true;
-              }
-            }
-          }).catch(error => {
-            infiniteScroll.complete();
-            console.log(error);
-            let toast = this.toastCtrl.create({
-              message: '网络异常，请稍后再试',
-              duration: 1000,
-              position: 'middle'
-            });
-            toast.present(toast);
-          });
+      this.appService.httpGet(url).then( data => {
+        infiniteScroll.complete();
+        if (data.data.length != 0) {
+          this.creatOrderArray.push(...data.data);
+          this.start += this.limit;
+        }else {
+          this.showNoMoreGift = true;
+        }
+      }).catch(error => {
+        infiniteScroll.complete();
+        console.log(error);
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      });
     }
-    
-    
   }
 
   //查看配单仓订单总数
   getWarehouseCount() {
-    // let url = `${AppConfig.API.getCount}`;
-    // this.appService.httpGet(url).then( number => {
-    //   this.warehouseCount = number;
-    //   console.log(this.warehouseCount)
-    // }).catch(error => {
-    //   console.log(error);
-    // });
+    let url = `${AppConfig.API.warehouseGetCount}`;
+    this.appService.httpGet(url).then( number => {
+      this.warehouseCount = number;
+      console.log(this.warehouseCount)
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
 }

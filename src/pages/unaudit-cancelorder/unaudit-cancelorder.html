@@ -1,6 +1,6 @@
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content>
+    <ion-refresher-content pullingText="下拉刷新" refreshingText="获取中...">
     </ion-refresher-content>
   </ion-refresher>
 	<div class="order-list">
@@ -15,7 +15,7 @@
 			<div class="order-item" *ngFor = "let single of item.itemList">
         <dl>
           <dt>
-            <img class="my-picture" [src]="single.productSkuDTO.fileName" [alt]="single.productSkuDTO.productName">
+            <img class="my-picture" [src]="single.productSkuDTO.fileName | productSkuDTOImage" [alt]="single.productSkuDTO.productName">
           </dt>
           <dd class="product-title">{{ single.productSkuDTO.productName }}</dd>
           <dd class="sku-list">
@@ -49,7 +49,7 @@
 			<span>查看审核完成订单</span>
     </div>
     <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 	</div>
 
