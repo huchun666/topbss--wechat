@@ -10,7 +10,7 @@ export class UnhandleSelfgift {
   @ViewChild(Content) content: Content;
   unhandleSeflGiftArray: any;
   start: number = 0;
-  limit: number = 3;
+  limit: number = 10;
   showNoMoreGift: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
@@ -120,23 +120,12 @@ export class UnhandleSelfgift {
 		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
 		this.appService.httpGet(url).then( data => {
 			refresher.complete();
-			if (data.totalRecord == 0) {
-				//空空如也
-				this.noData = true;
+			if (data.data.length != 0) {
+				this.unhandleSeflGiftArray = data.data;
+				this.start += this.limit;
+				this.addOrderStatusClass(this.unhandleSeflGiftArray);
 			}else {
-				this.noData = false;
-				if( this.start < data.totalRecord ) {
-					if (this.up) {
-						this.unhandleSeflGiftArray.push(...data.data);
-						this.start += this.limit;
-					}else if (this.down){
-						this.unhandleSeflGiftArray = data.data;
-						this.start += this.limit;
-					}
-					this.addOrderStatusClass(this.unhandleSeflGiftArray);
-				}else {
-					this.showNoMoreGift = true;
-				}
+				this.showNoMoreGift = true;
 			}
 		}).catch(error => {
 			refresher.complete();

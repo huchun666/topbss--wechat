@@ -149,18 +149,11 @@ export class OrderStore {
         this.noData = true;
       }else {
         this.noData = false;
-        if( this.start < data.count ) {
-          if (this.up) {
-            this.orderStoreDataArray.push(...data.data);
-            console.log(this.orderStoreDataArray)
-            this.start += this.limit;
-          }else if (this.down){
-            this.orderStoreDataArray = data.data;
-            console.log(this.orderStoreDataArray)
-            this.start += this.limit;
-          }
+        if (data.data.length != 0) {
+          this.orderStoreDataArray.push(...data.data);
+          this.start += this.limit;
         }else {
-            this.showNoMoreGift = true;
+          this.showNoMoreGift = true;
         }
       }
     
@@ -178,12 +171,18 @@ export class OrderStore {
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       infiniteScroll.complete();
-      if (data.data.length != 0) {
-				this.orderStoreDataArray.push(...data.data);
-				this.start += this.limit;
-			}else {
-				this.showNoMoreGift = true;
-			}
+      if (data.count == 0) {
+        //空空如也
+        this.noData = true;
+      }else {
+        this.noData = false;
+        if (data.data.length != 0) {
+          this.orderStoreDataArray.push(...data.data);
+          this.start += this.limit;
+        }else {
+          this.showNoMoreGift = true;
+        }
+      }
     }).catch(error => {
       infiniteScroll.complete();
       console.log(error);

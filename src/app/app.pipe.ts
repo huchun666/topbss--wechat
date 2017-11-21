@@ -62,8 +62,8 @@ export class FilterReturnStatusPipe implements PipeTransform {
       case "0":
         return {
           status: "申请审核中",
-          pass: true,
-          audit: false
+          pass: false,
+          audit: true
         };
       case "1":
         return {
@@ -102,25 +102,25 @@ export class FilterCancelStatusPipe implements PipeTransform {
     switch(param) {
       case "0":
         return {
-          status: "未处理",
+          status: "申请审核中",
           pass: false,
           audit: true
         }
       case "1":
         return {
-          status: "同意",
+          status: "申请已通过",
           pass: true,
           audit: false
         }
       case "2":
         return {
-          status: "拒绝",
+          status: "申请已拒绝",
           pass: false,
           audit: true
         }
       case "3":
         return {
-          status: "已完成",
+          status: "退款已完成",
           pass: true,
           audit: false
         }
@@ -171,57 +171,27 @@ export class FilterHandleGiftTypePipe implements PipeTransform {
 @Pipe({ name: 'isOrIsnotInvalidAttrValue' })
 export class IsOrIsnotInvalidAttrValuePipe implements PipeTransform {
   transform(invalidAttrValue: any): any {
-    switch(invalidAttrValue) {
-      case "invalidAttrValue":
-        return "disabled";
-      case null:
-        return false;
-    }
+    return invalidAttrValue == "invalidAttrValue" ? "disabled" : false;
   }
 }
 
 @Pipe({ name: 'invalidAttrValueClass' })
 export class InvalidAttrValueClassPipe implements PipeTransform {
   transform(invalidAttrValueClass: any): Boolean {
-    switch(invalidAttrValueClass) {
-      case "invalidAttrValue":
-        return true;
-      case null:
-        return false;
-    }
+    return invalidAttrValueClass == "invalidAttrValue" ? true : false;
   }
 }
 
 @Pipe({ name: 'changeGray' })
 export class ChangeGrayPipe implements PipeTransform {
   transform(count: number): Boolean {
-    switch(count) {
-      case 1:
-        return true;
-      default:
-        return false;
-    }
-  }
-}
-
-@Pipe({ name: 'skuImage' })
-export class SkuImagePipe implements PipeTransform {
-  transform(skuImage: string): string {
-    if (skuImage) {
-      return "http://www.91topbaby.com/evercos/common/file/content/"+skuImage;
-    }else {
-      return "../../assets/image/nodata.png";
-    }
+    return count == 1 ? true : false;
   }
 }
 
 @Pipe({ name: 'productSkuDTOImage' })
 export class ProductSkuDTOImagePipe implements PipeTransform {
   transform(productSkuDTOImage: string): string {
-    if (productSkuDTOImage) {
-      return "http://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage;
-    }else {
-      return "../../assets/image/nodata.png";
-    }
+    return productSkuDTOImage ? "http://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage : "../../assets/image/nodata.png";
   }
 }

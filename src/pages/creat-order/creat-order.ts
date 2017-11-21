@@ -132,14 +132,9 @@ export class CreatOrder {
         this.noData = true;
       }else {
         this.noData = false;
-        if( this.start < data.totalRecord ) {
-          if (this.up) {
-            this.creatOrderArray.push(...data.data);
-            this.start += this.limit;
-          }else if (this.down){
-            this.creatOrderArray = data.data;
-            this.start += this.limit;
-          }
+        if (data.data.length != 0) {
+          this.creatOrderArray = data.data;
+          this.start += this.limit;
         }else {
           this.showNoMoreGift = true;
         }
@@ -159,11 +154,16 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
-        if (data.data.length != 0) {
-          this.creatOrderArray.push(...data.data);
-          this.start += this.limit;
+        if (data.totalRecord == 0) {
+          //空空如也
+          this.noData = true;
         }else {
-          this.showNoMoreGift = true;
+          if (data.data.length != 0) {
+            this.creatOrderArray.push(...data.data);
+            this.start += this.limit;
+          }else {
+            this.showNoMoreGift = true;
+          }
         }
       }).catch(error => {
         console.log(error);
@@ -172,11 +172,17 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
-        if (data.data.length != 0) {
-          this.creatOrderArray.push(...data.data);
-          this.start += this.limit;
+        if (data.totalRecord == 0) {
+          //空空如也
+          this.noData = true;
         }else {
-          this.showNoMoreGift = true;
+          this.noData = false;
+          if (data.data.length != 0) {
+            this.creatOrderArray.push(...data.data);
+            this.start += this.limit;
+          }else {
+            this.showNoMoreGift = true;
+          }
         }
       }).catch(error => {
         infiniteScroll.complete();

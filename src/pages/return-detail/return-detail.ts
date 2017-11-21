@@ -7,15 +7,17 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class ReturnDetail {
 	count: number = 4;
-  returnDetail: any;
+  returnDetail: any = {};
 	listIndexId: number;
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
     public alertCtrl: AlertController, 
     public navParams: NavParams, 
-    public appService: AppService ) {
+    public appService: AppService 
+  ) {
       this.listIndexId = this.navParams.get('indexId')  //传上个页面当前点击的id来获取详情页信息
+      this.getReturnDetailList();
       this.returnDetail = {
         orderReturn: {
           orderReturnSeq: '20161104054453',
@@ -97,15 +99,16 @@ export class ReturnDetail {
 			  {
 			    text: '确认',
 			    handler: data => {
-            let url = `${AppConfig.hostUrl+AppConfig.API.auditReturnOrder}`;
+            let url = `${AppConfig.API.auditReturnOrder}`;
 			    	let body = {
               id: this.listIndexId,
               isAgree: 1,
               totalReturnPrice: data.price
             };
             // this.appService.httpPost(url, body).then( data=>{
-            //   //这里需要修改  跳转后要刷新审核退货列表页
-            //   this.navCtrl.pop();
+            //   if (data.type == "success") {
+                this.viewCtrl.dismiss();
+            //   }
             // }).catch( error=>{
             //   console.log(error);
             // })
@@ -136,7 +139,7 @@ export class ReturnDetail {
               totalReturnPrice: 0
             };
             // this.appService.httpPost(url, data).then( data=>{
-            //   this.viewCtrl.dismiss(data);
+              this.viewCtrl.dismiss();
             // }).catch( error=>{
             //   console.log(error);
             // })
@@ -148,8 +151,9 @@ export class ReturnDetail {
 	}
 	getReturnDetailList(){
     // 待审核退货订单 点击审核时的详情页 请求数据
-    let url = `${AppConfig.hostUrl+AppConfig.API.returnDetail}?id=${this.listIndexId}`;
-		this.appService.httpGet(url).then( data=>{
+    let url = `${AppConfig.API.returnDetail}?id=${this.listIndexId}`;
+		this.appService.httpGet(url).then( data => {
+      console.log(data)
       this.returnDetail = data;
     }).catch( error=>{
       console.log(error);
