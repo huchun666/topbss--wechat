@@ -36,19 +36,17 @@
 				</dl>
 			</div>
     </div>
-    
+		<div class="btn-cancelView" (touchstart)="goAuditCancel()">
+			<span>查看审核完成订单</span>
+    </div>
     <div class="no-data" *ngIf = "noData">
       <img src="../../assets/image/nodata.png" alt="">
       <p>空空如也</p>
     </div>
     <div class="btn-noMore" *ngIf = "showNoMore">
-      <span>—— 没有更多信息了 ——</span>
+      <span>—— 没有更多赠品了 ——</span>
     </div>
-		
-		<div class="btn-cancelView" (touchstart)="goAuditCancel()">
-			<span>查看审核完成订单</span>
-    </div>
-    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
+    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)" *ngIf = "!showNoMore">
       <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 	</div>
