@@ -9,7 +9,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class OrderStore {
   start: number = 0;
   limit: number = 10;
-  showNoMoreGift: Boolean = false;
+  showNoMore: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
@@ -52,7 +52,7 @@ export class OrderStore {
               this.start += this.limit;
             }
           }else {
-              this.showNoMoreGift = true;
+              this.showNoMore = true;
           }
         }
       
@@ -154,7 +154,7 @@ export class OrderStore {
           this.orderStoreDataArray = data.data;
           this.start += this.limit;
         }else {
-          this.showNoMoreGift = true;
+          this.showNoMore = true;
         }
       }
     
@@ -181,7 +181,7 @@ export class OrderStore {
           this.orderStoreDataArray.push(...data.data);
           this.start += this.limit;
         }else {
-          this.showNoMoreGift = true;
+          this.showNoMore = true;
         }
       }
     }).catch(error => {

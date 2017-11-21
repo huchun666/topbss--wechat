@@ -14,7 +14,7 @@ export class CreatOrder {
   noData: Boolean;
   start: number = 0;
   limit: number = 20;
-  showNoMoreGift: Boolean = false;
+  showNoMore: Boolean = false;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
   warehouseCount: number;//配单仓数目
@@ -53,7 +53,7 @@ export class CreatOrder {
             this.start += this.limit;
           }
         }else {
-          this.showNoMoreGift = true;
+          this.showNoMore = true;
         }
       }
       
@@ -96,7 +96,7 @@ export class CreatOrder {
         if (data.totalRecord == 0) {
           //空空如也
           this.noData = true;
-          this.showNoMoreGift = false;
+          this.showNoMore = false;
         }else {
           this.noData = false;
           if( this.start < data.totalRecord ) {
@@ -108,7 +108,7 @@ export class CreatOrder {
               this.start += this.limit;
             }
           }else {
-            this.showNoMoreGift = true;
+            this.showNoMore = true;
           }
         }
       }).catch(error => {
@@ -136,7 +136,7 @@ export class CreatOrder {
           this.creatOrderArray = data.data;
           this.start += this.limit;
         }else {
-          this.showNoMoreGift = true;
+          this.showNoMore = true;
         }
       }
     }).catch(error => {
@@ -162,7 +162,7 @@ export class CreatOrder {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
           }else {
-            this.showNoMoreGift = true;
+            this.showNoMore = true;
           }
         }
       }).catch(error => {
@@ -181,7 +181,7 @@ export class CreatOrder {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
           }else {
-            this.showNoMoreGift = true;
+            this.showNoMore = true;
           }
         }
       }).catch(error => {
