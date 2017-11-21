@@ -6,7 +6,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'withdraw.html'
 })
 export class Withdraw {
-  amout: number;
+  amount: number;
   balance: string = '';
   isAllow: boolean = true;
   constructor(
@@ -24,21 +24,17 @@ export class Withdraw {
   }
   /* 提现 */
   withdraw() {
-    this.appService.toast('提现成功', 300000, 'middle');
-    return;
-    // if (!this.isAllow) {
-    //   return;
-    // }
-    // this.isAllow = false;
-    // let url = `${AppConfig.hostUrl + AppConfig.API.withdraw}`;
-    // let body = {
-    //   amout: this.amout
-    // }
-    // this.appService.httpPost(url, body).then(data => {
-    //   this.isAllow = true;
-    // }).catch(error => {
-    //   console.log(error);
-    //   this.isAllow = true
-    // });
+    if (!this.isAllow) {
+      return;
+    }
+    this.isAllow = false;
+    let url = `${AppConfig.API.withdraw}`;
+    let body = Number(this.amount).toFixed(2);
+    this.appService.httpPost(url, body).then(data => {
+      this.isAllow = true;
+    }).catch(error => {
+      console.log(error);
+      this.isAllow = true
+    });
   }
 }

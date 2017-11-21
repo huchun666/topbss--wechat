@@ -20,10 +20,11 @@ export class Personl {
   */
   userCurrent: any = {
     id: '', //用户id
-    telphone: '13761489650', //手机
-    brandshopId: '12345', //门店id
+    cellphone: '', //手机
+    brandshopId: '', //门店id
     wechatNumber: '', //微信号
-    idcard: '' //身份证
+    idcard: '', //身份证
+    isBoundWechat: false
   }
   /* 当前导购员账户信息
    * 导购员ID，类型账户，已审核金额（旧版本的总金额），可提现金额，审核中金额，已提取金额
@@ -31,16 +32,16 @@ export class Personl {
   userAccount: any = {
     userId: null,
     acctType: null,
-    totalAmount: 118.01,
-    balance: 69922.36,
-    verifyAmount: 18889.62,
-    withdrawAmount: 2689.63
+    totalAmount: 0.00,
+    balance: 0.00,
+    verifyAmount: 0.00,
+    withdrawAmount: 0.00,
   }
   /* 临时存储可提现金额，审核中金额，和已提现金额 */
   moneyList: any = {
-    balance: 69922.36,
-    verifyAmount: 18889.62,
-    withdrawAmount: 2689.63
+    balance: 0.00,
+    verifyAmount: 0.00,
+    withdrawAmount: 0.00
   }
   isStar: boolean = false;
   showImg: string = 'hide.png';
@@ -64,7 +65,8 @@ export class Personl {
       "bindAccount": BindAccount,
       "help": Help
     }
-    /* this.getCurrent(); */
+    this.getCurrent();
+    this.getAccount();
   }
   /* 显示和隐藏金额 */
   showMoney() {
@@ -75,9 +77,6 @@ export class Personl {
     this.userAccount.verifyAmount = !this.isStar ?  this.moneyList.verifyAmount : '*****';
     this.userAccount.withdrawAmount = !this.isStar ?  this.moneyList.withdrawAmount : '*****';
   }
-  formatMoney() {
-
-  }
   /* 退出登录 */
   logOut() {
     let appNav = this.app.getRootNav();
@@ -85,16 +84,20 @@ export class Personl {
   }
   /* 跳转页面 */
   redirectPage(page, param) {
+    if (!this.userCurrent.isBoundWechat && page === Withdraw) {
+      page = this.pageList.bindAccount;
+    }
+    console.log(page);
     let pageModal = this.modalCtrl.create(page, {'param': param});
     pageModal.present();
   }
   /* 将电话号码格式化 */
   formatTelphone() {
-    this.userCurrent.telphone = this.userCurrent.telphone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+    this.userCurrent.cellphone = this.userCurrent.cellphone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
   }
   /* 获取当前导购员基本信息 */
   getCurrent() {
-    let url = `${AppConfig.hostUrl + AppConfig.API.current}`;
+    let url = AppConfig.API.current;
     this.appService.httpGet(url)
       .then( data => {
         this.userCurrent = data;
@@ -105,7 +108,7 @@ export class Personl {
       });
   }
   getAccount() {
-    let url = `${AppConfig.hostUrl + AppConfig.API.account}`;
+    let url = AppConfig.API.account;
     this.appService.httpGet(url)
       .then( data => {
         this.moneyList.balance = data.balance;

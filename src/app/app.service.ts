@@ -8,9 +8,9 @@ import 'rxjs/add/operator/timeout';
 
 @Injectable()
 export class AppConfig {
-y
+
   //域名基地址
-  static hostUrl: string = "http://192.168.31.202:8080";
+  static hostUrl: string = "http://192.168.31.202:6333";
 
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -65,13 +65,14 @@ export class AppService {
 
   //get request
   httpGet(url: string) {
-    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(url, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-    );
+      });
   }
 
   //get request
@@ -98,7 +99,9 @@ export class AppService {
   
   //post request
   httpPost(url: string, body: any) {
-    return this.http.post(url, body).timeout(AppConfig.TIME_OUT).toPromise()
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(url, body, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
@@ -120,7 +123,9 @@ export class AppService {
   
   //put request
   httpPut(url: string, parameters: any) {
-    return this.http.put(url, parameters).timeout(AppConfig.TIME_OUT).toPromise()
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(url, parameters, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
