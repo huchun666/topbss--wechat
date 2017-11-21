@@ -51,11 +51,11 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord)">
+    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord, userAccount.withdrawAmount)">
       提现记录
       <span><img src="./assets/image/in.png" alt="提现记录"></span>
     </div>
-    <div class="withdrawal-record" (click)="redirectPage(pageList.bindAccount, userCurrent.id)">
+    <div class="withdrawal-record" (click)="redirectPage(pageList.addAccount, userCurrent.id)">
       收款账户
       <span><img src="./assets/image/in.png" alt="收款账户"></span>
     </div>

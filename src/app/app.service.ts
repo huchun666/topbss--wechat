@@ -60,20 +60,16 @@ export class AppService {
     private toastCtrl: ToastController,
     private dialogs: Dialogs
   ) {
-
   }
 
   //get request
   httpGet(url: string) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.get(url, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //get request
@@ -83,8 +79,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-    );
+      });
   }
 
   //get request with headers
@@ -94,8 +89,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-    );
+      });
   }
   
   //post request
@@ -107,8 +101,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //post 带有headers 
@@ -118,8 +111,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-    );
+      });
   }
   
   //put request
@@ -131,8 +123,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //delete request
@@ -142,8 +133,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //错误或者异常处理提示
