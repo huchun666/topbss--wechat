@@ -60,7 +60,7 @@
       <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">
         <dl>
           <dt>
-            <img class="my-picture" [src]="product.productSkuDTO.fileName" [alt]="product.productSkuDTO.productName">
+            <img class="my-picture" src="http://www.91topbaby.com/evercos/common/file/content/{{product.productSkuDTO.fileSeq}}" [alt]="product.productSkuDTO.productName">
           </dt>
           <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>
           <dd class="sku-list">
@@ -78,13 +78,15 @@
           </dt>
           <dd class="total">会员手机：{{ order.memberMobile }}</dd>
           <dd class="member-phone">收货时间：{{ order.receiptTime }}</dd>
+          <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime }}</dd>
+          
         </dl>
       </div>
       <div class="order-dtail-box">
         <div class="order-detail" *ngIf="isShowDetail">
           <ul>
             <li>订单总额：￥{{ order.totalAmount }}</li>
-            <li>促销抵扣：￥{{ order.promotions }}</li>
+            <li>促销抵扣：￥{{ order.discountAmount }}</li>
             <li>淘璞券折扣：￥{{ order.couponAmount }}</li>
             <li>商户券抵扣：￥{{ order.merchantCouponAmount }}</li>
             <li>积分抵扣：￥{{ order.integralAmount }}</li>

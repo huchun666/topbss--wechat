@@ -1,6 +1,7 @@
 import { PipeTransform, Pipe, transition } from '@angular/core';
 
 // 订单状态的转换
+// pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
 @Pipe({ name: 'setOrderStatus' })
 export class FilterStatusPipe implements PipeTransform {
   transform(param: string): any {
@@ -52,6 +53,7 @@ export class FilterStatusPipe implements PipeTransform {
 }
 
 // 退货订单的状态转换
+// pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
 @Pipe({ name: 'setReturnOrderStatus' })
 export class FilterReturnStatusPipe implements PipeTransform {
   transform(param: string): any {
@@ -92,6 +94,7 @@ export class FilterReturnStatusPipe implements PipeTransform {
 }
 
 // 取消订单的状态转换
+// pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
 @Pipe({ name: 'setCancelOrderStatus' })
 export class FilterCancelStatusPipe implements PipeTransform {
   transform(param: string): any {
