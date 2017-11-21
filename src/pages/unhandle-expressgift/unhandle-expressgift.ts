@@ -11,7 +11,7 @@ export class UnhandleExpressgift {
 	unhandleExpressGiftArray: any;
 	start: number = 0;
 	limit: number = 10;
-  showNoMoreGift: Boolean = false;
+  showNoMore: Boolean = false;
 	noData: Boolean;
 	up: Boolean;//上拉刷新和第一次进入页面时
 	down: Boolean;//下拉刷新和返回上一级页面时
@@ -48,7 +48,7 @@ export class UnhandleExpressgift {
 						this.content.scrollTo(0,0,0); 
 					}
 				}else {
-					this.showNoMoreGift = true;
+					this.showNoMore = true;
 				}
 			}
 		}).catch(error => {
@@ -142,7 +142,7 @@ export class UnhandleExpressgift {
 					this.unhandleExpressGiftArray = data.data;
 					this.start += this.limit;
 				}else {
-					this.showNoMoreGift = true;
+					this.showNoMore = true;
 				}
 			}
     }).catch(error => {
@@ -167,7 +167,7 @@ export class UnhandleExpressgift {
 					this.unhandleExpressGiftArray.push(...data.data);
 					this.start += this.limit;
 				}else {
-					this.showNoMoreGift = true;
+					this.showNoMore = true;
 				}
 			}
 		}).catch(error => {
