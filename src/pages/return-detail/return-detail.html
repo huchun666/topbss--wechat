@@ -10,7 +10,7 @@
 			<div class="order-title">
 				<h2>订单编号：<span>{{returnDetail.orderReturn.returnOrderId}}</span></h2>
 				<!--color auditing or pass -->
-				<span [ngClass]="{auditStatus: true, pass:(returnDetail.orderReturn.status | setReturnOrderStatus).pass , auditing:(returnDetail.orderReturn.status | setReturnOrderStatus).audit} ">{{(returnDetail.orderReturn.status | setReturnOrderStatus).status}}</span>
+				<span class="auditStatus">申请审核中</span>
 			</div>
 			<!-- 商品1 -->
 			<div class="order-item">
@@ -45,9 +45,9 @@
 				<li>是否有发票：{{returnDetail.orderReturn.invoiced==1?'有': '无'}}</li>
 				<li>退货原因：{{returnDetail.orderReturn.returnReason}}</li>
 				<li>问题描述：{{returnDetail.orderReturn.detail}}</li>
-				<!-- <li class="img-list">
-					<img src="{{itemImg}}" alt="" *ngFor = "let itemImg of returnDetail[0].detailImg">
-				</li> -->
+				<li class="img-list" *ngIf = "imageArray">
+					<img src="http://www.91topbaby.com/evercos/common/file/content/{{itemImg}}" alt="" *ngFor = "let itemImg of imageArray">
+				</li>
 			</ul>
 		</div>
 	</div>

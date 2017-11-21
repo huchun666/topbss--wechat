@@ -57,7 +57,6 @@ export class FilterStatusPipe implements PipeTransform {
 @Pipe({ name: 'setReturnOrderStatus' })
 export class FilterReturnStatusPipe implements PipeTransform {
   transform(param: string): any {
-    let value = "";
     switch(param) {
       case "0":
         return {
