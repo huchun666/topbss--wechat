@@ -26,7 +26,7 @@ export class CreatOrder {
   ) {
     this.down = true;
 		this.up = false;
-    this.getCreatOrderList();
+    // this.getCreatOrderList();
     this.getWarehouseCount();
     // this.warehouseCount = 6;//后面要删除
     this.creatOrderArray = [];

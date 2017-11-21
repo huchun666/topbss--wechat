@@ -71,7 +71,7 @@ export class AppService {
         console.log(`访问错误:${error}`);
         this.handleError(error);
       }
-      );
+    );
   }
 
   //get request

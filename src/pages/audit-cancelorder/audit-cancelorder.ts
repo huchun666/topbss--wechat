@@ -174,7 +174,7 @@ export class AuditCancelorder {
       }else {
         this.noData = false;
         if (data.data.length != 0) {
-          this.auditCancelorderArray.push(...data.data);
+          this.auditCancelorderArray = data.data;
           this.start += this.limit;
         }else {
           this.showNoMore = true;

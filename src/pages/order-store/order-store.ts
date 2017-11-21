@@ -68,6 +68,7 @@ export class OrderStore {
     let body = [];
     let url = AppConfig.API.warehouseUpdate;
     this.orderStoreDataArray.map(function(item) {
+      console.log(item.productNum)
       let order = {};
       order['warehouseItemId'] = item.warehouseItemId;
       order['itemPrice'] = item.itemPrice;
@@ -93,12 +94,11 @@ export class OrderStore {
     }else {
       this.appService.toast('不能添加更多宝贝了哦！', 1000, 'middle');
     }
-	  
   }
   //减
   removeCount(index) {
-    this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
-    if (this.orderStoreDataArray[index].productNum != 1) {
+    if (this.orderStoreDataArray[index].productNum > 1) {
+      this.orderStoreDataArray[index].productNum--;
       this.warehouseUpdate(index);
     }
   }
@@ -143,6 +143,7 @@ export class OrderStore {
     this.up = false;
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
+      console.log(data)
       refresher.complete();
       if (data.count == 0) {
         //空空如也
@@ -150,7 +151,7 @@ export class OrderStore {
       }else {
         this.noData = false;
         if (data.data.length != 0) {
-          this.orderStoreDataArray.push(...data.data);
+          this.orderStoreDataArray = data.data;
           this.start += this.limit;
         }else {
           this.showNoMoreGift = true;
