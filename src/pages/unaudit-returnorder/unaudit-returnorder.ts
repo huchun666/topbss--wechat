@@ -37,17 +37,17 @@ export class UnauditReturnorder{
 			    handler: () => {
 						// 点击确认后的执行代码
 						// 将当前点击的index状态改成4
-						let url = `${AppConfig.hostUrl+AppConfig.API.returnReceived}`;
-						let body = {
-             id: this.unauditReturnorderArray[index].orderReturnSeq
-            }
-						// this.appService.httpPost(url, body).then(data => {
-						//  if (data.type == 'success') {
-						//   this.getUnauditReturnorderList();
-						//  }
-						// }).catch(error => {
-						//  console.log(error);
-						// });
+            let url = `${AppConfig.API.returnReceived}?id=${this.unauditReturnorderArray[index].orderReturnSeq}`;
+						this.appService.httpPost(url, null).then(data => {
+              if (data.type == 'success') {
+                this.start = 0;
+                this.up = false;
+                this.down = true;
+                this.getUnauditReturnorderList();
+              }
+						}).catch(error => {
+						 console.log(error);
+						});
 			    }
 			  }
 			]
@@ -55,7 +55,7 @@ export class UnauditReturnorder{
 		alert.present();
 	}
 	auditReturn(index) {
-    const orderModal = this.modalCtrl.create(ReturnDetail,{ indexId: this.unauditReturnorderArray[index].orderReturnSeq});
+    const orderModal = this.modalCtrl.create(ReturnDetail,{ productId: this.unauditReturnorderArray[index].orderReturnSeq});
     orderModal.onDidDismiss(() => {
       this.start = 0;
       this.down = true;
@@ -74,7 +74,6 @@ export class UnauditReturnorder{
     loading.present();
 	  let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
 	  this.appService.httpGet(url).then( data => {
-      console.log(data)
       loading.dismiss();
       if (data.count == 0 && this.unauditReturnorderArray.length == 0) {
 		    //空空如也

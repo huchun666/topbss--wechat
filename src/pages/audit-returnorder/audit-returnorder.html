@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content>
+    <ion-refresher-content pullingText="下拉刷新" refreshingText="获取中...">
     </ion-refresher-content>
   </ion-refresher>
 	<div class="order-list">
@@ -22,7 +22,7 @@
         <div class="order-item">
           <dl>
             <dt>
-              <img class="my-picture" [src]="item.productSkuDTO.fileName" [alt]="item.productSkuDTO.productName">
+              <img class="my-picture" [src]="item.productSkuDTO.fileName | productSkuDTOImage" [alt]="item.productSkuDTO.productName">
             </dt>
             <dd class="product-title">{{ item.productSkuDTO.productName }}</dd>
             <dd class="sku-list">
@@ -52,7 +52,7 @@
       <span>—— 没有更多信息了 ——</span>
     </div>
     <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)" *ngIf = "!showNoMore">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 	</div>
 

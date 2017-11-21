@@ -40,7 +40,7 @@ export class UnauditCancelorder {
             this.up = false;
             // 点击拒绝后的执行代码
             // 将当前点击的index状态改成3
-            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=${0}`;
+            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=0`;
             this.appService.httpPost(url, null).then(data => {
               if (data.type == 'success') {
                 this.getUnauditCancelorder();
@@ -59,7 +59,7 @@ export class UnauditCancelorder {
             this.up = false;
             // 点击同意后的执行代码
             // 将当前点击的index状态改成2
-            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=${1}`;
+            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=1`;
             this.appService.httpPost(url, null).then(data => {
               if (data.type == 'success') {
                 this.getUnauditCancelorder();
@@ -111,7 +111,7 @@ export class UnauditCancelorder {
   }
 
   // 下拉刷新请求数据
-  doRefresh(refresher) {
+  refreshMore(refresher) {
     this.start = 0;
     this.down = true;
     this.up = false;
@@ -138,7 +138,7 @@ export class UnauditCancelorder {
   }
 
   // 上拉刷新请求数据
-  infiniteGetSelfGiftList(infiniteScroll) {
+  loadMore(infiniteScroll) {
     this.down = false;
     this.up = true;
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
