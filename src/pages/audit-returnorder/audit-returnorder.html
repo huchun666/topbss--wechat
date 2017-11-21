@@ -51,7 +51,7 @@
     <div class="btn-noMore" *ngIf = "showNoMore">
       <span>—— 没有更多信息了 ——</span>
     </div>
-    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
+    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)" *ngIf = "!showNoMore">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 	</div>
