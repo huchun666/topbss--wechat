@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Content } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'order-list',
   templateUrl: 'brandshop-order-list.html'
 })
-export class BrandshopOrderList{
+export class BrandshopOrderList {
+  @ViewChild(Content) content: Content;
   dateStart: string = '';
   dateEnd: string = '';
   isShowDetail: boolean = false;
@@ -18,49 +19,43 @@ export class BrandshopOrderList{
   paramsDate: string = '';
   up: Boolean = false;
   down: Boolean = true;
-  noData:Boolean = false;
+  noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public appService: AppService) {
-      this.orderStatusList = [
-        {
-          label: "全部",
-          status: 'all'
-        },
-        {
-          label: "待支付",
-          status: '0'
-        },
-        {
-          label: "已收货",
-          status: '3'
-        },
-        {
-          label: "已取消",
-          status: '4'
-        },
-        {
-          label: "取消中",
-          status: '6'
-        },
-        {
-          label: "已完成",
-          status: 'C'
-        } ];
-      this.currentStatus = this.orderStatusList[0].status;
-      this.getOrderList(); 
+    this.orderStatusList = [{
+      label: "全部",
+      status: 'all'
+    }, {
+      label: "待支付",
+      status: '0'
+    }, {
+      label: "已收货",
+      status: '3'
+    }, {
+      label: "已取消",
+      status: '4'
+    }, {
+      label: "取消中",
+      status: '6'
+    }, {
+      label: "已完成",
+      status: 'C'
+    }];
+    this.currentStatus = this.orderStatusList[0].status;
+    this.getOrderList();
   }
- 
+
   // 获取订单列表
   getOrderList() {
     let loading = this.appService.loading();
     loading.present();
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
-    if(this.paramsDate != '')
+    if (this.paramsDate != '')
       url += this.paramsDate;
-    if(this.paramsStatus != '')
+    if (this.paramsStatus != '')
       url += this.paramsStatus;
     this.appService.httpGet(url).then(data => {
       loading.dismiss();
@@ -73,11 +68,11 @@ export class BrandshopOrderList{
         } else if (this.down) {
           this.orderList = [...data.data];
         }
-      } else if(data.count == 0){
+      } else if (data.count == 0) {
         this.noData = true;
         this.showNoMore = false;
         this.orderList = [];
-      } else if(data.data.length == 0){
+      } else if (data.data.length == 0) {
         this.noData = false;
         this.showNoMore = true;
       }
@@ -90,23 +85,29 @@ export class BrandshopOrderList{
   // 选中时间获取订单
   getOrderListByDate() {
     this.start = 0;
+    this.down = true;
+    this.up = false;
     this.paramsDate = '';
-    if(this.dateStart != ''){
-      this.paramsDate+= `&dateStart=${this.dateStart}`;
+    if (this.dateStart != '') {
+      this.paramsDate += `&dateStart=${this.dateStart}`;
     }
-    if(this.dateEnd != ''){
-      this.paramsDate+= `&dateEnd=${this.dateEnd}`;
+    if (this.dateEnd != '') {
+      this.paramsDate += `&dateEnd=${this.dateEnd}`;
     }
+    this.content.scrollTo(0, 0, 0);
     this.getOrderList();
   }
   // 点击状态时切换，获取当前订单状态
   getCurrentStatus(index) {
     this.start = 0;
+    this.down = true;
+    this.up = false;
     this.paramsStatus = ''
     this.currentStatus = this.orderStatusList[index].status
-    if(this.orderStatusList[index].status != 'all'){
-      this.paramsStatus+= '&status='+this.currentStatus
+    if (this.orderStatusList[index].status != 'all') {
+      this.paramsStatus += '&status=' + this.currentStatus
     }
+    this.content.scrollTo(0, 0, 0);
     this.getOrderList();
   }
   // 是否显示明细
@@ -125,7 +126,7 @@ export class BrandshopOrderList{
   clearDateEnd() {
     this.dateEnd = '';
   }
-   
+
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -134,19 +135,19 @@ export class BrandshopOrderList{
     setTimeout(() => {
       this.getOrderList();
       refresher.complete();
-    },1000);
+    }, 1000);
     this.showNoMore = false;
   }
-  
+
   // 上拉刷新请求数据
-  infiniteGetSelfGiftList(infiniteScroll) {
-    if(!this.showNoMore){
+  loadMore(infiniteScroll) {
+    if (!this.showNoMore) {
       this.down = false;
       this.up = true;
       setTimeout(() => {
         this.getOrderList();
         infiniteScroll.complete();
-      },1000)
+      }, 1000)
     } else {
       infiniteScroll.complete();
     }
