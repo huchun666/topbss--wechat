@@ -28,6 +28,13 @@
 </ion-header>
 <ion-content>
   <div class="order-list">
+    <!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+      <div>
+        <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+      </div>
+      <div [innerHTML]="load.content"></div>
+    </div>
     <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content>
       </ion-refresher-content>
