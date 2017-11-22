@@ -15,11 +15,14 @@ export class UnauditReturnorder{
   noData:Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
+  load: any = {};
+  loadingShow: Boolean = true;
 	constructor(
     public navCtrl: NavController, 
     public modalCtrl: ModalController, 
     public alertCtrl: AlertController, 
     public appService: AppService) {
+    this.load = AppConfig.load;
     this.getUnauditReturnorderList();
 	}
 	confirmReturn(index) {
@@ -67,14 +70,12 @@ export class UnauditReturnorder{
 	goAuditReturn() {
     const orderModal = this.modalCtrl.create(AuditReturnorder);
 		orderModal.present();
-	}
+  }
 	getUnauditReturnorderList() {
     // 待审核退货订单 请求数据
-    let loading = this.appService.loading();
-    loading.present();
 	  let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
 	  this.appService.httpGet(url).then( data => {
-      loading.dismiss();
+      this.loadingShow = false;
       if (data.count == 0 && this.unauditReturnorderArray.length == 0) {
 		    //空空如也
 		    this.noData = true;
@@ -93,7 +94,7 @@ export class UnauditReturnorder{
         }
       }
 	  }).catch(error => {
-      loading.dismiss();
+      this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });

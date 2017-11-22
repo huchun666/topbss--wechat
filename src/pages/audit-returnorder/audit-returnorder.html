@@ -9,6 +9,13 @@
     </ion-refresher-content>
   </ion-refresher>
 	<div class="order-list">
+    <!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+      <div>
+        <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+      </div>
+      <div [innerHTML]="load.content"></div>
+    </div>
 		<div class="order-items" (click)="goReturnedDetail(i)" *ngFor = "let item of auditReturnorderArray;let i = index">
 			<!-- 订单编号 -->
 			<div class="order-title">
