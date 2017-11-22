@@ -11,6 +11,13 @@
   </ion-refresher>
 
   <ion-list>
+    <!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+      <div>
+        <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+      </div>
+      <div [innerHTML]="load.content"></div>
+    </div>
     <ion-item-sliding #item *ngFor="let single of orderStoreDataArray;let i = index">
       <ion-item>
         <ion-thumbnail item-start>
