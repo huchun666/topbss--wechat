@@ -25,6 +25,8 @@ export class OrderLayer {
   warehouseCount: number;
   fileSeq: string;//图片
   attrImageSeq: number;
+  loadingShow: Boolean = true;
+  load: any = {}; 
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -35,17 +37,16 @@ export class OrderLayer {
     this.productName = navParams.get('productName');
     this.warehouseCount = navParams.get('warehouseCount');
     this.fileSeq = navParams.get('fileSeq');
+    this.load = AppConfig.load;
     this.getProductSkuWithDefault();
     
   }
 
   //初始化sku属性
   getProductSkuWithDefault() {
-    let loading = this.appService.loading();
-		loading.present();
     let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=133&productSeq=${this.productSeq}`;//brandshopSeq=${this.brandshopSeqId}
     this.appService.httpGet(url).then( data => {
-      loading.dismiss();
+      this.loadingShow = false;
       if (data.skuLength != 0) {
         this.orderLayerData = data;
         this.attrImageSeq = this.orderLayerData.attrImageSeq
@@ -67,7 +68,7 @@ export class OrderLayer {
         this.orderLayerData = {}
       }
     }).catch(error => {
-      loading.dismiss();
+      this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });

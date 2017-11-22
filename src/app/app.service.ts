@@ -10,7 +10,7 @@ import 'rxjs/add/operator/timeout';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "http://192.168.31.202:8080";
+  static hostUrl: string = "http://192.168.31.202:6333";
 
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -50,6 +50,12 @@ export class AppConfig {
     bonusList: "/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
     bonusSum:"/brandshop/user/bonus/sum"
   };
+
+  // ion-spinner
+  static load: any = {
+    spinner: 'dots',
+    content: '加载中'
+  }
 
 }
 @Injectable()

@@ -17,8 +17,8 @@ import {
   IsOrIsnotInvalidAttrValuePipe, 
   InvalidAttrValueClassPipe, 
   ChangeGrayPipe,
-  SkuImagePipe,
-  ProductSkuDTOImagePipe
+  ProductSkuDTOImagePipe,
+  ReasonTypePipe
 } from './app.pipe';
 import { QRCodeModule } from 'angular2-qrcode';
 
@@ -118,8 +118,8 @@ let componentsList = [
     IsOrIsnotInvalidAttrValuePipe,
     InvalidAttrValueClassPipe,
     ChangeGrayPipe,
-    SkuImagePipe,
-    ProductSkuDTOImagePipe
+    ProductSkuDTOImagePipe,
+    ReasonTypePipe
   ],
   imports: [
     BrowserModule,

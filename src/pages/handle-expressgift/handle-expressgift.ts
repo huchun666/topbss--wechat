@@ -10,7 +10,7 @@ export class HandleExpressgift {
   handleExpressGiftArray: any;
   start: number = 0;
   limit: number = 10;
-  showNoMoreGift: Boolean = false;
+  showNoMore: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
@@ -46,7 +46,7 @@ export class HandleExpressgift {
 					this.content.scrollTo(0,0,0); 
 				}
 			}else {
-				this.showNoMoreGift = true;
+				this.showNoMore = true;
 			}
 		}
 	}).catch(error => {
@@ -69,17 +69,12 @@ export class HandleExpressgift {
         this.noData = true;
       }else {
         this.noData = false;
-        if( this.start < data.totalRecord ) {
-          if (this.up) {
-            this.handleExpressGiftArray.push(...data.data);
-            this.start += this.limit;
-          }else if (this.down){
-            this.handleExpressGiftArray = data.data;
-            this.start += this.limit;
-          }
-        }else {
-          this.showNoMoreGift = true;
-        }
+				if (data.data.length != 0) {
+					this.handleExpressGiftArray = data.data;
+					this.start += this.limit;
+				}else {
+					this.showNoMore = true;
+				}
       }
     }).catch(error => {
       refresher.complete();
@@ -95,11 +90,17 @@ export class HandleExpressgift {
 	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
 	this.appService.httpGet(url).then( data => {
 		infiniteScroll.complete();
-		if (data.data.length != 0) {
-			this.handleExpressGiftArray.push(...data.data);
-			this.start += this.limit;
+		if (data.totalRecord == 0) {
+			//空空如也
+			this.noData = true;
 		}else {
-			this.showNoMoreGift = true;
+			this.noData = false;
+			if (data.data.length != 0) {
+				this.handleExpressGiftArray.push(...data.data);
+				this.start += this.limit;
+			}else {
+				this.showNoMore = true;
+			}
 		}
 	}).catch(error => {
 		infiniteScroll.complete();

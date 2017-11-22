@@ -1,9 +1,16 @@
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content>
+    <ion-refresher-content pullingText="下拉刷新" refreshingText="获取中...">
     </ion-refresher-content>
   </ion-refresher>
 	<div class="order-list">
+    <!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+      <div>
+        <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+      </div>
+      <div [innerHTML]="load.content"></div>
+    </div>
 		<div class="order-items" *ngFor = "let item of unauditReturnorderArray;let i = index">
       <!-- 订单编号 -->
       <div class="order-title">
@@ -17,7 +24,7 @@
       <div class="order-item">
         <dl>
           <dt>
-            <img class="my-picture" [src]="item.productSkuDTO.fileName" [alt]="item.productSkuDTO.productName">
+            <img class="my-picture" [src]="item.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="item.productSkuDTO.productName">
           </dt>
           <dd class="product-title">{{ item.productSkuDTO.productName }}</dd>
           <dd class="sku-list">
@@ -39,7 +46,9 @@
         </dl>
       </div>
     </div>
-    
+		<div class="btn-cancelView" (touchstart)="goAuditReturn()">
+			<span>查看已处理退货订单</span>
+    </div>
     <div class="no-data" *ngIf = "noData">
       <img src="../../assets/image/nodata.png" alt="">
       <p>空空如也</p>
@@ -49,12 +58,8 @@
       <span>—— 没有更多信息了 ——</span>
     </div>
     
-		<div class="btn-cancelView" (touchstart)="goAuditReturn()">
-			<span>查看已处理退货订单</span>
-    </div>
-    
-    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)"  *ngIf = "!showNoMore">
+      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
   </div>

@@ -1,6 +1,7 @@
 import { PipeTransform, Pipe, transition } from '@angular/core';
 
 // 订单状态的转换
+// pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
 @Pipe({ name: 'setOrderStatus' })
 export class FilterStatusPipe implements PipeTransform {
   transform(param: string): any {
@@ -52,16 +53,16 @@ export class FilterStatusPipe implements PipeTransform {
 }
 
 // 退货订单的状态转换
+// pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
 @Pipe({ name: 'setReturnOrderStatus' })
 export class FilterReturnStatusPipe implements PipeTransform {
   transform(param: string): any {
-    let value = "";
     switch(param) {
       case "0":
         return {
           status: "申请审核中",
-          pass: true,
-          audit: false
+          pass: false,
+          audit: true
         };
       case "1":
         return {
@@ -92,32 +93,32 @@ export class FilterReturnStatusPipe implements PipeTransform {
 }
 
 // 取消订单的状态转换
+// pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
 @Pipe({ name: 'setCancelOrderStatus' })
 export class FilterCancelStatusPipe implements PipeTransform {
   transform(param: string): any {
-    let value = "";
     switch(param) {
       case "0":
         return {
-          status: "未处理",
+          status: "申请审核中",
           pass: false,
           audit: true
         }
       case "1":
         return {
-          status: "同意",
+          status: "申请已通过",
           pass: true,
           audit: false
         }
       case "2":
         return {
-          status: "拒绝",
+          status: "申请已拒绝",
           pass: false,
           audit: true
         }
       case "3":
         return {
-          status: "已完成",
+          status: "退款已完成",
           pass: true,
           audit: false
         }
@@ -152,6 +153,8 @@ export class FilterWithdrawStatusPipe implements PipeTransform {
     }
   }
 }
+
+//未使用自提赠品列表状态
 @Pipe({ name: 'setGiftType' })
 export class FilterGiftTypePipe implements PipeTransform {
   transform(giftType: string, expoent: string): string {
@@ -165,6 +168,7 @@ export class FilterGiftTypePipe implements PipeTransform {
   }
 }
 
+//已使用自提赠品列表状态
 @Pipe({ name: 'setHandleGiftType' })
 export class FilterHandleGiftTypePipe implements PipeTransform {
   transform(giftType: string): string {
@@ -177,60 +181,53 @@ export class FilterHandleGiftTypePipe implements PipeTransform {
   }
 }
 
+//生成订单模块：sku初始加载，是否置灰
 @Pipe({ name: 'isOrIsnotInvalidAttrValue' })
 export class IsOrIsnotInvalidAttrValuePipe implements PipeTransform {
   transform(invalidAttrValue: any): any {
-    switch(invalidAttrValue) {
-      case "invalidAttrValue":
-        return "disabled";
-      case null:
-        return false;
-    }
+    return invalidAttrValue == "invalidAttrValue" ? "disabled" : false;
   }
 }
 
+//置灰样式
 @Pipe({ name: 'invalidAttrValueClass' })
 export class InvalidAttrValueClassPipe implements PipeTransform {
   transform(invalidAttrValueClass: any): Boolean {
-    switch(invalidAttrValueClass) {
-      case "invalidAttrValue":
-        return true;
-      case null:
-        return false;
-    }
+    return invalidAttrValueClass == "invalidAttrValue" ? true : false;
   }
 }
 
+//生成订单模块：sku数量减少为1时的样式
 @Pipe({ name: 'changeGray' })
 export class ChangeGrayPipe implements PipeTransform {
   transform(count: number): Boolean {
-    switch(count) {
-      case 1:
-        return true;
-      default:
-        return false;
-    }
+    return count == 1 ? true : false;
   }
 }
 
-@Pipe({ name: 'skuImage' })
-export class SkuImagePipe implements PipeTransform {
-  transform(skuImage: string): string {
-    if (skuImage) {
-      return "http://www.91topbaby.com/evercos/common/file/content/" + skuImage;
-    }else {
-      return "../../assets/image/nodata.png";
-    }
-  }
-}
-
+//图片加前缀或者没有图片时放补图
 @Pipe({ name: 'productSkuDTOImage' })
 export class ProductSkuDTOImagePipe implements PipeTransform {
   transform(productSkuDTOImage: string): string {
-    if (productSkuDTOImage) {
-      return "http://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage;
-    }else {
-      return "../../assets/image/nodata.png";
+    return productSkuDTOImage ? "http://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage : "../../assets/image/nodata.png";
+  }
+}
+
+//待审核退货订单详情退货原因类型
+@Pipe({ name: 'reasonType' })
+export class ReasonTypePipe implements PipeTransform {
+  transform(param: string): any {
+    switch(param) {
+      case "1":
+        return "七天无理由退货"
+      case "2":
+        return "我不想要了"
+      case "3":
+        return "拍错了/订单信息填写错误"
+      case "4":
+        return "商家缺货"
+      case "5":
+        return "商家未按时发货"
     }
   }
 }

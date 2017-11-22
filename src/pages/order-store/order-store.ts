@@ -9,7 +9,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class OrderStore {
   start: number = 0;
   limit: number = 10;
-  showNoMoreGift: Boolean = false;
+  showNoMore: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
@@ -17,6 +17,8 @@ export class OrderStore {
   total: number = 200.00;
   orderStoreDataArray: any = [];//得到的数据里面的data数组
   returnUrl: string;//返回得到的url字符串
+  loadingShow: Boolean = true;
+  load: any = {}; 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -25,17 +27,15 @@ export class OrderStore {
   ) {
     this.start = 0;
     this.down = true;
-	  this.up = false;
+    this.up = false;
+    this.load = AppConfig.load;
     this.getOrderStore();
   }
 
   getOrderStore() {
-    let loading = this.appService.loading();
-    loading.present();
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
         this.appService.httpGet(url).then( data => {
-        console.log(data)
-        loading.dismiss();
+        this.loadingShow = false;
         if (data.count == 0) {
           //空空如也
           this.noData = true;
@@ -52,12 +52,12 @@ export class OrderStore {
               this.start += this.limit;
             }
           }else {
-              this.showNoMoreGift = true;
+              this.showNoMore = true;
           }
         }
       
       }).catch(error => {
-        loading.dismiss();
+        this.loadingShow = false;
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
@@ -93,12 +93,11 @@ export class OrderStore {
     }else {
       this.appService.toast('不能添加更多宝贝了哦！', 1000, 'middle');
     }
-	  
   }
   //减
   removeCount(index) {
-    this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productNum === 1 ? 1 : (this.orderStoreDataArray[index].productNum - 1);
-    if (this.orderStoreDataArray[index].productNum != 1) {
+    if (this.orderStoreDataArray[index].productNum > 1) {
+      this.orderStoreDataArray[index].productNum--;
       this.warehouseUpdate(index);
     }
   }
@@ -124,7 +123,6 @@ export class OrderStore {
     let url = `${AppConfig.API.warehouseGenerateCode}`;
     this.appService.httpGetReturnData(url).then( data => {
       this.returnUrl = data['_body'];
-      console.log(this.returnUrl);
     }).catch(error=>{
       console.log(error);
       this.appService.toast('操作失败', 1000, 'middle');
@@ -149,18 +147,11 @@ export class OrderStore {
         this.noData = true;
       }else {
         this.noData = false;
-        if( this.start < data.count ) {
-          if (this.up) {
-            this.orderStoreDataArray.push(...data.data);
-            console.log(this.orderStoreDataArray)
-            this.start += this.limit;
-          }else if (this.down){
-            this.orderStoreDataArray = data.data;
-            console.log(this.orderStoreDataArray)
-            this.start += this.limit;
-          }
+        if (data.data.length != 0) {
+          this.orderStoreDataArray = data.data;
+          this.start += this.limit;
         }else {
-            this.showNoMoreGift = true;
+          this.showNoMore = true;
         }
       }
     
@@ -178,12 +169,18 @@ export class OrderStore {
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       infiniteScroll.complete();
-      if (data.data.length != 0) {
-				this.orderStoreDataArray.push(...data.data);
-				this.start += this.limit;
-			}else {
-				this.showNoMoreGift = true;
-			}
+      if (data.count == 0) {
+        //空空如也
+        this.noData = true;
+      }else {
+        this.noData = false;
+        if (data.data.length != 0) {
+          this.orderStoreDataArray.push(...data.data);
+          this.start += this.limit;
+        }else {
+          this.showNoMore = true;
+        }
+      }
     }).catch(error => {
       infiniteScroll.complete();
       console.log(error);

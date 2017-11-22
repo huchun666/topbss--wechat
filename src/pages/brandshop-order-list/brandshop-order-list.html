@@ -7,25 +7,13 @@
       <div class="search-title">时间搜索</div>
       <div class="search-list">
         <div class="time-start">
-          <ion-datetime
-            (ionChange)="getOrderListByDate()"
-            placeholder="请选择日期" 
-            cancelText="取消" 
-            doneText="确定" 
-            displayFormat="YYYY-MM-DD" 
-            [(ngModel)]="dateStart">
+          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="dateStart">
           </ion-datetime>
           <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>
         </div>
         <span class="go">到</span>
         <div class="time-end">
-          <ion-datetime 
-            (ionChange)="getOrderListByDate()"
-            placeholder="请选择日期" 
-            cancelText="取消" 
-            doneText="确定" 
-            displayFormat="YYYY-MM-DD" 
-            [(ngModel)]="dateEnd">
+          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateStart}}" [(ngModel)]="dateEnd">
           </ion-datetime>
           <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>
         </div>
@@ -33,17 +21,20 @@
     </div>
     <div class="status-box">
       <ul>
-        <li 
-          *ngFor="let orderStatus of orderStatusList, let i = index" 
-          [ngClass]="{active:currentStatus == orderStatus.status}"
-          (click)="getCurrentStatus(i)"
-        >{{ orderStatus.label }}</li>
+        <li *ngFor="let orderStatus of orderStatusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>
       </ul>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <div class="order-list">
+    <!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+      <div>
+        <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+      </div>
+      <div [innerHTML]="load.content"></div>
+    </div>
     <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content>
       </ion-refresher-content>
@@ -52,7 +43,9 @@
     <div class="order-items" *ngFor="let order of orderList">
       <!-- 订单编号 -->
       <div class="order-title">
-        <h2>订单编号：<span>{{ order.orderId }}</span></h2>
+        <h2>订单编号：
+          <span>{{ order.orderId }}</span>
+        </h2>
         <!--color auditing or pass -->
         <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>
       </div>
@@ -60,7 +53,7 @@
       <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">
         <dl>
           <dt>
-            <img class="my-picture" [src]="product.productSkuDTO.fileName" [alt]="product.productSkuDTO.productName">
+            <img class="my-picture" src="{{product.productSkuDTO.fileSeq | productSkuDTOImage}}" [alt]="product.productSkuDTO.productName">
           </dt>
           <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>
           <dd class="sku-list">
@@ -70,21 +63,25 @@
           <dd class="count">X{{ product.number }}</dd>
         </dl>
       </div>
-      
+
       <div class="orderOperate">
         <dl>
           <dt>
-            <a href="'tel:'+order.memberMobile"><img src="../../assets/image/phone.png" alt=""></a>
+            <a href="'tel:'+order.memberMobile">
+              <img src="../../assets/image/phone.png" alt="">
+            </a>
           </dt>
           <dd class="total">会员手机：{{ order.memberMobile }}</dd>
           <dd class="member-phone">收货时间：{{ order.receiptTime }}</dd>
+          <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime }}</dd>
+
         </dl>
       </div>
       <div class="order-dtail-box">
         <div class="order-detail" *ngIf="isShowDetail">
           <ul>
             <li>订单总额：￥{{ order.totalAmount }}</li>
-            <li>促销抵扣：￥{{ order.promotions }}</li>
+            <li>促销抵扣：￥{{ order.discountAmount }}</li>
             <li>淘璞券折扣：￥{{ order.couponAmount }}</li>
             <li>商户券抵扣：￥{{ order.merchantCouponAmount }}</li>
             <li>积分抵扣：￥{{ order.integralAmount }}</li>
@@ -95,22 +92,22 @@
           <span>￥{{ order.payAmount }}</span>
         </div>
         <div class="btn-show" (click)="showDetail()">
-          点击查看明细 
+          点击查看明细
           <span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail}"></span>
         </div>
       </div>
     </div>
-    
-    <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)">
+
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
   </div>
-  <div class="no-data" *ngIf = "noData">
+  <div class="no-data" *ngIf="noData">
     <img src="../../assets/image/nodata.png" alt="">
     <p>空空如也</p>
   </div>
-  <div class="btn-noMore" *ngIf = "showNoMore">
+  <div class="btn-noMore" *ngIf="showNoMore">
     <span>—— 没有更多信息了 ——</span>
   </div>
 </ion-content>

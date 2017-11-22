@@ -14,31 +14,31 @@ export class CreatOrder {
   noData: Boolean;
   start: number = 0;
   limit: number = 20;
-  showNoMoreGift: Boolean = false;
+  showNoMore: Boolean = false;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
   warehouseCount: number;//配单仓数目
   searchKeyWord: string;//搜索内容
+  loadingShow: Boolean = true;
+  load: any = {}; 
   constructor(public modalCtrl: ModalController, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
     public appService: AppService,
   ) {
     this.down = true;
-		this.up = false;
+    this.up = false;
+    this.load = AppConfig.load;
     this.getCreatOrderList();
     this.getWarehouseCount();
-    // this.warehouseCount = 6;//后面要删除
     this.creatOrderArray = [];
   }
 
   //进入页面，请求接口，得到数据
   getCreatOrderList() {
-    let loading = this.appService.loading();
-		loading.present();
     let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
-      loading.dismiss();
+      this.loadingShow = false;
       if (data.totalRecord == 0) {
         //空空如也
         this.noData = true;
@@ -53,12 +53,12 @@ export class CreatOrder {
             this.start += this.limit;
           }
         }else {
-          this.showNoMoreGift = true;
+          this.showNoMore = true;
         }
       }
       
     }).catch(error => {
-      loading.dismiss();
+      this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
@@ -88,15 +88,13 @@ export class CreatOrder {
     this.up = false;
     this.start = 0;
     this.searchKeyWord = event.target.value;
-    console.log(this.searchKeyWord)
     if (this.searchKeyWord){
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
-        console.log(data)
         if (data.totalRecord == 0) {
           //空空如也
           this.noData = true;
-          this.showNoMoreGift = false;
+          this.showNoMore = false;
         }else {
           this.noData = false;
           if( this.start < data.totalRecord ) {
@@ -108,7 +106,7 @@ export class CreatOrder {
               this.start += this.limit;
             }
           }else {
-            this.showNoMoreGift = true;
+            this.showNoMore = true;
           }
         }
       }).catch(error => {
@@ -132,16 +130,11 @@ export class CreatOrder {
         this.noData = true;
       }else {
         this.noData = false;
-        if( this.start < data.totalRecord ) {
-          if (this.up) {
-            this.creatOrderArray.push(...data.data);
-            this.start += this.limit;
-          }else if (this.down){
-            this.creatOrderArray = data.data;
-            this.start += this.limit;
-          }
+        if (data.data.length != 0) {
+          this.creatOrderArray = data.data;
+          this.start += this.limit;
         }else {
-          this.showNoMoreGift = true;
+          this.showNoMore = true;
         }
       }
     }).catch(error => {
@@ -159,11 +152,16 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
-        if (data.data.length != 0) {
-          this.creatOrderArray.push(...data.data);
-          this.start += this.limit;
+        if (data.totalRecord == 0) {
+          //空空如也
+          this.noData = true;
         }else {
-          this.showNoMoreGift = true;
+          if (data.data.length != 0) {
+            this.creatOrderArray.push(...data.data);
+            this.start += this.limit;
+          }else {
+            this.showNoMore = true;
+          }
         }
       }).catch(error => {
         console.log(error);
@@ -172,11 +170,17 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
-        if (data.data.length != 0) {
-          this.creatOrderArray.push(...data.data);
-          this.start += this.limit;
+        if (data.totalRecord == 0) {
+          //空空如也
+          this.noData = true;
         }else {
-          this.showNoMoreGift = true;
+          this.noData = false;
+          if (data.data.length != 0) {
+            this.creatOrderArray.push(...data.data);
+            this.start += this.limit;
+          }else {
+            this.showNoMore = true;
+          }
         }
       }).catch(error => {
         infiniteScroll.complete();
