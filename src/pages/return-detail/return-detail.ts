@@ -112,8 +112,8 @@ export class ReturnDetail {
 			  },
 			  {
 			    text: '确认',
-			    handler: () => {
-            let url = `${AppConfig.API.auditReturnOrder}?id=${this.productId}&isAgree=1&totalReturnPrice=${this.returnDetail.returnAmount}`;
+			    handler: data => {
+            let url = `${AppConfig.API.auditReturnOrder}?id=${this.productId}&isAgree=1&totalReturnPrice=${data.price}`;
             this.appService.httpPost(url, null).then( data => {
               if (data.type == "success") {
                 this.viewCtrl.dismiss();
@@ -144,7 +144,6 @@ export class ReturnDetail {
 			    handler: () => {
             let url = `${AppConfig.API.auditReturnOrder}?id=${this.productId}&isAgree=0&totalReturnPrice=${this.returnDetail.returnAmount}`;
             this.appService.httpPost(url, null).then( data => {
-              console.log(data)
               if (data.type == "success") {
                 this.viewCtrl.dismiss();
               }
