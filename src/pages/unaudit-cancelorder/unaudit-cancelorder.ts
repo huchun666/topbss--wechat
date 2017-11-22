@@ -23,7 +23,6 @@ export class UnauditCancelorder {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public appService: AppService) {
-    // 请求接口得到数据
     this.start = 0;
     this.down = true;
     this.up = false;
