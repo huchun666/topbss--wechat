@@ -15,16 +15,18 @@ export class UnauditCancelorder {
   noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
+  load: any = {};
+  loadingShow: Boolean = true;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public appService: AppService) {
-    // 请求接口得到数据
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.load = AppConfig.load;
     this.getUnauditCancelorder();
   }
   //审核点击事件
@@ -80,11 +82,9 @@ export class UnauditCancelorder {
   }
   getUnauditCancelorder() {
     // 待审核取消订单 请求数据
-    let loading = this.appService.loading();
-    loading.present();
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
-      loading.dismiss();
+      this.loadingShow = false;
       if (data.count == 0 && this.unauditCancelorderArray.length == 0) {
         //空空如也
         this.noData = true;
@@ -104,7 +104,6 @@ export class UnauditCancelorder {
         }
       }
     }).catch(error => {
-      loading.dismiss();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });

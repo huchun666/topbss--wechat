@@ -214,4 +214,13 @@ h2 {
     font-weight: bold;
   }
 }
+.loading-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -16px;
+  margin-left: -32px;
+  opacity: 1;
+  font-weight: bold;
+}
 

@@ -14,6 +14,8 @@ export class AuditReturnorder {
   noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
+  load: any = {};
+  loadingShow: Boolean = true;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -21,67 +23,8 @@ export class AuditReturnorder {
     public appService: AppService) {
       this.up = false;
       this.down = true;
+      this.load = AppConfig.load;
       this.getAuditReturnorderList();
-    // this.auditReturnorderArray = [
-    //   {
-    //     orderId: "20170110068552",
-    //     orderReturnSeq: "20170110068552",
-    //     mobile: "18321763810",
-    //     number: 1,
-    //     unitPrice: 100,
-    //     status: "0",
-    //     productSkuDTO: {
-    //       productSeq: 289,
-    //       skuSeq: 939,
-    //       productName: "MQD2016夏季印花短袖T恤216220510",
-    //       fileName: './assets/image/productimg.png',
-    //       fileSeq: 7954,
-    //       attrValueList: [
-    //         {
-    //           skuSeq: null,
-    //           attrSeq: 322,
-    //           attrName: "尺码",
-    //           attrValue: "100（3-4岁）",
-    //           type: null,
-    //           fileSeq: null,
-    //           price: null,
-    //           selectedAttrValue: null,
-    //           invalidAttrValue: null
-    //         }
-    //       ],
-    //       fallback: null
-    //     }
-    //   },
-    //   {
-    //     orderId: "20170110068552",
-    //     orderReturnSeq: "20170110068552",
-    //     mobile: "18321763810",
-    //     number: 1,
-    //     unitPrice: 100,
-    //     status: "1",
-    //     productSkuDTO: {
-    //       productSeq: 289,
-    //       skuSeq: 939,
-    //       productName: "MQD2016夏季印花短袖T恤216220510",
-    //       fileName: './assets/image/productimg.png',
-    //       fileSeq: 7954,
-    //       attrValueList: [
-    //         {
-    //           skuSeq: null,
-    //           attrSeq: 322,
-    //           attrName: "尺码",
-    //           attrValue: "100（3-4岁）",
-    //           type: null,
-    //           fileSeq: null,
-    //           price: null,
-    //           selectedAttrValue: null,
-    //           invalidAttrValue: null
-    //         }
-    //       ],
-    //       fallback: null
-    //     }
-    //   },
-    // ]
   }
   goReturnedDetail(index) {
     let contactModal = this.modalCtrl.create(ReturnedDetail, { indexId: this.auditReturnorderArray[index].orderReturnSeq });
@@ -89,11 +32,9 @@ export class AuditReturnorder {
   }
   getAuditReturnorderList() {
     // 已审核退货订单 请求数据
-    let loading = this.appService.loading();
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
-      console.log(data)
-      loading.dismiss();
+      this.loadingShow = false;
       if (data.count == 0 && this.auditReturnorderArray.length == 0) {
         //空空如也
         this.noData = true;
@@ -112,7 +53,7 @@ export class AuditReturnorder {
         }
       }
     }).catch(error => {
-      loading.dismiss();
+      this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });

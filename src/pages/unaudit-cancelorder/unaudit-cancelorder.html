@@ -4,6 +4,13 @@
     </ion-refresher-content>
   </ion-refresher>
 	<div class="order-list">
+    <!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+      <div>
+        <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+      </div>
+      <div [innerHTML]="load.content"></div>
+    </div>
 		<div class="order-items" *ngFor = "let item of unauditCancelorderArray;let i = index">
 			<!-- 订单编号 -->
 			<div class="order-title">
@@ -15,7 +22,7 @@
 			<div class="order-item" *ngFor = "let single of item.itemList">
         <dl>
           <dt>
-            <img class="my-picture" [src]="single.productSkuDTO.fileName | productSkuDTOImage" [alt]="single.productSkuDTO.productName">
+            <img class="my-picture" [src]="single.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="single.productSkuDTO.productName">
           </dt>
           <dd class="product-title">{{ single.productSkuDTO.productName }}</dd>
           <dd class="sku-list">

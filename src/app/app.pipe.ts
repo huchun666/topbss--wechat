@@ -97,7 +97,6 @@ export class FilterReturnStatusPipe implements PipeTransform {
 @Pipe({ name: 'setCancelOrderStatus' })
 export class FilterCancelStatusPipe implements PipeTransform {
   transform(param: string): any {
-    let value = "";
     switch(param) {
       case "0":
         return {
@@ -192,5 +191,24 @@ export class ChangeGrayPipe implements PipeTransform {
 export class ProductSkuDTOImagePipe implements PipeTransform {
   transform(productSkuDTOImage: string): string {
     return productSkuDTOImage ? "http://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage : "../../assets/image/nodata.png";
+  }
+}
+
+//待审核退货订单详情退货原因类型
+@Pipe({ name: 'reasonType' })
+export class ReasonTypePipe implements PipeTransform {
+  transform(param: string): any {
+    switch(param) {
+      case "1":
+        return "七天无理由退货"
+      case "2":
+        return "我不想要了"
+      case "3":
+        return "拍错了/订单信息填写错误"
+      case "4":
+        return "商家缺货"
+      case "5":
+        return "商家未按时发货"
+    }
   }
 }

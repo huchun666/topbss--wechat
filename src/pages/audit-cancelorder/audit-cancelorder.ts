@@ -14,6 +14,8 @@ export class AuditCancelorder {
   noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
+  load: any = {};
+  loadingShow: Boolean = true;
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -21,122 +23,14 @@ export class AuditCancelorder {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.load = AppConfig.load;
     this.getAuditCancelorder();
-
-    // this.auditCancelorderArray = [
-    //   {
-    //     orderSeq: 2946,
-    //     cancelOrderId: "20160906047616",
-    //     amount: 39.75,
-    //     status: "2",
-    //     memberMobile: 11111111111, //会员手机号
-    //     orderId: "20160905047352",
-    //     payAmount: 39.75,
-    //     orderStatus: "4",
-    //     cancelTime: 1473157207000,
-    //     createTime: 1473157148000,
-    //     itemList: [
-    //       {
-    //         orderItemSeq: 2971,
-    //         prodSeq: 289,
-    //         skuSeq: 939,
-    //         unitPrice: 78.75,
-    //         number: 1,
-    //         productSkuDTO: {
-    //           productSeq: 289,
-    //           skuSeq: 939,
-    //           productName: "MQD2016夏季印花短袖T恤216220510",
-    //           fileName: './assets/image/productimg.png',
-    //           attrValueList: [
-    //             {
-    //               skuSeq: null,
-    //               attrSeq: 300,
-    //               attrName: "颜色",
-    //               attrValue: "蓝色",
-    //               type: null,
-    //               fileSeq: null,
-    //               price: null,
-    //               selectedAttrValue: null,
-    //               invalidAttrValue: null
-    //             },
-    //             {
-    //               skuSeq: null,
-    //               attrSeq: 322,
-    //               attrName: "尺码",
-    //               attrValue: "100（3-4岁）",
-    //               type: null,
-    //               fileSeq: null,
-    //               price: null,
-    //               selectedAttrValue: null,
-    //               invalidAttrValue: null
-    //             }
-    //           ],
-    //           fallback: null
-    //         }
-    //       },
-    //     ]
-    //   },
-    //   {
-    //     orderSeq: 2946,
-    //     cancelOrderId: "20160906047616",
-    //     amount: 39.75,
-    //     status: "1",
-    //     memberMobile: 11111111111, // 会员手机号
-    //     orderId: "20160905047352",
-    //     payAmount: 39.75,
-    //     orderStatus: "4",
-    //     cancelTime: 1473157207000,
-    //     createTime: 1473157148000,
-    //     itemList: [
-    //       {
-    //         orderItemSeq: 2971,
-    //         prodSeq: 289,
-    //         skuSeq: 939,
-    //         unitPrice: 78.75,
-    //         number: 1,
-    //         productSkuDTO: {
-    //           productSeq: 289,
-    //           skuSeq: 939,
-    //           productName: "MQD2016夏季印花短袖T恤216220510",
-    //           fileName: './assets/image/productimg.png',
-    //           attrValueList: [
-    //             {
-    //               skuSeq: null,
-    //               attrSeq: 300,
-    //               attrName: "颜色",
-    //               attrValue: "蓝色",
-    //               type: null,
-    //               fileSeq: null,
-    //               price: null,
-    //               selectedAttrValue: null,
-    //               invalidAttrValue: null
-    //             },
-    //             {
-    //               skuSeq: null,
-    //               attrSeq: 322,
-    //               attrName: "尺码",
-    //               attrValue: "100（3-4岁）",
-    //               type: null,
-    //               fileSeq: null,
-    //               price: null,
-    //               selectedAttrValue: null,
-    //               invalidAttrValue: null
-    //             }
-    //           ],
-    //           fallback: null
-    //         }
-    //       },
-    //     ]
-    //   },
-    // ]
   }
   getAuditCancelorder() {
     // 待审核已取消订单 请求数据
-    let loading = this.appService.loading();
-    loading.present();
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
-      loading.dismiss();
+      this.loadingShow = false;
       if (data.count == 0 && this.auditCancelorderArray.length == 0) {
         //空空如也
         this.noData = true;
@@ -155,7 +49,7 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
-      loading.dismiss();
+      this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
