@@ -13,7 +13,7 @@
 		</div>
 		<div class="gift-item" *ngFor="let item of unhandleSeflGiftArray;let i = index">
 			<dl>
-				<dt><img src="http://images.91topbaby.com/{{item.imageName}}" alt=""></dt>
+				<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>
 				<dd class="product-title">
 					<h2>{{ item.giftName }}</h2>
 					<!-- success unstart -->
