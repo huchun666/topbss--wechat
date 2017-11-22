@@ -50,7 +50,7 @@ export class AppConfig {
     bonusList: "/brandshop/user/bonus/list" //查询可提现余额明显、审核中余额明细
   };
 
-  //ion-spinner
+  // ion-spinner
   static load: any = {
     spinner: 'dots',
     content: '加载中'
