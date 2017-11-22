@@ -1,23 +1,23 @@
 <ion-content>
-	<!-- loading -->
-    <div class="loading-wrapper" *ngIf="loadingShow">
-		<div>
-			<ion-spinner item-start [name]="load.spinner"></ion-spinner>
-		</div>
-		<div [innerHTML]="load.content"></div>
-	</div>
 	<div class="layer-out" (touchstart)="dismiss()"></div>
 	<div class="sku-box">
 		<ion-list>
 		  <ion-item>
 		    <ion-thumbnail item-start>
-					<img [src]="attrImageSeq | productSkuDTOImage">
+				<img [src]="attrImageSeq | productSkuDTOImage">
 		    </ion-thumbnail>
 				<h2>{{ productName }}</h2>
 		  </ion-item>
 		</ion-list>
 
 		<div class="sku-list">
+			<!-- loading -->
+			<div class="loading-wrapper" *ngIf="loadingShow">
+				<div>
+					<ion-spinner item-start [name]="load.spinner"></ion-spinner>
+				</div>
+				<div [innerHTML]="load.content"></div>
+			</div>
 			<div class="sku-attr" *ngFor = "let item of attrMap;let i = index">
 				<div class="sku-key">{{ item[0].attrName }}</div>
 				<div class="sku-value">
@@ -34,15 +34,6 @@
 				</div>
 			</div>
 			
-			<!-- <div class="sku-attr">
-				<div class="sku-key">颜色</div>
-				<div class="sku-value">
-					<label [ngClass]="{active: skuColor === color}" *ngFor="let color of ColorList">
-						<input [(ngModel)]="skuColor" name="Fruit" type="radio" [value]="color" />{{ color }} 
-					</label> 
-				</div>
-			</div> -->
-			
 			<div class="sku-attr">
 				<div class="sku-key">数量</div>
 				<div class="sku-value count">
@@ -54,7 +45,7 @@
 				</div>
 			</div>
 
-			<button class="btn-add" ion-button full (touchstart)="warehouseAdd()">确认添加</button>
+			<button class="btn-add" ion-button full (touchstart)="warehouseAdd()" *ngIf="confirmAdd">确认添加</button>
 
 		</div>
 	</div>

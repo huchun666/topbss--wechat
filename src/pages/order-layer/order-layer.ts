@@ -6,10 +6,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'order-layer.html'
 })
 export class OrderLayer {
-  skuSize: string = "110";
-  skuColor: string = "蓝色";
   count: number = 1;
-
   orderLayerData: any;//请求接口得到的数据
   attrMap: any = [];//转换后的数据（数组格式）
   productSeq: number;//商品ID
@@ -27,6 +24,7 @@ export class OrderLayer {
   attrImageSeq: number;
   loadingShow: Boolean = true;
   load: any = {}; 
+  confirmAdd: Boolean = false;
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -47,6 +45,7 @@ export class OrderLayer {
     let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=133&productSeq=${this.productSeq}`;//brandshopSeq=${this.brandshopSeqId}
     this.appService.httpGet(url).then( data => {
       this.loadingShow = false;
+      this.confirmAdd = true;
       if (data.skuLength != 0) {
         this.orderLayerData = data;
         this.attrImageSeq = this.orderLayerData.attrImageSeq
@@ -118,18 +117,16 @@ export class OrderLayer {
         this.attrImageSeq = this.orderLayerData.attrImageSeq;
       }).catch(error => {
         console.log(error);
+        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       });
     }else{
       this.attrValueArr[index] = "";
       event.target.setAttribute("checked",false);
-      console.log(this.attrValueArr);
     }
   }
 
   //确认添加
   warehouseAdd() {
-    // this.warehouseCount++;//后面注释掉
-    // this.dismiss();//后面注释掉
     let url = AppConfig.API.warehouseAdd;
     let body = {
       "productId": this.orderLayerData.productSeq,
@@ -139,13 +136,13 @@ export class OrderLayer {
       "remark": ""
     }
     this.appService.httpPost(url, body).then( data => {
-      console.log(data)
       if (data.type=='success') {
         this.warehouseCount++;
         this.dismiss();
       }
     }).catch( error => {
       console.log(error.message);
+      this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
     })
   }
 

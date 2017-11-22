@@ -13,12 +13,7 @@ export class PaymentCode {
     public navParams: NavParams,
     public appService: AppService,
   ) {
-    if (this.navParams.get('returnUrl')){
-      this.myCode = this.navParams.get('returnUrl');
-    }else {
-      this.myCode = "https://www.baidu.com/";
-    }
-    
+    this.myCode = this.navParams.get('returnUrl');
   }
   // 修改此单
   updateOrder() {
