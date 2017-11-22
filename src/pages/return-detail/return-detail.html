@@ -43,7 +43,7 @@
 				<li>联系方式：{{returnDetail.orderReturn.mobile}}</li> 
 				<li>退货方式：{{returnDetail.orderReturn.returnType==1?'其他': '快递'}}</li>
 				<li>是否有发票：{{returnDetail.orderReturn.invoiced==1?'有': '无'}}</li>
-				<li>退货原因：{{returnDetail.orderReturn.returnReason}}</li>
+				<li>退货原因：{{returnDetail.orderReturn.reasonType | reasonType}}</li>
 				<li>问题描述：{{returnDetail.orderReturn.detail}}</li>
 				<li class="img-list" *ngIf = "imageArray">
 					<img src="http://www.91topbaby.com/evercos/common/file/content/{{itemImg}}" alt="" *ngFor = "let itemImg of imageArray">
