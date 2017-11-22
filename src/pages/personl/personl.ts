@@ -7,7 +7,7 @@ import { DetailTabs } from '../detail-tabs/detail-tabs';
 import { AwardTabs } from '../award-tabs/award-tabs';
 import { WithdrawRecord } from '../withdraw-record/withdraw-record';
 import { Help } from '../help/help';
-import { BindAccount } from '../account/bind-account/bind-account';
+import { AddAccount } from '../account/add-account/add-account';
 import { AppService, AppConfig } from '../../app/app.service';
 
 @Component({
@@ -62,7 +62,7 @@ export class Personl {
       "detailTabs": DetailTabs,
       "awardTabs": AwardTabs,
       "withdrawRecord": WithdrawRecord,
-      "bindAccount": BindAccount,
+      "addAccount": AddAccount,
       "help": Help
     }
     this.getCurrent();
@@ -85,10 +85,12 @@ export class Personl {
   /* 跳转页面 */
   redirectPage(page, param) {
     if (!this.userCurrent.isBoundWechat && page === Withdraw) {
-      page = this.pageList.bindAccount;
+      page = this.pageList.addAccount;
     }
-    console.log(page);
     let pageModal = this.modalCtrl.create(page, {'param': param});
+    pageModal.onDidDismiss(() => {
+      let componentName = pageModal['_component'].name;
+    });
     pageModal.present();
   }
   /* 将电话号码格式化 */
