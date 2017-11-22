@@ -45,12 +45,8 @@ export class OrderList {
       label: "已完成",
       status: 'C'
     }];
-    // '加载中'提示定义
-    this.load = {
-      spinner: 'dots',
-      content: '加载中'
-    }
     this.currentStatus = this.orderStatusList[0].status;
+    this.load = AppConfig.load;
     this.getOrderList();
   }
   // 获取订单列表

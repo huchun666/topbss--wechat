@@ -23,7 +23,7 @@ export class BrandshopOrderList {
   start: number = 0;
   showNoMore: Boolean = false;
   loadingShow: Boolean = true;
-  load: any = {}; 
+  load: any = {};
   constructor(
     public navCtrl: NavController,
     public appService: AppService) {
@@ -46,12 +46,8 @@ export class BrandshopOrderList {
       label: "已完成",
       status: 'C'
     }];
-    // '加载中'提示定义
-    this.load = {
-      spinner: 'dots',
-      content: '加载中'
-    }
     this.currentStatus = this.orderStatusList[0].status;
+    this.load = AppConfig.load;
     this.getOrderList();
   }
 
