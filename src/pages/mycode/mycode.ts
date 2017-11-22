@@ -36,21 +36,21 @@ export class MyCode {
       })
       .catch(error => {
         console.log(error);
-      })
+      });
   }
   // 获取导购员带参二维码
-  getMyQRcode(url) {
-    this.appService.httpGet(url)
-     .then(data => {
-       this.myCode = data.url;
-     })
-     .catch(error => {
-       console.log(error);
-     })
+  getMyQRcode(paramUrl) {
+    this.appService.httpGet(paramUrl)
+      .then(data => {
+        this.myCode = data.url;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   /** 获取时间 **/
   getNowUtcTime() {
-	  let date = new Date();
+	  let date      = new Date();
 	  let nowYear   = date.getFullYear();
 	  let nowMoth   = date.getMonth() + 1;
 	  let nowDay    = date.getDate();
@@ -58,16 +58,16 @@ export class MyCode {
 	  let nowMinute = date.getMinutes();
 	  let nowSecond = date.getSeconds();
 	  // console.log(Date.UTC(nowYear, nowMoth, nowDay, nowHour,nowMinute + 10,nowSecond));
-	  let expired = Date.UTC(nowYear, nowMoth, nowDay, nowHour,nowMinute + 10,nowSecond) + '';
+	  let expired = Date.UTC(nowYear, nowMoth, nowDay, nowHour, nowMinute + 10, nowSecond) + '';
 	  // console.log(Number(expired.substr(0,10)));
-	  return Number(expired.substr(0,10));
+	  return Number(expired.substr(0, 10));
   }
   // 加密
   restFulSha(RequestMethod, url, topbabysecret) {
     let expired   = this.getNowUtcTime();
     url           = RequestMethod + "\n" + url + "\n" + expired + "\n";
     let signature = CryptoJS.HmacSHA1(url, topbabysecret);
-    signature     = Base64.Base64.encode(signature)
+    signature     = Base64.Base64.encode(signature);
     let obj       = {
       expires: expired,
       signature: signature

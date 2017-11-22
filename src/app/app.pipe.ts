@@ -128,19 +128,33 @@ export class FilterCancelStatusPipe implements PipeTransform {
 // 提现明细
 @Pipe({ name: 'setWithdrawStatus' })
 export class FilterWithdrawStatusPipe implements PipeTransform {
-  transform(param: string): string {
+  transform(param: string): any {
     switch(param) {
       case "0":
-        return "失败";
+        return { 
+          status: "失败",
+          pass: false
+        }
       case "1":
-        return "成功";
+        return { 
+          status: "成功",
+          pass: true
+        }
       case "3":
-        return "拒绝";
+        return { 
+          status: "拒绝",
+          pass: false
+        }
       case "9":
-        return "处理中";
+        return { 
+          status: "处理中",
+          pass: false
+        }
     }
   }
 }
+
+//未使用自提赠品列表状态
 @Pipe({ name: 'setGiftType' })
 export class FilterGiftTypePipe implements PipeTransform {
   transform(giftType: string, expoent: string): string {
@@ -154,6 +168,7 @@ export class FilterGiftTypePipe implements PipeTransform {
   }
 }
 
+//已使用自提赠品列表状态
 @Pipe({ name: 'setHandleGiftType' })
 export class FilterHandleGiftTypePipe implements PipeTransform {
   transform(giftType: string): string {
@@ -166,6 +181,7 @@ export class FilterHandleGiftTypePipe implements PipeTransform {
   }
 }
 
+//生成订单模块：sku初始加载，是否置灰
 @Pipe({ name: 'isOrIsnotInvalidAttrValue' })
 export class IsOrIsnotInvalidAttrValuePipe implements PipeTransform {
   transform(invalidAttrValue: any): any {
@@ -173,6 +189,7 @@ export class IsOrIsnotInvalidAttrValuePipe implements PipeTransform {
   }
 }
 
+//置灰样式
 @Pipe({ name: 'invalidAttrValueClass' })
 export class InvalidAttrValueClassPipe implements PipeTransform {
   transform(invalidAttrValueClass: any): Boolean {
@@ -180,6 +197,7 @@ export class InvalidAttrValueClassPipe implements PipeTransform {
   }
 }
 
+//生成订单模块：sku数量减少为1时的样式
 @Pipe({ name: 'changeGray' })
 export class ChangeGrayPipe implements PipeTransform {
   transform(count: number): Boolean {
@@ -187,6 +205,7 @@ export class ChangeGrayPipe implements PipeTransform {
   }
 }
 
+//图片加前缀或者没有图片时放补图
 @Pipe({ name: 'productSkuDTOImage' })
 export class ProductSkuDTOImagePipe implements PipeTransform {
   transform(productSkuDTOImage: string): string {

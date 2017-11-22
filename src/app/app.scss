@@ -39,7 +39,9 @@ h2 {
 .item-md.item-input.input-has-focus .item-inner,
 .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
 .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, 
-.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, 
+.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child {
   border-color: #ccc;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -204,15 +206,15 @@ h2 {
   p {
     color: #999;
   }
-  .loading-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -16px;
-    margin-left: -32px;
-    opacity: 1;
-    font-weight: bold;
-  }
+}
+.loading-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -16px;
+  margin-left: -32px;
+  opacity: 1;
+  font-weight: bold;
 }
 .loading-wrapper {
   position: absolute;

@@ -10,23 +10,25 @@ export class AddAccount {
   cellphone: string = '';
   IDcard: string = '';
   id: any;
+  wechatOpenid: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public appService: AppService
   ) {
-    this.id = this.navParams.get('userId');
+    this.id = this.navParams.get('param');
   }
   updateCurrent() {
-    let url = `${AppConfig.hostUrl + AppConfig.API.current}`;
+    let url = `${AppConfig.API.current}`;
     let body = {
       id: this.id,
       salesName: this.salesName,
       cellphone: this.cellphone,
-      IDcard: this.IDcard
+      IDcard: this.IDcard,
+      wechatOpenid: this.wechatOpenid
     }
-    this.appService.httpPost(url, body)
+    this.appService.httpPut(url, body)
       .then(data => {
         this.appService.toast('更新成功', 3000, 'middle');
       })

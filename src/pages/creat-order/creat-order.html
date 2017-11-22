@@ -14,6 +14,13 @@
   </ion-refresher-content>
 </ion-refresher>
 <div class="search-box">
+  <!-- loading -->
+  <div class="loading-wrapper" *ngIf="loadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
   <!-- 搜索框 -->
   <ion-searchbar
   [showCancelButton]="shouldShowCancel"

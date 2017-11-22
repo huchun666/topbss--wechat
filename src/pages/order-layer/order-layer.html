@@ -1,4 +1,11 @@
 <ion-content>
+	<!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+		<div>
+			<ion-spinner item-start [name]="load.spinner"></ion-spinner>
+		</div>
+		<div [innerHTML]="load.content"></div>
+	</div>
 	<div class="layer-out" (touchstart)="dismiss()"></div>
 	<div class="sku-box">
 		<ion-list>

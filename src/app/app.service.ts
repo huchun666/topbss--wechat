@@ -47,7 +47,8 @@ export class AppConfig {
     withdraw: "/brandshop/user/withdraw/", //提现
     qrcode: "/brandshop/user/qrcode", //我的二维码
     withdrawList: "/brandshop/user/withdraw/list", //提现记录
-    bonusList: "/brandshop/user/bonus/list" //查询可提现余额明显、审核中余额明细
+    bonusList: "/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
+    bonusSum:"/brandshop/user/bonus/sum"
   };
 
   // ion-spinner
@@ -66,14 +67,11 @@ export class AppService {
     private toastCtrl: ToastController,
     private dialogs: Dialogs
   ) {
-
   }
 
   //get request
   httpGet(url: string) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.get(url, {headers: headers}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
         console.log(`访问错误:${error}`);
@@ -88,8 +86,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-    );
+      });
   }
 
   //get request with headers
@@ -99,8 +96,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-    );
+      });
   }
   
   //post request
@@ -112,8 +108,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //post 带有headers 
@@ -123,8 +118,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-    );
+      });
   }
   
   //put request
@@ -136,8 +130,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //delete request
@@ -147,8 +140,7 @@ export class AppService {
       .catch(error => {
         console.log(`访问错误:${error}`);
         this.handleError(error);
-      }
-      );
+      });
   }
 
   //错误或者异常处理提示
