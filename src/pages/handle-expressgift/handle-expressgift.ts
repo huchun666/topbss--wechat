@@ -13,24 +13,24 @@ export class HandleExpressgift {
   showNoMore: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
-  down: Boolean;//下拉刷新和返回上一级页面时
+	down: Boolean;//下拉刷新和返回上一级页面时
+	load: any = {};
+  loadingShow: Boolean = true;
 	constructor(
 		public navCtrl: NavController, 
 		public alertCtrl: AlertController,
 		public appService: AppService,
 	) {
 	// 获取已兑换快递赠品列表
-	this.down = true;
-	this.up = false;
+		this.down = true;
+		this.up = false;
+		this.load = AppConfig.load;
     this.getHandleExpressGiftList()
   }
   getHandleExpressGiftList() {
-	let loading = this.appService.loading();
-	loading.present();
 	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
 	this.appService.httpGet(url).then( data => {
-		loading.dismiss();
-		console.log(data)
+		this.loadingShow = false;
 		if (data.totalRecord == 0) {
 			//空空如也
 			this.noData = true;
@@ -50,7 +50,7 @@ export class HandleExpressgift {
 			}
 		}
 	}).catch(error => {
-		loading.dismiss();
+		this.loadingShow = false;
 		console.log(error);
 		this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 	});

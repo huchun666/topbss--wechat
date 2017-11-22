@@ -15,6 +15,8 @@ export class UnhandleExpressgift {
 	noData: Boolean;
 	up: Boolean;//上拉刷新和第一次进入页面时
 	down: Boolean;//下拉刷新和返回上一级页面时
+	load: any = {};
+  loadingShow: Boolean = true;
 	constructor(public navCtrl: NavController, 
 		public modalCtrl: ModalController, 
 		public alertCtrl: AlertController,
@@ -24,14 +26,13 @@ export class UnhandleExpressgift {
 		this.down = true;
 		this.up = false;
 		this.unhandleExpressGiftArray = [];
+		this.load = AppConfig.load;
 		this.getUnhandleExpressGiftList();
 	}
 	getUnhandleExpressGiftList() {
-		let loading = this.appService.loading();
-		loading.present();
 		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
 		this.appService.httpGet(url).then( data => {
-			loading.dismiss();
+			this.loadingShow = false;
 			console.log(data)
 			if (data.totalRecord == 0) {
 				//空空如也
@@ -52,11 +53,11 @@ export class UnhandleExpressgift {
 				}
 			}
 		}).catch(error => {
-			loading.dismiss();
+			this.loadingShow = false;
 			console.log(error);
 			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 		});
-    }
+  }
 	goExpressgift() {
 		const orderModal = this.modalCtrl.create(HandleExpressgift);
 		orderModal.onDidDismiss(() => {
