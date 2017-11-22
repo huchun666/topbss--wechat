@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="totle-money">总金额：</div>
+  <div class="totle-money" *ngIf="isShow">总金额：{{ sum }}</div>
   <ul class="first-card" *ngFor = "let item of awardDetail">
     <li>
       订单编号：{{ item.relateId }}<span *ngIf = "item.status==1">已收货</span><span *ngIf = "item.status==2">已完成</span>
@@ -14,4 +14,10 @@
       奖励金额：￥{{ item.amount }}
     </li>
   </ul>
+  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardDetail.length < count">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载中">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
