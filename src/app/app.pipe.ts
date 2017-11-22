@@ -201,6 +201,14 @@ export class ProductSkuDTOImagePipe implements PipeTransform {
   }
 }
 
+//赠品服务图片加前缀或者没有图片时放补图
+@Pipe({ name: 'handleGiftImage' })
+export class HandleGiftImagePipe implements PipeTransform {
+  transform(handleGiftImage: string): string {
+    return handleGiftImage ? "http://images.91topbaby.com/" + handleGiftImage : "../../assets/image/nodata.png";
+  }
+}
+
 //待审核退货订单详情退货原因类型
 @Pipe({ name: 'reasonType' })
 export class ReasonTypePipe implements PipeTransform {

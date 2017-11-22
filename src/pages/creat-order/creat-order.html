@@ -32,7 +32,7 @@
 <div class="product-list" *ngIf = "!noData">
   <ul>
     <li *ngFor = "let item of creatOrderArray;let i = index">
-      <img src="http://www.91topbaby.com/evercos/common/file/content/{{item.fileSeq}}" alt="产品">
+      <img [src]="item.fileSeq | productSkuDTOImage" alt="产品">
       <p>{{item.productName}}</p>
       <div class="btn-add"><button ion-button round (click)="addProductModal(i)">加入配单仓</button></div>
     </li>
