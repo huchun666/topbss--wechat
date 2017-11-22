@@ -24,12 +24,14 @@ export class WithdrawRecord {
     let url = `${AppConfig.API.withdrawList}?start=${(this.currentPage - 1) * this.pageSize}&limit=${this.pageSize}`;
     this.appService.httpGet(url)
       .then(data => {
-        data.data.map(item => {
-          item.amount = item.amount.toFixed(2);
-          item.realAmount = item.realAmount.toFixed(2);
-          item.individualTax = item.individualTax.toFixed(2);
-        });
-        this.withdrawList.push(...data.data);
+        if (data.data.length > 0) {
+          data.data.map(item => {
+            item.amount = item.amount.toFixed(2);
+            item.realAmount = item.realAmount.toFixed(2);
+            item.individualTax = item.individualTax.toFixed(2);
+          });
+          this.withdrawList.push(...data.data);
+        }
         this.count = data.count;
       })
       .catch(error => {

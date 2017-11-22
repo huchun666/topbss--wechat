@@ -47,7 +47,8 @@ export class AppConfig {
     withdraw: "/brandshop/user/withdraw/", //提现
     qrcode: "/brandshop/user/qrcode", //我的二维码
     withdrawList: "/brandshop/user/withdraw/list", //提现记录
-    bonusList: "/brandshop/user/bonus/list" //查询可提现余额明显、审核中余额明细
+    bonusList: "/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
+    bonusSum:"/brandshop/user/bonus/sum"
   };
 
 }
