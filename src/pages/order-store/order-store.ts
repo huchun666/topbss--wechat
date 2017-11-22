@@ -17,6 +17,8 @@ export class OrderStore {
   total: number = 200.00;
   orderStoreDataArray: any = [];//得到的数据里面的data数组
   returnUrl: string;//返回得到的url字符串
+  loadingShow: Boolean = true;
+  load: any = {}; 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -25,17 +27,15 @@ export class OrderStore {
   ) {
     this.start = 0;
     this.down = true;
-	  this.up = false;
+    this.up = false;
+    this.load = AppConfig.load;
     this.getOrderStore();
   }
 
   getOrderStore() {
-    let loading = this.appService.loading();
-    loading.present();
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
         this.appService.httpGet(url).then( data => {
-        console.log(data)
-        loading.dismiss();
+        this.loadingShow = false;
         if (data.count == 0) {
           //空空如也
           this.noData = true;
@@ -57,7 +57,7 @@ export class OrderStore {
         }
       
       }).catch(error => {
-        loading.dismiss();
+        this.loadingShow = false;
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
@@ -68,7 +68,6 @@ export class OrderStore {
     let body = [];
     let url = AppConfig.API.warehouseUpdate;
     this.orderStoreDataArray.map(function(item) {
-      console.log(item.productNum)
       let order = {};
       order['warehouseItemId'] = item.warehouseItemId;
       order['itemPrice'] = item.itemPrice;
@@ -124,7 +123,6 @@ export class OrderStore {
     let url = `${AppConfig.API.warehouseGenerateCode}`;
     this.appService.httpGetReturnData(url).then( data => {
       this.returnUrl = data['_body'];
-      console.log(this.returnUrl);
     }).catch(error=>{
       console.log(error);
       this.appService.toast('操作失败', 1000, 'middle');
@@ -143,7 +141,6 @@ export class OrderStore {
     this.up = false;
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
-      console.log(data)
       refresher.complete();
       if (data.count == 0) {
         //空空如也
