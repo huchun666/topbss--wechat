@@ -22,6 +22,8 @@ export class BrandshopOrderList {
   noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
+  loadingShow: Boolean = true;
+  load: any = {}; 
   constructor(
     public navCtrl: NavController,
     public appService: AppService) {
@@ -44,21 +46,24 @@ export class BrandshopOrderList {
       label: "已完成",
       status: 'C'
     }];
+    // '加载中'提示定义
+    this.load = {
+      spinner: 'dots',
+      content: '加载中'
+    }
     this.currentStatus = this.orderStatusList[0].status;
     this.getOrderList();
   }
 
   // 获取订单列表
   getOrderList() {
-    let loading = this.appService.loading();
-    loading.present();
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
     if (this.paramsStatus != '')
       url += this.paramsStatus;
     this.appService.httpGet(url).then(data => {
-      loading.dismiss();
+      this.loadingShow = false;
       if (this.start < data.count) {
         this.showNoMore = false;
         this.noData = false;
@@ -77,7 +82,7 @@ export class BrandshopOrderList {
         this.showNoMore = true;
       }
     }).catch(error => {
-      loading.dismiss();
+      this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
