@@ -9,6 +9,13 @@
     </ion-refresher-content>
   </ion-refresher>
 <div class="gift-list">
+	<!-- loading -->
+	<div class="loading-wrapper" *ngIf="loadingShow">
+		<div>
+			<ion-spinner item-start [name]="load.spinner"></ion-spinner>
+		</div>
+		<div [innerHTML]="load.content"></div>
+	</div>
   <div class="gift-item" *ngFor = "let item of handleExpressGiftArray">
 		<dl>
 			<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>
