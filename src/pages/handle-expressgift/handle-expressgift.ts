@@ -85,27 +85,27 @@ export class HandleExpressgift {
 
   // 上拉刷新请求数据
   infiniteGetHandleExpressGiftList(infiniteScroll) {
-	this.down = false;
-	this.up = true;
-	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
-	this.appService.httpGet(url).then( data => {
-		infiniteScroll.complete();
-		if (data.totalRecord == 0) {
-			//空空如也
-			this.noData = true;
-		}else {
-			this.noData = false;
-			if (data.data.length != 0) {
-				this.handleExpressGiftArray.push(...data.data);
-				this.start += this.limit;
+		this.down = false;
+		this.up = true;
+		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
+		this.appService.httpGet(url).then( data => {
+			infiniteScroll.complete();
+			if (data.totalRecord == 0) {
+				//空空如也
+				this.noData = true;
 			}else {
-				this.showNoMore = true;
+				this.noData = false;
+				if (data.data.length != 0) {
+					this.handleExpressGiftArray.push(...data.data);
+					this.start += this.limit;
+				}else {
+					this.showNoMore = true;
+				}
 			}
-		}
-	}).catch(error => {
-		infiniteScroll.complete();
-		console.log(error);
-		this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-	});
+		}).catch(error => {
+			infiniteScroll.complete();
+			console.log(error);
+			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+		});
   }
 }

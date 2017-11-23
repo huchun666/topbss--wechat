@@ -62,10 +62,10 @@ export class UnhandleExpressgift {
 		const orderModal = this.modalCtrl.create(HandleExpressgift);
 		orderModal.onDidDismiss(() => {
 		// 返回自提赠品页重新请求接口，渲染页面
-		this.start = 0;
-		this.down = true;
-	    this.up = false;
-		this.getUnhandleExpressGiftList();
+			this.start = 0;
+			this.down = true;
+			this.up = false;
+			this.getUnhandleExpressGiftList();
 		})
 		orderModal.present();
 	}
@@ -93,32 +93,33 @@ export class UnhandleExpressgift {
 			  {
 			    text: '确认',
 			    handler: data => {
-					if (data.companyName != "" && data.orderNum != ""){
-						let body = {
-							memberGiftAccountSeq: this.unhandleExpressGiftArray[index].memberGiftAccountSeq,
-							expressCompany: data.companyName,
-							expressNo: data.orderNum
-						}
-						console.log(body)
-						let url = AppConfig.API.confirmExpressInfo;
-						console.log(url)
-						this.appService.httpPost(url, body).then( data => {
-							console.log(data)
-							if (data.type == "success") {
-								this.start = 0;
-								this.down = true;
-								this.up = false;
-								this.getUnhandleExpressGiftList();
+						if (data.companyName != "" && data.orderNum != ""){
+							let body = {
+								memberGiftAccountSeq: this.unhandleExpressGiftArray[index].memberGiftAccountSeq,
+								expressCompany: data.companyName,
+								expressNo: data.orderNum
 							}
-						}).catch(error => {
-							console.log(error);
+							let loading = this.appService.loading();
+							loading.present();
+							let url = AppConfig.API.confirmExpressInfo;
+							this.appService.httpPost(url, body).then( data => {
+								if (data.type == "success") {
+									this.start = 0;
+									this.down = true;
+									this.up = false;
+									loading.dismiss();
+									this.getUnhandleExpressGiftList();
+								}
+							}).catch(error => {
+								loading.dismiss();
+								console.log(error);
+								this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+							});
+						}else if (data.companyName != "") {
 							this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-						});
-					}else if (data.companyName != "") {
-						this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-					}else if (data.orderNum != "") {
-						this.appService.toast('请填写快递单号', 1000, 'middle');
-					}
+						}else if (data.orderNum != "") {
+							this.appService.toast('请填写快递单号', 1000, 'middle');
+						}
 			    }
 			  }
 			]
