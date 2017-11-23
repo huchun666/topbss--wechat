@@ -24,6 +24,9 @@ export class BrandshopOrderList {
   showNoMore: Boolean = false;
   loadingShow: Boolean = true;
   load: any = {};
+  dateEndMin = '1970'; //结束日期的最小值
+  dateEndMax: string = ''; //结束日期的最大值
+  dateStartMax: string = ''; //开始日期的最大值
   constructor(
     public navCtrl: NavController,
     public appService: AppService) {
@@ -48,6 +51,8 @@ export class BrandshopOrderList {
     }];
     this.currentStatus = this.orderStatusList[0].status;
     this.load = AppConfig.load;
+    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
+    this.dateEndMax = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
     this.getOrderList();
   }
 
@@ -92,9 +97,11 @@ export class BrandshopOrderList {
     this.paramsDate = '';
     if (this.dateStart != '') {
       this.paramsDate += `&dateStart=${this.dateStart}`;
+      this.dateEndMin = this.dateStart;
     }
     if (this.dateEnd != '') {
       this.paramsDate += `&dateEnd=${this.dateEnd}`;
+      this.dateStartMax = this.dateEnd;
     }
     this.content.scrollTo(0, 0, 0);
     this.getOrderList();
