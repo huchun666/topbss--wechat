@@ -195,10 +195,9 @@ export class CreatOrder {
     let url = `${AppConfig.API.warehouseGetCount}`;
     this.appService.httpGet(url).then( number => {
       this.warehouseCount = number;
-      console.log(this.warehouseCount)
     }).catch(error => {
       console.log(error);
+      this.appService.toast('获取配单仓数目失败，请稍后重试', 1000, 'middle');
     });
   }
-
 }
