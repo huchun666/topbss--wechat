@@ -7,13 +7,13 @@
       <div class="search-title">时间搜索</div>
       <div class="search-list">
         <div class="time-start">
-          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="dateStart">
+          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">
           </ion-datetime>
           <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>
         </div>
         <span class="go">到</span>
         <div class="time-end">
-          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateStart}}" [(ngModel)]="dateEnd">
+          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateEndMin}}" max="{{dateEndMax}}" [(ngModel)]="dateEnd">
           </ion-datetime>
           <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>
         </div>
@@ -99,7 +99,7 @@
     </div>
 
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      <ion-infinite-scroll-content loadingText="正在加载..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
   </div>
