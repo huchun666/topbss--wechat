@@ -34,9 +34,9 @@ export class UnhandleSelfgift {
   }
   addOrderStatusClass(param: any) {
     param.map(function(item) {
-			if (item.giftType=='0' && item.status=='2') {
+			if (item.giftType == '0' && item.status == '2') {
 				item.className = 'unstart';
-			} else if (item.giftType=='1') {
+			} else if (item.giftType == '1') {
 				item.className = 'unstart';
 			} else {
 				item.className = 'success';
@@ -90,7 +90,7 @@ export class UnhandleSelfgift {
   }
 
   reserveAffirm(index) {
-		if (this.unhandleSeflGiftArray[index].reserveShopTime!=null) {
+		if (this.unhandleSeflGiftArray[index].reserveShopTime != null) {
 			// 预约确认更改数据
 			let body = {
 				memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
@@ -167,7 +167,7 @@ export class UnhandleSelfgift {
 
   //获取当前距离顶部位置
   scrollHandler(event) {
-		this.zone.run(()=>{
+		this.zone.run(() => {
 			if (event.scrollTop >= 300) {
 			this.toTop = true;
 			}else {
