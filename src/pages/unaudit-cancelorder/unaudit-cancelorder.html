@@ -12,10 +12,8 @@
       <div [innerHTML]="load.content"></div>
     </div>
 		<div class="order-items" *ngFor = "let item of unauditCancelorderArray;let i = index">
-			<!-- 订单编号 -->
 			<div class="order-title">
 				<h2>订单编号：<span>{{item.orderId}}</span></h2>
-				<!--color auditing or pass -->
 				<span [ngClass]="{auditStatus: true, pass:(item.status | setCancelOrderStatus).pass , auditing:(item.status | setCancelOrderStatus).audit} ">{{(item.status | setCancelOrderStatus).status}}</span> 
 			</div>
 
