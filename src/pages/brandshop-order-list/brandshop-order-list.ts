@@ -53,6 +53,7 @@ export class BrandshopOrderList {
 
   // 获取订单列表
   getOrderList() {
+    this.loadingShow = true;
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
