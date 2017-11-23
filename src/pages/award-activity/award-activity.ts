@@ -49,8 +49,8 @@ export class AwardActivity {
         console.log(error);
       });
   }
-   // 有无明细列表时的判断（判断总金额是否为0）
-   setIsShow(sum) {
+  // 有无明细列表时的判断（判断总金额是否为0）
+  setIsShow(sum) {
     return this.isShow = sum > 0 ? true : false;
   }
   loadMore(infiniteScroll) {
