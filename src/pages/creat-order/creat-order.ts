@@ -192,13 +192,20 @@ export class CreatOrder {
 
   //查看配单仓订单总数
   getWarehouseCount() {
+    this.loadingShow = false;
     let url = `${AppConfig.API.warehouseGetCount}`;
     this.appService.httpGet(url).then( number => {
+      this.loadingShow = false;
       this.warehouseCount = number;
-      console.log(this.warehouseCount)
     }).catch(error => {
+      this.loadingShow = false;
       console.log(error);
+      this.appService.toast('获取配单仓数目失败，请稍后重试', 1000, 'middle');
     });
   }
 
+  //再来一单按钮进来后，更新配单仓数量
+  ionViewDidEnter() {
+    this.getWarehouseCount();
+  }
 }

@@ -7,7 +7,7 @@
 
       <div class="withdraw-item" *ngFor = "let item of awardActivity">
         <ul>
-          <li class='order-number'>订单编号：{{ item.relateId }} <span *ngIf = "item.status==1">已收货</span><span *ngIf = "item.status==2">已完成</span></li>
+          <li class='order-number'>订单编号：{{ item.relateId }}</li>
           <li class='date'>活动时间：{{ item.createTime | date:'yyyy.MM.dd' }}</li>
           <li class='base-number'>结算基数：￥{{ item.baseAmount }}</li>
           <li class='percentage'>奖励比例：{{ item.percent }}</li>
