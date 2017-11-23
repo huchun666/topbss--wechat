@@ -25,7 +25,7 @@ export class OrderList {
   start: number = 0;
   showNoMore: Boolean = false;
   loadingShow: Boolean = true;
-  load: any = {}; 
+  load: any = {};
   dateEndMin = '1970'; //结束日期的最小值
   dateEndMax: string = ''; //结束日期的最大值
   dateStartMax: string = ''; //开始日期的最大值
@@ -50,8 +50,9 @@ export class OrderList {
     }];
     this.currentStatus = this.orderStatusList[0].status;
     this.load = AppConfig.load;
-    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
-    this.dateEndMax = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();this.getOrderList();
+    this.getOrderList();
+    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    this.dateEndMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
   }
   // 获取订单列表
   getOrderList() {
