@@ -23,7 +23,7 @@ export class OrderDetail{
     let url = `${AppConfig.API.bonusSum}?typeList=1&statusList=2`;
     this.appService.httpGet(url)
       .then(data => {
-        this.sum = data;
+        this.sum = data.sum;
         this.setIsShow(this.sum);
       }).catch(error => {
         console.log(error);
@@ -37,7 +37,7 @@ export class OrderDetail{
         if (data.data.length > 0) {
           data.data.map(item => {
             item.baseAmount = item.baseAmount.toFixed(2);
-            item.percent = item.percent.toFixed(4);
+            item.percent = item.percent.toFixed(2);
             item.amount = item.amount.toFixed(2);
             item.returnAmount = item.returnAmount.toFixed(2);
           });

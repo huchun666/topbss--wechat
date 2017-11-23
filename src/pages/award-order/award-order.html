@@ -1,13 +1,13 @@
 <ion-content>
   <div class="withdraw-record">
     <div class="withdraw-total">
-     总金额：￥
+     总金额：￥ {{ sum }}
     </div>
     <div class="record-list">
 
       <div class="withdraw-item" *ngFor = "let item of awardOrder">
         <ul>
-          <li class='order-number'>订单编号：{{ item.relateId }} <span>已收货</span></li>
+          <li class='order-number'>订单编号：{{ item.relateId }}</li>
           <li class='base-number'>结算基数：￥{{ item.baseAmount }}</li>
           <li class='percentage'>奖励比例：{{ item.percent }}</li>
           <li class="money">奖励金额：￥{{ item.amount }}</li>
@@ -16,4 +16,10 @@
 
     </div>
   </div>
+  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardOrder.length < count">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="加载中">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
