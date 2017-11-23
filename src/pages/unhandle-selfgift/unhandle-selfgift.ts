@@ -34,14 +34,14 @@ export class UnhandleSelfgift {
   }
   addOrderStatusClass(param: any) {
     param.map(function(item) {
-		if (item.giftType=='0' && item.status=='2') {
-			item.className = 'unstart';
-		} else if (item.giftType=='1') {
-			item.className = 'unstart';
-		} else {
-			item.className = 'success';
-		}
-	});
+			if (item.giftType == '0' && item.status == '2') {
+				item.className = 'unstart';
+			} else if (item.giftType == '1') {
+				item.className = 'unstart';
+			} else {
+				item.className = 'success';
+			}
+		});
   }
   getUnhandleSelfGiftList() {
 		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
@@ -74,15 +74,15 @@ export class UnhandleSelfgift {
   }
 
   goSelfgift() {
-	const orderModal = this.modalCtrl.create(HandleSelfgift);
-	orderModal.onDidDismiss(() => {
-	// 返回自提赠品页重新请求接口，渲染页面
-	this.start = 0;
-	this.down = true;
-	this.up = false;
-	this.getUnhandleSelfGiftList();
-	})
-	orderModal.present();
+		const orderModal = this.modalCtrl.create(HandleSelfgift);
+		orderModal.onDidDismiss(() => {
+			// 返回自提赠品页重新请求接口，渲染页面
+			this.start = 0;
+			this.down = true;
+			this.up = false;
+			this.getUnhandleSelfGiftList();
+		})
+		orderModal.present();
   }
 
   clearReserveArriveTime(index) {
@@ -90,27 +90,31 @@ export class UnhandleSelfgift {
   }
 
   reserveAffirm(index) {
-	if (this.unhandleSeflGiftArray[index].reserveShopTime!=null) {
-	  // 预约确认更改数据
-	  let body = {
-		memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
-		reserveShopTime: new Date(this.unhandleSeflGiftArray[index].reserveShopTime).getTime()
-	  }
-	  let url = AppConfig.API.confirmReserveShopTime;
-	  this.appService.httpPost(url, body).then( data => {
-		if (data.type == "success") {
-		  this.start = 0;
-		  this.down = true;
-		  this.up = false;
-		  // 预约确认请求数据
-		  this.getUnhandleSelfGiftList();
+		if (this.unhandleSeflGiftArray[index].reserveShopTime != null) {
+			// 预约确认更改数据
+			let body = {
+				memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
+				reserveShopTime: new Date(this.unhandleSeflGiftArray[index].reserveShopTime).getTime()
+			}
+			let loading = this.appService.loading();
+			loading.present();
+			let url = AppConfig.API.confirmReserveShopTime;
+			this.appService.httpPost(url, body).then( data => {
+				if (data.type == "success") {
+					this.start = 0;
+					this.down = true;
+					this.up = false;
+					loading.dismiss();
+					this.getUnhandleSelfGiftList();
+				}
+			}).catch(error => {
+				loading.dismiss();
+				console.log(error.message);
+				this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+			});
+		} else {
+			this.appService.toast('请选择会员预约到店时间', 1000, 'middle');
 		}
-	  }).catch(error => {
-	    console.log(error.message);
-	  });
-	} else {
-		this.appService.toast('请选择会员预约到店时间', 1000, 'middle');
-	}
   }
 
   refreshGetUnhandleSelfGiftList(refresher) {
@@ -163,7 +167,7 @@ export class UnhandleSelfgift {
 
   //获取当前距离顶部位置
   scrollHandler(event) {
-		this.zone.run(()=>{
+		this.zone.run(() => {
 			if (event.scrollTop >= 300) {
 			this.toTop = true;
 			}else {
