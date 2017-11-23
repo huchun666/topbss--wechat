@@ -41,15 +41,18 @@ export class UnauditCancelorder {
             this.down = true;
             this.up = false;
             // 点击拒绝后的执行代码
-            // 将当前点击的index状态改成3
+            let loading = this.appService.loading();
+            loading.present();
             let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=0`;
             this.appService.httpPost(url, null).then(data => {
               if (data.type == 'success') {
+                loading.dismiss();
                 this.getUnauditCancelorder();
               }
             }).catch(error => {
-             console.log(error);
-             this.appService.toast('操作失败', 1000, 'middle');
+              loading.dismiss();
+              console.log(error);
+              this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
             });
           }
         },
@@ -60,15 +63,18 @@ export class UnauditCancelorder {
             this.down = true;
             this.up = false;
             // 点击同意后的执行代码
-            // 将当前点击的index状态改成2
+            let loading = this.appService.loading();
+            loading.present();
             let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=1`;
             this.appService.httpPost(url, null).then(data => {
               if (data.type == 'success') {
+                loading.dismiss();
                 this.getUnauditCancelorder();
               }
             }).catch(error => {
-             console.log(error);
-             this.appService.toast('操作失败', 1000, 'middle');
+              loading.dismiss();
+              console.log(error);
+              this.appService.toast('操作失败', 1000, 'middle');
             });
           }
         }
@@ -104,6 +110,7 @@ export class UnauditCancelorder {
         }
       }
     }).catch(error => {
+      this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
