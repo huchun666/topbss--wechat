@@ -130,10 +130,12 @@ export class BrandshopOrderList {
   // 清除开始日期
   clearDateStart() {
     this.dateStart = '';
+    this.dateEndMin = '1970';
   }
   // 清除结束日期
   clearDateEnd() {
     this.dateEnd = '';
+    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
   }
 
   // 下拉刷新请求数据
