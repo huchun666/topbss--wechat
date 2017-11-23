@@ -1,7 +1,7 @@
 <ion-content>
   <div class="withdraw-record">
     <div class="withdraw-total">
-     总金额：￥
+        <span *ngIf="isShow">总金额：￥ {{ sum }}</span>
     </div>
     <div class="record-list">
 
@@ -17,4 +17,10 @@
       
     </div>
   </div>
+  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardActivity.length < count">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="加载中">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

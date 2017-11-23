@@ -20,7 +20,7 @@ export class AwardDetail{
     this.getBonusSum();
   }
   getAwardDetail() {
-    let url = `${AppConfig.API.bonusList}?typeList=3,4&statusList=2$start=${(this.currentPage - 1) * this.pageSize}&limit=${this.pageSize}`;
+    let url = `${AppConfig.API.bonusList}?typeList=3,4&statusList=2&start=${(this.currentPage - 1) * this.pageSize}&limit=${this.pageSize}`;
     this.appService.httpGet(url)
       .then(data => {
         if (data.data.length > 0) {

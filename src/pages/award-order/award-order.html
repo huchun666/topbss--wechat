@@ -1,7 +1,7 @@
 <ion-content>
   <div class="withdraw-record">
     <div class="withdraw-total">
-     总金额：￥ {{ sum }}
+     <span *ngIf="isShow">总金额：￥ {{ sum }}</span>
     </div>
     <div class="record-list">
 
