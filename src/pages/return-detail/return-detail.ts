@@ -150,12 +150,16 @@ export class ReturnDetail {
 			  {
 			    text: '确认',
 			    handler: () => {
+            let loading = this.appService.loading();
+            loading.present();
             let url = `${AppConfig.API.auditReturnOrder}?id=${this.productId}&isAgree=0&totalReturnPrice=${this.returnDetail.returnAmount}`;
             this.appService.httpPost(url, null).then( data => {
               if (data.type == "success") {
+                loading.dismiss();
                 this.viewCtrl.dismiss();
               }
             }).catch( error=>{
+              loading.dismiss();
               console.log(error);
               this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
             })
