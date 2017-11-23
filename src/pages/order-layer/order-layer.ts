@@ -127,6 +127,8 @@ export class OrderLayer {
 
   //确认添加
   warehouseAdd() {
+    let loading = this.appService.loading();
+    loading.present();
     let url = AppConfig.API.warehouseAdd;
     let body = {
       "productId": this.orderLayerData.productSeq,
@@ -136,11 +138,13 @@ export class OrderLayer {
       "remark": ""
     }
     this.appService.httpPost(url, body).then( data => {
+      loading.dismiss();
       if (data.type=='success') {
         this.warehouseCount++;
         this.dismiss();
       }
     }).catch( error => {
+      loading.dismiss();
       console.log(error.message);
       this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
     })

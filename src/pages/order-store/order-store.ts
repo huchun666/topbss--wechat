@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, AlertController, Content } from 'ionic-angular';
 import { PaymentCode } from '../payment-code/payment-code';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -7,13 +7,13 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'order-store.html'
 })
 export class OrderStore {
+  @ViewChild(Content) content: Content;
   start: number = 0;
   limit: number = 10;
   showNoMore: Boolean = false;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
-  total: number = 200.00;
   orderStoreDataArray: any = [];//得到的数据里面的data数组
   returnUrl: string;//返回得到的url字符串
   loadingShow: Boolean = true;
@@ -37,7 +37,6 @@ export class OrderStore {
   getOrderStore() {
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
         this.appService.httpGet(url).then( data => {
-          console.log(data)
         this.loadingShow = false;
         if (data.count == 0) {
           //空空如也
@@ -84,6 +83,10 @@ export class OrderStore {
     this.appService.httpPut(url, body[index]).then( data => {
       if (data.type=="success") {
         console.log("update success!")
+        this.totalPrice = 0;
+        this.orderStoreDataArray.map((item) => {
+          this.totalPrice += item.itemPrice;
+        })
       }
     }).catch(error=>{
       console.log(error);
@@ -109,13 +112,16 @@ export class OrderStore {
   }
   //删除
   delete(index) {
-    this.orderStoreDataArray.splice(index,1);
+    let loading = this.appService.loading();
+    loading.present();
     let url = `${AppConfig.API.warehouseDeleteById}?id=${this.orderStoreDataArray[index].warehouseItemId}`;
     this.appService.httpDelete(url).then( data => {
       if (data.type == "success") {
-        console.log("delete success")
+        loading.dismiss();
+        this.orderStoreDataArray.splice(index,1);
       }
     }).catch(error => {
+      loading.dismiss();
       console.log(error);
       this.appService.toast('删除失败，请稍后再试', 1000, 'middle');
     })

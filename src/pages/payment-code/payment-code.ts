@@ -21,13 +21,17 @@ export class PaymentCode {
   }
   // 再来一单
   orderAgain() {
-    this.navCtrl.remove(this.navCtrl.length() - 2, 2);
+    let loading = this.appService.loading();
+    loading.present();
     let url = `${AppConfig.API.warehouseEmpty}`
     this.appService.httpPut(url, null).then( data => {
       if (data.type=="success") {
+        loading.dismiss();
         console.log(data.type)
+        this.navCtrl.remove(this.navCtrl.length() - 2, 2);
       }
     }).catch(error=>{
+      loading.dismiss();
       console.log(error);
       this.appService.toast('操作失败', 1000, 'middle');
     })
