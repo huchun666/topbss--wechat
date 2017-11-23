@@ -2,7 +2,7 @@
   <div class="totle-money" *ngIf="isShow">总金额：￥ {{ sum }}</div>
   <ul class="first-card" *ngFor = "let item of orderDetail">
     <li>
-      订单编号：{{ item.relateId }}<span *ngIf = "item.status==1">已收货</span><span *ngIf = "item.status==2">已完成</span>
+      订单编号：{{ item.relateId }}
     </li>
     <li>
       结算基数：￥{{ item.baseAmount }}
