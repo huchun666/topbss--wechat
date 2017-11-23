@@ -69,6 +69,8 @@ export class ReturnDetail {
   };
   productId: number;
   imageArray: any;
+  load: any = {};
+  loadingShow: Boolean = true;
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -77,19 +79,21 @@ export class ReturnDetail {
     public appService: AppService 
   ) {
       this.productId = this.navParams.get('productId');  //传上个页面当前点击的id来获取详情页信息
+      this.load = AppConfig.load;
       this.getReturnDetailList();
   }
   getReturnDetailList(){
-    // 待审核退货订单 点击审核时的详情页 请求数据
     let url = `${AppConfig.API.returnDetail}?id=${this.productId}`;
 		this.appService.httpGet(url).then( data => {
-      console.log(data)
+      this.loadingShow = false;
       this.returnDetail = data;
       if (this.returnDetail.orderReturn.imageIds) {
         this.imageArray = this.returnDetail.orderReturn.imageIds.split(",");
       }
     }).catch( error=>{
+      this.loadingShow = false;
       console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
 	}
 	agreeReturn() {
@@ -113,12 +117,16 @@ export class ReturnDetail {
 			  {
 			    text: '确认',
 			    handler: data => {
+            let loading = this.appService.loading();
+            loading.present();
             let url = `${AppConfig.API.auditReturnOrder}?id=${this.productId}&isAgree=1&totalReturnPrice=${data.price}`;
             this.appService.httpPost(url, null).then( data => {
               if (data.type == "success") {
+                loading.dismiss();
                 this.viewCtrl.dismiss();
               }
             }).catch( error=>{
+              loading.dismiss();
               console.log(error);
               this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
             })
