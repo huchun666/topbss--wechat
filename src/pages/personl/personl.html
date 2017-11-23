@@ -41,7 +41,7 @@
     <ion-grid class="btn-list">
       <ion-row>
         <ion-col col-4>
-          <button class="btn-canwithdrawal" ion-button outline round (touchstart)="redirectPage(pageList.detailTabs)">可提现明细</button>
+          <button class="btn-canwithdrawal" ion-button outline round (touchstart)="redirectPage(pageList.detailTabs)">已审核明细</button>
         </ion-col>
         <ion-col col-4>
           <button class="btn-approve" ion-button outline round (touchstart)="redirectPage(pageList.awardTabs)">审核中明细</button>
@@ -51,11 +51,11 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord)">
+    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord, userAccount.withdrawAmount)">
       提现记录
       <span><img src="./assets/image/in.png" alt="提现记录"></span>
     </div>
-    <div class="withdrawal-record" (click)="redirectPage(pageList.bindAccount, userCurrent.id)">
+    <div class="withdrawal-record" (click)="redirectPage(pageList.addAccount, userCurrent.id)">
       收款账户
       <span><img src="./assets/image/in.png" alt="收款账户"></span>
     </div>

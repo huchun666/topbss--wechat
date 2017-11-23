@@ -4,32 +4,39 @@
 		</ion-refresher-content>
 	</ion-refresher>
   <div class="gift-list">
-	<div class="gift-item" *ngFor = "let item of unhandleExpressGiftArray;let i = index">
-		<dl>
-		<dt><img src="http://images.91topbaby.com/{{item.imageName}}" alt=""></dt>
-		<dd class="product-title">
-			<h2>{{item.giftName}}</h2>
-			<!-- success unstart -->
-			<span class="unstart">立即兑换</span>
-		</dd>
-		<dd class="reserve-phone">
-					<span>预约手机：{{item.reservePhone}}</span>
-			<a href="tel:{{item.reservePhone}}"><img src="assets/image/phone.png"></a>
-		</dd>
-		<dd class="member-phone">会员手机：{{item.memberPhone}}</dd>
-		<dd class="get-time">领取时间：{{item.receiveDate | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
-		</dl>
-		<div class="reserve-time">
-			<div class="member-info">
-				<ul>
-					<li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>
-				</ul>
+		<!-- loading -->
+    <div class="loading-wrapper" *ngIf="loadingShow">
+			<div>
+				<ion-spinner item-start [name]="load.spinner"></ion-spinner>
 			</div>
-			<div class="btn-time">
-				<button ion-button round (click)="sendProduct(i)">发货</button>
+			<div [innerHTML]="load.content"></div>
+		</div>
+		<div class="gift-item" *ngFor = "let item of unhandleExpressGiftArray;let i = index">
+			<dl>
+			<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>
+			<dd class="product-title">
+				<h2>{{item.giftName}}</h2>
+				<!-- success unstart -->
+				<span class="unstart">立即兑换</span>
+			</dd>
+			<dd class="reserve-phone">
+						<span>预约手机：{{item.reservePhone}}</span>
+				<a href="tel:{{item.reservePhone}}"><img src="assets/image/phone.png"></a>
+			</dd>
+			<dd class="member-phone">会员手机：{{item.memberPhone}}</dd>
+			<dd class="get-time">领取时间：{{item.receiveDate | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
+			</dl>
+			<div class="reserve-time">
+				<div class="member-info">
+					<ul>
+						<li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>
+					</ul>
+				</div>
+				<div class="btn-time">
+					<button ion-button round (click)="sendProduct(i)">发货</button>
+				</div>
 			</div>
 		</div>
-	</div>
   </div>
   <div class="btn-selfview" (click)="goExpressgift()">
 		<span>查看已发货赠品</span>

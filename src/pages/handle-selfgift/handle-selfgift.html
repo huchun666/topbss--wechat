@@ -9,10 +9,16 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="gift-list">
-	
+	<!-- loading -->
+	<div class="loading-wrapper" *ngIf="loadingShow">
+		<div>
+			<ion-spinner item-start [name]="load.spinner"></ion-spinner>
+		</div>
+		<div [innerHTML]="load.content"></div>
+	</div>
 	<div class="gift-item" *ngFor = "let item of handleSeflGiftArray">
 	  <dl>
-		<dt><img src="http://images.91topbaby.com/{{item.imageName}}" alt=""></dt>
+		<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>
 		<dd class="product-title">
 		  <h2>{{item.giftName}}</h2>
 			<span class="unstart">{{ item.giftType | setHandleGiftType }}</span>

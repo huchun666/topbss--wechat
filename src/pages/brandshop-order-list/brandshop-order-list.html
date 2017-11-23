@@ -53,7 +53,7 @@
       <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">
         <dl>
           <dt>
-            <img class="my-picture" src="{{product.productSkuDTO.fileSeq | productSkuDTOImage}}" [alt]="product.productSkuDTO.productName">
+            <img class="my-picture" [src]="product.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="product.productSkuDTO.productName">
           </dt>
           <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>
           <dd class="sku-list">

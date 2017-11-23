@@ -128,16 +128,28 @@ export class FilterCancelStatusPipe implements PipeTransform {
 // 提现明细
 @Pipe({ name: 'setWithdrawStatus' })
 export class FilterWithdrawStatusPipe implements PipeTransform {
-  transform(param: string): string {
+  transform(param: string): any {
     switch(param) {
       case "0":
-        return "失败";
+        return { 
+          status: "失败",
+          pass: false
+        }
       case "1":
-        return "成功";
+        return { 
+          status: "成功",
+          pass: true
+        }
       case "3":
-        return "拒绝";
+        return { 
+          status: "拒绝",
+          pass: false
+        }
       case "9":
-        return "处理中";
+        return { 
+          status: "处理中",
+          pass: false
+        }
     }
   }
 }
@@ -198,6 +210,14 @@ export class ChangeGrayPipe implements PipeTransform {
 export class ProductSkuDTOImagePipe implements PipeTransform {
   transform(productSkuDTOImage: string): string {
     return productSkuDTOImage ? "http://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage : "../../assets/image/nodata.png";
+  }
+}
+
+//赠品服务图片加前缀或者没有图片时放补图
+@Pipe({ name: 'handleGiftImage' })
+export class HandleGiftImagePipe implements PipeTransform {
+  transform(handleGiftImage: string): string {
+    return handleGiftImage ? "http://images.91topbaby.com/" + handleGiftImage : "../../assets/image/nodata.png";
   }
 }
 
