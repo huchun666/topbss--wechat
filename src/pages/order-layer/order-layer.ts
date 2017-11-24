@@ -25,6 +25,7 @@ export class OrderLayer {
   loadingShow: Boolean = true;
   load: any = {}; 
   confirmAdd: Boolean = false;
+  skuPrice: number;//sku切换价格
   constructor(
     public navCtrl: NavController, 
     public viewCtrl: ViewController, 
@@ -44,6 +45,7 @@ export class OrderLayer {
   getProductSkuWithDefault() {
     let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=133&productSeq=${this.productSeq}`;//brandshopSeq=${this.brandshopSeqId}
     this.appService.httpGet(url).then( data => {
+      this.skuPrice = data.price;
       this.loadingShow = false;
       this.confirmAdd = true;
       if (data.skuLength != 0) {
@@ -113,6 +115,7 @@ export class OrderLayer {
       attrString = attrSeqString + attrValueString;
       let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=133&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
       this.appService.httpGet(url).then( data => {
+        this.skuPrice = data.price;
         this.orderLayerData = data;
         this.attrImageSeq = this.orderLayerData.attrImageSeq;
       }).catch(error => {
@@ -157,7 +160,7 @@ export class OrderLayer {
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       })
     }else {
-      this.appService.toast('请选择商品信息', 1000, 'middle');
+      this.appService.toast('请选择商品参数信息', 1000, 'middle');
     }
     
   }

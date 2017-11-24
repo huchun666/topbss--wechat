@@ -20,6 +20,7 @@ export class OrderStore {
   load: any = {}; 
   totalPrice: number = 0;
   confirmOrder: Boolean = false;
+  totalPriceFloat: any;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -56,6 +57,7 @@ export class OrderStore {
             this.orderStoreDataArray.map((item) => {
               this.totalPrice += item.itemPrice;
             })
+            this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
           }else {
               this.showNoMore = true;
           }
@@ -72,6 +74,8 @@ export class OrderStore {
   warehouseUpdate(index) {
     let body = [];
     let url = AppConfig.API.warehouseUpdate;
+    let loading = this.appService.loading();
+    loading.present();
     this.orderStoreDataArray.map(function(item) {
       let order = {};
       order['warehouseItemId'] = item.warehouseItemId;
@@ -82,13 +86,16 @@ export class OrderStore {
     })
     this.appService.httpPut(url, body[index]).then( data => {
       if (data.type=="success") {
+        loading.dismiss();
         console.log("update success!")
         this.totalPrice = 0;
         this.orderStoreDataArray.map((item) => {
           this.totalPrice += item.itemPrice;
         })
+        this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
       }
     }).catch(error=>{
+      loading.dismiss();
       console.log(error);
       this.appService.toast('更新失败，请稍后再试', 1000, 'middle');
     })
@@ -119,6 +126,15 @@ export class OrderStore {
       if (data.type == "success") {
         loading.dismiss();
         this.orderStoreDataArray.splice(index,1);
+        this.totalPrice = 0;
+        this.orderStoreDataArray.map((item) => {
+          this.totalPrice += item.itemPrice;
+        })
+        this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
+        if (this.orderStoreDataArray.length == 0) {
+          this.confirmOrder = false;
+          this.noData = true;
+        }
       }
     }).catch(error => {
       loading.dismiss();
@@ -139,7 +155,8 @@ export class OrderStore {
       loading.dismiss();
       this.returnUrl = data['_body'];
       this.navCtrl.push(PaymentCode,{
-        returnUrl: this.returnUrl
+        returnUrl: this.returnUrl,
+        totalPriceFloat: this.totalPriceFloat
       });
     }).catch(error=>{
       loading.dismiss();
