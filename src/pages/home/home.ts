@@ -29,31 +29,27 @@ export class Home {
   }
   //获取取消订单、退货订单数量
   getUnAuditCount() {
-    this.cancelOrderCount = 5;
-    this.returnOrderCount = 10;
-    //let url = AppConfig.API.
-    //this.appService.httpGet(url)
-    //  .then(data => {
-    //    this.cancelOrderCount = data.body.cancelOrderCount;
-    //    this.returnOrderCount = data.body.returnOrderCount;
-    //  })
-    //  .catch(error => {
-    //    console.log(error);
-    //  });
+    let url = AppConfig.API.untreatedCount
+    this.appService.httpGet(url).then( data => {
+      this.cancelOrderCount = data.cancelCount;
+      this.returnOrderCount = data.returnCount;
+    })
+    .catch(error => {
+      console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    });
   }
   //获取自提赠品、快递赠品数量
   getUnHandleCount() {
-    this.selfGiftCount = 15;
-    this.expressgiftCount = 20;
-    //let url = AppConfig.API.
-    //this.appService.httpGet(url)
-    //  .then(data => {
-    //    this.selfGiftCount = data.body.selfGiftCount;
-    //    this.expressgiftCount = data.body.expressgiftCount;
-    //  })
-    //  .catch(error => {
-    //    console.log(error);
-    //  });
+    let url = `${AppConfig.API.getUnhandleGiftCount}?brandshopSeq=133`;
+    this.appService.httpGet(url).then( data => {
+       this.selfGiftCount = data.reserved;
+       this.expressgiftCount = data.undelivered;
+     })
+     .catch(error => {
+       console.log(error);
+       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+     });
   }
   goUnAudit() {
     let unAuditModal = this.modalCtrl.create(UnauditTabs);

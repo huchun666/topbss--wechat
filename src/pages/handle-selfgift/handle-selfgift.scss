@@ -112,12 +112,15 @@ handle-selfgift {
 		}
   }
   .btn-selfview {
-		text-align: center;
-		padding: 2rem 0;
-		span {
-			font-size: 1.5rem;
-			color: #999;
-			text-decoration: underline;
-		}
+	text-align: center;
+	padding: 2rem 0;
+	span {
+		font-size: 1.5rem;
+		color: #999;
+		text-decoration: underline;
+	}
+  }
+  .btn-noMore {
+	  margin: 2rem;
   }
 }

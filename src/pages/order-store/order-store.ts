@@ -119,6 +119,10 @@ export class OrderStore {
       if (data.type == "success") {
         loading.dismiss();
         this.orderStoreDataArray.splice(index,1);
+        if (this.orderStoreDataArray.length == 0) {
+          this.confirmOrder = false;
+          this.noData = true;
+        }
       }
     }).catch(error => {
       loading.dismiss();

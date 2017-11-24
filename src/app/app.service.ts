@@ -42,6 +42,7 @@ export class AppConfig {
     warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
     warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
     warehouseEmpty: "/rest/order/warehouse/empty",//清空配单仓接口
+    untreatedCount: "/rest/order/untreatedCount",//查看待处理订单总数
     current: "/brandshop/user/current", //查询当前导购员基本信息
     account: "/brandshop/user/account", //查询当前导购员基本信息
     withdraw: "/brandshop/user/withdraw/", //提现
