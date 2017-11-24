@@ -11,9 +11,20 @@ export class UnauditTabs {
   orderReturn = UnauditReturnorder;
   cancelCount: string;
   returnCount: string;
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
-    this.cancelCount = this.setCount('0', 22);
-    this.returnCount = this.setCount('1', 12);
+  cancelOrderCount: number;
+  returnOrderCount: number;
+  constructor(
+    public navCtrl: NavController, 
+    public alertCtrl: AlertController,
+    public navParams: NavParams
+  ) {
+    this.cancelOrderCount = navParams.get('cancelOrderCount');
+    this.returnOrderCount = navParams.get('returnOrderCount');
+    this.getOrderCount();
+  }
+  getOrderCount() {
+    this.cancelCount = this.setCount('0', this.cancelOrderCount);
+    this.returnCount = this.setCount('1', this.returnOrderCount);
   }
   setCount(type, num) {
     if (type === '0') {

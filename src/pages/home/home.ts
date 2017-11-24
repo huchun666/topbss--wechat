@@ -52,7 +52,10 @@ export class Home {
      });
   }
   goUnAudit() {
-    let unAuditModal = this.modalCtrl.create(UnauditTabs);
+    let unAuditModal = this.modalCtrl.create(UnauditTabs,{
+      cancelOrderCount: this.cancelOrderCount,
+      returnOrderCount: this.returnOrderCount
+    });
     unAuditModal.present();
   }
   goUnHandle() {
