@@ -1,18 +1,12 @@
 <ion-content>
   <div class="totle-money" *ngIf="isShow">总金额：{{ sum }}</div>
   <ul class="first-card" *ngFor = "let item of awardDetail">
-    <li>
-      订单编号：{{ item.relateId }}
-    </li>
-    <li>
-      结算基数：￥{{ item.baseAmount }}
-    </li>
-    <li>
-      奖励比例：{{ item.percent }}
-    </li>
-    <li>
-      奖励金额：￥{{ item.amount }}
-    </li>
+      <li class='order-number' *ngIf="item.type === 3">订单编号：{{ item.relateId }}</li>
+      <li class='order-number' *ngIf="item.type === 4">会员手机：{{ item.mobile }}</li>
+      <li class='date'>活动时间：{{ item.startTime | date:'yyyy.MM.dd' }}</li>
+      <li class='base-number'>结算基数：￥{{ item.baseAmount }}</li>
+      <li class='percentage'>奖励比例：{{ item.percent }}</li>
+      <li class="money">奖励金额：￥{{ item.amount }}</li>
   </ul>
   <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardDetail.length < count">
     <ion-infinite-scroll-content

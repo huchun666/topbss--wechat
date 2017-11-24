@@ -128,27 +128,17 @@ export class FilterCancelStatusPipe implements PipeTransform {
 // 提现明细
 @Pipe({ name: 'setWithdrawStatus' })
 export class FilterWithdrawStatusPipe implements PipeTransform {
-  transform(param: string): any {
+  transform(param: number): any {
     switch(param) {
-      case "0":
+      case 0:
         return { 
           status: "失败",
           pass: false
         }
-      case "1":
+      case 1:
         return { 
           status: "成功",
           pass: true
-        }
-      case "3":
-        return { 
-          status: "拒绝",
-          pass: false
-        }
-      case "9":
-        return { 
-          status: "处理中",
-          pass: false
         }
     }
   }
