@@ -127,27 +127,39 @@ export class OrderLayer {
 
   //确认添加
   warehouseAdd() {
-    let loading = this.appService.loading();
-    loading.present();
-    let url = AppConfig.API.warehouseAdd;
-    let body = {
-      "productId": this.orderLayerData.productSeq,
-      "skuId": this.orderLayerData.skuSeq,
-      "itemPrice": this.orderLayerData.price,
-      "productNum": this.count,
-      "remark": ""
-    }
-    this.appService.httpPost(url, body).then( data => {
-      loading.dismiss();
-      if (data.type=='success') {
-        this.warehouseCount++;
-        this.dismiss();
+    let olabel = document.getElementsByClassName('labelTag');
+    let classLength = 0;
+    for(let i=0;i<olabel.length;i++) {
+      if (olabel[i].className == 'labelTag active') {
+        classLength++;
       }
-    }).catch( error => {
-      loading.dismiss();
-      console.log(error.message);
-      this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-    })
+    }
+    if (this.attrMap.length == classLength) {
+      let loading = this.appService.loading();
+      loading.present();
+      let url = AppConfig.API.warehouseAdd;
+      let body = {
+        "productId": this.orderLayerData.productSeq,
+        "skuId": this.orderLayerData.skuSeq,
+        "itemPrice": this.orderLayerData.price,
+        "productNum": this.count,
+        "remark": ""
+      }
+      this.appService.httpPost(url, body).then( data => {
+        loading.dismiss();
+        if (data.type=='success') {
+          this.warehouseCount++;
+          this.dismiss();
+        }
+      }).catch( error => {
+        loading.dismiss();
+        console.log(error.message);
+        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+      })
+    }else {
+      this.appService.toast('请选择商品信息', 1000, 'middle');
+    }
+    
   }
 
 }

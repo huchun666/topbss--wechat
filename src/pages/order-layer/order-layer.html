@@ -21,7 +21,7 @@
 			<div class="sku-attr" *ngFor = "let item of attrMap;let i = index">
 				<div class="sku-key">{{ item[0].attrName }}</div>
 				<div class="sku-value">
-					<label [ngClass]="{active: skuAttrValue[i] === skuAttr.attrValue, invalidAttrValueClass: skuAttr.invalidAttrValue | invalidAttrValueClass}" *ngFor="let skuAttr of item">
+					<label class="labelTag" [ngClass]="{active: skuAttrValue[i] === skuAttr.attrValue, invalidAttrValueClass: skuAttr.invalidAttrValue | invalidAttrValueClass}" *ngFor="let skuAttr of item">
 						<input 
 						[(ngModel)]="skuAttrValue[i]" 
 						name="Fruit" 

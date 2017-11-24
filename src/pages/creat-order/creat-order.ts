@@ -30,12 +30,12 @@ export class CreatOrder {
     this.up = false;
     this.load = AppConfig.load;
     this.getCreatOrderList();
-    this.getWarehouseCount();
     this.creatOrderArray = [];
   }
 
   //进入页面，请求接口，得到数据
   getCreatOrderList() {
+    this.loadingShow = true;
     let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       this.loadingShow = false;
@@ -89,8 +89,10 @@ export class CreatOrder {
     this.start = 0;
     this.searchKeyWord = event.target.value;
     if (this.searchKeyWord){
+      this.loadingShow = true;
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
+        this.loadingShow = false;
         if (data.totalRecord == 0) {
           //空空如也
           this.noData = true;
@@ -111,6 +113,7 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
+        this.loadingShow = false;
       });
     }else {
       this.getCreatOrderList();
@@ -192,13 +195,10 @@ export class CreatOrder {
 
   //查看配单仓订单总数
   getWarehouseCount() {
-    this.loadingShow = false;
     let url = `${AppConfig.API.warehouseGetCount}`;
     this.appService.httpGet(url).then( number => {
-      this.loadingShow = false;
       this.warehouseCount = number;
     }).catch(error => {
-      this.loadingShow = false;
       console.log(error);
       this.appService.toast('获取配单仓数目失败，请稍后重试', 1000, 'middle');
     });
