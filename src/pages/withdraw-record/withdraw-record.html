@@ -16,7 +16,7 @@
               提现金额：￥{{ item.realAmount }}
             </li>
             <li class='date'>
-              提现日期：{{ item.processDate | date:'yyyy.MM.dd' }}
+              提现日期：{{ item.createTime | date:'yyyy.MM.dd' }}
               <span [ngClass]="{status:true, fail: !(item.status | setWithdrawStatus).pass, pass: (item.status | setWithdrawStatus).pass }">{{ (item.status | setWithdrawStatus).status }}</span>
             </li>
           </ul>
