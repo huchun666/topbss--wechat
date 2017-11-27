@@ -11,11 +11,10 @@ export class OrderList {
   @ViewChild(Content) content: Content;
   dateStart: string = '';
   dateEnd: string = '';
-  isShowDetail: boolean = false;
+  isShowDetail = [];
   orderList = [];
   orderStatusList: any;
   currentStatus: any;
-  currentPage: number = 1;
   pageSize: number = 10;
   paramsStatus: string = '';
   paramsDate: string = '';
@@ -57,6 +56,8 @@ export class OrderList {
   // 获取订单列表
   getOrderList() {
     this.loadingShow = true;
+    this.showNoMore = false;
+    this.noData = false;
     var url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
@@ -72,6 +73,9 @@ export class OrderList {
           this.orderList.push(...data.data);
         } else if (this.down) {
           this.orderList = [...data.data];
+        }
+        for (let i = 0; i < this.orderList.length; i++) {
+          this.isShowDetail[i] = false;
         }
       } else if (data.count == 0) {
         this.noData = true;
@@ -93,6 +97,7 @@ export class OrderList {
     this.down = true;
     this.up = false;
     this.paramsDate = '';
+    this.orderList = [];
     if (this.dateStart != '') {
       this.paramsDate += `&dateStart=${this.dateStart}`;
       this.dateEndMin = this.dateStart;
@@ -104,12 +109,13 @@ export class OrderList {
     this.content.scrollTo(0, 0, 0);
     this.getOrderList();
   }
-  // 点击状态时切换，获取当前订单状态
+  // 点击状态时切换当前订单列表
   getCurrentStatus(index) {
     this.start = 0;
     this.down = true;
     this.up = false;
-    this.paramsStatus = ''
+    this.paramsStatus = '';
+    this.orderList = [];
     this.currentStatus = this.orderStatusList[index].status
     if (this.orderStatusList[index].status != 'all') {
       this.paramsStatus += '&status=' + this.currentStatus
@@ -118,8 +124,8 @@ export class OrderList {
     this.content.scrollTo(0, 0, 0);
   }
   // 是否显示明细
-  showDetail() {
-    this.isShowDetail = !this.isShowDetail;
+  showDetail(index) {
+    this.isShowDetail[index] = !this.isShowDetail[index];
   }
   // 进入门店所有订单
   goBrandshoOrder() {
