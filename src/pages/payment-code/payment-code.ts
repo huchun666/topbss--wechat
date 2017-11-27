@@ -7,6 +7,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class PaymentCode {
   myCode: string = "";
+  totalPriceFloat: any;
   constructor(
     public navCtrl: NavController,
     public app: App,
@@ -14,6 +15,7 @@ export class PaymentCode {
     public appService: AppService,
   ) {
     this.myCode = this.navParams.get('returnUrl');
+    this.totalPriceFloat = this.navParams.get('totalPriceFloat');
   }
   // 修改此单
   updateOrder() {
