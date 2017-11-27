@@ -16,7 +16,6 @@
 				<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>
 				<dd class="product-title">
 					<h2>{{ item.giftName }}</h2>
-					<!-- success unstart -->
 					<span [ngClass]="item.className">{{ item.giftType | setGiftType: item.status }}</span>
 				</dd>
 				<dd class="reserve-phone">
@@ -28,7 +27,6 @@
 			</dl>
 			<div class="reserve-time" *ngIf="item.giftType=='0' && item.status=='2'">
 				<div class="time-text">
-					<!-- <ion-input placeholder="会员预约到店时间"></ion-input> -->
 					<ion-datetime 
 						placeholder="会员预约到店时间" 
 						cancelText="取消" 

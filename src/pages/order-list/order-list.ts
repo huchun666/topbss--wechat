@@ -11,11 +11,10 @@ export class OrderList {
   @ViewChild(Content) content: Content;
   dateStart: string = '';
   dateEnd: string = '';
-  isShowDetail: boolean = false;
+  isShowDetail = [];
   orderList = [];
   orderStatusList: any;
   currentStatus: any;
-  currentPage: number = 1;
   pageSize: number = 10;
   paramsStatus: string = '';
   paramsDate: string = '';
@@ -25,7 +24,10 @@ export class OrderList {
   start: number = 0;
   showNoMore: Boolean = false;
   loadingShow: Boolean = true;
-  load: any = {}; 
+  load: any = {};
+  dateEndMin = '1970'; //结束日期的最小值
+  dateEndMax: string = ''; //结束日期的最大值
+  dateStartMax: string = ''; //开始日期的最大值
   constructor(
     public navCtrl: NavController,
     public appService: AppService) {
@@ -48,9 +50,14 @@ export class OrderList {
     this.currentStatus = this.orderStatusList[0].status;
     this.load = AppConfig.load;
     this.getOrderList();
+    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    this.dateEndMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
   }
   // 获取订单列表
   getOrderList() {
+    this.loadingShow = true;
+    this.showNoMore = false;
+    this.noData = false;
     var url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
@@ -67,6 +74,9 @@ export class OrderList {
         } else if (this.down) {
           this.orderList = [...data.data];
         }
+        for (let i = 0; i < this.orderList.length; i++) {
+          this.isShowDetail[i] = false;
+        }
       } else if (data.count == 0) {
         this.noData = true;
         this.showNoMore = false;
@@ -76,32 +86,36 @@ export class OrderList {
         this.showNoMore = true;
       }
     }).catch(error => {
-      // loading.dismiss();
       this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
   }
+  // 通过日期获取订单
   getOrderListByDate() {
     this.start = 0;
     this.down = true;
     this.up = false;
     this.paramsDate = '';
+    this.orderList = [];
     if (this.dateStart != '') {
       this.paramsDate += `&dateStart=${this.dateStart}`;
+      this.dateEndMin = this.dateStart;
     }
     if (this.dateEnd != '') {
       this.paramsDate += `&dateEnd=${this.dateEnd}`;
+      this.dateStartMax = this.dateEnd;
     }
     this.content.scrollTo(0, 0, 0);
     this.getOrderList();
   }
-  // 点击状态时切换，获取当前订单状态
+  // 点击状态时切换当前订单列表
   getCurrentStatus(index) {
     this.start = 0;
     this.down = true;
     this.up = false;
-    this.paramsStatus = ''
+    this.paramsStatus = '';
+    this.orderList = [];
     this.currentStatus = this.orderStatusList[index].status
     if (this.orderStatusList[index].status != 'all') {
       this.paramsStatus += '&status=' + this.currentStatus
@@ -110,8 +124,8 @@ export class OrderList {
     this.content.scrollTo(0, 0, 0);
   }
   // 是否显示明细
-  showDetail() {
-    this.isShowDetail = !this.isShowDetail;
+  showDetail(index) {
+    this.isShowDetail[index] = !this.isShowDetail[index];
   }
   // 进入门店所有订单
   goBrandshoOrder() {
@@ -120,10 +134,12 @@ export class OrderList {
   // 清除开始日期
   clearDateStart() {
     this.dateStart = '';
+    this.dateEndMin = '1970';
   }
   // 清除结束日期
   clearDateEnd() {
     this.dateEnd = '';
+    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
   }
 
   // 下拉刷新请求数据

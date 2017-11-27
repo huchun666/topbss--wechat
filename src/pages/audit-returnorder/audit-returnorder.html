@@ -17,12 +17,10 @@
       <div [innerHTML]="load.content"></div>
     </div>
 		<div class="order-items" (click)="goReturnedDetail(i)" *ngFor = "let item of auditReturnorderArray;let i = index">
-			<!-- 订单编号 -->
 			<div class="order-title">
           <h2>订单编号：
             <span>{{item.orderId}}</span>
           </h2>
-          <!--color auditing or pass -->
           <span [ngClass]="{auditStatus: true, pass:(item.status | setReturnOrderStatus).pass , auditing:(item.status | setReturnOrderStatus).audit} ">{{(item.status | setReturnOrderStatus).status}}</span>
         </div>
     

@@ -7,17 +7,17 @@
   </ion-navbar>
   <ion-toolbar class="filter-box">
     <div class="time-box">
-      <div class="search-title">时间搜索</div>
+      <div class="search-title">选择日期</div>
       <div class="search-list">
         <div class="time-start">
-          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="dateStart">
+          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">
           </ion-datetime>
           <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>
         </div>
         <span class="go">到</span>
         <div class="time-end">
-          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateStart}}" [(ngModel)]="dateEnd">
-          </ion-datetime>
+          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateEndMin}}" max="{{dateEndMax}}" [(ngModel)]="dateEnd">
+          </ion-datetime> 
           <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>
         </div>
       </div>
@@ -43,7 +43,7 @@
       </ion-refresher-content>
     </ion-refresher>
 
-    <div class="order-items" *ngFor="let order of orderList">
+    <div class="order-items" *ngFor="let order of orderList; let i = index">
       <!-- 订单编号 -->
       <div class="order-title">
         <h2>订单编号：
@@ -84,11 +84,12 @@
             </a>
           </dt>
           <dd class="total">会员手机：{{ order.memberMobile }}</dd>
-          <dd class="member-phone">收货时间：{{ order.receiptTime }}</dd>
+          <dd class="member-phone" *ngIf="order.status == 3 || order.status == 4 || order.status == 6 || order.status == 'C'">收货时间：{{ order.receiptTime }}</dd>
+          <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime }}</dd>
         </dl>
       </div>
       <div *ngIf="order.status!=0" class="order-dtail-box">
-        <div class="order-detail" *ngIf="isShowDetail">
+        <div class="order-detail" *ngIf="isShowDetail[i]">
           <ul>
             <li>订单总额：￥{{ order.totalAmount }}</li>
             <li>促销抵扣：￥{{ order.discountAmount }}</li>
@@ -101,15 +102,15 @@
           会员实付金额
           <span>￥{{ order.payAmount }}</span>
         </div>
-        <div class="btn-show" (click)="showDetail()">
+        <div class="btn-show" (click)="showDetail(i)">
           点击查看明细
-          <span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail}"></span>
+          <span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail[i]}"></span>
         </div>
       </div>
     </div>
 
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      <ion-infinite-scroll-content loadingText="正在加载..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>
   <div class="no-data" *ngIf="noData">

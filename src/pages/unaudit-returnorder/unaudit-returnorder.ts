@@ -38,10 +38,12 @@ export class UnauditReturnorder{
 			  {
 			    text: '确认',
 			    handler: () => {
-						// 点击确认后的执行代码
-						// 将当前点击的index状态改成4
+            // 点击确认后的执行代码
+            let loading = this.appService.loading();
+            loading.present();
             let url = `${AppConfig.API.returnReceived}?id=${this.unauditReturnorderArray[index].orderReturnSeq}`;
 						this.appService.httpPost(url, null).then(data => {
+              loading.dismiss();
               if (data.type == 'success') {
                 this.start = 0;
                 this.up = false;
@@ -49,7 +51,9 @@ export class UnauditReturnorder{
                 this.getUnauditReturnorderList();
               }
 						}).catch(error => {
-						 console.log(error);
+              loading.dismiss();
+              console.log(error);
+              this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
 						});
 			    }
 			  }

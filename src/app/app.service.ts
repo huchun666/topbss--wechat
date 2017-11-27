@@ -48,7 +48,9 @@ export class AppConfig {
     qrcode: "/account/brandshop/user/qrcode", //我的二维码
     withdrawList: "/account/brandshop/user/withdraw/list", //提现记录
     bonusList: "/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
-    bonusSum:"/account/brandshop/user/bonus/sum"
+    bonusSum:"/account/brandshop/user/bonus/sum",
+    untreatedCount: "/rest/order/untreatedCount",//查看待处理订单总数
+    
   };
 
   // ion-spinner
