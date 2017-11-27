@@ -15,7 +15,13 @@
           <li class="money">奖励金额：￥{{ item.amount }}</li>
         </ul>
       </div>
-      
+    </div>
+    <div class="no-data" *ngIf="awardActivity.length === 0">
+      <img src="../../assets/image/nodata.png" alt="">
+      <p>空空如也</p>
+    </div>
+    <div class="btn-noMore" *ngIf="awardActivity.length !== 0 && awardActivity.length === count">
+      <span>—— 没有更多信息了 ——</span>
     </div>
   </div>
   <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardActivity.length < count">
