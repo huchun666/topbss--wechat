@@ -42,13 +42,13 @@ export class AppConfig {
     warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
     warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
     warehouseEmpty: "/rest/order/warehouse/empty",//清空配单仓接口
-    current: "/brandshop/user/current", //查询当前导购员基本信息
-    account: "/brandshop/user/account", //查询当前导购员基本信息
-    withdraw: "/brandshop/user/withdraw/", //提现
-    qrcode: "/brandshop/user/qrcode", //我的二维码
-    withdrawList: "/brandshop/user/withdraw/list", //提现记录
-    bonusList: "/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
-    bonusSum:"/brandshop/user/bonus/sum"
+    current: "/account/brandshop/user/current", //查询当前导购员基本信息
+    account: "/account/brandshop/user/account", //查询当前导购员基本信息
+    withdraw: "/account/brandshop/user/withdraw/", //提现
+    qrcode: "/account/brandshop/user/qrcode", //我的二维码
+    withdrawList: "/account/brandshop/user/withdraw/list", //提现记录
+    bonusList: "/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
+    bonusSum:"/account/brandshop/user/bonus/sum"
   };
 
   // ion-spinner
