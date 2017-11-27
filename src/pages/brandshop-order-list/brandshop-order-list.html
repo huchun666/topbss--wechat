@@ -4,7 +4,7 @@
   </ion-navbar>
   <ion-toolbar class="filter-box">
     <div class="time-box">
-      <div class="search-title">时间搜索</div>
+      <div class="search-title">选择日期</div>
       <div class="search-list">
         <div class="time-start">
           <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">
@@ -40,7 +40,7 @@
       </ion-refresher-content>
     </ion-refresher>
 
-    <div class="order-items" *ngFor="let order of orderList">
+    <div class="order-items" *ngFor="let order of orderList;let i = index">
       <!-- 订单编号 -->
       <div class="order-title">
         <h2>订单编号：
@@ -78,7 +78,7 @@
         </dl>
       </div>
       <div class="order-dtail-box">
-        <div class="order-detail" *ngIf="isShowDetail">
+        <div class="order-detail" *ngIf="isShowDetail[i]">
           <ul>
             <li>订单总额：￥{{ order.totalAmount }}</li>
             <li>促销抵扣：￥{{ order.discountAmount }}</li>
@@ -91,9 +91,9 @@
           会员实付金额
           <span>￥{{ order.payAmount }}</span>
         </div>
-        <div class="btn-show" (click)="showDetail()">
+        <div class="btn-show" (click)="showDetail(i)">
           点击查看明细
-          <span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail}"></span>
+          <span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail[i]}"></span>
         </div>
       </div>
     </div>

@@ -9,11 +9,10 @@ export class BrandshopOrderList {
   @ViewChild(Content) content: Content;
   dateStart: string = '';
   dateEnd: string = '';
-  isShowDetail: boolean = false;
+  isShowDetail = [];
   orderList = [];
   orderStatusList: any;
   currentStatus: any;
-  currentPage: number = 1;
   pageSize: number = 10;
   paramsStatus: string = '';
   paramsDate: string = '';
@@ -59,6 +58,8 @@ export class BrandshopOrderList {
   // 获取订单列表
   getOrderList() {
     this.loadingShow = true;
+    this.showNoMore = false;
+    this.noData = false;
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
@@ -95,6 +96,7 @@ export class BrandshopOrderList {
     this.down = true;
     this.up = false;
     this.paramsDate = '';
+    this.orderList = [];
     if (this.dateStart != '') {
       this.paramsDate += `&dateStart=${this.dateStart}`;
       this.dateEndMin = this.dateStart;
@@ -111,7 +113,8 @@ export class BrandshopOrderList {
     this.start = 0;
     this.down = true;
     this.up = false;
-    this.paramsStatus = ''
+    this.paramsStatus = '';
+    this.orderList = [];
     this.currentStatus = this.orderStatusList[index].status
     if (this.orderStatusList[index].status != 'all') {
       this.paramsStatus += '&status=' + this.currentStatus
@@ -120,8 +123,8 @@ export class BrandshopOrderList {
     this.getOrderList();
   }
   // 是否显示明细
-  showDetail() {
-    this.isShowDetail = !this.isShowDetail;
+  showDetail(index) {
+    this.isShowDetail[index] = !this.isShowDetail[index];
   }
   // 进入门店所有订单
   goBrandshoOrder() {
