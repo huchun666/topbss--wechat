@@ -50,8 +50,8 @@ export class BrandshopOrderList {
     }];
     this.currentStatus = this.orderStatusList[0].status;
     this.load = AppConfig.load;
-    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
-    this.dateEndMax = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
+    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    this.dateEndMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
     this.getOrderList();
   }
 

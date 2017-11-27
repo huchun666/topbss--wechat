@@ -109,7 +109,7 @@ export class OrderList {
     this.content.scrollTo(0, 0, 0);
     this.getOrderList();
   }
-  // 点击状态时切换，获取当前订单状态
+  // 点击状态时切换当前订单列表
   getCurrentStatus(index) {
     this.start = 0;
     this.down = true;
