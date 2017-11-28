@@ -38,7 +38,7 @@
       </div>
       <div [innerHTML]="load.content"></div>
     </div>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher *ngIf="!loadingShow" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content>
       </ion-refresher-content>
     </ion-refresher>
