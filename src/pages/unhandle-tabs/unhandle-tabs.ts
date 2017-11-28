@@ -18,15 +18,15 @@ export class UnhandleTabs {
   unhandleSeflGiftArray: any = [];
   unhandleExpressGiftArray: any = [];
   limit: number = 10;
-  up: Boolean = false;
-  down: Boolean = true;
+  up: Boolean;
+  down: Boolean;
   noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
   currentIndex = 0;
-	toTop: Boolean;//是否显示返回顶部按钮
+  toTop: Boolean;//是否显示返回顶部按钮
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -54,7 +54,7 @@ export class UnhandleTabs {
   }
 
   // 获取自提赠品
-  getUnhandleSelfGiftList(){
+  getUnhandleSelfGiftList() {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
@@ -86,80 +86,80 @@ export class UnhandleTabs {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
   }
-  
+
   addOrderStatusClass(param: any) {
-    param.map(function(item) {
-			if (item.giftType == '0' && item.status == '2') {
-				item.className = 'unstart';
-			} else if (item.giftType == '1') {
-				item.className = 'unstart';
-			} else {
-				item.className = 'success';
-			}
-		});
+    param.map(function (item) {
+      if (item.giftType == '0' && item.status == '2') {
+        item.className = 'unstart';
+      } else if (item.giftType == '1') {
+        item.className = 'unstart';
+      } else {
+        item.className = 'success';
+      }
+    });
   }
   // 查看已完成的自提
   goSelfgift() {
-		const orderModal = this.modalCtrl.create(HandleSelfgift);
-		orderModal.onDidDismiss(() => {
-			// 返回自提赠品页重新请求接口，渲染页面
-			this.start = 0;
-			this.down = true;
-			this.up = false;
-			this.getUnhandleSelfGiftList();
-		})
-		orderModal.present();
+    const orderModal = this.modalCtrl.create(HandleSelfgift);
+    orderModal.onDidDismiss(() => {
+      // 返回自提赠品页重新请求接口，渲染页面
+      this.start = 0;
+      this.down = true;
+      this.up = false;
+      this.getUnhandleSelfGiftList();
+    })
+    orderModal.present();
   }
-  
+
   clearReserveArriveTime(index) {
     this.unhandleSeflGiftArray[index].reserveShopTime = "";
   }
-  
+
   reserveAffirm(index) {
-		if (this.unhandleSeflGiftArray[index].reserveShopTime != null) {
-			// 预约确认更改数据
-			let body = {
-				memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
-				reserveShopTime: new Date(this.unhandleSeflGiftArray[index].reserveShopTime).getTime()
-			}
-			let loading = this.appService.loading();
-			loading.present();
-			let url = AppConfig.API.confirmReserveShopTime;
-			this.appService.httpPost(url, body).then( data => {
-				if (data.type == "success") {
-					this.start = 0;
-					this.down = true;
-					this.up = false;
-					loading.dismiss();
-					this.getUnhandleSelfGiftList();
-				}
-			}).catch(error => {
-				loading.dismiss();
-				console.log(error.message);
-				this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-			});
-		} else {
-			this.appService.toast('请选择会员预约到店时间', 1000, 'middle');
-		}
+    if (this.unhandleSeflGiftArray[index].reserveShopTime != null) {
+      // 预约确认更改数据
+      let body = {
+        memberGiftAccountSeq: this.unhandleSeflGiftArray[index].memberGiftAccountSeq,
+        reserveShopTime: new Date(this.unhandleSeflGiftArray[index].reserveShopTime).getTime()
+      }
+      let loading = this.appService.loading();
+      loading.present();
+      let url = AppConfig.API.confirmReserveShopTime;
+      this.appService.httpPost(url, body).then(data => {
+        if (data.type == "success") {
+          this.start = 0;
+          this.down = true;
+          this.up = false;
+          loading.dismiss();
+          this.getUnhandleSelfGiftList();
+        }
+      }).catch(error => {
+        loading.dismiss();
+        console.log(error.message);
+        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+      });
+    } else {
+      this.appService.toast('请选择会员预约到店时间', 1000, 'middle');
+    }
   }
-    
+
   //回到顶部
   scrollTo() {
-		this.content.scrollTo(0, 0, 300);
+    this.content.scrollTo(0, 0, 300);
   }
   //获取当前距离顶部位置
   scrollHandler(event) {
-		this.zone.run(() => {
-			if (event.scrollTop >= 300) {
-			this.toTop = true;
-			}else {
-			this.toTop = false;
-			}
-		})
+    this.zone.run(() => {
+      if (event.scrollTop >= 300) {
+        this.toTop = true;
+      } else {
+        this.toTop = false;
+      }
+    })
   }
-  
+
   // 获取快递赠品
-  getUnhandleExpressGiftList(){
+  getUnhandleExpressGiftList() {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
@@ -191,75 +191,75 @@ export class UnhandleTabs {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
   }
-  
-	goExpressgift() {
-		const orderModal = this.modalCtrl.create(HandleExpressgift);
-		orderModal.onDidDismiss(() => {
-		// 返回自提赠品页重新请求接口，渲染页面
-			this.start = 0;
-			this.down = true;
-			this.up = false;
-			this.getUnhandleExpressGiftList();
-		})
-		orderModal.present();
-	}
-	sendProduct(index) {
-		let alert = this.alertCtrl.create({
-			message: '赠品发货确认',
-			inputs: [
-		      {
-		        name: 'companyName',
-		        type: 'text',
-		        placeholder: '请在此输入快递公司名称'
-		      },{
-		        name: 'orderNum',
-		        type: 'text',
-		        placeholder: '请在此输入快递单号'
-		      }
-			],
-			buttons: [
-			  {
-			    text: '取消',
-			    handler: () => {
-			      //点击取消后的执行代码
-			    }
-			  },
-			  {
-			    text: '确认',
-			    handler: data => {
-						if (data.companyName != "" && data.orderNum != ""){
-							let body = {
-								memberGiftAccountSeq: this.unhandleExpressGiftArray[index].memberGiftAccountSeq,
-								expressCompany: data.companyName,
-								expressNo: data.orderNum
-							}
-							let loading = this.appService.loading();
-							loading.present();
-							let url = AppConfig.API.confirmExpressInfo;
-							this.appService.httpPost(url, body).then( data => {
-								if (data.type == "success") {
-									this.start = 0;
-									this.down = true;
-									this.up = false;
-									loading.dismiss();
-									this.getUnhandleExpressGiftList();
-								}
-							}).catch(error => {
-								loading.dismiss();
-								console.log(error);
-								this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-							});
-						}else if (data.companyName != "") {
-							this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-						}else if (data.orderNum != "") {
-							this.appService.toast('请填写快递单号', 1000, 'middle');
-						}
-			    }
-			  }
-			]
-		});
-		alert.present();
-	}
+
+  goExpressgift() {
+    const orderModal = this.modalCtrl.create(HandleExpressgift);
+    orderModal.onDidDismiss(() => {
+      // 返回自提赠品页重新请求接口，渲染页面
+      this.start = 0;
+      this.down = true;
+      this.up = false;
+      this.getUnhandleExpressGiftList();
+    })
+    orderModal.present();
+  }
+  sendProduct(index) {
+    let alert = this.alertCtrl.create({
+      message: '赠品发货确认',
+      inputs: [
+        {
+          name: 'companyName',
+          type: 'text',
+          placeholder: '请在此输入快递公司名称'
+        }, {
+          name: 'orderNum',
+          type: 'text',
+          placeholder: '请在此输入快递单号'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: () => {
+            //点击取消后的执行代码
+          }
+        },
+        {
+          text: '确认',
+          handler: data => {
+            if (data.companyName != "" && data.orderNum != "") {
+              let body = {
+                memberGiftAccountSeq: this.unhandleExpressGiftArray[index].memberGiftAccountSeq,
+                expressCompany: data.companyName,
+                expressNo: data.orderNum
+              }
+              let loading = this.appService.loading();
+              loading.present();
+              let url = AppConfig.API.confirmExpressInfo;
+              this.appService.httpPost(url, body).then(data => {
+                if (data.type == "success") {
+                  this.start = 0;
+                  this.down = true;
+                  this.up = false;
+                  loading.dismiss();
+                  this.getUnhandleExpressGiftList();
+                }
+              }).catch(error => {
+                loading.dismiss();
+                console.log(error);
+                this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+              });
+            } else if (data.companyName != "") {
+              this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+            } else if (data.orderNum != "") {
+              this.appService.toast('请填写快递单号', 1000, 'middle');
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   // 下拉刷新请求数据
   doRefresh(refresher) {

@@ -23,8 +23,8 @@ export class UnauditTabs {
   unauditCancelorderArray: any = [];
   unauditReturnorderArray: any = [];
   limit: number = 10;
-  up: Boolean = true;//上拉刷新和第一次进入页面时
-  down: Boolean = false;//下拉刷新和返回上一级页面时
+  up: Boolean;//上拉刷新和第一次进入页面时
+  down: Boolean;//下拉刷新和返回上一级页面时
   noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
