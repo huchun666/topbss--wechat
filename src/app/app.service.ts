@@ -163,7 +163,7 @@ export class AppService {
   public loading(): Loading {
     let loader = this.loadingCtrl.create({
       spinner: "dots",
-      content: "加载中...",
+      content: "加载中",
       dismissOnPageChange: true, //切换页面之后关闭loading框
       showBackdrop: false //不显示遮罩层
     });

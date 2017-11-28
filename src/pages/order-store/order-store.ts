@@ -9,8 +9,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class OrderStore {
   @ViewChild(Content) content: Content;
   start: number = 0;
-  limit: number = 10;
-  showNoMore: Boolean = false;
+  limit: number = 50;
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
@@ -21,6 +20,7 @@ export class OrderStore {
   totalPrice: number = 0;
   confirmOrder: Boolean = false;
   totalPriceFloat: any;
+  overStock: Boolean;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -46,21 +46,25 @@ export class OrderStore {
         }else {
           this.noData = false;
           this.confirmOrder = true;
-          if( this.start < data.count ) {
-            if (this.up) {
-              this.orderStoreDataArray.push(...data.data);
-              this.start += this.limit;
-            }else if (this.down){
-              this.orderStoreDataArray = data.data;
-              this.start += this.limit;
-            }
-            this.orderStoreDataArray.map((item) => {
-              this.totalPrice += item.itemPrice;
-            })
-            this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
-          }else {
-              this.showNoMore = true;
+          if (this.up) {
+            this.orderStoreDataArray.push(...data.data);
+            this.start += this.limit;
+          }else if (this.down){
+            this.orderStoreDataArray = data.data;
+            this.start += this.limit;
           }
+          this.orderStoreDataArray.map((item) => {
+            this.totalPrice += item.itemPrice;
+          })
+          this.orderStoreDataArray.map((item) => {//需要测试
+            item.productSkuDTO.attrValueList.map((single) => {
+              if (single.fileSeq) {
+                item.productSkuDTO.fileSeq = single.fileSeq;
+                return
+              }
+            })
+          })
+          this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
         }
       
       }).catch(error => {
@@ -103,7 +107,7 @@ export class OrderStore {
 
   //加
   addCount(index) {
-    if (this.orderStoreDataArray[index].productSkuDTO.stock > this.orderStoreDataArray[index].productNum) {//this.orderStoreDataArray[index].productSkuDTO.stock
+    if (this.orderStoreDataArray[index].productSkuDTO.stock > this.orderStoreDataArray[index].productNum) {
       this.orderStoreDataArray[index].productNum++;
       this.warehouseUpdate(index);
     }else {
@@ -146,6 +150,14 @@ export class OrderStore {
   resetCount(index) {
     this.warehouseUpdate(index);
   }
+  resetProductNum(index) {
+    if (this.orderStoreDataArray[index].productSkuDTO.stock >= this.orderStoreDataArray[index].productNum) {
+      this.warehouseUpdate(index);
+    }else {
+      this.appService.toast('不能超出库存哦', 1000, 'middle');
+      this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productSkuDTO.stock;
+    }
+  }
   //确认订单
   addProductModal() {
     let loading = this.appService.loading();
@@ -178,42 +190,12 @@ export class OrderStore {
         this.noData = true;
       }else {
         this.noData = false;
-        if (data.data.length != 0) {
-          this.orderStoreDataArray = data.data;
-          this.start += this.limit;
-        }else {
-          this.showNoMore = true;
-        }
+        this.orderStoreDataArray = data.data;
+        this.start += this.limit;
       }
     
     }).catch(error => {
       refresher.complete();
-      console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-    });
-  }
-
-  // 上拉刷新请求数据
-  infiniteGetOrderStoreList(infiniteScroll) {
-    this.down = false;
-    this.up = true;
-    let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
-    this.appService.httpGet(url).then( data => {
-      infiniteScroll.complete();
-      if (data.count == 0) {
-        //空空如也
-        this.noData = true;
-      }else {
-        this.noData = false;
-        if (data.data.length != 0) {
-          this.orderStoreDataArray.push(...data.data);
-          this.start += this.limit;
-        }else {
-          this.showNoMore = true;
-        }
-      }
-    }).catch(error => {
-      infiniteScroll.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });

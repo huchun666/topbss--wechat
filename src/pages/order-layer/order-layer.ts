@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -23,12 +23,14 @@ export class OrderLayer {
   fileSeq: string;//图片
   attrImageSeq: number;
   loadingShow: Boolean = true;
-  load: any = {}; 
+  load: any = {};
   confirmAdd: Boolean = false;
   skuPrice: number;//sku切换价格
+  overStock: Boolean = false;
+  isShowAddNumber: Boolean = false;
   constructor(
-    public navCtrl: NavController, 
-    public viewCtrl: ViewController, 
+    public navCtrl: NavController,
+    public viewCtrl: ViewController,
     public navParams: NavParams,
     public appService: AppService,
   ) {
@@ -38,34 +40,34 @@ export class OrderLayer {
     this.fileSeq = navParams.get('fileSeq');
     this.load = AppConfig.load;
     this.getProductSkuWithDefault();
-    
   }
 
   //初始化sku属性
   getProductSkuWithDefault() {
     let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=133&productSeq=${this.productSeq}`;//brandshopSeq=${this.brandshopSeqId}
-    this.appService.httpGet(url).then( data => {
+    this.appService.httpGet(url).then(data => {
+      this.isShowAddNumber = true;
       this.skuPrice = data.price;
       this.loadingShow = false;
       this.confirmAdd = true;
       if (data.skuLength != 0) {
         this.orderLayerData = data;
         this.attrImageSeq = this.orderLayerData.attrImageSeq
-        for(let key in this.orderLayerData.attrMap){
+        for (let key in this.orderLayerData.attrMap) {
           this.attrMap.push(this.orderLayerData.attrMap[key])
         }
-        for(let i=0;i<this.attrMap.length;i++){
-          for(let j=0;j<this.attrMap[i].length;j++){
-            if (this.attrMap[i][j].selectedAttrValue=="selectedAttrValue") {
+        for (let i = 0; i < this.attrMap.length; i++) {
+          for (let j = 0; j < this.attrMap[i].length; j++) {
+            if (this.attrMap[i][j].selectedAttrValue == "selectedAttrValue") {
               this.skuAttrValue.push(this.attrMap[i][j].attrValue)
             }
           }
         }
-        for(let i=0;i<this.attrMap.length;i++){
+        for (let i = 0; i < this.attrMap.length; i++) {
           this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
         }
         this.attrValueArr = this.skuAttrValue;
-      }else {
+      } else {
         this.orderLayerData = {}
       }
     }).catch(error => {
@@ -81,40 +83,51 @@ export class OrderLayer {
   }
 
   addCount() {
+    if (this.overStock == true) {
+      return;
+    }
     if (this.orderLayerData.stock > this.count) {
+      this.overStock = false;
       this.count++;
     }else {
+      this.overStock = true;
       this.appService.toast('不能添加更多宝贝了哦', 1000, 'middle');
     }
-	  
   }
 
   removeCount() {
-	  this.count = this.count === 1 ? 1 : (this.count - 1);
+    this.overStock = false;
+    this.count = this.count === 1 ? 1 : (this.count - 1);
   }
 
   //输入数字为负数时重置为1
   resetCount() {
-	  this.count = this.count <= 0 ? 1 : this.count;
+    this.count = this.count <= 0 ? 1 : this.count;
+    if (this.count >= this.orderLayerData.stock) {
+      this.count = this.orderLayerData.stock;
+      this.appService.toast('不能超出库存哦', 1000, 'middle');
+    }else {
+      this.count = this.count;
+    }
   }
 
   // 切换sku属性时
-  changeRadio(event,index) {
+  changeRadio(event, index) {
     var currentValue = event.target.getAttribute("ng-reflect-value");
-    if (this.attrValueArr[index] != currentValue){
+    if (this.attrValueArr[index] != currentValue) {
       this.attrValueArr[index] = currentValue;
       let attrSeqString = "";
       let attrValueString = "";
       let attrString = "";
-      this.attrSeqArr.map(function(item,i){
+      this.attrSeqArr.map(function (item, i) {
         attrSeqString += "&" + "attrSeqArr=" + item;
       })
-      this.attrValueArr.map(function(item,i){
+      this.attrValueArr.map(function (item, i) {
         attrValueString += "&" + "attrValueArr=" + item;
       })
       attrString = attrSeqString + attrValueString;
       let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=133&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
-      this.appService.httpGet(url).then( data => {
+      this.appService.httpGet(url).then(data => {
         this.skuPrice = data.price;
         this.orderLayerData = data;
         this.attrImageSeq = this.orderLayerData.attrImageSeq;
@@ -122,9 +135,9 @@ export class OrderLayer {
         console.log(error);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       });
-    }else{
+    } else {
       this.attrValueArr[index] = "";
-      event.target.setAttribute("checked",false);
+      event.target.setAttribute("checked", false);
     }
   }
 
@@ -132,14 +145,12 @@ export class OrderLayer {
   warehouseAdd() {
     let olabel = document.getElementsByClassName('labelTag');
     let classLength = 0;
-    for(let i=0;i<olabel.length;i++) {
+    for (let i = 0; i < olabel.length; i++) {
       if (olabel[i].className == 'labelTag active') {
         classLength++;
       }
     }
     if (this.attrMap.length == classLength) {
-      let loading = this.appService.loading();
-      loading.present();
       let url = AppConfig.API.warehouseAdd;
       let body = {
         "productId": this.orderLayerData.productSeq,
@@ -148,21 +159,17 @@ export class OrderLayer {
         "productNum": this.count,
         "remark": ""
       }
-      this.appService.httpPost(url, body).then( data => {
-        loading.dismiss();
-        if (data.type=='success') {
-          this.warehouseCount++;
+      this.appService.httpPost(url, body).then(data => {
+        if (data.type == 'success') {
+          this.appService.toast('添加成功！', 1000, 'middle');
           this.dismiss();
         }
-      }).catch( error => {
-        loading.dismiss();
+      }).catch(error => {
         console.log(error.message);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       })
-    }else {
+    } else {
       this.appService.toast('请选择商品参数信息', 1000, 'middle');
     }
-    
   }
-
 }
