@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, Content } from 'ionic-angular';
+import { NavController, ModalController, AlertController, Content } from 'ionic-angular';
 import { HandleExpressgift } from '../handle-expressgift/handle-expressgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({

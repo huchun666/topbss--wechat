@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { AppService, AppConfig } from '../../app/app.service';
+import { AppService } from '../../app/app.service';
 @Component({
   selector: 'returned-detail',
   templateUrl: 'returned-detail.html'

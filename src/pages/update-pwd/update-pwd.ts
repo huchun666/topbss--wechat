@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 @Component({
   selector: 'update-pwd',
   templateUrl: 'update-pwd.html'

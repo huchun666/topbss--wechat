@@ -1,6 +1,5 @@
-import { Login } from './../login/login';
 import { Component} from '@angular/core';
-import { ModalController, NavController, NavParams, AlertController } from 'ionic-angular';
+import { ModalController, NavController, AlertController } from 'ionic-angular';
 import { OrderLayer } from '../order-layer/order-layer';
 import { OrderStore } from '../order-store/order-store';
 import { AppService, AppConfig } from '../../app/app.service';

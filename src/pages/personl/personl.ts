@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { App, Nav, NavController, NavParams, ModalController, ViewController  } from 'ionic-angular';
+import { App, Nav, NavController, ModalController, ViewController  } from 'ionic-angular';
 import { Withdraw } from '../withdraw/withdraw';
 import { Login } from '../login/login';
 import { MyCode } from '../mycode/mycode';

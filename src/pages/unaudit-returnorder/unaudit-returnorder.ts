@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { AuditReturnorder } from '../audit-returnorder/audit-returnorder';
 import { ReturnDetail } from '../return-detail/return-detail';
 import { AppService, AppConfig } from '../../app/app.service';
