@@ -31,6 +31,8 @@ export class UnauditTabs {
   load: any = {};
   loadingShow: Boolean = true;
   currentIndex = 0;
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -68,6 +70,7 @@ export class UnauditTabs {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
+        this.showInfinite = true;
         if (this.up) {
           this.unauditCancelorderArray.push(...data.data);
         } else if (this.down) {
@@ -84,7 +87,8 @@ export class UnauditTabs {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     })
   }
   //审核点击事件
@@ -158,6 +162,7 @@ export class UnauditTabs {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
+        this.showInfinite = true;
         if (this.up) {
           this.unauditReturnorderArray.push(...data.data);
         } else if (this.down) {
@@ -174,7 +179,8 @@ export class UnauditTabs {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     })
   }
   // 处理订单操作
@@ -234,6 +240,7 @@ export class UnauditTabs {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.requestDefeat = false;
     setTimeout(() => {
       if (this.currentIndex == 0) {
         this.getUnauditCancelorder();
@@ -276,5 +283,24 @@ export class UnauditTabs {
     } else {
       this.getUnauditReturnorderList();
     }
+  }
+    
+  //请求失败后刷新
+  requestDefeatRefreshReturnorder() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getUnauditReturnorderList();
+  }
+
+  requestDefeatRefreshCancelorder() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getUnauditCancelorder();
   }
 }

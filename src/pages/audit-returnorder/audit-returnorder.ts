@@ -16,6 +16,8 @@ export class AuditReturnorder {
   showNoMore: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -40,6 +42,7 @@ export class AuditReturnorder {
         this.noData = true;
       } else {
         this.noData = false;
+        this.showInfinite = true;
         if (this.start < data.count) {
           if (this.up) {
             this.auditReturnorderArray.push(...data.data);
@@ -55,7 +58,8 @@ export class AuditReturnorder {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     });
   }
 
@@ -66,13 +70,13 @@ export class AuditReturnorder {
     this.up = false;
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
-      console.log(data)
       refresher.complete();
       if (data.totalRecord == 0) {
         //空空如也
         this.noData = true;
       }else {
         this.noData = false;
+        this.showInfinite = true;
         if (data.data.length != 0) {
           this.auditReturnorderArray = data.data;
           this.start += this.limit;
@@ -83,7 +87,8 @@ export class AuditReturnorder {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     });
   }
 
@@ -111,5 +116,15 @@ export class AuditReturnorder {
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
+  }
+    	
+	//请求失败后刷新
+	requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getAuditReturnorderList();
   }
 }

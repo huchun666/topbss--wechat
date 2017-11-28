@@ -16,6 +16,8 @@ export class HandleSelfgift {
   down: Boolean;//下拉刷新和返回上一级页面时
   load: any = {};
   loadingShow: Boolean = true;
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
   constructor(public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public appService: AppService,
@@ -35,7 +37,8 @@ export class HandleSelfgift {
 				//空空如也
 				this.noData = true;
 			}else {
-				this.noData = false;
+        this.noData = false;
+        this.showInfinite = true;
 				if( this.start < data.totalRecord ) {
 					if (this.up) {
 						this.handleSeflGiftArray.push(...data.data);
@@ -52,7 +55,8 @@ export class HandleSelfgift {
 		}).catch(error => {
 			this.loadingShow = false;
 			console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
 		});
   }
 
@@ -69,6 +73,7 @@ export class HandleSelfgift {
         this.noData = true;
       }else {
         this.noData = false;
+        this.showInfinite = true;
         if (data.data.length != 0) {
           this.handleSeflGiftArray = data.data;
           this.start += this.limit;
@@ -79,7 +84,8 @@ export class HandleSelfgift {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     });
   }
 
@@ -107,5 +113,15 @@ export class HandleSelfgift {
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
+  }
+      	
+	//请求失败后刷新
+	requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getHandleSelfGiftList();
   }
 }

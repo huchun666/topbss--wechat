@@ -17,6 +17,8 @@ export class UnauditReturnorder{
   showNoMore: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
 	constructor(
     public navCtrl: NavController, 
     public modalCtrl: ModalController, 
@@ -85,6 +87,7 @@ export class UnauditReturnorder{
 		    this.noData = true;
 	    } else {
         this.noData = false;
+        this.showInfinite = true;
         if (this.start < data.count) {
           if (this.up) {
             this.unauditReturnorderArray.push(...data.data);
@@ -100,7 +103,8 @@ export class UnauditReturnorder{
 	  }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.requestDefeat = true;
+      this.showInfinite = false;
     });
   }
   
@@ -117,6 +121,7 @@ export class UnauditReturnorder{
         this.noData = true;
       }else {
         this.noData = false;
+        this.showInfinite = true;
         if (data.data.length != 0) {
           this.unauditReturnorderArray = data.data;
           this.start += this.limit;
@@ -127,7 +132,8 @@ export class UnauditReturnorder{
 	  }).catch(error => {
       refresher.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.requestDefeat = true;
+      this.showInfinite = false;
     });
   }
   
@@ -144,6 +150,7 @@ export class UnauditReturnorder{
         this.noData = true;
       }else {
         this.noData = false;
+        this.showInfinite = true;
         if (data.data.length != 0) {
           this.unauditReturnorderArray.push(...data.data);
           this.start += this.limit;
@@ -154,7 +161,18 @@ export class UnauditReturnorder{
 	  }).catch(error => {
       infiniteScroll.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.requestDefeat = true;
+      this.showInfinite = false;
     });
+  }
+    
+  //请求失败后刷新
+  requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getUnauditReturnorderList();
   }
 }
