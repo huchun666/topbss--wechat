@@ -1,36 +1,282 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, AlertController, Content, ModalController } from 'ionic-angular';
 import { UnauditCancelorder } from '../unaudit-cancelorder/unaudit-cancelorder';
 import { UnauditReturnorder } from '../unaudit-returnorder/unaudit-returnorder';
+import { AppService, AppConfig } from '../../app/app.service';
+import { AuditCancelorder } from '../audit-cancelorder/audit-cancelorder';
+import { AuditReturnorder } from '../audit-returnorder/audit-returnorder';
+import { ReturnDetail } from '../return-detail/return-detail';
 @Component({
   selector: 'unaudit-tabs',
   templateUrl: 'unaudit-tabs.html'
 })
 export class UnauditTabs {
+  @ViewChild(Content) content: Content;
   orderCancel = UnauditCancelorder;
   orderReturn = UnauditReturnorder;
   cancelCount: string;
   returnCount: string;
   cancelOrderCount: number;
   returnOrderCount: number;
+  currentStatus: any;
+  statusList: any;
+  unauditCancelorderArray: any = [];
+  unauditReturnorderArray: any = [];
+  limit: number = 10;
+  up: Boolean = true;//上拉刷新和第一次进入页面时
+  down: Boolean = false;//下拉刷新和返回上一级页面时
+  noData: Boolean = false;
+  start: number = 0;
+  showNoMore: Boolean = false;
+  load: any = {};
+  loadingShow: Boolean = true;
+  currentIndex = 0;
+  cancelOrderUrl: string;
+  returnOrderUrl: string;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public alertCtrl: AlertController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public appService: AppService,
+    public modalCtrl: ModalController,
   ) {
-    this.cancelOrderCount = navParams.get('cancelOrderCount');
-    this.returnOrderCount = navParams.get('returnOrderCount');
-    this.getOrderCount();
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.load = AppConfig.load;
+    // 获取待审核取消订单
+    this.getUnauditCancelorder();
+    this.getUnauditReturnorderList();
+    this.currentStatus = '待审核取消订单'
+    this.cancelOrderCount = navParams.get('cancelOrderCount'); //待审核取消订单数量
+    this.returnOrderCount = navParams.get('returnOrderCount'); //待审核退货订单数量
+    this.statusList = [{
+      label: '待审核取消订单',
+      num: this.cancelOrderCount
+    }, {
+      label: '待审核退货订单',
+      num: this.returnOrderCount
+    }];
+
   }
-  getOrderCount() {
-    this.cancelCount = this.setCount('0', this.cancelOrderCount);
-    this.returnCount = this.setCount('1', this.returnOrderCount);
+  // 获取待审核取消订单列表
+  getUnauditCancelorder() {
+    this.loadingShow = true;
+    this.showNoMore = false;
+    this.noData = false;
+    let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
+    this.appService.httpGet(url).then(data => {
+      this.loadingShow = false;
+      this.statusList[this.currentIndex].num = data.count;
+      if (this.start < data.count) {
+        this.showNoMore = false;
+        this.noData = false;
+        this.start += this.limit;
+        if (this.up) {
+          this.unauditCancelorderArray.push(...data.data);
+        } else if (this.down) {
+          this.unauditCancelorderArray = [...data.data];
+        }
+      } else if (data.count == 0) {
+        this.noData = true;
+        this.showNoMore = false;
+        this.unauditCancelorderArray = [];
+      } else if (data.data.length == 0) {
+        this.noData = false;
+        this.showNoMore = true;
+      }
+    }).catch(error => {
+      this.loadingShow = false;
+      console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    })
   }
-  setCount(type, num) {
-    if (type === '0') {
-      return "待审核取消订单" + "(" + num + ")";
+  //审核点击事件
+  auditOrder(index) {
+    const alert = this.alertCtrl.create({
+      message: `同意会员${this.unauditCancelorderArray[index].memberMobile}的订单${this.unauditCancelorderArray[index].orderId}取消申请？`,
+      buttons: [
+        {
+          text: '拒绝',
+          handler: () => {
+            this.start = 0;
+            this.down = true;
+            this.up = false;
+            // 点击拒绝后的执行代码
+            let loading = this.appService.loading();
+            loading.present();
+            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=0`;
+            this.appService.httpPost(url, null).then(data => {
+              if (data.type == 'success') {
+                loading.dismiss();
+                this.getUnauditCancelorder();
+              }
+            }).catch(error => {
+              loading.dismiss();
+              console.log(error);
+              this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+            });
+          }
+        },
+        {
+          text: '通过',
+          handler: () => {
+            this.start = 0;
+            this.down = true;
+            this.up = false;
+            // 点击同意后的执行代码
+            let loading = this.appService.loading();
+            loading.present();
+            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=1`;
+            this.appService.httpPost(url, null).then(data => {
+              if (data.type == 'success') {
+                loading.dismiss();
+                this.getUnauditCancelorder();
+              }
+            }).catch(error => {
+              loading.dismiss();
+              console.log(error);
+              this.appService.toast('操作失败', 1000, 'middle');
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  goAuditCancel() {
+    const orderModal = this.modalCtrl.create(AuditCancelorder);
+    orderModal.present();
+  }
+
+  // 获取待审核退货订单列表
+  getUnauditReturnorderList() {
+    this.loadingShow = true;
+    this.showNoMore = false;
+    this.noData = false;
+    let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
+    this.appService.httpGet(url).then(data => {
+      this.loadingShow = false;
+      this.statusList[this.currentIndex].num = data.count;
+      if (this.start < data.count) {
+        this.showNoMore = false;
+        this.noData = false;
+        this.start += this.limit;
+        if (this.up) {
+          this.unauditReturnorderArray.push(...data.data);
+        } else if (this.down) {
+          this.unauditReturnorderArray = [...data.data];
+        }
+      } else if (data.count == 0) {
+        this.noData = true;
+        this.showNoMore = false;
+        this.unauditReturnorderArray = [];
+      } else if (data.data.length == 0) {
+        this.noData = false;
+        this.showNoMore = true;
+      }
+    }).catch(error => {
+      this.loadingShow = false;
+      console.log(error);
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    })
+  }
+  // 处理订单操作
+  confirmReturn(index) {
+    const alert = this.alertCtrl.create({
+      message: `确认已收到会员${this.unauditReturnorderArray[index].mobile}的订单${this.unauditReturnorderArray[index].orderId}的${this.unauditReturnorderArray[index].number}件退货商品？`,
+      buttons: [
+        {
+          text: '取消',
+          handler: () => {
+            //点击取消后的执行代码
+          }
+        },
+        {
+          text: '确认',
+          handler: () => {
+            // 点击确认后的执行代码
+            let loading = this.appService.loading();
+            loading.present();
+            let url = `${AppConfig.API.returnReceived}?id=${this.unauditReturnorderArray[index].orderReturnSeq}`;
+            this.appService.httpPost(url, null).then(data => {
+              loading.dismiss();
+              if (data.type == 'success') {
+                this.start = 0;
+                this.up = false;
+                this.down = true;
+                this.getUnauditReturnorderList();
+              }
+            }).catch(error => {
+              loading.dismiss();
+              console.log(error);
+              this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  auditReturn(index) {
+    const orderModal = this.modalCtrl.create(ReturnDetail, { productId: this.unauditReturnorderArray[index].orderReturnSeq });
+    orderModal.onDidDismiss(() => {
+      this.start = 0;
+      this.down = true;
+      this.up = false;
+      this.getUnauditReturnorderList();
+    })
+    orderModal.present();
+  }
+  goAuditReturn() {
+    const orderModal = this.modalCtrl.create(AuditReturnorder);
+    orderModal.present();
+  }
+
+  // 下拉刷新请求数据
+  doRefresh(refresher) {
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    setTimeout(() => {
+      if (this.currentIndex == 0) {
+        this.getUnauditCancelorder();
+      } else {
+        this.getUnauditReturnorderList();
+      }
+      refresher.complete();
+    }, 1000);
+    this.showNoMore = false;
+  }
+
+  // 上拉刷新请求数据
+  loadMore(infiniteScroll) {
+    if (!this.showNoMore) {
+      this.down = false;
+      this.up = true;
+      setTimeout(() => {
+        if (this.currentIndex == 0) {
+          this.getUnauditCancelorder();
+        } else {
+          this.getUnauditReturnorderList();
+        }
+        infiniteScroll.complete();
+      }, 1000)
     } else {
-      return "待处理退货订单" + "(" + num + ")";
+      infiniteScroll.complete();
+    }
+  }
+
+  // 切换tab标签
+  getCurrentStatus(index) {
+    this.start = 0;
+    this.content.scrollTo(0, 0, 0);
+    this.currentStatus = this.statusList[index].label;
+    this.currentIndex = index;
+    if (this.currentIndex == 0) {
+      this.getUnauditCancelorder();
+    } else {
+      this.getUnauditReturnorderList();
     }
   }
 }
