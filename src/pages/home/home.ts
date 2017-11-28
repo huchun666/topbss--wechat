@@ -57,10 +57,19 @@ export class Home {
       returnOrderCount: this.returnOrderCount
     });
     unAuditModal.present();
+    unAuditModal.onDidDismiss(() => {
+      this.getUnAuditCount();
+    })
   }
   goUnHandle() {
-    let unHandleModal = this.modalCtrl.create(UnhandleTabs);
+    let unHandleModal = this.modalCtrl.create(UnhandleTabs,{
+      selfGiftCount: this.selfGiftCount,
+      expressGiftCount: this.expressgiftCount
+    });
     unHandleModal.present();
+    unHandleModal.onDidDismiss(() => {
+      this.getUnHandleCount();
+    })
   }
   qrCodeScan() {
     // 订单
