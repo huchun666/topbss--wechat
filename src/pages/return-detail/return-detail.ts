@@ -98,15 +98,7 @@ export class ReturnDetail {
 	}
 	agreeReturn() {
 		let alert = this.alertCtrl.create({
-			message: '退货数量: ' + this.returnDetail.orderReturn.number  + '<span>拟退款金额：</span>',
-			inputs: [
-        {
-          name: 'price',
-          label: '退款金额',
-          type: 'number',
-          value: `${this.returnDetail.returnAmount}`
-        }
-      ],
+			message: '退货数量: ' + this.returnDetail.orderReturn.number  + `<span>拟退款金额：${this.returnDetail.returnAmount} 元</span>`,
 			buttons: [
 			  {
 			    text: '取消',
@@ -116,10 +108,10 @@ export class ReturnDetail {
 			  },
 			  {
 			    text: '确认',
-			    handler: data => {
+			    handler: () => {
             let loading = this.appService.loading();
             loading.present();
-            let url = `${AppConfig.API.auditReturnOrder}?id=${this.productId}&isAgree=1&totalReturnPrice=${data.price}`;
+            let url = `${AppConfig.API.auditReturnOrder}?id=${this.productId}&isAgree=1&totalReturnPrice=${this.returnDetail.returnAmount}`;
             this.appService.httpPost(url, null).then( data => {
               if (data.type == "success") {
                 loading.dismiss();
