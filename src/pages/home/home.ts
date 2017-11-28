@@ -36,7 +36,6 @@ export class Home {
     })
     .catch(error => {
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
   //获取自提赠品、快递赠品数量
@@ -48,7 +47,6 @@ export class Home {
      })
      .catch(error => {
        console.log(error);
-       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
      });
   }
   goUnAudit() {
