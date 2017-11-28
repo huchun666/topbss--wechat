@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController  } from 'ionic-angular';
 import { AppService, AppConfig } from '../../../app/app.service';
 @Component({
   selector: 'add-account',
@@ -9,20 +9,20 @@ export class AddAccount {
   salesName: string = '';
   cellphone: string = '';
   IDcard: string = '';
-  id: any;
   wechatOpenid: any;
+  userCurrent: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public alertCtrl: AlertController,
+    public viewCtrl : ViewController,
     public appService: AppService
   ) {
-    this.id = this.navParams.get('param');
+    this.userCurrent = this.navParams.get('param2');
   }
   updateCurrent() {
     let url = `${AppConfig.API.current}`;
     let body = {
-      id: this.id,
+      id: this.userCurrent.id,
       salesName: this.salesName,
       cellphone: this.cellphone,
       IDcard: this.IDcard,
@@ -30,7 +30,11 @@ export class AddAccount {
     }
     this.appService.httpPut(url, body)
       .then(data => {
-        this.appService.toast('更新成功', 3000, 'middle');
+        this.appService.toast('更新成功', 1000, 'middle');
+        setTimeout(() => {
+          let Refash = {'isRefash': true}
+          this.viewCtrl.dismiss(Refash)
+        }, 1500)
       })
       .catch(error => {
         console.log(error);

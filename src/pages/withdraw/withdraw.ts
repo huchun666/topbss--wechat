@@ -19,8 +19,8 @@ export class Withdraw {
   }
   /* 获取可提现金额 */
   getBalance () {
-    console.log(this.navParams.get("param"));
-    this.balance = this.navParams.get("param");
+    console.log(this.navParams.get("param1"));
+    this.balance = this.navParams.get("param1");
   }
   /* 提现 */
   withdraw() {

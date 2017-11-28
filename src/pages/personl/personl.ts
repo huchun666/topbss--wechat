@@ -24,7 +24,7 @@ export class Personl {
     brandshopId: '', //门店id
     wechatNumber: '', //微信号
     idcard: '', //身份证
-    isBoundWechat: false
+    boundWechat: false
   }
   /* 当前导购员账户信息
    * 导购员ID，类型账户，已审核金额（旧版本的总金额），可提现金额，审核中金额，已提取金额
@@ -83,13 +83,19 @@ export class Personl {
     appNav.setRoot(Login);
   }
   /* 跳转页面 */
-  redirectPage(page, param) {
-    if (!this.userCurrent.isBoundWechat && page === Withdraw) {
+  redirectPage(page, param1, param2) {
+    if (!this.userCurrent.boundWechat && page === Withdraw) {
       page = this.pageList.addAccount;
     }
-    let pageModal = this.modalCtrl.create(page, {'param': param});
-    pageModal.onDidDismiss(() => {
-      let componentName = pageModal['_component'].name;
+    let pageModal = this.modalCtrl.create(page, {'param1': param1, 'param2': param2});
+    pageModal.onDidDismiss(data => {
+      let componentName = pageModal['_component'].name; //获取返回页面名
+      if (data) {
+        if (data.isRefash){
+          this.getCurrent();
+          this.getAccount();
+        }
+      }
     });
     pageModal.present();
   }
