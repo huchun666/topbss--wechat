@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { AppService, AppConfig } from '../../app/app.service';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import CryptoJS  from 'crypto-js';
 import Base64 from 'js-base64';
 @Component({

@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
+import { NavController, AlertController, ViewController } from 'ionic-angular';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 @Component({
   selector: 'gift-info',

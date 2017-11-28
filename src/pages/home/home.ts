@@ -4,11 +4,9 @@ import { AppService, AppConfig } from '../../app/app.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
 import { CreatOrder } from '../creat-order/creat-order';
-import { OrderInfo } from '../order-info/order-info';
 import { GiftInfo } from '../gift-info/gift-info';
 import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
-import { OrderList } from '../order-list/order-list';
 @Component({
   selector: 'home',
   templateUrl: 'home.html'
@@ -21,7 +19,6 @@ export class Home {
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
-    private barcodeScanner: BarcodeScanner,
     public appService: AppService
   ) {
     this.getUnAuditCount();

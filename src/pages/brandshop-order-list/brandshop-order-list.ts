@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content } from 'ionic-angular';
+import { NavController, Content } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'order-list',

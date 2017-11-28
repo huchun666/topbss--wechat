@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, Content } from 'ionic-angular';
+import { NavController, ModalController, AlertController, Content } from 'ionic-angular';
 import { PaymentCode } from '../payment-code/payment-code';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({

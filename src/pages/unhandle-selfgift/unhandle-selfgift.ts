@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, ViewChild, NgZone } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, Content } from 'ionic-angular';
+import { NavController, ModalController, AlertController, Content } from 'ionic-angular';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({

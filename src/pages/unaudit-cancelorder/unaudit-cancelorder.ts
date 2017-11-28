@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ToastController, Content } from 'ionic-angular';
+import { NavController, ModalController, AlertController, ToastController, Content } from 'ionic-angular';
 import { AuditCancelorder } from '../audit-cancelorder/audit-cancelorder';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({

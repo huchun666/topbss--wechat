@@ -1,7 +1,5 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
 import { NavController, NavParams, AlertController, Content, ModalController } from 'ionic-angular';
-import { UnhandleSelfgift } from '../unhandle-selfgift/unhandle-selfgift';
-import { UnhandleExpressgift } from '../unhandle-expressgift/unhandle-expressgift';
 import { AppService, AppConfig } from '../../app/app.service';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { HandleExpressgift } from '../handle-expressgift/handle-expressgift';

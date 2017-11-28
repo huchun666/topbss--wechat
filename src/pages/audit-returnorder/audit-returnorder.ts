@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { ReturnedDetail } from '../returned-detail/returned-detail';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
