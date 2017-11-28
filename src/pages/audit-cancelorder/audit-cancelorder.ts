@@ -16,6 +16,8 @@ export class AuditCancelorder {
   showNoMore: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -36,6 +38,7 @@ export class AuditCancelorder {
         this.noData = true;
       } else {
         this.noData = false;
+        this.showInfinite = true;
         if (this.start < data.count) {
           if (this.up) {
             this.auditCancelorderArray.push(...data.data);
@@ -51,7 +54,8 @@ export class AuditCancelorder {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     });
   }
 
@@ -68,6 +72,7 @@ export class AuditCancelorder {
         this.noData = true;
       }else {
         this.noData = false;
+        this.showInfinite = true;
         if (data.data.length != 0) {
           this.auditCancelorderArray = data.data;
           this.start += this.limit;
@@ -78,7 +83,8 @@ export class AuditCancelorder {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     });
   }
 
@@ -106,5 +112,15 @@ export class AuditCancelorder {
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
+  }
+  	
+	//请求失败后刷新
+	requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getAuditCancelorder();
   }
 }
