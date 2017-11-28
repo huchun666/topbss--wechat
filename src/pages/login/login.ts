@@ -12,8 +12,8 @@ import { Buffer } from 'buffer';
 export class Login{
   oauthTokenHeaders: any;
   loginHeaders: any;
-  username: string = "restUser";
-  pwd: string = "1234";
+  username: string = "restUser";//后面清空
+  pwd: string = "1234";//后面清空
   isNameAndPwd: boolean = false;
   rememberPassword: boolean = false;
   constructor(
@@ -37,16 +37,6 @@ export class Login{
   //   }
   // }
   login() {
-    //存储用户(此代码执行前需要进行用户名和密码非空校验)
-    // let user = {
-    //   userName: this.userName,
-    //   pwd: this.pwd
-    // };
-    // if (!this.rememberPassword){
-    //   user.pwd = ""; 
-    // }
-    // this.appService.setItem("user", JSON.stringify(user));
-
     // // 登录时判断用户名和密码是否正确
     // if (this.userName == "15618146206" && this.pwd == "123456hc") {
     //   let appNav = this.app.getRootNav();
@@ -83,6 +73,17 @@ export class Login{
     //     });
     //     this.appService.httpGetHeader(loginUrl, this.loginHeaders).then(data => {
     //       console.log(data);
+            //if (data.username == this.username) {
+            // let user = {
+            //   userName: this.username,
+            //   pwd: this.pwd
+            // };
+            // if (!this.rememberPassword){
+            //   user.pwd = ""; 
+            // }
+            // this.appService.setItem("user", JSON.stringify(user));
+            //}
+            
     //       let appNav = this.app.getRootNav();
     //       appNav.setRoot(TabsPage);
     //     }).catch(error => {
