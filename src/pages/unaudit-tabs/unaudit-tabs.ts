@@ -31,8 +31,6 @@ export class UnauditTabs {
   load: any = {};
   loadingShow: Boolean = true;
   currentIndex = 0;
-  cancelOrderUrl: string;
-  returnOrderUrl: string;
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -45,8 +43,6 @@ export class UnauditTabs {
     this.up = false;
     this.load = AppConfig.load;
     // 获取待审核取消订单
-    this.getUnauditCancelorder();
-    this.getUnauditReturnorderList();
     this.currentStatus = '待审核取消订单'
     this.cancelOrderCount = navParams.get('cancelOrderCount'); //待审核取消订单数量
     this.returnOrderCount = navParams.get('returnOrderCount'); //待审核退货订单数量
@@ -57,7 +53,7 @@ export class UnauditTabs {
       label: '待审核退货订单',
       num: this.returnOrderCount
     }];
-
+    this.getUnauditCancelorder();
   }
   // 获取待审核取消订单列表
   getUnauditCancelorder() {
@@ -67,7 +63,7 @@ export class UnauditTabs {
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
-      this.statusList[this.currentIndex].num = data.count;
+      this.statusList[0].num = data.count;
       if (this.start < data.count) {
         this.showNoMore = false;
         this.noData = false;
@@ -157,7 +153,7 @@ export class UnauditTabs {
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
-      this.statusList[this.currentIndex].num = data.count;
+      this.statusList[1].num = data.count;
       if (this.start < data.count) {
         this.showNoMore = false;
         this.noData = false;
@@ -270,6 +266,8 @@ export class UnauditTabs {
   // 切换tab标签
   getCurrentStatus(index) {
     this.start = 0;
+    this.up = false;
+    this.down = true;
     this.content.scrollTo(0, 0, 0);
     this.currentStatus = this.statusList[index].label;
     this.currentIndex = index;

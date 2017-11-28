@@ -59,7 +59,10 @@ export class Home {
     unAuditModal.present();
   }
   goUnHandle() {
-    let unHandleModal = this.modalCtrl.create(UnhandleTabs);
+    let unHandleModal = this.modalCtrl.create(UnhandleTabs,{
+      selfGiftCount: this.selfGiftCount,
+      expressGiftCount: this.expressgiftCount
+    });
     unHandleModal.present();
   }
   qrCodeScan() {
