@@ -57,6 +57,9 @@ export class Home {
       returnOrderCount: this.returnOrderCount
     });
     unAuditModal.present();
+    unAuditModal.onDidDismiss(() => {
+      this.getUnAuditCount();
+    })
   }
   goUnHandle() {
     let unHandleModal = this.modalCtrl.create(UnhandleTabs,{
@@ -64,6 +67,9 @@ export class Home {
       expressGiftCount: this.expressgiftCount
     });
     unHandleModal.present();
+    unHandleModal.onDidDismiss(() => {
+      this.getUnHandleCount();
+    })
   }
   qrCodeScan() {
     // 订单
