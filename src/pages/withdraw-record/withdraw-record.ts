@@ -17,7 +17,7 @@ export class WithdrawRecord {
     public navParams: NavParams,
     public appService: AppService
   ) {
-    this.withdrawAmount = this.navParams.get("param"); //提现总计，从当前账户传入过来
+    this.withdrawAmount = this.navParams.get("param1"); //提现总计，从当前账户传入过来
     this.getWithdrawList();
   }
   getWithdrawList() {
