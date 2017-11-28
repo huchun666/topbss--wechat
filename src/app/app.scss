@@ -231,3 +231,25 @@ ion-loading {
     margin-left: -83.1px;
   }
 }
+.toast-wrapper {
+  background: rgba(0, 0, 0, 0.65)!important;
+  left: 50%!important;
+  right: auto !important;
+  line-height: 3rem;
+  border-radius: 1.5rem!important;
+  width: auto !important;
+  padding: 0 1.5rem;
+  transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  .toast-message {
+    padding: 0;
+    font-size: 1.2rem;
+  }
+}
+.toast-wrapper, 
+.toast-wrapper div {
+  display: inline!important;
+}
