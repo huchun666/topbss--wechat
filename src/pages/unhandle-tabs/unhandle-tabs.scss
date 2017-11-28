@@ -196,19 +196,6 @@ unhandle-tabs {
       bottom: 80px;
       width: 50px;
       height: 50px;
-
-    }
-    .btn-selfview {
-      text-align: center;
-      padding: 2rem 0;
-      span {
-        font-size: 1.5rem;
-        color: #999;
-        text-decoration: underline;
-      }
-    }
-    .btn-noMore {
-      margin: 2rem 0;
     }
   }
   .expressGiftList {
@@ -316,18 +303,18 @@ unhandle-tabs {
         }
       }
     }
-    .btn-selfview {
-      text-align: center;
-      padding: 2rem 0;
-      span {
-        font-size: 1.5rem;
-        color: #999;
-        text-decoration: underline;
-      }
+  }
+  .btn-selfview {
+    text-align: center;
+    padding-top: 2rem;
+    span {
+      font-size: 1.5rem;
+      color: #999;
+      text-decoration: underline;
     }
-    .btn-noMore {
-      margin: 2rem 0;
-    }
+  }
+  .btn-noMore {
+    margin: 2rem 0;
   }
 
 }
