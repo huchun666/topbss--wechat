@@ -195,6 +195,14 @@ export class ChangeGrayPipe implements PipeTransform {
   }
 }
 
+//生成订单模块：sku数量加到库存时的样式
+@Pipe({ name: 'overStockPipe' })
+export class OverStockPipe implements PipeTransform {
+  transform(overStock: Boolean): Boolean {
+    return overStock ? true : false;
+  }
+}
+
 //图片加前缀或者没有图片时放补图
 @Pipe({ name: 'productSkuDTOImage' })
 export class ProductSkuDTOImagePipe implements PipeTransform {

@@ -115,10 +115,8 @@ export class UnhandleExpressgift {
 								console.log(error);
 								this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
 							});
-						}else if (data.companyName != "") {
-							this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-						}else if (data.orderNum != "") {
-							this.appService.toast('请填写快递单号', 1000, 'middle');
+						}else {
+							this.appService.toast('请填写快递信息', 1000, 'middle');
 						}
 			    }
 			  }

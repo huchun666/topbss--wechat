@@ -17,6 +17,7 @@ import {
   IsOrIsnotInvalidAttrValuePipe, 
   InvalidAttrValueClassPipe, 
   ChangeGrayPipe,
+  OverStockPipe,
   ProductSkuDTOImagePipe,
   ReasonTypePipe,
   HandleGiftImagePipe
@@ -119,6 +120,7 @@ let componentsList = [
     IsOrIsnotInvalidAttrValuePipe,
     InvalidAttrValueClassPipe,
     ChangeGrayPipe,
+    OverStockPipe,
     ProductSkuDTOImagePipe,
     ReasonTypePipe,
     HandleGiftImagePipe

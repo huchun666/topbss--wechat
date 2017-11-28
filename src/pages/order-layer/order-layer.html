@@ -35,13 +35,13 @@
 				</div>
 			</div>
 			
-			<div class="sku-attr">
+			<div class="sku-attr" *ngIf="isShowAddNumber">
 				<div class="sku-key">数量</div>
 				<div class="sku-value count">
-					<ion-icon class="icon-add" name="add" (touchstart)="addCount()"></ion-icon>
+					<ion-icon class="icon-add" [ngClass]="{changeGray: overStock | overStockPipe}" name="add" (touchstart)="addCount()"></ion-icon>
 					<ion-icon class="icon-remove" [ngClass]="{changeGray: count | changeGray}" name="remove" (touchstart)="removeCount()"></ion-icon>
 					<div class="add-count">
-						<ion-input (blur)="resetCount()" [(ngModel)]="count" type="number" clearInput=true></ion-input>
+						<ion-input (ionBlur)="resetCount()" [(ngModel)]="count" type="number" clearInput=true></ion-input>
 					</div>
 				</div>
 			</div>
