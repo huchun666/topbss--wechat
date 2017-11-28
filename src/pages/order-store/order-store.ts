@@ -21,6 +21,7 @@ export class OrderStore {
   confirmOrder: Boolean = false;
   totalPriceFloat: any;
   overStock: Boolean;
+  requestDefeat: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -56,7 +57,7 @@ export class OrderStore {
           this.orderStoreDataArray.map((item) => {
             this.totalPrice += item.itemPrice;
           })
-          this.orderStoreDataArray.map((item) => {//需要测试
+          this.orderStoreDataArray.map((item) => {
             item.productSkuDTO.attrValueList.map((single) => {
               if (single.fileSeq) {
                 item.productSkuDTO.fileSeq = single.fileSeq;
@@ -69,8 +70,8 @@ export class OrderStore {
       
       }).catch(error => {
         this.loadingShow = false;
+        this.requestDefeat = true;
         console.log(error);
-        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
   }
 
@@ -199,5 +200,15 @@ export class OrderStore {
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
+  }
+
+  //请求失败后刷新
+  requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getOrderStore();
   }
 }
