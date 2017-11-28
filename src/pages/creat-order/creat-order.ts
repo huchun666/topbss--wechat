@@ -166,7 +166,6 @@ export class CreatOrder {
           //空空如也
           this.noData = true;
         }else {
-          this.showInfinite = true;
           if (data.data.length != 0) {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
@@ -176,8 +175,7 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
-        this.showInfinite = false;
-        this.requestDefeat = true;
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     }else {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
@@ -188,7 +186,6 @@ export class CreatOrder {
           this.noData = true;
         }else {
           this.noData = false;
-          this.showInfinite = true;
           if (data.data.length != 0) {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
@@ -199,8 +196,7 @@ export class CreatOrder {
       }).catch(error => {
         infiniteScroll.complete();
         console.log(error);
-        this.showInfinite = false;
-        this.requestDefeat = true;
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     }
   }

@@ -28,6 +28,8 @@ export class OrderList {
   dateEndMin = '1970'; //结束日期的最小值
   dateEndMax: string = ''; //结束日期的最大值
   dateStartMax: string = ''; //开始日期的最大值
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public appService: AppService) {
@@ -69,6 +71,7 @@ export class OrderList {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.pageSize;
+        this.showInfinite = true;
         if (this.up) {
           this.orderList.push(...data.data);
         } else if (this.down) {
@@ -88,7 +91,8 @@ export class OrderList {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     })
   }
   // 通过日期获取订单
@@ -166,6 +170,16 @@ export class OrderList {
     } else {
       infiniteScroll.complete();
     }
+  }
+
+  //请求失败后刷新
+  requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getOrderList();
   }
 
 }

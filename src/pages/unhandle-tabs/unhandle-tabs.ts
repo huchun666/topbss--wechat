@@ -27,6 +27,8 @@ export class UnhandleTabs {
   loadingShow: Boolean = true;
   currentIndex = 0;
   toTop: Boolean;//是否显示返回顶部按钮
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -66,6 +68,7 @@ export class UnhandleTabs {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
+        this.showInfinite = true;
         if (this.up) {
           this.unhandleSeflGiftArray.push(...data.data);
         } else if (this.down) {
@@ -83,7 +86,8 @@ export class UnhandleTabs {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     })
   }
 
@@ -171,6 +175,7 @@ export class UnhandleTabs {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
+        this.showInfinite = true;
         if (this.up) {
           this.unhandleExpressGiftArray.push(...data.data);
         } else if (this.down) {
@@ -188,7 +193,8 @@ export class UnhandleTabs {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     })
   }
 
@@ -266,6 +272,7 @@ export class UnhandleTabs {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.requestDefeat = false;
     setTimeout(() => {
       if (this.currentIndex == 0) {
         this.getUnhandleSelfGiftList();
@@ -308,5 +315,34 @@ export class UnhandleTabs {
     } else {
       this.getUnhandleExpressGiftList();
     }
+  }
+      
+  //请求失败后刷新
+  requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getUnhandleExpressGiftList();
+  }
+
+  //请求失败后刷新
+  requestDefeatRefreshSelfGift() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getUnhandleSelfGiftList();
+  }
+
+  requestDefeatRefreshExpressGift() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getUnhandleExpressGiftList();
   }
 }
