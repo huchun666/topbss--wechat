@@ -4,22 +4,29 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div class="account-title">
-  	填写收款人信息并绑定微信作为收款账户
-  </div>
-  <div class="form-list">
-  	<ion-list>
-  	  <ion-item>
-  	    <ion-input [(ngModel)]="salesName" placeholder="输入收款人姓名"></ion-input>
-  	  </ion-item>
+  <div *ngIf="userCurrent.boundWechat;else noBound">
+    <div class="account-title">
+      填写收款人信息并绑定微信作为收款账户
+    </div>
+    <div class="form-list">
+      <ion-list>
+        <ion-item>
+          <ion-input [(ngModel)]="salesName" placeholder="输入收款人姓名"></ion-input>
+        </ion-item>
+        <ion-item>
+        <ion-input  [(ngModel)]="cellphone" placeholder="输入收款人手机号码"></ion-input>
+      </ion-item>
       <ion-item>
-      <ion-input  [(ngModel)]="cellphone" placeholder="输入收款人手机号码"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input  [(ngModel)]="IDcard" placeholder="输入收款人身份证号"></ion-input>
-    </ion-item>
-	</ion-list>
-  <button class="btn-bind" ion-button (click)="updateCurrent()">绑定微信</button>
-  <div class="message">*微信账户一旦绑定不能改，请谨慎操作</div>
+        <ion-input  [(ngModel)]="IDcard" placeholder="输入收款人身份证号"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button class="btn-bind" ion-button (click)="updateCurrent()">绑定微信</button>
+    <div class="message">*微信账户一旦绑定不能改，请谨慎操作</div>
+    </div>
   </div>
+  <ng-template #noBound>
+    <div class="account-title">
+      请先去微信公众号绑定账户信息
+    </div>
+  </ng-template>
 </ion-content>
