@@ -11,6 +11,8 @@ export class WithdrawRecord {
   withdrawAmount: number = 0;
   count: number = 0;
   withdrawList: any = [];
+  isEmpty: boolean = false;
+  requestFail: boolean = false;
   constructor(
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
@@ -33,9 +35,13 @@ export class WithdrawRecord {
           this.withdrawList.push(...data.data);
         }
         this.count = data.count;
+        this.isEmpty = data.count === 0 ? true : false;
+        this.requestFail = false;
       })
       .catch(error => {
         console.log(error);
+        this.requestFail = true;
+        this.isEmpty = false;
       }
     );
   }
@@ -45,5 +51,10 @@ export class WithdrawRecord {
       this.getWithdrawList();
       infiniteScroll.complete();
     }, 500);
+  }
+  refresh() {
+    this.requestFail = false;
+    this.currentPage = 1;
+    this.getWithdrawList();
   }
 }

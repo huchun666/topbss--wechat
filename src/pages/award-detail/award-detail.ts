@@ -12,6 +12,8 @@ export class AwardDetail{
   count: number = 0;
   sum: any;
   isShow: boolean = false;
+  isEmpty: boolean = false;
+  requestFail: boolean = false;
   constructor(
     public navParams: NavParams,
     public appService: AppService
@@ -32,8 +34,13 @@ export class AwardDetail{
           });
           this.awardDetail.push(...data.data);
         }
+        this.count = data.count;
+        this.isEmpty = data.count === 0 ? true : false;
+        this.requestFail = false;
       }).catch(error => {
         console.log(error);
+        this.requestFail = true;
+        this.isEmpty = false;
       });
   }
   // 获取总金额
@@ -57,5 +64,10 @@ export class AwardDetail{
       this.getAwardDetail();
       infiniteScroll.complete();
     }, 500);
+  }
+  refresh() {
+    this.requestFail = false;
+    this.currentPage = 1;
+    this.getAwardDetail();
   }
 }

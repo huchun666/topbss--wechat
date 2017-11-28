@@ -14,6 +14,8 @@ export class OrderDetail{
   count: number = 0;
   sum: any;
   isShow: boolean = false;
+  isEmpty: boolean = false;
+  requestFail: boolean = false;
   constructor(public appService: AppService){
     this.getOrderDetail();
     this.getBonusSum();
@@ -44,8 +46,12 @@ export class OrderDetail{
           this.orderDetail.push(...data.data);
         }
         this.count = data.count;
+        this.isEmpty = data.count === 0 ? true : false;
+        this.requestFail = false;
       }).catch(error => {
         console.log(error);
+        this.requestFail = true;
+        this.isEmpty = false;
       });
   }
   // 有无明细列表时的判断（判断总金额是否为0）
@@ -58,5 +64,10 @@ export class OrderDetail{
       this.getOrderDetail();
       infiniteScroll.complete();
     }, 500);
+  }
+  refresh() {
+    this.requestFail = false;
+    this.currentPage = 1;
+    this.getOrderDetail();
   }
 }

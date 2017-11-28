@@ -16,13 +16,20 @@
         </ul>
       </div>
     </div>
-    <div class="no-data" *ngIf="awardActivity.length === 0">
+    <div class="no-data" *ngIf="isEmpty">
       <img src="../../assets/image/nodata.png" alt="">
       <p>空空如也</p>
     </div>
     <div class="btn-noMore" *ngIf="awardActivity.length !== 0 && awardActivity.length === count">
       <span>—— 没有更多信息了 ——</span>
     </div>
+  </div>
+  <div class="request-defeat" *ngIf="requestFail">
+    <img src="../../assets/image/requestDefeat.png" alt="">
+    <p>啊哦！页面走丢了</p>
+    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">
+      刷新再找一找
+    </button>
   </div>
   <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardActivity.length < count">
       <ion-infinite-scroll-content
