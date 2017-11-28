@@ -253,3 +253,22 @@ ion-loading {
 .toast-wrapper div {
   display: inline!important;
 }
+.request-defeat {
+  margin: 5rem auto;
+  text-align: center;
+  img {
+    display: inline-block;
+    width: 20rem;
+    height: 20rem;
+  }
+  p {
+    color: #999;
+  }
+  .btn-request-defeat {
+    margin: 5rem 1rem;
+    border-radius: 4px;
+    width:-moz-calc(100% - 2rem); 
+		width:-webkit-calc(100% - 2rem);
+		width: calc(100% - 2rem);
+  }
+}

@@ -21,6 +21,8 @@ export class CreatOrder {
   searchKeyWord: string;//搜索内容
   loadingShow: Boolean = true;
   load: any = {}; 
+  requestDefeat: Boolean = false;
+  showInfinite: Boolean = false;
   constructor(public modalCtrl: ModalController, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
@@ -44,6 +46,7 @@ export class CreatOrder {
         this.noData = true;
       }else {
         this.noData = false;
+        this.showInfinite = true;
         if( this.start < data.totalRecord ) {
           if (this.up) {
             this.creatOrderArray.push(...data.data);
@@ -58,9 +61,10 @@ export class CreatOrder {
       }
       
     }).catch(error => {
+      this.showInfinite = false;
       this.loadingShow = false;
+      this.requestDefeat = true;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
 
@@ -93,9 +97,9 @@ export class CreatOrder {
         if (data.totalRecord == 0) {
           //空空如也
           this.noData = true;
-          this.showNoMore = false;
         }else {
           this.noData = false;
+          this.showInfinite = true;
           if( this.start < data.totalRecord ) {
             if (this.up) {
               this.creatOrderArray.push(...data.data);
@@ -110,9 +114,13 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
+        this.showInfinite = false;
         this.loadingShow = false;
       });
     }else {
+      this.start = 0;
+      this.down = true;
+      this.up = false;
       this.getCreatOrderList();
     }
   }
@@ -130,6 +138,7 @@ export class CreatOrder {
         this.noData = true;
       }else {
         this.noData = false;
+        this.showInfinite = true;
         if (data.data.length != 0) {
           this.creatOrderArray = data.data;
           this.start += this.limit;
@@ -140,7 +149,8 @@ export class CreatOrder {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     });
   }
 
@@ -156,6 +166,7 @@ export class CreatOrder {
           //空空如也
           this.noData = true;
         }else {
+          this.showInfinite = true;
           if (data.data.length != 0) {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
@@ -165,6 +176,8 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
+        this.showInfinite = false;
+        this.requestDefeat = true;
       });
     }else {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
@@ -175,6 +188,7 @@ export class CreatOrder {
           this.noData = true;
         }else {
           this.noData = false;
+          this.showInfinite = true;
           if (data.data.length != 0) {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
@@ -185,7 +199,8 @@ export class CreatOrder {
       }).catch(error => {
         infiniteScroll.complete();
         console.log(error);
-        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        this.showInfinite = false;
+        this.requestDefeat = true;
       });
     }
   }
@@ -195,14 +210,26 @@ export class CreatOrder {
     let url = `${AppConfig.API.warehouseGetCount}`;
     this.appService.httpGet(url).then( number => {
       this.warehouseCount = number;
+      this.showInfinite = true;
     }).catch(error => {
       console.log(error);
-      this.appService.toast('获取配单仓数目失败，请稍后重试', 1000, 'middle');
+      this.showInfinite = false;
+      this.requestDefeat = true;
     });
   }
 
   //再来一单按钮进来后，更新配单仓数量
   ionViewDidEnter() {
     this.getWarehouseCount();
+  }
+
+  //请求失败后刷新
+  requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    this.getCreatOrderList();
   }
 }
