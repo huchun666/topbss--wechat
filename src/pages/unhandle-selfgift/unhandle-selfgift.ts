@@ -15,9 +15,10 @@ export class UnhandleSelfgift {
   noData: Boolean;
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
-	toTop: Boolean;//是否显示返回顶部按钮
-	load: any = {};
+  toTop: Boolean;//是否显示返回顶部按钮
+  load: any = {};
   loadingShow: Boolean = true;
+  timer: any;
   constructor(
 	public navCtrl: NavController, 
 	public modalCtrl: ModalController, 
@@ -167,12 +168,17 @@ export class UnhandleSelfgift {
 
   //获取当前距离顶部位置
   scrollHandler(event) {
-		this.zone.run(() => {
-			if (event.scrollTop >= 300) {
-			this.toTop = true;
-			}else {
-			this.toTop = false;
-			}
-		})
+	clearTimeout(this.timer);
+	let self = this;
+	this.timer = setTimeout(() => {
+	  self.zone.run(() => {
+		if (event.scrollTop >= 300) {
+		  self.toTop = true;
+		}else {
+		  self.toTop = false;
+		}
+	  })
+	}, 100);
+	
   }
 }
