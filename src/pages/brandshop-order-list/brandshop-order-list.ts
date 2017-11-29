@@ -61,6 +61,7 @@ export class BrandshopOrderList {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;

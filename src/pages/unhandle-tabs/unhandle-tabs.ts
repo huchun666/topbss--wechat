@@ -58,6 +58,7 @@ export class UnhandleTabs {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
@@ -165,6 +166,7 @@ export class UnhandleTabs {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;

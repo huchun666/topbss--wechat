@@ -62,6 +62,7 @@ export class UnauditTabs {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
@@ -154,6 +155,7 @@ export class UnauditTabs {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
