@@ -60,6 +60,7 @@ export class OrderList {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     var url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
