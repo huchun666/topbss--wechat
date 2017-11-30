@@ -280,7 +280,7 @@ export class UnhandleTabs {
         this.getUnhandleExpressGiftList();
       }
       refresher.complete();
-    }, 1000);
+    }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
 
@@ -296,7 +296,7 @@ export class UnhandleTabs {
           this.getUnhandleExpressGiftList();
         }
         infiniteScroll.complete();
-      }, 1000)
+      }, AppConfig.LOAD_TIME)
     } else {
       infiniteScroll.complete();
     }

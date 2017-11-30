@@ -53,11 +53,11 @@
   </ion-list>
 
   <div class="no-data" *ngIf = "noData">
-		<img src="../../assets/image/nodata.png" alt="">
+		<img src="./assets/image/nodata.png" alt="">
 		<p>空空如也</p>
   </div>
   <div class="request-defeat" *ngIf = "requestDefeat">
-		<img src="../../assets/image/requestDefeat.png" alt="">
+		<img src="./assets/image/requestDefeat.png" alt="">
     <p>啊哦！页面走丢了</p>
     <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">
       刷新再找一找

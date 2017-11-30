@@ -18,8 +18,6 @@ export class OrderList {
   pageSize: number = 10;
   paramsStatus: string = '';
   paramsDate: string = '';
-  up: Boolean = false;
-  down: Boolean = true;
   noData: Boolean = false;
   start: number = 0;
   showNoMore: Boolean = false;
@@ -73,11 +71,7 @@ export class OrderList {
         this.noData = false;
         this.start += this.pageSize;
         this.showInfinite = true;
-        if (this.up) {
-          this.orderList.push(...data.data);
-        } else if (this.down) {
-          this.orderList = [...data.data];
-        }
+        this.orderList.push(...data.data);
         for (let i = 0; i < this.orderList.length; i++) {
           this.isShowDetail[i] = false;
         }
@@ -99,8 +93,6 @@ export class OrderList {
   // 通过日期获取订单
   getOrderListByDate() {
     this.start = 0;
-    this.down = true;
-    this.up = false;
     this.paramsDate = '';
     this.orderList = [];
     if (this.dateStart != '') {
@@ -117,8 +109,6 @@ export class OrderList {
   // 点击状态时切换当前订单列表
   getCurrentStatus(index) {
     this.start = 0;
-    this.down = true;
-    this.up = false;
     this.paramsStatus = '';
     this.orderList = [];
     this.currentStatus = this.orderStatusList[index].status
@@ -150,24 +140,21 @@ export class OrderList {
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
-    this.down = true;
-    this.up = false;
+    this.orderList = [];
     setTimeout(() => {
       this.getOrderList();
       refresher.complete();
-    }, 1000);
+    }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
 
-  // 上拉刷新请求数据
+  // 上拉加载请求数据
   loadMore(infiniteScroll) {
     if (!this.showNoMore) {
-      this.down = false;
-      this.up = true;
       setTimeout(() => {
         this.getOrderList();
         infiniteScroll.complete();
-      }, 1000)
+      }, AppConfig.LOAD_TIME)
     } else {
       infiniteScroll.complete();
     }
@@ -178,8 +165,7 @@ export class OrderList {
     this.requestDefeat = false;
     this.loadingShow = true;
     this.start = 0;
-    this.down = true;
-    this.up = false;
+    this.orderList = [];
     this.getOrderList();
   }
 
