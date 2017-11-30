@@ -76,7 +76,7 @@ export class BrandshopOrderList {
         if (this.up) {
           this.orderList.push(...data.data);
         } else if (this.down) {
-          this.orderList = [...data.data];
+          this.orderList = data.data;
         }
       } else if (data.count == 0) {
         this.noData = true;

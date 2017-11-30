@@ -76,7 +76,7 @@ export class OrderList {
         if (this.up) {
           this.orderList.push(...data.data);
         } else if (this.down) {
-          this.orderList = [...data.data];
+          this.orderList = data.data;
         }
         for (let i = 0; i < this.orderList.length; i++) {
           this.isShowDetail[i] = false;
