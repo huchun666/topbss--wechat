@@ -13,16 +13,20 @@ export class WithdrawRecord {
   withdrawList: any = [];
   isEmpty: boolean = false;
   requestFail: boolean = false;
+  isRefresh: boolean = true;
+  load: any;
+  isLoadingShow: boolean = false;
   constructor(
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
     public navParams: NavParams,
     public appService: AppService
   ) {
-    this.withdrawAmount = this.navParams.get("param1"); //提现总计，从当前账户传入过来
+    this.load = AppConfig.load;
     this.getWithdrawList();
   }
   getWithdrawList() {
+    this.isLoadingShow = true;
     let url = `${AppConfig.API.withdrawList}?start=${(this.currentPage - 1) * this.pageSize}&limit=${this.pageSize}`;
     this.appService.httpGet(url)
       .then(data => {
@@ -37,24 +41,40 @@ export class WithdrawRecord {
         this.count = data.count;
         this.isEmpty = data.count === 0 ? true : false;
         this.requestFail = false;
+        this.isLoadingShow = false;
+        this.withdrawAmount = this.navParams.get("param1"); //提现总计，从当前账户传入过来
       })
       .catch(error => {
         console.log(error);
         this.requestFail = true;
         this.isEmpty = false;
+        this.isLoadingShow = false;
       }
     );
   }
   loadMore(infiniteScroll) {
     this.currentPage ++;
-    setTimeout(() => {
-      this.getWithdrawList();
-      infiniteScroll.complete();
-    }, 500);
+    this.refreshPage(infiniteScroll);
   }
   refresh() {
     this.requestFail = false;
     this.currentPage = 1;
+    this.withdrawList = [];
+    this.withdrawAmount = 0;
     this.getWithdrawList();
+  }
+  pullRefresh(refresher) {
+    this.requestFail = false;
+    this.isEmpty = false;
+    this.currentPage = 1;
+    this.withdrawList = [];
+    this.withdrawAmount = 0;
+    this.refreshPage(refresher);
+  }
+  refreshPage(refresher) {
+    setTimeout(() => {
+      this.getWithdrawList();
+      refresher.complete();
+    }, 500);
   }
 }

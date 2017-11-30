@@ -14,15 +14,19 @@ export class AwardOrder {
   isShow: boolean = false;
   requestFail: boolean = false;
   isEmpty: boolean = false;
+  isRefresh: boolean = true;
+  load: any;
+  isLoadingShow: boolean = false;
   constructor(
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
     public appService: AppService
   ) {
-    this.getAwardOrder();
-    this.getBonusSum();
+    this.load = AppConfig.load;
+    this.getAllData();
   }
   getAwardOrder() {
+    this.isLoadingShow = true;
     let url = `${AppConfig.API.bonusList}?typeList=1&statusList=0,1&start=${(this.currentPage - 1) * this.pageSize}&limit=${this.pageSize}`;
     this.appService.httpGet(url)
       .then(data => {
@@ -38,13 +42,15 @@ export class AwardOrder {
         this.count = data.count;
         this.isEmpty = data.count === 0 ? true : false;
         this.requestFail = false;
+        this.isLoadingShow = false;
       }).catch(error => {
         console.log(error);
         this.requestFail = true;
         this.isEmpty = false;
+        this.isLoadingShow = false;
       });
   }
-  // 获取总金额
+  /** 获取总金额 **/
   getBonusSum() {
     let url = `${AppConfig.API.bonusSum}?typeList=1&statusList=0,1`;
     this.appService.httpGet(url)
@@ -55,20 +61,38 @@ export class AwardOrder {
         console.log(error);
       });
   }
-   // 有无明细列表时的判断（判断总金额是否为0）
-   setIsShow(sum) {
+  /** 有无明细列表时的判断（判断总金额是否为0）**/
+  setIsShow(sum) {
     return this.isShow = sum > 0 ? true : false;
   }
+  /** 上拉翻页 **/
   loadMore(infiniteScroll) {
     this.currentPage ++;
-    setTimeout(() => {
-      this.getAwardOrder();
-      infiniteScroll.complete();
-    }, 500);
+    this.refreshPage(infiniteScroll);
   }
+  /** 请求错误时，刷新页面 **/
   refresh() {
     this.requestFail = false;
     this.currentPage = 1;
+    this.getAllData();
+  }
+  /** 下拉刷新页面 **/
+  pullRefresh(refresher) {
+    this.requestFail = false;
+    this.isEmpty = false;
+    this.currentPage = 1;
+    this.refreshPage(refresher);
+  }
+  /** 下拉上拉公共方法 **/
+  refreshPage(refresher) {
+    setTimeout(() => {
+      this.getAllData();
+      refresher.complete();
+    }, 500);
+  }
+  /** 获取列表数据和总金额 **/
+  getAllData() {
     this.getAwardOrder();
+    this.getBonusSum();
   }
 }

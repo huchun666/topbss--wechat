@@ -1,10 +1,18 @@
 <ion-content>
+  <div class="loading-wrapper" *ngIf="isLoadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
+  <ion-refresher *ngIf="isRefresh" (ionRefresh)="pullRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="withdraw-record">
     <div class="withdraw-total">
-        <span *ngIf="isShow">总金额：￥ {{ sum }}</span>
+      <span *ngIf="isShow">总金额：￥ {{ sum }}</span>
     </div>
     <div class="record-list">
-
       <div class="withdraw-item" *ngFor = "let item of awardActivity">
         <ul>
           <li class='order-number' *ngIf="item.type === 3">订单编号：{{ item.relateId }}</li>
@@ -32,9 +40,9 @@
     </button>
   </div>
   <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardActivity.length < count">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="加载中">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载中">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

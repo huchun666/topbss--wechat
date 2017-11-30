@@ -1,4 +1,13 @@
 <ion-content>
+  <div class="loading-wrapper" *ngIf="isLoadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
+  <ion-refresher *ngIf="isRefresh" (ionRefresh)="pullRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="totle-money" *ngIf="isShow">总金额：{{ sum }}</div>
   <ul class="first-card" *ngFor = "let item of awardDetail">
       <li class='order-number' *ngIf="item.type === 3">订单编号：{{ item.relateId }}</li>

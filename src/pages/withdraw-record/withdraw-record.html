@@ -4,8 +4,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <div class="loading-wrapper" *ngIf="isLoadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
+  <ion-refresher *ngIf="isRefresh" (ionRefresh)="pullRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="withdraw-record">
-    <div class="withdraw-total">
+    <div class="withdraw-total" *ngIf="withdrawAmount > 0">
      提现总计：￥ {{ withdrawAmount }}
     </div>
   </div>
