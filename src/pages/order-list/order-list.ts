@@ -141,11 +141,12 @@ export class OrderList {
   doRefresh(refresher) {
     this.start = 0;
     this.orderList = [];
+    this.requestDefeat = false;
+    this.showNoMore = false;
     setTimeout(() => {
       this.getOrderList();
       refresher.complete();
     }, AppConfig.LOAD_TIME);
-    this.showNoMore = false;
   }
 
   // 上拉加载请求数据
