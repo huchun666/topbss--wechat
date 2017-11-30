@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
-import { Dialogs } from '@ionic-native/dialogs';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
@@ -66,8 +65,7 @@ export class AppService {
   constructor(
     private http: Http,
     public loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-    private dialogs: Dialogs
+    private toastCtrl: ToastController
   ) {
   }
 
