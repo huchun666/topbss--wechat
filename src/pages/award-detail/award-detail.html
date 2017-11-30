@@ -1,4 +1,13 @@
 <ion-content>
+  <div class="loading-wrapper" *ngIf="isLoadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
+  <ion-refresher *ngIf="isRefresh" (ionRefresh)="pullRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="totle-money" *ngIf="isShow">总金额：{{ sum }}</div>
   <ul class="first-card" *ngFor = "let item of awardDetail">
       <li class='order-number' *ngIf="item.type === 3">订单编号：{{ item.relateId }}</li>
@@ -9,14 +18,14 @@
       <li class="money">奖励金额：￥{{ item.amount }}</li>
   </ul>
   <div class="no-data" *ngIf="isEmpty">
-    <img src="../../assets/image/nodata.png" alt="">
+    <img src="./assets/image/nodata.png" alt="">
     <p>空空如也</p>
   </div>
   <div class="btn-noMore" *ngIf="awardDetail.length !== 0 && awardDetail.length === count">
     <span>—— 没有更多信息了 ——</span>
   </div>
   <div class="request-defeat" *ngIf="requestFail">
-    <img src="../../assets/image/requestDefeat.png" alt="">
+    <img src="./assets/image/requestDefeat.png" alt="">
     <p>啊哦！页面走丢了</p>
     <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">
       刷新再找一找

@@ -1,10 +1,18 @@
 <ion-content>
+  <div class="loading-wrapper" *ngIf="isLoadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
+  <ion-refresher *ngIf="isRefresh" (ionRefresh)="pullRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="withdraw-record">
     <div class="withdraw-total">
      <span *ngIf="isShow">总金额：￥ {{ sum }}</span>
     </div>
     <div class="record-list">
-
       <div class="withdraw-item" *ngFor = "let item of awardOrder">
         <ul>
           <li class='order-number'>订单编号：{{ item.relateId }}</li>
@@ -13,10 +21,9 @@
           <li class="money">奖励金额：￥{{ item.amount }}</li>
         </ul>
       </div>
-
     </div>
     <div class="no-data" *ngIf="isEmpty">
-      <img src="../../assets/image/nodata.png" alt="">
+      <img src="./assets/image/nodata.png" alt="">
       <p>空空如也</p>
     </div>
     <div class="btn-noMore" *ngIf="awardOrder.length !== 0 && awardOrder.length === count">
@@ -24,7 +31,7 @@
     </div>
   </div>
   <div class="request-defeat" *ngIf="requestFail">
-    <img src="../../assets/image/requestDefeat.png" alt="">
+    <img src="./assets/image/requestDefeat.png" alt="">
     <p>啊哦！页面走丢了</p>
     <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">
       刷新再找一找

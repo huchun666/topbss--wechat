@@ -4,8 +4,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <div class="loading-wrapper" *ngIf="isLoadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
+  <ion-refresher *ngIf="isRefresh" (ionRefresh)="pullRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="withdraw-record">
-    <div class="withdraw-total">
+    <div class="withdraw-total" *ngIf="withdrawAmount > 0">
      提现总计：￥ {{ withdrawAmount }}
     </div>
   </div>
@@ -23,14 +32,14 @@
         </div>
   </div>
   <div class="no-data" *ngIf="isEmpty">
-    <img src="../../assets/image/nodata.png" alt="">
+    <img src="./assets/image/nodata.png" alt="">
     <p>空空如也</p>
   </div>
   <div class="btn-noMore" *ngIf="withdrawList.length !== 0 && withdrawList.length === count">
     <span>—— 没有更多信息了 ——</span>
   </div>
   <div class="request-defeat" *ngIf="requestFail">
-    <img src="../../assets/image/requestDefeat.png" alt="">
+    <img src="./assets/image/requestDefeat.png" alt="">
     <p>啊哦！页面走丢了</p>
     <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">
       刷新再找一找
