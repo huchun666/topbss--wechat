@@ -163,7 +163,7 @@ export class OrderStore {
   addProductModal() {
     let loading = this.appService.loading();
     loading.present();
-    let url = `${AppConfig.API.warehouseGenerateCode}`;
+    let url = `${AppConfig.API.warehouseGenerateCode}?warehouseId=${this.orderStoreDataArray[0].warehouseId}`;
     this.appService.httpGetReturnData(url).then( data => {
       loading.dismiss();
       this.returnUrl = data['_body'];

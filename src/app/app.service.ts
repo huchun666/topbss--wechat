@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
-import { Dialogs } from '@ionic-native/dialogs';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
@@ -37,8 +36,8 @@ export class AppConfig {
     confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
     getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
     warehouseGetCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
-    getProductSkuWithDefault: "/product/getProductSkuWithDefault",//SKU初始加载
-    getValidSKUAttrValue: "/product/getValidSKUAttrValue",//SKU切换
+    getProductSkuWithDefault: "/product/sku/getProductSkuWithDefault",//SKU初始加载
+    getValidSKUAttrValue: "/product/sku/getValidSkuAttrValue",//SKU切换
     warehouseAdd: "/rest/order/warehouse/add",//添加配单行接口
     warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
     warehouseGenerateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
@@ -69,8 +68,7 @@ export class AppService {
   constructor(
     private http: Http,
     public loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-    private dialogs: Dialogs
+    private toastCtrl: ToastController
   ) {
   }
 
@@ -150,16 +148,7 @@ export class AppService {
 
   //错误或者异常处理提示
   private handleError(error: Response) {
-    this.alert("提示", error.toString());
     return Observable.throw(error.status || "服务错误");
-  }
-
-  //弹出提示信息
-  public alert(msg: string, title?: string) {
-    if (!title) {
-      title = '提示';
-    }
-    this.dialogs.alert(msg, title);
   }
 
   //加载中的友好提示loader.present();
