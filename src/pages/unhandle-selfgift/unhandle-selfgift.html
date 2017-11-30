@@ -20,7 +20,7 @@
 				</dd>
 				<dd class="reserve-phone">
 					<span>预约手机：{{ item.reservePhone }}</span>
-					<a href="tel:13761489650"><img src="../../assets/image/phone.png"></a>
+					<a href="tel:13761489650"><img src="./assets/image/phone.png"></a>
 				</dd>
 				<dd class="member-phone" *ngIf="item.giftType=='0'">会员手机：{{ item.memberPhone }}</dd>
 				<dd class="get-time">领取时间：{{ item.receiveDate | date:'yyyy-MM-dd HH:mm:ss' }}</dd>
@@ -47,13 +47,13 @@
 		</div>
 	</div>
 	<div class="toTop" (click)="scrollTo()" *ngIf="toTop">
-		<img src="../../assets/image/toTop.png" alt="">
+		<img src="./assets/image/toTop.png" alt="">
 	</div>
   <div class="btn-selfview" (click)="goSelfgift()">
     <span>查看已兑换自提赠品</span>
 	</div>
 	<div class="no-data" *ngIf = "noData">
-		<img src="../../assets/image/nodata.png" alt="">
+		<img src="./assets/image/nodata.png" alt="">
 		<p>空空如也</p>
 	</div>
 	<div class="btn-noMore" *ngIf = "showNoMore">

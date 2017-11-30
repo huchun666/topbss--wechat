@@ -151,7 +151,7 @@ export class BrandshopOrderList {
     setTimeout(() => {
       this.getOrderList();
       refresher.complete();
-    }, 1000);
+    }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
 
@@ -163,7 +163,7 @@ export class BrandshopOrderList {
       setTimeout(() => {
         this.getOrderList();
         infiniteScroll.complete();
-      }, 1000)
+      }, AppConfig.LOAD_TIME)
     } else {
       infiniteScroll.complete();
     }

@@ -15,6 +15,9 @@ export class AppConfig {
   //请求超时时间
   static TIME_OUT: number = 30000;
 
+  // 上拉加载、下拉刷新的定时器时间
+  static LOAD_TIME: number = 500;
+
   //获取token的url
   static oauthTokenUrl: string = "/uaa/oauth/token";
 

@@ -113,7 +113,7 @@ export class AuditCancelorder {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
-  	
+
 	//请求失败后刷新
 	requestDefeatRefresh() {
     this.requestDefeat = false;
