@@ -58,11 +58,12 @@ export class UnhandleTabs {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
-      this.statusList[this.currentIndex].num = data.totalRecord;
-      if (this.start < data.totalRecord) {
+      this.statusList[0].num = data.count;
+      if (this.start < data.count) {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
@@ -73,7 +74,7 @@ export class UnhandleTabs {
           this.unhandleSeflGiftArray = [...data.data];
         }
         this.addOrderStatusClass(this.unhandleSeflGiftArray);
-      } else if (data.totalRecord == 0) {
+      } else if (data.count == 0) {
         this.noData = true;
         this.showNoMore = false;
         this.unhandleSeflGiftArray = [];
@@ -165,11 +166,12 @@ export class UnhandleTabs {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
-      this.statusList[this.currentIndex].num = data.totalRecord;
-      if (this.start < data.totalRecord) {
+      this.statusList[this.currentIndex].num = data.count;
+      if (this.start < data.count) {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
@@ -180,7 +182,7 @@ export class UnhandleTabs {
           this.unhandleExpressGiftArray = [...data.data];
         }
         this.addOrderStatusClass(this.unhandleExpressGiftArray);
-      } else if (data.totalRecord == 0) {
+      } else if (data.count == 0) {
         this.noData = true;
         this.showNoMore = false;
         this.unhandleExpressGiftArray = [];

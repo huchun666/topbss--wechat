@@ -26,6 +26,7 @@ export class BrandshopOrderList {
   dateEndMin = '1970'; //结束日期的最小值
   dateEndMax: string = ''; //结束日期的最大值
   dateStartMax: string = ''; //开始日期的最大值
+  requestDefeat: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public appService: AppService) {
@@ -60,6 +61,7 @@ export class BrandshopOrderList {
     this.loadingShow = true;
     this.showNoMore = false;
     this.noData = false;
+    this.requestDefeat = false;
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
@@ -87,7 +89,7 @@ export class BrandshopOrderList {
     }).catch(error => {
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.requestDefeat = true;
     })
   }
   // 选中时间获取订单
@@ -165,5 +167,16 @@ export class BrandshopOrderList {
     } else {
       infiniteScroll.complete();
     }
+  }
+
+  
+  //请求失败后刷新
+  requestDefeatRefresh() {
+    this.requestDefeat = false;
+    this.loadingShow = true;
+    this.start = 0;
+    this.up = false;
+    this.down = true;
+    this.getOrderList();
   }
 }
