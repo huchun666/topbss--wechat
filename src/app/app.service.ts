@@ -191,4 +191,25 @@ export class AppService {
     }
   }
 
+  // 将日期格式化为yyyy-mm-dd
+  reserveDate(){
+    let fillZero = (n) => {
+      let result = (n).toString().length === 1 ? ('0' + n) : n;
+      return result;
+    }
+    let formatTime = (t = new Date()) => {
+      let d = new Date(t);
+      let year = d.getFullYear();
+      let month = d.getMonth() + 1;
+      let date = d.getDate();
+      let hours = d.getHours();
+      let minutes = d.getMinutes();
+      let seconds = d.getSeconds();
+      let result = `${year}-${fillZero(month)}-${fillZero(date)}`;
+      return result;
+    }
+    let res = formatTime(new Date());
+    return res;    
+  }
+
 }
