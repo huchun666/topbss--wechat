@@ -202,9 +202,6 @@ export class AppService {
       let year = d.getFullYear();
       let month = d.getMonth() + 1;
       let date = d.getDate();
-      let hours = d.getHours();
-      let minutes = d.getMinutes();
-      let seconds = d.getSeconds();
       let result = `${year}-${fillZero(month)}-${fillZero(date)}`;
       return result;
     }
