@@ -6,29 +6,5 @@
     "cordova": {}
   },
   "proxies": [
-    {
-      "path": "/account",
-      "proxyUrl": "http://192.168.31.232:8081/account"
-    },
-    {
-      "path": "/uaa",
-      "proxyUrl": "http://192.168.31.172:8081/uaa"
-    },
-    {
-      "path": "/demo-resource-server",
-      "proxyUrl": "http://192.168.31.172:8081/demo-resource-server"
-    },
-    {
-      "path": "/rest",
-      "proxyUrl": "http://192.168.31.203:6333/rest"
-    },
-    {
-      "path": "/product",
-      "proxyUrl": "http://192.168.31.215:6003/product"
-    },
-    {
-      "path": "/promotion",
-      "proxyUrl": "http://192.168.31.215:6004/promotion"
-    }
   ]
 }

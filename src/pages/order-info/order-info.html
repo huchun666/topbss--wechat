@@ -7,21 +7,21 @@
   <div class="order-title">
     <img class="my-picture" src="./assets/image/store.png" alt="店铺">
     <h2>{{ orderDetail.brandshopName }}</h2>
-    <span>{{ orderDetail.orderNumber }}</span>
+    <span>{{ orderDetail.orderId }}</span>
   </div>
   <div class="order-list">
 
-    <div class="order-item" *ngFor="let product of orderDetail.productList">
+    <div class="order-item" *ngFor="let product of orderDetail.orderItemProductSkuDTOS">
       <dl>
         <dt>
           <img class="my-picture" [src]="product.image" alt="小裙子">
         </dt>
         <dd class="product-title">{{ product.name }}</dd>
         <dd class="sku-list">
-          <span *ngFor="let sku of product.skuList">{{ sku.value }}</span>
+          <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }}</span>
         </dd>
-        <dd class='price'>{{ product.price }}</dd>
-        <dd class="count">{{ product.count }}</dd>
+        <dd class='price'>{{ product.unitPrice }}</dd>
+        <dd class="count">{{ product.number }}</dd>
       </dl>
     </div>
 

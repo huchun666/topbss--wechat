@@ -44,14 +44,14 @@ export class AppConfig {
     warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
     warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
     warehouseEmpty: "/rest/order/warehouse/empty",//清空配单仓接口
-    current: "/account/brandshop/user/current", //查询当前导购员基本信息
-    account: "/account/brandshop/user/account", //查询当前导购员基本信息
-    withdraw: "/account/brandshop/user/withdraw/", //提现
-    qrcode: "/account/brandshop/user/qrcode", //我的二维码
-    withdrawList: "/account/brandshop/user/withdraw/list", //提现记录
-    bonusList: "/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
-    bonusSum:"/account/brandshop/user/bonus/sum",
-    untreatedCount: "/rest/order/untreatedCount",//查看待处理订单总数
+    current: "http://192.168.31.232:6001/account/brandshop/user/current", //查询当前导购员基本信息
+    account: "http://192.168.31.232:6001/account/brandshop/user/account", //查询当前导购员基本信息
+    withdraw: "http://192.168.31.232:6001/account/brandshop/user/withdraw/", //提现
+    qrcode: "http://192.168.31.232:6001/account/brandshop/user/qrcode", //我的二维码
+    withdrawList: "http://192.168.31.232:6001/account/brandshop/user/withdraw/list", //提现记录
+    bonusList: "http://192.168.31.232:6001/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
+    bonusSum:"http://192.168.31.232:6001/account/brandshop/user/bonus/sum",
+    untreatedCount: "/rest/order/untreatedCount"//查看待处理订单总数
     
   };
 
