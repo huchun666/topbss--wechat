@@ -86,6 +86,7 @@ export class UnauditTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.unauditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
       this.showInfinite = false;
@@ -179,6 +180,7 @@ export class UnauditTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.unauditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
       this.showInfinite = false;

@@ -47,7 +47,6 @@ export class OrderList {
       label: "已完成",
       status: 'C'
     }];
-    // 将当前日期格式化为 yyyy-mm-dd
     this.currentStatus = this.orderStatusList[0].status;
     this.load = AppConfig.load;
     this.dateStartMax = this.appService.reserveDate();
@@ -85,6 +84,7 @@ export class OrderList {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.orderList = [];
       this.loadingShow = false;
       console.log(error);
       this.showInfinite = false;

@@ -83,6 +83,7 @@ export class UnhandleTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.unhandleSeflGiftArray = [];
       this.loadingShow = false;
       console.log(error);
       this.showInfinite = false;
@@ -191,6 +192,7 @@ export class UnhandleTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.unhandleExpressGiftArray = [];
       this.loadingShow = false;
       console.log(error);
       this.showInfinite = false;

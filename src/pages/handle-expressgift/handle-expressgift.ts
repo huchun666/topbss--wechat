@@ -53,6 +53,7 @@ export class HandleExpressgift {
 			}
 		}
 	}).catch(error => {
+    this.handleExpressGiftArray = [];
 		this.loadingShow = false;
 		console.log(error);
 		this.showInfinite = false;
@@ -82,6 +83,7 @@ export class HandleExpressgift {
 				}
       }
     }).catch(error => {
+      this.handleExpressGiftArray = [];
       refresher.complete();
       console.log(error);
 			this.showInfinite = false;

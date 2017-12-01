@@ -82,6 +82,7 @@ export class BrandshopOrderList {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.orderList = [];
       this.loadingShow = false;
       console.log(error);
       this.requestDefeat = true;
