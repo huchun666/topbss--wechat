@@ -92,7 +92,6 @@ export class OrderStore {
     this.appService.httpPut(url, body[index]).then( data => {
       if (data.type=="success") {
         loading.dismiss();
-        console.log("update success!")
         this.totalPrice = 0;
         this.orderStoreDataArray.map((item) => {
           this.totalPrice += item.itemPrice;
