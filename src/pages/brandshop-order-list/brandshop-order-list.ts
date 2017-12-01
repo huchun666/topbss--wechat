@@ -47,10 +47,26 @@ export class BrandshopOrderList {
       label: "已完成",
       status: 'C'
     }];
+    // 将当前日期格式化为 yyyy-mm-dd
+    Date.prototype.format = function (format) {
+      var o = {
+        "M+": this.getMonth() + 1,  // month
+        "d+": this.getDate(),       // day
+      };
+      if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+      }
+      for (var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+          format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+      }
+      return format;
+    };
     this.currentStatus = this.orderStatusList[0].status;
     this.load = AppConfig.load;
-    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-    this.dateEndMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    this.dateStartMax = new Date().format("yyyy-MM-dd");
+    this.dateEndMax = new Date().format("yyyy-MM-dd");
     this.getOrderList();
   }
 
@@ -137,11 +153,12 @@ export class BrandshopOrderList {
   doRefresh(refresher) {
     this.start = 0;
     this.orderList = [];
+    this.requestDefeat = false;
+    this.showNoMore = false;
     setTimeout(() => {
       this.getOrderList();
       refresher.complete();
     }, AppConfig.LOAD_TIME);
-    this.showNoMore = false;
   }
 
   // 上拉刷新请求数据
