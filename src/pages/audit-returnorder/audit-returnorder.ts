@@ -71,7 +71,7 @@ export class AuditReturnorder {
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       refresher.complete();
-      if (data.totalRecord == 0) {
+      if (data.count == 0) {
         //空空如也
         this.noData = true;
       }else {
@@ -99,7 +99,7 @@ export class AuditReturnorder {
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
-      if (data.totalRecord == 0) {
+      if (data.count == 0) {
         //空空如也
         this.noData = true;
       }else {

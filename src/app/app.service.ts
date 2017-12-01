@@ -23,27 +23,27 @@ export class AppConfig {
   //接口url
   static API: any = {
     login: "/demo-resource-server/me",
-    getOrderList: "/rest/order/bssList",    //门店/导购员订单列表
-    getCancelorder: "/rest/order/cancel/list",    //待审核/已审核取消订单列表
-    auditCancelOrder: "/rest/order/cancel/approval",    //审核取消订单
-    getReturnorderList: '/rest/order/return/list',    //未处理/已处理退货订单列表
-    returnDetail: '/rest/order/return/details',    //退货订单详情
-    returnReceived: '/rest/order/return/received',    // 退货-确认收货
-    auditReturnOrder: '/rest/order/return/approval',    //审核退货订单
+    getOrderList: "/order/bssList",    //门店/导购员订单列表
+    getCancelorder: "/order/cancel/list",    //待审核/已审核取消订单列表
+    auditCancelOrder: "/order/cancel/approval",    //审核取消订单
+    getReturnorderList: '/order/return/list',    //未处理/已处理退货订单列表
+    returnDetail: '/order/return/details',    //退货订单详情
+    returnReceived: '/order/return/received',    // 退货-确认收货
+    auditReturnOrder: '/order/return/approval',    //审核退货订单
     getGiftList: "/promotion/member/gift/account/getGiftList",//各种赠品列表
     getUnhandleGiftCount: "/promotion/member/gift/account/getUnhandleGiftCount",//待处理自提订单列表
     confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",//确认预约时间
     confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
     getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
-    warehouseGetCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
+    warehouseGetCount: "/order/warehouse/getCount",//查看配单仓订单总数
     getProductSkuWithDefault: "/product/sku/getProductSkuWithDefault",//SKU初始加载
     getValidSKUAttrValue: "/product/sku/getValidSkuAttrValue",//SKU切换
-    warehouseAdd: "/rest/order/warehouse/add",//添加配单行接口
-    warehouseList: "/rest/order/warehouse/list",//查看配单仓列表接口
-    warehouseGenerateCode: "/rest/order/warehouse/generateCode",//生成订单付款码接口
-    warehouseDeleteById: "/rest/order/warehouse/item/deleteById",//删除单个配单行
-    warehouseUpdate: "/rest/order/warehouse/item/update",//修改配单行接口
-    warehouseEmpty: "/rest/order/warehouse/empty",//清空配单仓接口
+    warehouseAdd: "/order/warehouse/add",//添加配单行接口
+    warehouseList: "/order/warehouse/list",//查看配单仓列表接口
+    warehouseGenerateCode: "/order/warehouse/generateCode",//生成订单付款码接口
+    warehouseDeleteById: "/order/warehouse/item/deleteById",//删除单个配单行
+    warehouseUpdate: "/order/warehouse/item/update",//修改配单行接口
+    warehouseEmpty: "/order/warehouse/empty",//清空配单仓接口
     current: "/account/brandshop/user/current", //查询当前导购员基本信息
     account: "/account/brandshop/user/account", //查询当前导购员基本信息
     withdraw: "/account/brandshop/user/withdraw/", //提现
@@ -51,7 +51,7 @@ export class AppConfig {
     withdrawList: "/account/brandshop/user/withdraw/list", //提现记录
     bonusList: "/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
     bonusSum:"/account/brandshop/user/bonus/sum",
-    untreatedCount: "/rest/order/untreatedCount",//查看待处理订单总数
+    untreatedCount: "/order/untreatedCount",//查看待处理订单总数
     
   };
 
