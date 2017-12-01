@@ -34,12 +34,12 @@ export class UnhandleExpressgift {
 		this.appService.httpGet(url).then( data => {
 			this.loadingShow = false;
 			console.log(data)
-			if (data.totalRecord == 0) {
+			if (data.count == 0) {
 				//空空如也
 				this.noData = true;
 			}else {
 				this.noData = false;
-				if( this.start < data.totalRecord ) {
+				if( this.start < data.count ) {
 					if (this.up) {
 						this.unhandleExpressGiftArray.push(...data.data);
 						this.start += this.limit;

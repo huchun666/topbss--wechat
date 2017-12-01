@@ -33,13 +33,13 @@ export class HandleSelfgift {
 		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=2&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
 		this.appService.httpGet(url).then( data => {
 			this.loadingShow = false;
-			if (data.totalRecord == 0) {
+			if (data.count == 0) {
 				//空空如也
 				this.noData = true;
 			}else {
         this.noData = false;
         this.showInfinite = true;
-				if( this.start < data.totalRecord ) {
+				if( this.start < data.count ) {
 					if (this.up) {
 						this.handleSeflGiftArray.push(...data.data);
 						this.start += this.limit;
@@ -68,7 +68,7 @@ export class HandleSelfgift {
     let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=2&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
-      if (data.totalRecord == 0) {
+      if (data.count == 0) {
         //空空如也
         this.noData = true;
       }else {

@@ -48,12 +48,12 @@ export class UnhandleSelfgift {
 		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
 		this.appService.httpGet(url).then( data => {
 			this.loadingShow = false;
-			if (data.totalRecord == 0) {
+			if (data.count == 0) {
 				//空空如也
 				this.noData = true;
 			}else {
 				this.noData = false;
-				if( this.start < data.totalRecord ) {
+				if( this.start < data.count ) {
 					if (this.up) {
 						this.unhandleSeflGiftArray.push(...data.data);
 						this.start += this.limit;

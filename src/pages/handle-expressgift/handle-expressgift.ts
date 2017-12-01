@@ -33,13 +33,13 @@ export class HandleExpressgift {
 	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
 	this.appService.httpGet(url).then( data => {
 		this.loadingShow = false;
-		if (data.totalRecord == 0) {
+		if (data.count == 0) {
 			//空空如也
 			this.noData = true;
 		}else {
 			this.noData = false;
 			this.showInfinite = true;
-			if( this.start < data.totalRecord ) {
+			if( this.start < data.count ) {
 				if (this.up) {
 					this.handleExpressGiftArray.push(...data.data);
 					this.start += this.limit;
@@ -68,7 +68,7 @@ export class HandleExpressgift {
 	let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
-      if (data.totalRecord == 0) {
+      if (data.count == 0) {
         //空空如也
         this.noData = true;
       }else {
@@ -96,7 +96,7 @@ export class HandleExpressgift {
 		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
 		this.appService.httpGet(url).then( data => {
 			infiniteScroll.complete();
-			if (data.totalRecord == 0) {
+			if (data.count == 0) {
 				//空空如也
 				this.noData = true;
 			}else {

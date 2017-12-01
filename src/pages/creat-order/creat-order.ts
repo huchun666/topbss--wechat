@@ -30,8 +30,8 @@ export class CreatOrder {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.getCreatOrderList();
     this.creatOrderArray = [];
+    this.getCreatOrderList();
   }
 
   //进入页面，请求接口，得到数据
@@ -40,13 +40,13 @@ export class CreatOrder {
     let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       this.loadingShow = false;
-      if (data.totalRecord == 0) {
+      if (data.count == 0) {
         //空空如也
         this.noData = true;
       }else {
         this.noData = false;
         this.showInfinite = true;
-        if( this.start < data.totalRecord ) {
+        if( this.start < data.count ) {
           if (this.up) {
             this.creatOrderArray.push(...data.data);
             this.start += this.limit;
@@ -93,13 +93,13 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         this.loadingShow = false;
-        if (data.totalRecord == 0) {
+        if (data.count == 0) {
           //空空如也
           this.noData = true;
         }else {
           this.noData = false;
           this.showInfinite = true;
-          if( this.start < data.totalRecord ) {
+          if( this.start < data.count ) {
             if (this.up) {
               this.creatOrderArray.push(...data.data);
               this.start += this.limit;
@@ -132,7 +132,7 @@ export class CreatOrder {
     let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
-      if (data.totalRecord == 0) {
+      if (data.count == 0) {
         //空空如也
         this.noData = true;
       }else {
@@ -161,7 +161,7 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
-        if (data.totalRecord == 0) {
+        if (data.count == 0) {
           //空空如也
           this.noData = true;
         }else {
@@ -180,7 +180,7 @@ export class CreatOrder {
       let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
-        if (data.totalRecord == 0) {
+        if (data.count == 0) {
           //空空如也
           this.noData = true;
         }else {
