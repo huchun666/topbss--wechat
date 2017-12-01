@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-<ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)">
+<ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)" *ngIf="!loadingShow">
   <ion-refresher-content></ion-refresher-content>
 </ion-refresher>
 <div class="search-box">

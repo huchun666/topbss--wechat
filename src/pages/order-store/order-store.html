@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content>
 
-  <ion-refresher (ionRefresh)="refreshGetOrderStoreList($event)">
+  <ion-refresher (ionRefresh)="refreshGetOrderStoreList($event)" *ngIf="!loadingShow">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
