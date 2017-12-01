@@ -183,6 +183,7 @@ export class OrderStore {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.requestDefeat = false;
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
@@ -198,7 +199,7 @@ export class OrderStore {
     }).catch(error => {
       refresher.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      this.requestDefeat = true;
     });
   }
 
