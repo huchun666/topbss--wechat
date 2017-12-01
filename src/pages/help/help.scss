@@ -15,12 +15,15 @@ help {
 	  position: relative;
 	  color: #5e9efe;
 	  font-size: 1.5rem;
-	  padding-left: 2.4rem;
+	  padding-left: 2.3rem;
 	  span {
 		position: absolute;
 		left: 0;
 	  }
-	}
+  }
+  h2.title {
+    padding-left: 0.4rem;
+  }
 	p {
 	  color: #333;
 	  line-height: 20px;
