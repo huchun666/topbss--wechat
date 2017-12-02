@@ -23,19 +23,19 @@ export class AppConfig {
   //接口url
   static API: any = {
     login: "/demo-resource-server/me",
-    getOrderList: "/rest/order/bssList",    //门店/导购员订单列表
-    getCancelorder: "/rest/order/cancel/list",    //待审核/已审核取消订单列表
-    auditCancelOrder: "/rest/order/cancel/approval",    //审核取消订单
-    getReturnorderList: '/rest/order/return/list',    //未处理/已处理退货订单列表
-    returnDetail: '/rest/order/return/details',    //退货订单详情
-    returnReceived: '/rest/order/return/received',    // 退货-确认收货
-    auditReturnOrder: '/rest/order/return/approval',    //审核退货订单
+    getOrderList: "/order/bssList",    //门店/导购员订单列表
+    getCancelorder: "/order/cancel/list",    //待审核/已审核取消订单列表
+    auditCancelOrder: "/order/cancel/approval",    //审核取消订单
+    getReturnorderList: '/order/return/list',    //未处理/已处理退货订单列表
+    returnDetail: '/order/return/details',    //退货订单详情
+    returnReceived: '/order/return/received',    // 退货-确认收货
+    auditReturnOrder: '/order/return/approval',    //审核退货订单
     getGiftList: "/promotion/member/gift/account/getGiftList",//各种赠品列表
     getUnhandleGiftCount: "/promotion/member/gift/account/getUnhandleGiftCount",//待处理自提订单列表
     confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",//确认预约时间
     confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
     getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
-    warehouseGetCount: "/rest/order/warehouse/getCount",//查看配单仓订单总数
+    warehouseGetCount: "/order/warehouse/getCount",//查看配单仓订单总数
     getProductSkuWithDefault: "/product/sku/getProductSkuWithDefault",//SKU初始加载
     getValidSKUAttrValue: "/product/sku/getValidSkuAttrValue",//SKU切换
     warehouseAdd: "/rest/order/warehouse/add",//添加配单行接口
@@ -51,9 +51,9 @@ export class AppConfig {
     withdrawList: "http://192.168.31.232:6001/account/brandshop/user/withdraw/list", //提现记录
     bonusList: "http://192.168.31.232:6001/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
     bonusSum:"http://192.168.31.232:6001/account/brandshop/user/bonus/sum",
-    untreatedCount: "/rest/order/untreatedCount", //查看待处理订单总数
     orderReceive: "http://192.168.31.226:6002/order/receive/received", //确定订单
     receiveGift: "http://192.168.31.215:8082/promotion/member/gift/account/receiveGift",
+    untreatedCount: "/order/untreatedCount",//查看待处理订单总数
     
   };
 
@@ -199,15 +199,24 @@ export class AppService {
       let result = (n).toString().length === 1 ? ('0' + n) : n;
       return result;
     }
+<<<<<<< HEAD
     let formatTime = (t = new Date()) => {
       let d = new Date(t);
+=======
+    let formatTime = () => {
+      let d = new Date();
+>>>>>>> origin/master
       let year = d.getFullYear();
       let month = d.getMonth() + 1;
       let date = d.getDate();
       let result = `${year}-${fillZero(month)}-${fillZero(date)}`;
       return result;
     }
+<<<<<<< HEAD
     let res = formatTime(new Date());
+=======
+    let res = formatTime();
+>>>>>>> origin/master
     return res;    
   }
 

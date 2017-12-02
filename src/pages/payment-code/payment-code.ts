@@ -29,7 +29,6 @@ export class PaymentCode {
     this.appService.httpPut(url, null).then( data => {
       if (data.type=="success") {
         loading.dismiss();
-        console.log(data.type)
         this.navCtrl.remove(this.navCtrl.length() - 2, 2);
       }
     }).catch(error=>{

@@ -7,13 +7,17 @@
       <ion-badge item-end>{{warehouseCount}}</ion-badge>
     </span>
   </ion-navbar>
+  <!-- 搜索框 -->
+  <div class="search-box">
+    <ion-searchbar [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" placeholder="请输入商品名称" >
+    </ion-searchbar>
+  </div>
 </ion-header>
 <ion-content>
-<ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)">
-  <ion-refresher-content pullingText="下拉刷新" refreshingText="获取中...">
-  </ion-refresher-content>
+<ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)" *ngIf="!loadingShow">
+  <ion-refresher-content></ion-refresher-content>
 </ion-refresher>
-<div class="search-box">
+<div>
   <!-- loading -->
   <div class="loading-wrapper" *ngIf="loadingShow">
     <div>
@@ -21,13 +25,6 @@
     </div>
     <div [innerHTML]="load.content"></div>
   </div>
-  <!-- 搜索框 -->
-  <ion-searchbar
-  [showCancelButton]="shouldShowCancel"
-  (ionInput)="onInput($event)"
-  placeholder="请输入商品名称"
-  >
-  </ion-searchbar>
 </div>
 <div class="product-list" *ngIf = "!noData">
   <ul>
@@ -43,7 +40,7 @@
   <p>空空如也</p>
 </div>
 <div class="btn-noMore" *ngIf = "showNoMore">
-  <span>—— 没有更多已兑换赠品了 ——</span>
+  <span>—— 没有更多商品了 ——</span>
 </div>
 <div class="request-defeat" *ngIf = "requestDefeat">
   <img src="./assets/image/requestDefeat.png" alt="">
