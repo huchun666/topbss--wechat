@@ -52,6 +52,7 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.auditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
       this.showInfinite = false;
@@ -81,6 +82,7 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.auditCancelorderArray = [];
       refresher.complete();
       console.log(error);
       this.showInfinite = false;

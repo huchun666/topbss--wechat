@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content>
   <!-- 下拉刷新 -->
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!loadingShow">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
