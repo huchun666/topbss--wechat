@@ -9,7 +9,7 @@ import 'rxjs/add/operator/timeout';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "http://192.168.31.202:6333";
+  static hostUrl: string = "http://192.168.31.215:8082";
 
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -51,7 +51,9 @@ export class AppConfig {
     withdrawList: "http://192.168.31.232:6001/account/brandshop/user/withdraw/list", //提现记录
     bonusList: "http://192.168.31.232:6001/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
     bonusSum:"http://192.168.31.232:6001/account/brandshop/user/bonus/sum",
-    untreatedCount: "/rest/order/untreatedCount"//查看待处理订单总数
+    untreatedCount: "/rest/order/untreatedCount", //查看待处理订单总数
+    orderReceive: "http://192.168.31.226:6002/order/receive/received", //确定订单
+    receiveGift: "http://192.168.31.215:8082/promotion/member/gift/account/receiveGift",
     
   };
 

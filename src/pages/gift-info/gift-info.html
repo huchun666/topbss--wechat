@@ -13,11 +13,11 @@
     <div class="order-item">
       <dl>
         <dt>
-          <img class="my-picture" [src]="giftInfo.gift.image" alt="小裙子">
+          <img class="my-picture" [src]="giftInfo.imageName | handleGiftImage" alt="小裙子">
         </dt>
-        <dd class="product-title">{{ giftInfo.gift.name }}</dd>
+        <dd class="product-title">{{ giftInfo.giftName }}</dd>
         <dd class="sku-list">
-          <span>领取时间：{{ giftInfo.gift.receiveTime }}</span>
+          <span>领取时间：{{ giftInfo.receiveDate | date:'yyyy.MM.dd HH:mm' }}</span>
         </dd>
       </dl>
     </div>

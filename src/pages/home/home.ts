@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, AlertController } from 'ionic-angular';
+import { ModalController, NavController, AlertController, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
@@ -8,6 +8,7 @@ import { GiftInfo } from '../gift-info/gift-info';
 import { OrderInfo } from '../order-info/order-info';
 import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
+import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 @Component({
   selector: 'home',
   templateUrl: 'home.html'
@@ -22,8 +23,11 @@ export class Home {
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public appService: AppService,
-    public barcodeScanner: BarcodeScanner
+    public barcodeScanner: BarcodeScanner,
+    public events: Events
   ) {
+  }
+  ionViewDidEnter(){
     this.getUnAuditCount();
     this.getUnHandleCount();
   }
@@ -57,7 +61,7 @@ export class Home {
     unAuditModal.present();
     unAuditModal.onDidDismiss(() => {
       this.getUnAuditCount();
-    })
+    });
   }
   goUnHandle() {
     let unHandleModal = this.modalCtrl.create(UnhandleTabs,{
@@ -70,19 +74,9 @@ export class Home {
     })
   }
   qrCodeScan() {
-    // 订单
-    // let myCodeModal = this.modalCtrl.create(OrderInfo);
-    // myCodeModal.onDidDismiss(data => {
-    //   if (data && data.type == "0") {
-    //     this.navCtrl.parent.select(1);
-    //   }
-    // });
-    // myCodeModal.present();
-    // 赠品信息
     this.barcodeScanner.scan().then((barcodeData) => { 
       let url = barcodeData.text;
-      alert(url);
-      if (url.indexOf('https://www.61topbaby.com') < 0) {
+      if (url.indexOf(AppConfig.hostUrl) < 0) {
         let alert = this.alertCtrl.create({
           title: '提示',
           subTitle: '请扫描淘璞系统内二维码',
@@ -90,10 +84,41 @@ export class Home {
         });
         alert.present();
       } else {
-        
+        if (url.indexOf('id') > 0) {
+          let myCodeModal = this.modalCtrl.create(OrderInfo, {'url': url});
+          myCodeModal.onDidDismiss(data => {
+            if (data.type === '1') {
+              this.qrCodeScan();
+            } else if (data.type === '0') {
+              this.navCtrl.parent.select(1);
+              let orderStatus = 'C';
+              this.events.publish('order:status', orderStatus);
+            }
+          });
+          myCodeModal.present();
+        } else if (url.indexOf('giftCode') > 0) {
+          let myCodeModal = this.modalCtrl.create(GiftInfo, {'url': url});
+          myCodeModal.onDidDismiss(data => {
+            if (data.type === '1') {
+              this.qrCodeScan();
+            } else if (data.type === '0') {
+              const giftModal = this.modalCtrl.create(HandleSelfgift);
+              giftModal.present();
+            }
+          });
+          myCodeModal.present();
+        }
+        else {
+          let alert = this.alertCtrl.create({
+            title: '提示',
+            subTitle: '请扫描订单或者赠品二维码',
+            buttons: ['确定']
+          });
+          alert.present();
+        }
       }
     }, (err) => {
-       console.log('扫码失败');
+      console.log('扫码失败');
       let alert = this.alertCtrl.create({
         title: '提示',
         subTitle: '扫描失败，请重新再试',
@@ -101,15 +126,6 @@ export class Home {
       });
       alert.present();
     });
-  }
-  /** 弹出层消息 **/
-  alertModal(parmas) {
-    let alert = this.alertCtrl.create({
-      title: parmas.title,
-      subTitle: parmas.subTitle,
-      buttons: [parmas.buttonText]
-    });
-    alert.present();
   }
   /** 我的二维码 **/
   goMyCode() {
