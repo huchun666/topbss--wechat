@@ -56,6 +56,7 @@ export class AuditReturnorder {
         }
       }
     }).catch(error => {
+      this.auditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
       this.showInfinite = false;
@@ -85,6 +86,7 @@ export class AuditReturnorder {
         }
       }
     }).catch(error => {
+      this.auditReturnorderArray = [];
       refresher.complete();
       console.log(error);
       this.showInfinite = false;
