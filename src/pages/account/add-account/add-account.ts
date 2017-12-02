@@ -12,9 +12,9 @@ export class AddAccount {
   IDcard: string = '';
   wechatOpenid: any;
   userCurrent: any;
-  accountContent: Boolean = false;//
-  noBind: Boolean = true;
-  boundWechat: Boolean;
+  accountContent: Boolean = false;//见html
+  noBind: Boolean = true;//见html
+  boundWechat: Boolean;//是否绑定微信
   requestDefeat: Boolean = false;
   loadingShow: Boolean = false;
   load: any = {}; 
@@ -80,7 +80,7 @@ export class AddAccount {
           this.noBind = true;
         }else {
           let openid = data.openid;
-          let url = AppConfig.API.current;
+          let currentUrl = AppConfig.API.current;
           let parameters = {
             id: userId,
             salesName: this.salesName,
@@ -88,7 +88,8 @@ export class AddAccount {
             wechatOpenid: openid,
             IDcard: this.IDcard
           }
-          this.appService.httpPut(url, parameters).then(data => {
+          //更新导购员账户
+          this.appService.httpPut(currentUrl, parameters).then(data => {
             if (data.type == "SUCCESS") {
               loading.dismiss();
               this.accountContent = true;
