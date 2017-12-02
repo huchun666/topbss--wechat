@@ -4,9 +4,19 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div *ngIf="userCurrent.boundWechat;else noBound">
-    <div class="account-title">
+  <!-- loading -->
+  <div class="loading-wrapper" *ngIf="loadingShow">
+    <div>
+      <ion-spinner item-start [name]="load.spinner"></ion-spinner>
+    </div>
+    <div [innerHTML]="load.content"></div>
+  </div>
+  <div *ngIf="accountContent">
+    <div class="account-title" *ngIf="noBind">
       填写收款人信息并绑定微信作为收款账户
+    </div>
+    <div class="account-title" *ngIf="!noBind">
+      <div class="binded"><img src="./assets/image/ok.png" alt="">已绑定微信</div>
     </div>
     <div class="form-list">
       <ion-list>
@@ -20,15 +30,16 @@
         <ion-input  [(ngModel)]="IDcard" placeholder="输入收款人身份证号"></ion-input>
       </ion-item>
     </ion-list>
-    <button class="btn-bind" ion-button (click)="updateCurrent()">绑定微信</button>
-    <div class="message">*微信账户一旦绑定不能改，请谨慎操作</div>
+    <button class="btn-bind" ion-button (click)="updateCurrent()" *ngIf="noBind">绑定微信</button>
+    <button class="btn-bind" ion-button *ngIf="!noBind">确定</button>
+    <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>
     </div>
   </div>
-  <ng-template #noBound>
-    <div class="account-mesg">
-      <h2>请先到微信公众号绑定收款账户</h2>
-      <p>· 第一步：在微信内搜索公众号：淘璞帮</p>
-      <p>· 第二步：关注并进入公众号绑定收款账户</p>
-    </div>
-  </ng-template>
+  <div class="request-defeat" *ngIf = "requestDefeat">
+    <img src="./assets/image/requestDefeat.png" alt="">
+    <p>啊哦！页面走丢了</p>
+    <button class="btn-request-defeat" ion-button full (touchstart)="getCurrent()">
+      刷新再找一找
+    </button>
+  </div>
 </ion-content>

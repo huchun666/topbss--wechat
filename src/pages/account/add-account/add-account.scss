@@ -7,6 +7,15 @@ add-account {
 		line-height: 46px;
 		color: #333;
 		text-align: center;
+		.binded {
+			color: #54c261;
+			text-align: center;
+			img {
+				max-width: 37px;
+				vertical-align: middle;
+				margin-right: 10px;
+			}
+		}
   }
   .form-list {
 		padding: 2rem 1rem 0;

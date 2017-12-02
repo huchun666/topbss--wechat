@@ -23,6 +23,10 @@ export class Login{
     public http: Http
   ) {
     // this.pageInit();
+    if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+      let appNav = this.app.getRootNav();
+      appNav.setRoot(TabsPage);
+    }
   }
   // 页面初始化时执行
   // pageInit() {

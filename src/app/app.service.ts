@@ -20,6 +20,12 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = "/uaa/oauth/token";
 
+  //appid
+  static appID: "wx11cc7b3a1a190796";//后面需改
+
+  //appSecret
+  static appSecret: "3c943a6a700db44e1bb7475e83c4bb17";//后面需改
+
   //接口url
   static API: any = {
     login: "/demo-resource-server/me",
@@ -44,7 +50,7 @@ export class AppConfig {
     warehouseDeleteById: "/order/warehouse/item/deleteById",//删除单个配单行
     warehouseUpdate: "/order/warehouse/item/update",//修改配单行接口
     warehouseEmpty: "/order/warehouse/empty",//清空配单仓接口
-    current: "/account/brandshop/user/current", //查询当前导购员基本信息
+    current: "/account/brandshop/user/current", //更新当前导购员基本信息
     account: "/account/brandshop/user/account", //查询当前导购员基本信息
     withdraw: "/account/brandshop/user/withdraw/", //提现
     qrcode: "/account/brandshop/user/qrcode", //我的二维码
@@ -52,6 +58,8 @@ export class AppConfig {
     bonusList: "/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
     bonusSum:"/account/brandshop/user/bonus/sum",
     untreatedCount: "/order/untreatedCount",//查看待处理订单总数
+    connect: "/connect/oauth2/authorize",//获取code
+    sns: "/sns/oauth2/access_token",//获取access_token
     
   };
 
