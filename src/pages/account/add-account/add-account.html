@@ -30,8 +30,8 @@
         <ion-input  [(ngModel)]="IDcard" placeholder="输入收款人身份证号"></ion-input>
       </ion-item>
     </ion-list>
-    <button class="btn-bind" ion-button (click)="updateCurrent()" *ngIf="noBind">绑定微信</button>
-    <button class="btn-bind" ion-button *ngIf="!noBind">确定</button>
+    <button class="btn-bind" ion-button (click)="bindWX()" *ngIf="noBind">绑定微信</button>
+    <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="!noBind">确定</button>
     <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>
     </div>
   </div>

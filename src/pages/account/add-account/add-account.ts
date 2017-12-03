@@ -18,6 +18,7 @@ export class AddAccount {
   requestDefeat: Boolean = false;
   loadingShow: Boolean = false;
   load: any = {}; 
+  userId: number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,21 +28,43 @@ export class AddAccount {
   ) {
     
   }
-  updateCurrent() {
+  bindWX() {
     let code = "";
     let redirectUri = "";//还没给；这里的重定向地址也需要push
-    let url = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-    this.appService.httpGet(url).then(() => {
+    let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+    this.appService.httpGet(getCodeUrl).then(() => {
       
     }).catch(error => {
       console.log(error);
     });
   }
+  editCurrent() {
+    this.loadingShow = true;
+    let editCurrentUrl = AppConfig.API.current;
+    let editParameters = {
+      salesName: this.salesName,
+      cellphone: this.cellphone,
+      IDcard: this.IDcard
+    }
+    //更新导购员账户
+    this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
+      if (data.type == "SUCCESS") {
+        this.loadingShow = false;
+        this.getCurrent();
+      }
+    }).catch(error => {
+      this.loadingShow = false;
+      console.log(error);
+      this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+    });
+  }
+  //查询当前导购员信息
   getCurrent() {
+    this.load = AppConfig.load;
     this.loadingShow = true;
     this.accountContent = false;
-    let url = AppConfig.API.current;
-    this.appService.httpGet(url)
+    let getCurrentUrl = AppConfig.API.current;
+    this.appService.httpGet(getCurrentUrl)
       .then( data => {
         this.loadingShow = false;
         this.requestDefeat = false;
@@ -64,36 +87,35 @@ export class AddAccount {
       });
   }
   ionViewDidEnter() {
+    this.userId = this.navParams.get("userId");
     //重定向判断
-    if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
-      let userId = this.navParams.get("userId");
+    if (this.userId && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
       this.accountContent = false;
       let loading = this.appService.loading();
       loading.present();
       let code = window.location.search.split("?")[1].split("&")[0].split("=")[1];
-      let url = `${AppConfig.API.sns}?appid=${AppConfig.appID}&secret=${AppConfig.appSecret}&code=${code}&grant_type=authorization_code`;
-      this.appService.httpGet(url).then(data => {
-        if (data.errcode) {
+      let getTokenUrl = `${AppConfig.API.sns}?appid=${AppConfig.appID}&secret=${AppConfig.appSecret}&code=${code}&grant_type=authorization_code`;
+      this.appService.httpGet(getTokenUrl).then(data => {
+        if (data.errcode) {//请求token失败时
           loading.dismiss();
-          this.accountContent = false;
           this.requestDefeat = true;
           this.noBind = true;
         }else {
           let openid = data.openid;
-          let currentUrl = AppConfig.API.current;
-          let parameters = {
-            id: userId,
+          let updateCurrentUrl = AppConfig.API.current;
+          let updateParameters = {
+            id: this.userId,
             salesName: this.salesName,
             cellphone: this.cellphone,
             wechatOpenid: openid,
             IDcard: this.IDcard
           }
           //更新导购员账户
-          this.appService.httpPut(currentUrl, parameters).then(data => {
+          this.appService.httpPut(updateCurrentUrl, updateParameters).then(data => {
             if (data.type == "SUCCESS") {
               loading.dismiss();
-              this.accountContent = true;
               this.noBind = false;
+              this.getCurrent();
             }
           }).catch(error => {
             loading.dismiss();
@@ -105,7 +127,6 @@ export class AddAccount {
         }
       })
     }else {
-      this.load = AppConfig.load;
       this.getCurrent();
     }
   }

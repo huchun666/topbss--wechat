@@ -140,13 +140,15 @@ export class Personl {
   getAccountCreat() {
     let url = AppConfig.API.account;
     this.appService.httpGet(url)
-      .then( data => {
-        let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': data.userId});
-        pageModal.present();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    .then( data => {
+      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': data.userId});
+      pageModal.present();
+    })
+    .catch(error => {
+      console.log(error);
+      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': 222});
+      pageModal.present();
+    });
   }
   ionViewDidEnter() {
     if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
