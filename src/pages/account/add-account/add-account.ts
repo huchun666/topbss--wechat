@@ -88,6 +88,7 @@ export class AddAccount {
                 if (data.type == "success") {
                   this.loadingShow = false;
                   this.getCurrent();
+                  this.appService.toast('更新成功', 1000, 'middle');
                 }
               }).catch(error => {
                 this.loadingShow = false;

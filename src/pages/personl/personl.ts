@@ -140,7 +140,7 @@ export class Personl {
     })
     .catch(error => {
       console.log(error);
-      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': 222});
+      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': null});
       pageModal.present();
     });
   }
