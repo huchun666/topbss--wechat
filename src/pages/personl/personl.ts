@@ -90,11 +90,6 @@ export class Personl {
   }
   /* 跳转页面 */
   redirectPage(page, param1, param2) {
-    if (!this.userCurrent.boundWechat) {
-      page = this.pageList.addAccount;
-    }else {
-      page = this.pageList.editAccount;
-    }
     let pageModal = this.modalCtrl.create(page, {'param1': param1, 'param2': param2});
     pageModal.onDidDismiss(data => {
       let componentName = pageModal['_component'].name; //获取返回页面名
@@ -116,7 +111,6 @@ export class Personl {
     let url = AppConfig.API.current;
     this.appService.httpGet(url)
       .then( data => {
-        console.log(data)
         this.userCurrent = data;
         this.formatTelphone();
       })

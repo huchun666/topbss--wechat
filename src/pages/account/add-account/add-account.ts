@@ -19,6 +19,9 @@ export class AddAccount {
   loadingShow: Boolean = false;
   load: any = {}; 
   userId: number;
+  isName: Boolean = false;//校验姓名
+  isPhone: Boolean = false;//校验手机
+  isIDCard: Boolean = false;//校验身份证
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -29,34 +32,69 @@ export class AddAccount {
     
   }
   bindWX() {
-    let code = "";
-    let redirectUri = "";//还没给；这里的重定向地址也需要push
-    let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-    this.appService.httpGet(getCodeUrl).then(() => {
-      
-    }).catch(error => {
-      console.log(error);
-    });
+    if (this.salesName != "" && this.cellphone.length == 11 && this.IdentityCodeValid(this.IDcard)) {
+      this.isName = false;
+      this.isPhone = false;
+      this.isIDCard = false;
+      let code = "";
+      let redirectUri = "";//还没给；这里的重定向地址也需要push
+      let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+      this.appService.httpGet(getCodeUrl).then(() => {
+        
+      }).catch(error => {
+        console.log(error);
+      });
+    }else if (this.salesName == "") {
+      this.isName = true;
+      this.isPhone = false;
+      this.isIDCard = false;
+    }else if (this.cellphone.length != 11) {
+      this.isName = false;
+      this.isPhone = true;
+      this.isIDCard = false;
+    }else if (!this.IdentityCodeValid(this.IDcard)) {
+      this.isName = false;
+      this.isPhone = false;
+      this.isIDCard = true;
+    }
+    
   }
   editCurrent() {
-    this.loadingShow = true;
-    let editCurrentUrl = AppConfig.API.current;
-    let editParameters = {
-      salesName: this.salesName,
-      cellphone: this.cellphone,
-      IDcard: this.IDcard
-    }
-    //更新导购员账户
-    this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
-      if (data.type == "SUCCESS") {
-        this.loadingShow = false;
-        this.getCurrent();
+    if (this.salesName != "" && this.cellphone.length == 11 && this.IdentityCodeValid(this.IDcard)) {
+      this.isName = false;
+      this.isPhone = false;
+      this.isIDCard = false;
+      this.loadingShow = true;
+      let editCurrentUrl = AppConfig.API.current;
+      let editParameters = {
+        salesName: this.salesName,
+        cellphone: this.cellphone,
+        idcard: this.IDcard
       }
-    }).catch(error => {
-      this.loadingShow = false;
-      console.log(error);
-      this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
-    });
+      //更新导购员账户
+      this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
+        if (data.type == "success") {
+          this.loadingShow = false;
+          this.getCurrent();
+        }
+      }).catch(error => {
+        this.loadingShow = false;
+        console.log(error);
+        this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+      });
+    }else if (this.salesName == "") {
+      this.isName = true;
+      this.isPhone = false;
+      this.isIDCard = false;
+    }else if (this.cellphone.length != 11) {
+      this.isName = false;
+      this.isPhone = true;
+      this.isIDCard = false;
+    }else if (!this.IdentityCodeValid(this.IDcard)) {
+      this.isName = false;
+      this.isPhone = false;
+      this.isIDCard = true;
+    }
   }
   //查询当前导购员信息
   getCurrent() {
@@ -108,11 +146,11 @@ export class AddAccount {
             salesName: this.salesName,
             cellphone: this.cellphone,
             wechatOpenid: openid,
-            IDcard: this.IDcard
+            idcard: this.IDcard
           }
           //更新导购员账户
           this.appService.httpPut(updateCurrentUrl, updateParameters).then(data => {
-            if (data.type == "SUCCESS") {
+            if (data.type == "success") {
               loading.dismiss();
               this.noBind = false;
               this.getCurrent();
@@ -129,5 +167,40 @@ export class AddAccount {
     }else {
       this.getCurrent();
     }
+  }
+
+  //身份证校验
+  IdentityCodeValid(code) { 
+    var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
+    var pass= true;
+    if(!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)){
+      pass = false;
+    }else if(!city[code.substr(0,2)]){
+      pass = false;
+    }else{
+      //18位身份证需要验证最后一位校验位
+      if(code.length == 18){
+        code = code.split('');
+        //∑(ai×Wi)(mod 11)
+        //加权因子
+        var factor = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 ];
+        //校验位
+        var parity = [ 1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2 ];
+        var sum = 0;
+        var ai = 0;
+        var wi = 0;
+        for (var i = 0; i < 17; i++)
+        {
+          ai = code[i];
+          wi = factor[i];
+          sum += ai * wi;
+        }
+        var last = parity[sum % 11];
+        if(parity[sum % 11] != code[17]){
+          pass =false;
+        }
+      }
+    }
+    return pass;
   }
 }

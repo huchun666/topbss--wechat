@@ -23,7 +23,7 @@ add-account {
 			border: solid 1px #ccc;
 			border-radius: 4px;
 			min-height: 42px;
-			margin-bottom: 1.2rem;
+			margin-bottom: 2.4rem;
 		}
 		.item-block {
 			.item-inner {
@@ -48,6 +48,12 @@ add-account {
 					}
 				}
 			}
+		}
+		.bind-error {
+			font-size: 1.2rem;
+			color: #f00;
+			position: absolute;
+			margin-top: -1.9rem;
 		}
   }
   .list-md .item-input.item-input-has-focus:last-child,
