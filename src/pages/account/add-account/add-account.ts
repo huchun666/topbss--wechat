@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, NavParams, ViewController, App  } from 'ionic-angular';
+import { NavController, NavParams, ViewController, App, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../../app/app.service';
 import { TabsPage } from '../../tabs/tabs';
 @Component({
@@ -28,6 +28,7 @@ export class AddAccount {
     public viewCtrl : ViewController,
     public appService: AppService,
     public app: App,
+    public alertCtrl: AlertController
   ) {
     
   }
@@ -36,12 +37,10 @@ export class AddAccount {
       this.isName = false;
       this.isPhone = false;
       this.isIDCard = false;
-      let code = "";
       let redirectUri = "";//还没给；这里的重定向地址也需要push
       let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-      this.appService.httpGet(getCodeUrl).then(() => {
-        
-      }).catch(error => {
+      this.appService.httpGet(getCodeUrl)
+      .catch(error => {
         console.log(error);
       });
     }else if (this.salesName == "") {
@@ -59,29 +58,47 @@ export class AddAccount {
     }
     
   }
+  //修改收款人信息
   editCurrent() {
     if (this.salesName != "" && this.cellphone.length == 11 && this.IdentityCodeValid(this.IDcard)) {
-      this.isName = false;
-      this.isPhone = false;
-      this.isIDCard = false;
-      this.loadingShow = true;
-      let editCurrentUrl = AppConfig.API.current;
-      let editParameters = {
-        salesName: this.salesName,
-        cellphone: this.cellphone,
-        idcard: this.IDcard
-      }
-      //更新导购员账户
-      this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
-        if (data.type == "success") {
-          this.loadingShow = false;
-          this.getCurrent();
-        }
-      }).catch(error => {
-        this.loadingShow = false;
-        console.log(error);
-        this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+      let confirm = this.alertCtrl.create({
+        title: '确认修改收款人信息？',
+        buttons: [
+          {
+            text: '取消',
+            handler: () => {
+              
+            }
+          },
+          {
+            text: '确定',
+            handler: () => {
+              this.isName = false;
+              this.isPhone = false;
+              this.isIDCard = false;
+              this.loadingShow = true;
+              let editCurrentUrl = AppConfig.API.current;
+              let editParameters = {
+                salesName: this.salesName,
+                cellphone: this.cellphone,
+                idcard: this.IDcard
+              }
+              //更新导购员账户
+              this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
+                if (data.type == "success") {
+                  this.loadingShow = false;
+                  this.getCurrent();
+                }
+              }).catch(error => {
+                this.loadingShow = false;
+                console.log(error);
+                this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+              });
+            }
+          }
+        ]
       });
+      confirm.present();
     }else if (this.salesName == "") {
       this.isName = true;
       this.isPhone = false;
