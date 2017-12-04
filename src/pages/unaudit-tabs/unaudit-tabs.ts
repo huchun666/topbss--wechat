@@ -258,20 +258,54 @@ export class UnauditTabs {
 
   // 上拉刷新请求数据
   loadMore(infiniteScroll) {
-    if (!this.showNoMore) {
-      this.down = false;
-      this.up = true;
-      setTimeout(() => {
-        if (this.currentIndex == 0) {
-          this.getUnauditCancelorder();
-        } else {
-          this.getUnauditReturnorderList();
-        }
+    if (this.currentIndex == 0) {
+      let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`
+      this.appService.httpGet(url).then(data => {
         infiniteScroll.complete();
-      }, AppConfig.LOAD_TIME)
+        if (data.count == 0) {
+          //空空如也
+          this.noData = true;
+        } else {
+          this.noData = false;
+          this.showInfinite = true;
+          if (data.data.length != 0) {
+            this.unauditCancelorderArray.push(...data.data);
+            this.start += this.limit;
+          } else {
+            this.showNoMore = true;
+          }
+        }
+      }).catch(error => {
+        infiniteScroll.complete();
+        console.log(error);
+        this.requestDefeat = true;
+        this.showInfinite = false;
+      });
     } else {
-      infiniteScroll.complete();
+      let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
+      this.appService.httpGet(url).then(data => {
+        infiniteScroll.complete();
+        if (data.count == 0) {
+          //空空如也
+          this.noData = true;
+        } else {
+          this.noData = false;
+          this.showInfinite = true;
+          if (data.data.length != 0) {
+            this.unauditReturnorderArray.push(...data.data);
+            this.start += this.limit;
+          } else {
+            this.showNoMore = true;
+          }
+        }
+      }).catch(error => {
+        infiniteScroll.complete();
+        console.log(error);
+        this.requestDefeat = true;
+        this.showInfinite = false;
+      });
     }
+
   }
 
   // 切换tab标签
@@ -288,7 +322,7 @@ export class UnauditTabs {
       this.getUnauditReturnorderList();
     }
   }
-    
+
   //请求失败后刷新
   requestDefeatRefreshReturnorder() {
     this.requestDefeat = false;

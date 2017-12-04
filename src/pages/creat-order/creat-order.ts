@@ -227,6 +227,7 @@ export class CreatOrder {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.requestDefeat = false;
     this.getCreatOrderList();
   }
 }
