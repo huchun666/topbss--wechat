@@ -87,6 +87,7 @@ export class CreatOrder {
     this.down = true;
     this.up = false;
     this.start = 0;
+    this.requestDefeat = false;
     this.searchKeyWord = event.target.value;
     if (this.searchKeyWord){
       this.loadingShow = true;
