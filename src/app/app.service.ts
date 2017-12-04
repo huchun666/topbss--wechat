@@ -199,24 +199,15 @@ export class AppService {
       let result = (n).toString().length === 1 ? ('0' + n) : n;
       return result;
     }
-<<<<<<< HEAD
-    let formatTime = (t = new Date()) => {
-      let d = new Date(t);
-=======
     let formatTime = () => {
       let d = new Date();
->>>>>>> origin/master
       let year = d.getFullYear();
       let month = d.getMonth() + 1;
       let date = d.getDate();
       let result = `${year}-${fillZero(month)}-${fillZero(date)}`;
       return result;
     }
-<<<<<<< HEAD
-    let res = formatTime(new Date());
-=======
     let res = formatTime();
->>>>>>> origin/master
     return res;    
   }
 
