@@ -75,7 +75,7 @@ export class UnauditTabs {
         if (this.up) {
           this.unauditCancelorderArray.push(...data.data);
         } else if (this.down) {
-          this.unauditCancelorderArray = [...data.data];
+          this.unauditCancelorderArray = data.data;
         }
       } else if (data.count == 0) {
         this.noData = true;
@@ -169,7 +169,7 @@ export class UnauditTabs {
         if (this.up) {
           this.unauditReturnorderArray.push(...data.data);
         } else if (this.down) {
-          this.unauditReturnorderArray = [...data.data];
+          this.unauditReturnorderArray = data.data;
         }
       } else if (data.count == 0) {
         this.noData = true;
@@ -278,8 +278,7 @@ export class UnauditTabs {
       }).catch(error => {
         infiniteScroll.complete();
         console.log(error);
-        this.requestDefeat = true;
-        this.showInfinite = false;
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     } else {
       let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
@@ -301,8 +300,7 @@ export class UnauditTabs {
       }).catch(error => {
         infiniteScroll.complete();
         console.log(error);
-        this.requestDefeat = true;
-        this.showInfinite = false;
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     }
 
@@ -316,6 +314,7 @@ export class UnauditTabs {
     this.content.scrollTo(0, 0, 0);
     this.currentStatus = this.statusList[index].label;
     this.currentIndex = index;
+    this.requestDefeat = false;
     if (this.currentIndex == 0) {
       this.getUnauditCancelorder();
     } else {

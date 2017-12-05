@@ -71,7 +71,7 @@ export class UnhandleTabs {
         if (this.up) {
           this.unhandleSeflGiftArray.push(...data.data);
         } else if (this.down) {
-          this.unhandleSeflGiftArray = [...data.data];
+          this.unhandleSeflGiftArray = data.data;
         }
         this.addOrderStatusClass(this.unhandleSeflGiftArray);
       } else if (data.count == 0) {
@@ -180,7 +180,7 @@ export class UnhandleTabs {
         if (this.up) {
           this.unhandleExpressGiftArray.push(...data.data);
         } else if (this.down) {
-          this.unhandleExpressGiftArray = [...data.data];
+          this.unhandleExpressGiftArray = data.data;
         }
         this.addOrderStatusClass(this.unhandleExpressGiftArray);
       } else if (data.count == 0) {
