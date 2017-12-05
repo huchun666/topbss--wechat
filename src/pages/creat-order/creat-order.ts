@@ -37,9 +37,10 @@ export class CreatOrder {
   //进入页面，请求接口，得到数据
   getCreatOrderList() {
     this.loadingShow = true;
+    console.log(this.searchKeyWord)
     let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
     // 网络状况不好时，点击刷新按钮，保留搜索栏的关键字进行刷新
-    if(this.searchKeyWord != '') {
+    if(this.searchKeyWord != '' && this.searchKeyWord != undefined) {
       url = url + `&searchKeyWord=${this.searchKeyWord}`;
     }
     this.appService.httpGet(url).then( data => {
