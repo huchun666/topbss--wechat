@@ -41,6 +41,10 @@
     {
       "path": "/sns",
       "proxyUrl": "https://api.weixin.qq.com/sns"
+    },
+    {
+      "path": "/evercos",
+      "proxyUrl": "https://www.61topbaby.com/evercos"
     }
   ]
 }

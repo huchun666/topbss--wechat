@@ -60,7 +60,9 @@ export class AppConfig {
     untreatedCount: "/order/untreatedCount",//查看待处理订单总数
     connect: "/connect/oauth2/authorize",//获取code
     sns: "/sns/oauth2/access_token",//获取access_token
-    
+    signature: "/evercos/wechat/jsapiticket/signature.json",//JSSDK签名
+    orderReceive: "/order/receive/received", //确定订单
+    receiveGift: "/promotion/member/gift/account/receiveGift",
   };
 
   // ion-spinner

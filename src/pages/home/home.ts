@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController } from 'ionic-angular';
+import { ModalController, NavController, AlertController, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
 import { CreatOrder } from '../creat-order/creat-order';
 import { GiftInfo } from '../gift-info/gift-info';
+import { OrderInfo } from '../order-info/order-info';
 import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
+import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
+declare var wx: any;
 @Component({
   selector: 'home',
   templateUrl: 'home.html'
@@ -19,7 +22,9 @@ export class Home {
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
-    public appService: AppService
+    public appService: AppService,
+    public alertCtrl: AlertController,
+    public events: Events
   ) {
     this.getUnAuditCount();
     this.getUnHandleCount();
@@ -67,23 +72,85 @@ export class Home {
     })
   }
   qrCodeScan() {
-    // 订单
-    // let myCodeModal = this.modalCtrl.create(OrderInfo);
-    // myCodeModal.onDidDismiss(data => {
-    //   if (data && data.type == "0") {
-    //     this.navCtrl.parent.select(1);
-    //   }
-    // });
-    // myCodeModal.present();
-    // 赠品信息
-    let myCodeModal = this.modalCtrl.create(GiftInfo);
-    myCodeModal.present();
-    //this.barcodeScanner.scan().then((barcodeData) => {
-    //  let myCodeModal = this.modalCtrl.create(OrderInfo, {});
-    //  myCodeModal.present();
-    //}, (err) => {
-    //    console.log('扫码失败');
-    //});
+    let signUrl = "https%3A%2F%2Fwww.61topbaby.com%2Fevercos%2Fmember%2Findex.html&_=1512438037846";
+    let url = `${AppConfig.API.signature}?url=${signUrl}`;
+    this.appService.httpGet(url).then(data => {
+      wx.config({
+        debug: false,
+        appId: data.appId,
+        timestamp: data.timestamp,
+        nonceStr: data.noncestr,
+        signature: data.signature,
+        jsApiList: ['scanQRCode']
+      });
+      wx.error(function(res){
+        console.log("微信验证失败"+res);
+        let alert = this.alertCtrl.create({
+          title: '提示',
+          subTitle: '扫描失败，请重新再试',
+          buttons: ['确定']
+        });
+        alert.present();
+      });
+      wx.scanQRCode({
+        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        scanType: ["qrCode","barCode"],
+        success: function (res) {
+          var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+          if (url.indexOf(AppConfig.hostUrl) < 0) {
+            let alert = this.alertCtrl.create({
+              title: '提示',
+              subTitle: '请扫描淘璞系统内二维码',
+              buttons: ['确定']
+            });
+          }else {
+            if (url.indexOf('id') > 0) {
+              let myCodeModal = this.modalCtrl.create(OrderInfo, {'url': url});
+              myCodeModal.onDidDismiss(data => {
+                if (data.type === '1') {
+                  this.qrCodeScan();
+                } else if (data.type === '0') {
+                  this.navCtrl.parent.select(1);
+                  let orderStatus = 'C';
+                  this.events.publish('order:status', orderStatus);
+                }
+              });
+              myCodeModal.present();
+            }else if (url.indexOf('giftCode') > 0) {
+              let myCodeModal = this.modalCtrl.create(GiftInfo, {'url': url});
+              myCodeModal.onDidDismiss(data => {
+                if (data.type === '1') {
+                  this.qrCodeScan();
+                } else if (data.type === '0') {
+                  const giftModal = this.modalCtrl.create(HandleSelfgift);
+                  giftModal.present();
+                }
+              });
+              myCodeModal.present();
+            }else {
+              let alert = this.alertCtrl.create({
+                title: '提示',
+                subTitle: '请扫描订单或者赠品二维码',
+                buttons: ['确定']
+              });
+              alert.present();
+            }
+          }
+        },
+        fail: function(error) {
+          console.log(error);
+          let alert = this.alertCtrl.create({
+            title: '提示',
+            subTitle: '扫描失败，请重新再试',
+            buttons: ['确定']
+          });
+          alert.present();
+        }
+      });
+    }).catch(error => {
+      console.log(error);
+      this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+    })
   }
   goMyCode() {
     let myCodeModal = this.modalCtrl.create(MyCode);
