@@ -81,6 +81,7 @@ export class AwardActivity {
     this.requestFail = false;
     this.isEmpty = false;
     this.currentPage = 1;
+    this.awardActivity = [];
     this.refreshPage(refresher);
   }
   /** 下拉上拉公共方法 **/
