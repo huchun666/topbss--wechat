@@ -133,6 +133,7 @@ export class BrandshopOrderList {
   doRefresh(refresher) {
     this.showNoMore = false;
     this.requestDefeat = false;
+    this.noData = false;
     this.start = 0;
     this.orderList = [];
     setTimeout(() => {
