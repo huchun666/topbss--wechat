@@ -20,6 +20,12 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = "/uaa/oauth/token";
 
+  //testClient  生产client_id
+  static client_id: string = "topbss";
+
+  //secret  生产client_pwd
+  static grant_type: string = "password";
+
   //appid
   static appID: "wx11cc7b3a1a190796";//后面需改
 
@@ -28,7 +34,7 @@ export class AppConfig {
 
   //接口url
   static API: any = {
-    login: "/demo-resource-server/me",
+    login: "/uaa/user",
     getOrderList: "/order/bssList",    //门店/导购员订单列表
     getCancelorder: "/order/cancel/list",    //待审核/已审核取消订单列表
     auditCancelOrder: "/order/cancel/approval",    //审核取消订单
@@ -74,12 +80,15 @@ export class AppConfig {
 }
 @Injectable()
 export class AppService {
-
+  withTokenHeaders: any;
   constructor(
     private http: Http,
     public loadingCtrl: LoadingController,
     private toastCtrl: ToastController
   ) {
+    this.withTokenHeaders = new Headers({
+      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+    });
   }
 
   //get request
@@ -127,11 +136,7 @@ export class AppService {
   //post 带有headers 
   httpPostHeader(url: string, body: any, header: any) {
     return this.http.post(url, body, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
-      .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+    .then(res => res.json())
   }
   
   //put request

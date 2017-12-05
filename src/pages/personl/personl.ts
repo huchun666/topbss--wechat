@@ -81,6 +81,7 @@ export class Personl {
   }
   /* 退出登录 */
   logOut() {
+    this.appService.setItem("tpb_token","");
     if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
       window.location.href = window.location.href.split("?")[0];
     }else {
