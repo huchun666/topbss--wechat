@@ -65,6 +65,7 @@ export class OrderList {
       this.currentStatus = orderStatus;
       this.paramsStatus += '&status=' + orderStatus;
     });
+    this.orderList = [];
     this.getOrderList();
   }
   // 每次离开页面的时候执行
