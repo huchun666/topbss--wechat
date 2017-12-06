@@ -48,6 +48,7 @@ export class OrderList {
       label: "已完成",
       status: 'C'
     }];
+    this.load = AppConfig.load;
   }
   // 每次进入页面的时候都会执行
   ionViewDidEnter(){
@@ -56,12 +57,15 @@ export class OrderList {
     this.paramsStatus = '';
     this.dateStart = '';
     this.dateEnd = '';
+    this.dateStartMax = this.appService.reserveDate();
+    this.dateEndMax = this.appService.reserveDate();
     this.currentStatus = this.orderStatusList[0].status;
     this.events.subscribe('order:status', (orderStatus) => {
       console.log('subscribe events');
       this.currentStatus = orderStatus;
       this.paramsStatus += '&status=' + orderStatus;
     });
+    this.orderList = [];
     this.getOrderList();
   }
   // 每次离开页面的时候执行
@@ -145,12 +149,14 @@ export class OrderList {
   // 清除结束日期
   clearDateEnd() {
     this.dateEnd = '';
-    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    this.dateStartMax = this.appService.reserveDate();;
   }
 
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.showNoMore = false;
+    this.requestDefeat = false;
+    this.noData = false;
     this.start = 0;
     this.orderList = [];
     setTimeout(() => {
@@ -159,7 +165,7 @@ export class OrderList {
     }, AppConfig.LOAD_TIME);
   }
 
-  // 上拉加载请求数据
+  // 上拉加载更多 请求数据
   loadMore(infiniteScroll) {
     let url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')

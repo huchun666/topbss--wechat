@@ -71,7 +71,7 @@ export class UnhandleTabs {
         if (this.up) {
           this.unhandleSeflGiftArray.push(...data.data);
         } else if (this.down) {
-          this.unhandleSeflGiftArray = [...data.data];
+          this.unhandleSeflGiftArray = data.data;
         }
         this.addOrderStatusClass(this.unhandleSeflGiftArray);
       } else if (data.count == 0) {
@@ -180,7 +180,7 @@ export class UnhandleTabs {
         if (this.up) {
           this.unhandleExpressGiftArray.push(...data.data);
         } else if (this.down) {
-          this.unhandleExpressGiftArray = [...data.data];
+          this.unhandleExpressGiftArray = data.data;
         }
         this.addOrderStatusClass(this.unhandleExpressGiftArray);
       } else if (data.count == 0) {
@@ -288,19 +288,43 @@ export class UnhandleTabs {
 
   // 上拉刷新请求数据
   loadMore(infiniteScroll) {
-    if (!this.showNoMore) {
-      this.down = false;
-      this.up = true;
-      setTimeout(() => {
-        if (this.currentIndex == 0) {
-          this.getUnhandleSelfGiftList();
-        } else {
-          this.getUnhandleExpressGiftList();
-        }
+    if (this.currentIndex == 0) {
+      let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
+      this.appService.httpGet(url).then(data => {
         infiniteScroll.complete();
-      }, AppConfig.LOAD_TIME)
+        if (data.data.length != 0) {
+          this.unhandleSeflGiftArray.push(...data.data);
+          this.start += this.limit;
+          this.addOrderStatusClass(this.unhandleSeflGiftArray);
+        } else {
+          this.showNoMore = true;
+        }
+      }).catch(error => {
+        infiniteScroll.complete();
+        console.log(error);
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      });
     } else {
-      infiniteScroll.complete();
+      let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
+      this.appService.httpGet(url).then(data => {
+        infiniteScroll.complete();
+        if (data.count == 0) {
+          //空空如也
+          this.noData = true;
+        } else {
+          this.noData = false;
+          if (data.data.length != 0) {
+            this.unhandleExpressGiftArray.push(...data.data);
+            this.start += this.limit;
+          } else {
+            this.showNoMore = true;
+          }
+        }
+      }).catch(error => {
+        infiniteScroll.complete();
+        console.log(error);
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      });
     }
   }
 
@@ -318,7 +342,7 @@ export class UnhandleTabs {
       this.getUnhandleExpressGiftList();
     }
   }
-      
+
   //请求失败后刷新
   requestDefeatRefresh() {
     this.requestDefeat = false;

@@ -29,7 +29,7 @@ export class AuditReturnorder {
       this.getAuditReturnorderList();
   }
   goReturnedDetail(index) {
-    let contactModal = this.modalCtrl.create(ReturnedDetail, { indexId: this.auditReturnorderArray[index].orderReturnSeq });
+    let contactModal = this.modalCtrl.create(ReturnedDetail, { indexId: this.auditReturnorderArray[index].orderReturnSeq, status: this.auditReturnorderArray[index].status });
     contactModal.present();
   }
   getAuditReturnorderList() {
@@ -69,6 +69,7 @@ export class AuditReturnorder {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.showNoMore = false;
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       refresher.complete();
