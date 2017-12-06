@@ -157,6 +157,7 @@ export class CreatOrder {
         }
       }
     }).catch(error => {
+      this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
       this.showInfinite = false;
