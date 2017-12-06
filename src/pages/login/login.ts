@@ -62,7 +62,6 @@ export class Login{
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
-      // let loginUrl = AppConfig.API.login;
       let body = `username=${this.username}&password=${this.pwd}&grant_type=${AppConfig.grant_type}`;
       this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         if (data.access_token) {
@@ -72,18 +71,18 @@ export class Login{
           {
             'Authorization': 'Bearer '+ data.access_token
           });
-          this.appService.httpGetHeader(firstLoginUrl, this.loginHeaders).then(data => {
-            if (data.firstLogin == 1) {//初次登录
+          this.appService.httpGetHeader(firstLoginUrl, this.loginHeaders).then(firstLoginData => {
+            let user = {
+              username: this.username,
+              pwd: this.pwd
+            };
+            if (!this.rememberPassword) {
+              user.pwd = ""; 
+            }
+            if (firstLoginData.firstLogin == 1) {//初次登录
               let appNav = this.app.getRootNav();
-              appNav.setRoot(UpdatePwd,{initialPwd: this.pwd, tpb_token: data.access_token, refresh_token: data.refresh_token});
-            }else if (data.firstLogin == 0) {
-              let user = {
-                username: this.username,
-                pwd: this.pwd
-              };
-              if (!this.rememberPassword) {
-                user.pwd = ""; 
-              }
+              appNav.setRoot(UpdatePwd, {initialPwd: this.pwd, tpb_token: data.access_token, refresh_token: data.refresh_token, user: user, rememberPassword: this.rememberPassword});
+            }else if (firstLoginData.firstLogin == 0) {
               this.appService.setItem("user", JSON.stringify(user));
               this.appService.setItem("tpb_token",data.access_token);//测试一下看结果
               this.appService.setItem("refresh_token",data.refresh_token);
@@ -94,17 +93,6 @@ export class Login{
             console.log(error);
             this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
           })
-          // this.loginHeaders = new Headers(
-          // {
-          //   'Authorization': 'Bearer '+ this.appService.getItem('tpb_token')
-          // });
-          // this.appService.httpGetHeader(loginUrl, this.loginHeaders).then(data => {
-          // }).catch(error => {
-          //   loading.dismiss();
-          //   this.isUserName = true;
-          //   console.log(`访问错误1:${error}`);
-          //   this.appService.toast('登录失败', 1000, 'middle');
-          // });
         }else {
           loading.dismiss();
           this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
