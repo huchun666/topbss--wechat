@@ -9,6 +9,7 @@ import { WithdrawRecord } from '../withdraw-record/withdraw-record';
 import { Help } from '../help/help';
 import { AddAccount } from '../account/add-account/add-account';
 import { AppService, AppConfig } from '../../app/app.service';
+import { EditAccount } from '../account/edit-account/edit-account';
 
 @Component({
   selector: 'personl',
@@ -63,7 +64,8 @@ export class Personl {
       "awardTabs": AwardTabs,
       "withdrawRecord": WithdrawRecord,
       "addAccount": AddAccount,
-      "help": Help
+      "help": Help,
+      "editAccount": EditAccount
     }
     this.getCurrent();
     this.getAccount();
@@ -79,14 +81,16 @@ export class Personl {
   }
   /* 退出登录 */
   logOut() {
-    let appNav = this.app.getRootNav();
-    appNav.setRoot(Login);
+    this.appService.setItem("tpb_token","");
+    if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+      window.location.href = window.location.href.split("?")[0];
+    }else {
+      let appNav = this.app.getRootNav();
+      appNav.setRoot(Login);
+    }
   }
   /* 跳转页面 */
   redirectPage(page, param1, param2) {
-    if (!this.userCurrent.boundWechat && page === Withdraw) {
-      page = this.pageList.addAccount;
-    }
     let pageModal = this.modalCtrl.create(page, {'param1': param1, 'param2': param2});
     pageModal.onDidDismiss(data => {
       let componentName = pageModal['_component'].name; //获取返回页面名
@@ -128,6 +132,22 @@ export class Personl {
         console.log(error);
       });
   }
-  
-
+  getAccountCreat() {
+    let url = AppConfig.API.account;
+    this.appService.httpGet(url)
+    .then( data => {
+      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': data.userId});
+      pageModal.present();
+    })
+    .catch(error => {
+      console.log(error);
+      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': null});
+      pageModal.present();
+    });
+  }
+  ionViewDidEnter() {
+    if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+      this.getAccountCreat();
+    }
+  }
 }

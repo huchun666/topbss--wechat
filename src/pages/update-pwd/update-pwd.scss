@@ -54,5 +54,11 @@ update-pwd {
 				font-size: 1.5rem;
 			}
 		}
+		.login-error {
+			font-size: 1.2rem;
+			color: #f00;
+			position: absolute;
+			margin-top: -1.6rem;
+		}
   }
 }
