@@ -42,6 +42,7 @@ export class Login{
   login() {
     if (this.pwd == "") {
       this.isPwd = true;
+      this.userNameValue = "*请输入密码";
     }else {
       this.isPwd = false;
     }
@@ -91,6 +92,7 @@ export class Login{
             }
           }).catch(error => {
             console.log(error);
+            this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
           })
           // this.loginHeaders = new Headers(
           // {
@@ -110,7 +112,7 @@ export class Login{
       }).catch(error => {
         loading.dismiss();
         console.log(`访问错误:${error}`);
-        if (error.toString().indexOf("401") > -1) {
+        if (error.status == 401 && error.json().error == "invalid_token") {
           let base64encode = new Buffer('testClient:secret').toString('base64');
           this.oauthTokenHeaders = new Headers({
             'Authorization': 'Basic '+ base64encode,
@@ -125,7 +127,7 @@ export class Login{
           }).catch(err => {
             console.log(err);
           })
-        }else if (error.toString().indexOf("400") > -1) {
+        }else if (error.status == 400 && error.json().error == "invalid_grant") {
           this.appService.toast('用户名或密码错误', 1000, 'middle');
         }else {
           this.appService.toast('网络异常，请稍后重试', 1000, 'middle');
