@@ -1,4 +1,4 @@
-import { PipeTransform, Pipe, transition } from '@angular/core';
+import { PipeTransform, Pipe } from '@angular/core';
 
 // 订单状态的转换
 // pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)

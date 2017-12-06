@@ -79,6 +79,7 @@ export class Personl {
   }
   /* 退出登录 */
   logOut() {
+    this.appService.setItem("tpb_token","");
     let appNav = this.app.getRootNav();
     appNav.setRoot(Login);
   }
@@ -108,8 +109,8 @@ export class Personl {
     let url = AppConfig.API.current;
     this.appService.httpGet(url)
       .then( data => {
-        this.userCurrent = data;
-        this.formatTelphone();
+        // this.userCurrent = data;
+        // this.formatTelphone();
       })
       .catch(error => {
         console.log(error);
