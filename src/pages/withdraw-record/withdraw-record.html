@@ -10,7 +10,7 @@
     </div>
     <div [innerHTML]="load.content"></div>
   </div>
-  <ion-refresher *ngIf="isRefresh" (ionRefresh)="pullRefresh($event)">
+  <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="withdraw-record">

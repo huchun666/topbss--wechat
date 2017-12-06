@@ -48,7 +48,6 @@ export class BrandshopOrderList {
       label: "已完成",
       status: 'C'
     }];
-    // 将当前日期格式化为 yyyy-mm-dd
     this.currentStatus = this.orderStatusList[0].status;
     this.load = AppConfig.load;
     this.dateStartMax = this.appService.reserveDate();
@@ -127,12 +126,14 @@ export class BrandshopOrderList {
   // 清除结束日期
   clearDateEnd() {
     this.dateEnd = '';
-    this.dateStartMax = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    this.dateStartMax = this.appService.reserveDate();
   }
 
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.showNoMore = false;
+    this.requestDefeat = false;
+    this.noData = false;
     this.start = 0;
     this.orderList = [];
     setTimeout(() => {
@@ -141,7 +142,7 @@ export class BrandshopOrderList {
     }, AppConfig.LOAD_TIME);
   }
 
-  // 上拉刷新请求数据
+  // 上拉加载更多 请求数据
   loadMore(infiniteScroll) {
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')

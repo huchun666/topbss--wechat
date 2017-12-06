@@ -80,6 +80,7 @@ export class AwardDetail{
     this.requestFail = false;
     this.isEmpty = false;
     this.currentPage = 1;
+    this.awardDetail = [];
     this.refreshPage(refresher);
   }
   /** 下拉上拉公共方法 **/
