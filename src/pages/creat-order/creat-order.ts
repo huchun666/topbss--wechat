@@ -118,6 +118,7 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
+        this.creatOrderArray = [];
         this.requestDefeat = true;
         this.showInfinite = false;
         this.loadingShow = false;
@@ -157,6 +158,7 @@ export class CreatOrder {
         }
       }
     }).catch(error => {
+      this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
       this.showInfinite = false;
