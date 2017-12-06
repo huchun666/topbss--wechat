@@ -5,6 +5,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 import { Forget } from '../forget/forget';
 import { TabsPage } from '../tabs/tabs';
 import { Buffer } from 'buffer';
+import { UpdatePwd } from '../update-pwd/update-pwd';
 @Component({
   selector: 'login',
   templateUrl: 'login.html'
@@ -60,23 +61,37 @@ export class Login{
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
-      let loginUrl = AppConfig.API.login;
+      // let loginUrl = AppConfig.API.login;
       let body = `username=${this.username}&password=${this.pwd}&grant_type=${AppConfig.grant_type}`;
-      this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders)
-      .then(data => {
+      this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         if (data.access_token) {
           loading.dismiss();
-          let user = {
-            username: this.username,
-            pwd: this.pwd
-          };
-          if (!this.rememberPassword) {
-            user.pwd = ""; 
-          }
-          this.appService.setItem("user", JSON.stringify(user));
-          this.appService.setItem("tpb_token",data.access_token);
-          let appNav = this.app.getRootNav();
-          appNav.setRoot(TabsPage);
+          let firstLoginUrl = AppConfig.API.firstLogin;
+          this.loginHeaders = new Headers(
+          {
+            'Authorization': 'Bearer '+ data.access_token
+          });
+          this.appService.httpGetHeader(firstLoginUrl, this.loginHeaders).then(data => {
+            if (data.firstLogin == 1) {//初次登录
+              let appNav = this.app.getRootNav();
+              appNav.setRoot(UpdatePwd,{initialPwd: this.pwd, tpb_token: data.access_token, refresh_token: data.refresh_token});
+            }else if (data.firstLogin == 0) {
+              let user = {
+                username: this.username,
+                pwd: this.pwd
+              };
+              if (!this.rememberPassword) {
+                user.pwd = ""; 
+              }
+              this.appService.setItem("user", JSON.stringify(user));
+              this.appService.setItem("tpb_token",data.access_token);//测试一下看结果
+              this.appService.setItem("refresh_token",data.refresh_token);
+              let appNav = this.app.getRootNav();
+              appNav.setRoot(TabsPage);
+            }
+          }).catch(error => {
+            console.log(error);
+          })
           // this.loginHeaders = new Headers(
           // {
           //   'Authorization': 'Bearer '+ this.appService.getItem('tpb_token')
@@ -92,11 +107,25 @@ export class Login{
           loading.dismiss();
           this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
         }
-      })
-      .catch(error => {
+      }).catch(error => {
         loading.dismiss();
         console.log(`访问错误:${error}`);
-        if (error.toString().indexOf("400") > -1) {
+        if (error.toString().indexOf("401") > -1) {
+          let base64encode = new Buffer('testClient:secret').toString('base64');
+          this.oauthTokenHeaders = new Headers({
+            'Authorization': 'Basic '+ base64encode,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+          let oauthTokenUrl = AppConfig.oauthTokenUrl;
+          let loginUrl = AppConfig.API.login;
+          let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.appService.getItem("refresh_token")}`;
+          return this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
+            this.appService.setItem("tpb_token", data.access_token);
+            this.appService.setItem("refresh_token", data.refresh_token);
+          }).catch(err => {
+            console.log(err);
+          })
+        }else if (error.toString().indexOf("400") > -1) {
           this.appService.toast('用户名或密码错误', 1000, 'middle');
         }else {
           this.appService.toast('网络异常，请稍后重试', 1000, 'middle');
