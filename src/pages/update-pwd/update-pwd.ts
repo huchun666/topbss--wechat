@@ -1,3 +1,4 @@
+import { Headers } from '@angular/http';
 import { Component} from '@angular/core';
 import { NavController, AlertController, NavParams, App } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
@@ -19,6 +20,12 @@ export class UpdatePwd {
   repeatPwdValue: string;
   tpb_token: string;
   refresh_token: string;
+  withTokenHeaders: any;
+  user: any = {
+    username: '',
+    pwd: ''
+  };
+  rememberPassword: Boolean;
   constructor(public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public navParams: NavParams,
@@ -28,20 +35,36 @@ export class UpdatePwd {
     this.prevInitialPwd = this.navParams.get("initialPwd");
     this.tpb_token = this.navParams.get("tpb_token");
     this.refresh_token = this.navParams.get("refresh_token");
+    this.user = this.navParams.get("user");
+    this.rememberPassword = this.navParams.get("rememberPassword");
+    console.log(this.user)
+    this.withTokenHeaders = new Headers({
+      'Authorization': 'Bearer '+ this.tpb_token
+    });
   }
   confirm() {
     this.repeatPwdBlur();
     this.initialPwdBlur();
     this.newPwdBlur();
     if (!this.isInitialPwd && !this.isNewPwd && !this.isRepeatPwd && this.initialPwd != "" && this.newPwd != "" && this.repeatPwd != "") {
+      console.log("inter01")
       let loading = this.appService.loading();
       loading.present();
       let url = AppConfig.API.editPassword;
       let body = {
         password: this.newPwd
-      }
-      this.appService.httpPost(url, body).then(data => {
+      };
+      console.log(this.withTokenHeaders)
+      this.appService.httpPostHeader(url, body, this.withTokenHeaders).then(data => {
         loading.dismiss();
+        this.user = {
+          username: this.user.username,
+          pwd: this.newPwd
+        };
+        if (!this.rememberPassword) {
+          this.user.pwd = ""; 
+        };
+        this.appService.setItem("user", JSON.stringify(this.user));
         this.appService.setItem("tpb_token", this.tpb_token);
         this.appService.setItem("refresh_token", this.refresh_token);
         if (data.type == "success") {

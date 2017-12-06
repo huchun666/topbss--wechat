@@ -7,6 +7,15 @@ add-account {
 		line-height: 46px;
 		color: #333;
 		text-align: center;
+		.binded {
+			color: #54c261;
+			text-align: center;
+			img {
+				max-width: 37px;
+				vertical-align: middle;
+				margin-right: 10px;
+			}
+		}
   }
   .form-list {
 		padding: 2rem 1rem 0;
@@ -14,7 +23,7 @@ add-account {
 			border: solid 1px #ccc;
 			border-radius: 4px;
 			min-height: 42px;
-			margin-bottom: 1.2rem;
+			margin-bottom: 2.4rem;
 		}
 		.item-block {
 			.item-inner {
@@ -39,6 +48,12 @@ add-account {
 					}
 				}
 			}
+		}
+		.bind-error {
+			font-size: 1.2rem;
+			color: #f00;
+			position: absolute;
+			margin-top: -1.9rem;
 		}
   }
   .list-md .item-input.item-input-has-focus:last-child,
