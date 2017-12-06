@@ -174,7 +174,6 @@ export class AppService {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
-      let loginUrl = AppConfig.API.login;
       let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.getItem("refresh_token")}`;
       return this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         this.setItem("tpb_token", data.access_token);
