@@ -93,6 +93,7 @@ export class OrderInfo {
     this.appService.httpGet(url)
       .then(data => {
         console.log(data);
+        this.orderDetail = data;
         if (data.type) {
           const alert = this.alertCtrl.create({
             message: data.message,
@@ -106,8 +107,6 @@ export class OrderInfo {
             ]
           });
           alert.present();
-        } else {
-          this.orderDetail = data;
         }
       }).catch(error => {
         console.log(error);
