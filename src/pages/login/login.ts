@@ -63,6 +63,7 @@ export class Login{
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
       let body = `username=${this.username}&password=${this.pwd}&grant_type=${AppConfig.grant_type}`;
+      console.log(body)
       this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         if (data.access_token) {
           loading.dismiss();
