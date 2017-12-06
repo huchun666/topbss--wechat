@@ -13,8 +13,8 @@ import { UpdatePwd } from '../update-pwd/update-pwd';
 export class Login{
   oauthTokenHeaders: any;
   loginHeaders: any;
-  username: string = "";//testUser
-  pwd: string = "";//123456
+  username: string = "";//18366155533
+  pwd: string = "";//123123
   isUserName: boolean = false;
   isPwd: boolean = false;
   rememberPassword: boolean = false;
@@ -72,28 +72,28 @@ export class Login{
           {
             'Authorization': 'Bearer '+ data.access_token
           });
-          // this.appService.httpGetHeader(firstLoginUrl, this.loginHeaders).then(data => {
-          //   if (data.firstLogin == 1) {//初次登录
-          //     let appNav = this.app.getRootNav();
-          //     appNav.setRoot(UpdatePwd,{initialPwd: this.pwd, tpb_token: data.access_token, refresh_token: data.refresh_token});
-          //   }else if (data.firstLogin == 0) {
-          //     let user = {
-          //       username: this.username,
-          //       pwd: this.pwd
-          //     };
-          //     if (!this.rememberPassword) {
-          //       user.pwd = ""; 
-          //     }
-          //     this.appService.setItem("user", JSON.stringify(user));
-          //     this.appService.setItem("tpb_token",data.access_token);//测试一下看结果
-          //     this.appService.setItem("refresh_token",data.refresh_token);
+          this.appService.httpGetHeader(firstLoginUrl, this.loginHeaders).then(data => {
+            if (data.firstLogin == 1) {//初次登录
+              let appNav = this.app.getRootNav();
+              appNav.setRoot(UpdatePwd,{initialPwd: this.pwd, tpb_token: data.access_token, refresh_token: data.refresh_token});
+            }else if (data.firstLogin == 0) {
+              let user = {
+                username: this.username,
+                pwd: this.pwd
+              };
+              if (!this.rememberPassword) {
+                user.pwd = ""; 
+              }
+              this.appService.setItem("user", JSON.stringify(user));
+              this.appService.setItem("tpb_token",data.access_token);//测试一下看结果
+              this.appService.setItem("refresh_token",data.refresh_token);
               let appNav = this.app.getRootNav();
               appNav.setRoot(TabsPage);
-          //   }
-          // }).catch(error => {
-          //   console.log(error);
-          //   this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
-          // })
+            }
+          }).catch(error => {
+            console.log(error);
+            this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
+          })
           // this.loginHeaders = new Headers(
           // {
           //   'Authorization': 'Bearer '+ this.appService.getItem('tpb_token')
