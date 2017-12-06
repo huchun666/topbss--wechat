@@ -17,7 +17,6 @@ export class AddAccount {
   requestDefeat: Boolean = false;
   loadingShow: Boolean = false;
   load: any = {}; 
-  userId: number;
   isName: Boolean = false;//校验姓名
   isPhone: Boolean = false;//校验手机
   isIDCard: Boolean = false;//校验身份证
@@ -111,7 +110,6 @@ export class AddAccount {
       });
   }
   ionViewDidEnter() {
-    this.userId = this.navParams.get("userId");
     this.getCurrent();
   }
 

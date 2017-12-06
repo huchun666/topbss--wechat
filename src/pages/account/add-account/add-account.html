@@ -11,8 +11,8 @@
     </div>
     <div [innerHTML]="load.content"></div>
   </div>
-  <div *ngIf="false">
-    <div class="account-title" *ngIf="!noBind">
+  <div *ngIf="accountContent && boundWechat">
+    <div class="account-title" *ngIf="boundWechat">
       <div class="binded"><img src="./assets/image/ok.png" alt="">已绑定微信</div>
     </div>
     <div class="form-list">
@@ -30,17 +30,17 @@
         </ion-item>
         <div class='bind-error' *ngIf="isIDCard">*请输入正确的身份证号</div>
       </ion-list>
-    <button class="btn-bind" ion-button (click)="editCurrent()">确定</button>
+    <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="boundWechat">确定</button>
     </div>
   </div>
-  <div class="request-defeat" *ngIf = "false">
+  <div class="request-defeat" *ngIf = "requestDefeat">
     <img src="./assets/image/requestDefeat.png" alt="">
     <p>啊哦！页面走丢了</p>
     <button class="btn-request-defeat" ion-button full (touchstart)="getCurrent()">
       刷新再找一找
     </button>
   </div>
-  <div class="account-mesg" >
+  <div class="account-mesg" *ngIf="accountContent && !boundWechat">
     <h2>请先到微信公众号绑定收款账户</h2>
     <p>· 第一步：在微信内搜索公众号：淘璞帮</p>
     <p>· 第二步：关注并进入公众号绑定收款账户</p>
