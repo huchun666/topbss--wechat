@@ -7,6 +7,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'gift-info.html'
 })
 export class GiftInfo {
+  isAllow: boolean = true;
   giftInfo: any = {
 		"memberGiftAccountSeq": null,
 		"giftSeq": null,
@@ -43,15 +44,21 @@ export class GiftInfo {
     this.getGiftDetail();
   }
   presentConfirm() {
+    if (!this.isAllow) {
+      return;
+    }
+    this.isAllow = false;
 		let url = `${AppConfig.API.receiveGift}`;
     let body = {
       giftCode: this.giftInfo.giftCode
     }
     this.appService.httpPost(url, body)
       .then(data => {
+        this.isAllow = true;
         this.alertLayer();
       })
       .catch(error => {
+        this.isAllow = true;
         console.log(error);
       });
   }
@@ -84,6 +91,20 @@ export class GiftInfo {
       .then(data => {
 				console.log(data);
         this.giftInfo = data;
+        if (data.status === '1') {
+          const alert = this.alertCtrl.create({
+            message: '此赠品已经兑换过了，不能重复兑换哦',
+            buttons: [
+              {
+                text: '确定',
+                handler: () => {
+                  this.viewCtrl.dismiss(data);
+                }
+              }
+            ]
+          });
+          alert.present();
+        }
       }).catch(error => {
         console.log(error);
       });

@@ -25,40 +25,7 @@
           <dd class="count">X {{ product.number }}</dd>
         </dl>
       </div>
-
-      <!-- <div class="order-item">
-        <dl>
-          <dt>
-            <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
-          </dt>
-          <dd class="product-title">可爱的小裙子 厚实的 保暖 秋冬季</dd>
-          <dd class="sku-list">
-            <span>140</span>
-            <span>蓝色</span>
-            <span>无袖</span>
-          </dd>
-          <dd class='price'>￥128.66</dd>
-          <dd class="count">X4</dd>
-        </dl>
-      </div>
-
-      <div class="order-item">
-        <dl>
-          <dt>
-            <img class="my-picture" src="./assets/image/productimg.png" alt="小裙子">
-          </dt>
-          <dd class="product-title">可爱的小裙子 厚实的 保暖 秋冬季</dd>
-          <dd class="sku-list">
-            <span>140</span>
-            <span>蓝色</span>
-            <span>无袖</span>
-          </dd>
-          <dd class='price'>￥128.66</dd>
-          <dd class="count">X4</dd>
-        </dl>
-      </div> -->
-
     </div>
-    <button class="btn-confirm" ion-button (click)="presentConfirm()">确认提货</button>
+    <button class="btn-confirm" ion-button (click)="presentConfirm()" *ngIf="orderDetail.status=='1'">确认提货</button>
   </div>
 </ion-content>

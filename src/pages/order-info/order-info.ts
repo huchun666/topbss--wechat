@@ -6,6 +6,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'order-info.html'
 })
 export class OrderInfo {
+  isAllow: boolean = true;
   orderDetail: any = {
     "orderSeq": null,//订单Seq
     "orderId": "",//订单ID
@@ -50,15 +51,18 @@ export class OrderInfo {
 		this.getOrderDetail();
   }
   presentConfirm() {
-    let url = `${AppConfig.API.orderReceive}`;
-    let body = {
-      id: this.orderDetail.orderSeq
+    if (!this.isAllow) {
+      return;
     }
-    this.appService.httpPost(url, body)
+    this.isAllow = false;
+    let url = `${AppConfig.API.orderReceive}`;
+    this.appService.httpPost(url, this.orderDetail.orderSeq)
       .then(data => {
+        this.isAllow = true;
         this.alertLayer();
       })
       .catch(error => {
+        this.isAllow = true;
         console.log(error);
       });
   }
@@ -88,8 +92,23 @@ export class OrderInfo {
     let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
     this.appService.httpGet(url)
       .then(data => {
-				console.log(data);
-        this.orderDetail = data;
+        console.log(data);
+        if (data.type) {
+          const alert = this.alertCtrl.create({
+            message: data.message,
+            buttons: [
+              {
+                text: '确定',
+                handler: () => {
+                  this.viewCtrl.dismiss(data);
+                }
+              }
+            ]
+          });
+          alert.present();
+        } else {
+          this.orderDetail = data;
+        }
       }).catch(error => {
         console.log(error);
       });
