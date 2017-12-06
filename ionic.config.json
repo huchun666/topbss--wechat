@@ -20,11 +20,11 @@
     },
     {
       "path": "/order",
-      "proxyUrl": "http://192.168.31.226:6002/order"
+      "proxyUrl": "http://192.168.31.203:6002/order"
     },
     {
       "path": "/product",
-      "proxyUrl": "http://192.168.31.215:6003/product"
+      "proxyUrl": "http://192.168.31.215:8082/product"
     },
     {
       "path": "/promotion",

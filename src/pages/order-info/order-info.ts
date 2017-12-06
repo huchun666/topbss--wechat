@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
 import { NavController, AlertController, ViewController } from 'ionic-angular';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 @Component({
   selector: 'order-info',
   templateUrl: 'order-info.html'

@@ -118,6 +118,7 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
+        this.creatOrderArray = [];
         this.requestDefeat = true;
         this.showInfinite = false;
         this.loadingShow = false;
