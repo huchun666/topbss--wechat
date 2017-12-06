@@ -5,6 +5,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 import { Forget } from '../forget/forget';
 import { TabsPage } from '../tabs/tabs';
 import { Buffer } from 'buffer';
+import { UpdatePwd } from '../update-pwd/update-pwd';
 @Component({
   selector: 'login',
   templateUrl: 'login.html'
@@ -12,109 +13,141 @@ import { Buffer } from 'buffer';
 export class Login{
   oauthTokenHeaders: any;
   loginHeaders: any;
-  username: string = "restUser";//后面清空
-  pwd: string = "1234";//后面清空
-  isNameAndPwd: boolean = false;
+  username: string = "";//testUser
+  pwd: string = "";//123456
+  isUserName: boolean = false;
+  isPwd: boolean = false;
   rememberPassword: boolean = false;
+  userNameValue: string = "*账号不正确，请确认后重新输入";
+  userPwdValue: string = "*请输入密码";
   constructor(
     public navCtrl: NavController,
     public app: App,
     public appService: AppService,
     public http: Http
   ) {
-    // this.pageInit();
+    this.pageInit();
   }
-  // 页面初始化时执行
-  // pageInit() {
-  //   let user = this.appService.getItem("user");
-  //   if (user) {
-  //     user = JSON.parse(user);
-  //     this.username = user.username;
-  //     this.pwd = user.pwd;
-  //     if (this.pwd) {
-  //       this.rememberPassword = true;
-  //     }
-  //   }
-  // }
+  pageInit() {
+    let user = this.appService.getItem("user");
+    if (user) {
+      user = JSON.parse(user);
+      this.username = user.username;
+      this.pwd = user.pwd;
+      if (this.pwd) {
+        this.rememberPassword = true;
+      }
+    }
+  }
   login() {
-    // // 登录时判断用户名和密码是否正确
-    // if (this.userName == "15618146206" && this.pwd == "123456hc") {
-    //   let appNav = this.app.getRootNav();
-    //   appNav.setRoot(TabsPage);
-    // }
-    // else if (this.userName == "13761489650" && this.pwd == "123456") {
-    //   let appNav = this.app.getRootNav();
-    //   appNav.setRoot(TabsPage);
-    // } else {
-    //   this.isNameAndPwd = true;
-    // }
-    
-    
-    // let base64encode = new Buffer('fooClientIdPassword:secret').toString('base64');
-    // this.oauthTokenHeaders = new Headers({
-    //   'Authorization': 'Basic '+ base64encode,
-    //   'Content-Type': 'application/x-www-form-urlencoded'
-    // });
-    // let oauthTokenUrl = AppConfig.oauthTokenUrl;
-    // let loginUrl = AppConfig.API.login;
-    // // let body = `username=restUser&password=1234&grant_type=password&client_id=fooClientIdPassword`;
-    // let body = `username=${this.username}&password=${this.pwd}&grant_type=password&client_id=fooClientIdPassword`;
-    let appNav = this.app.getRootNav();//后面注释
-    appNav.setRoot(TabsPage);
-    // this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders)
-    // .then(data => {
-    //   console.log(data.access_token)
-    //   if (data.access_token) {
-    //     this.appService.setItem("tpb_token",data.access_token);
-    //     console.log("inter...");
-    //     this.loginHeaders = new Headers(
-    //     {
-    //       'Authorization': 'Bearer '+ data.access_token
-    //     });
-    //     this.appService.httpGetHeader(loginUrl, this.loginHeaders).then(data => {
-    //       console.log(data);
-            //if (data.username == this.username) {
-            // let user = {
-            //   userName: this.username,
-            //   pwd: this.pwd
-            // };
-            // if (!this.rememberPassword){
-            //   user.pwd = ""; 
-            // }
-            // this.appService.setItem("user", JSON.stringify(user));
-            //}
-            
-    //       let appNav = this.app.getRootNav();
-    //       appNav.setRoot(TabsPage);
-    //     }).catch(error => {
-    //       this.isNameAndPwd = true;
-    //       console.log(`访问错误1:${error}`);
-    //     });
-    //   }else {
-    //     console.log("没有token值");
-    //   }
-    // })
-    // .catch(error => {
-    //   console.log(`访问错误:${error}`);
-    //   console.log("认证失败");
-    // })
-
-    
+    if (this.pwd == "") {
+      this.isPwd = true;
+      this.userNameValue = "*请输入密码";
+    }else {
+      this.isPwd = false;
+    }
+    if (this.username == "") {
+      this.isUserName = true;
+      this.userNameValue = "*请输入账号或手机号";
+    }else {
+      this.isUserName = false;
+    }
+    if (this.isUserName == false && this.username != "" && this.pwd != "") {
+      this.isPwd = false;
+      let loading = this.appService.loading();
+      loading.present();
+      let base64encode = new Buffer('testClient:secret').toString('base64');
+      this.oauthTokenHeaders = new Headers({
+        'Authorization': 'Basic '+ base64encode,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      let oauthTokenUrl = AppConfig.oauthTokenUrl;
+      // let loginUrl = AppConfig.API.login;
+      let body = `username=${this.username}&password=${this.pwd}&grant_type=${AppConfig.grant_type}`;
+      this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
+        if (data.access_token) {
+          loading.dismiss();
+          let firstLoginUrl = AppConfig.API.firstLogin;
+          this.loginHeaders = new Headers(
+          {
+            'Authorization': 'Bearer '+ data.access_token
+          });
+          // this.appService.httpGetHeader(firstLoginUrl, this.loginHeaders).then(data => {
+          //   if (data.firstLogin == 1) {//初次登录
+          //     let appNav = this.app.getRootNav();
+          //     appNav.setRoot(UpdatePwd,{initialPwd: this.pwd, tpb_token: data.access_token, refresh_token: data.refresh_token});
+          //   }else if (data.firstLogin == 0) {
+          //     let user = {
+          //       username: this.username,
+          //       pwd: this.pwd
+          //     };
+          //     if (!this.rememberPassword) {
+          //       user.pwd = ""; 
+          //     }
+          //     this.appService.setItem("user", JSON.stringify(user));
+          //     this.appService.setItem("tpb_token",data.access_token);//测试一下看结果
+          //     this.appService.setItem("refresh_token",data.refresh_token);
+              let appNav = this.app.getRootNav();
+              appNav.setRoot(TabsPage);
+          //   }
+          // }).catch(error => {
+          //   console.log(error);
+          //   this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
+          // })
+          // this.loginHeaders = new Headers(
+          // {
+          //   'Authorization': 'Bearer '+ this.appService.getItem('tpb_token')
+          // });
+          // this.appService.httpGetHeader(loginUrl, this.loginHeaders).then(data => {
+          // }).catch(error => {
+          //   loading.dismiss();
+          //   this.isUserName = true;
+          //   console.log(`访问错误1:${error}`);
+          //   this.appService.toast('登录失败', 1000, 'middle');
+          // });
+        }else {
+          loading.dismiss();
+          this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
+        }
+      }).catch(error => {
+        loading.dismiss();
+        console.log(`访问错误:${error}`);
+        if (error.status == 401 && error.json().error == "invalid_token") {
+          let base64encode = new Buffer('testClient:secret').toString('base64');
+          this.oauthTokenHeaders = new Headers({
+            'Authorization': 'Basic '+ base64encode,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+          let oauthTokenUrl = AppConfig.oauthTokenUrl;
+          let loginUrl = AppConfig.API.login;
+          let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.appService.getItem("refresh_token")}`;
+          return this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
+            this.appService.setItem("tpb_token", data.access_token);
+            this.appService.setItem("refresh_token", data.refresh_token);
+          }).catch(err => {
+            console.log(err);
+          })
+        }else if (error.status == 400 && error.json().error == "invalid_grant") {
+          this.appService.toast('用户名或密码错误', 1000, 'middle');
+        }else {
+          this.appService.toast('网络异常，请稍后重试', 1000, 'middle');
+        }
+      })
+    }
   }
-  
+  //忘记密码
   forget() {
     this.navCtrl.push(Forget);
   }
   onblurAffirm() {
-    // console.log(this.base64encode(this.username))
+    // console.log(this.username)
     //let url = AppConfig.API.;
     //let body = {
-    //  userName: this.userName
+    //  username: this.username
     //}
     //this.appService.httpPost(url, body).then(data => {
     //  if (data.success) {
-    //    let appNav = this.app.getRootNav();
-    //    appNav.setRoot(TabsPage);
+    //    this.isNameAndPwd = false;
     //  } else {
     //    this.isNameAndPwd = true;
     //  }
