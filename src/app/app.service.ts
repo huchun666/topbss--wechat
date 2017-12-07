@@ -70,7 +70,7 @@ export class AppConfig {
     signature: "/evercos/wechat/jsapiticket/signature.json",//JSSDK签名
     orderReceive: "/order/receive/received", //确定订单
     receiveGift: "/promotion/member/gift/account/receiveGift",
-    firstLogin: "/uaa/info",//查询是否第一次登录
+    firstLogin: "/uaa/getInfo",//查询是否第一次登录
     editPassword: "/uaa/password",//更改密码
   };
 
