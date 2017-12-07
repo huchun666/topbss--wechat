@@ -19,7 +19,7 @@ export class AppConfig {
   static LOAD_TIME: number = 500;
 
   //获取token的url
-  static oauthTokenUrl: string = "/uaa/oauth/token";
+  static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
   //testClient  生产client_id
   static client_id: string = "topbss";
@@ -35,43 +35,43 @@ export class AppConfig {
 
   //接口url
   static API: any = {
-    login: "/uaa/user",
-    getOrderList: "/order/bssList",    //门店/导购员订单列表
-    getCancelorder: "/order/cancel/list",    //待审核/已审核取消订单列表
-    auditCancelOrder: "/order/cancel/approval",    //审核取消订单
-    getReturnorderList: '/order/return/list',    //未处理/已处理退货订单列表
-    returnDetail: '/order/return/details',    //退货订单详情
-    returnReceived: '/order/return/received',    // 退货-确认收货
-    auditReturnOrder: '/order/return/approval',    //审核退货订单
-    getGiftList: "/promotion/member/gift/account/getGiftList",//各种赠品列表
-    getUnhandleGiftCount: "/promotion/member/gift/account/getUnhandleGiftCount",//待处理自提订单列表
-    confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",//确认预约时间
-    confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",//确认发货
-    getBrandshopProducts: "/product/getBrandshopProducts",//商品列表
-    warehouseGetCount: "/order/warehouse/getCount",//查看配单仓订单总数
-    getProductSkuWithDefault: "/product/sku/getProductSkuWithDefault",//SKU初始加载
-    getValidSKUAttrValue: "/product/sku/getValidSkuAttrValue",//SKU切换
-    warehouseAdd: "/order/warehouse/add",//添加配单行接口
-    warehouseList: "/order/warehouse/list",//查看配单仓列表接口
-    warehouseGenerateCode: "/order/warehouse/generateCode",//生成订单付款码接口
-    warehouseDeleteById: "/order/warehouse/item/deleteById",//删除单个配单行
-    warehouseUpdate: "/order/warehouse/item/update",//修改配单行接口
-    warehouseEmpty: "/order/warehouse/empty",//清空配单仓接口
-    current: "/account/brandshop/user/current", //更新当前导购员基本信息
-    account: "/account/brandshop/user/account", //查询当前导购员基本信息
-    withdraw: "/account/brandshop/user/withdraw/", //提现
-    qrcode: "/account/brandshop/user/qrcode", //我的二维码
-    withdrawList: "/account/brandshop/user/withdraw/list", //提现记录
-    bonusList: "/account/brandshop/user/bonus/list", //查询可提现余额明显、审核中余额明细
-    bonusSum:"/account/brandshop/user/bonus/sum",
-    untreatedCount: "/order/untreatedCount",//查看待处理订单总数
-    connect: "/connect/oauth2/authorize",//获取code
-    sns: "/sns/oauth2/access_token",//获取access_token
-    signature: "/evercos/wechat/jsapiticket/signature.json",//JSSDK签名
-    orderReceive: "/order/receive/received", //确定订单
-    receiveGift: "/promotion/member/gift/account/receiveGift",
-    firstLogin: "/uaa/info",//查询是否第一次登录
-    editPassword: "/uaa/password",//更改密码
+    login: `${AppConfig.hostUrl}/uaa/user`,
+    getOrderList: `${AppConfig.hostUrl}/order/bssList`,    //门店/导购员订单列表
+    getCancelorder: `${AppConfig.hostUrl}/order/cancel/list`,    //待审核/已审核取消订单列表
+    auditCancelOrder: `${AppConfig.hostUrl}/order/cancel/approval`,    //审核取消订单
+    getReturnorderList: `${AppConfig.hostUrl}/order/return/list`,    //未处理/已处理退货订单列表
+    returnDetail: `${AppConfig.hostUrl}/order/return/details`,    //退货订单详情
+    returnReceived: `${AppConfig.hostUrl}/order/return/received`,    // 退货-确认收货
+    auditReturnOrder: `${AppConfig.hostUrl}/order/return/approval`,    //审核退货订单
+    getGiftList: `${AppConfig.hostUrl}/promotion/member/gift/account/getGiftList`,//各种赠品列表
+    getUnhandleGiftCount: `${AppConfig.hostUrl}/promotion/member/gift/account/getUnhandleGiftCount`,//待处理自提订单列表
+    confirmReserveShopTime: `${AppConfig.hostUrl}/promotion/member/gift/account/confirmReserveShopTime`,//确认预约时间
+    confirmExpressInfo: `${AppConfig.hostUrl}/promotion/member/gift/account/confirmExpressInfo`,//确认发货
+    getBrandshopProducts: `${AppConfig.hostUrl}/product/getBrandshopProducts`,//商品列表
+    warehouseGetCount: `${AppConfig.hostUrl}/order/warehouse/getCount`,//查看配单仓订单总数
+    getProductSkuWithDefault: `${AppConfig.hostUrl}/product/sku/getProductSkuWithDefault`,//SKU初始加载
+    getValidSKUAttrValue: `${AppConfig.hostUrl}/product/sku/getValidSkuAttrValue`,//SKU切换
+    warehouseAdd: `${AppConfig.hostUrl}/order/warehouse/add`,//添加配单行接口
+    warehouseList: `${AppConfig.hostUrl}/order/warehouse/list`,//查看配单仓列表接口
+    warehouseGenerateCode: `${AppConfig.hostUrl}/order/warehouse/generateCode`,//生成订单付款码接口
+    warehouseDeleteById: `${AppConfig.hostUrl}/order/warehouse/item/deleteById`,//删除单个配单行
+    warehouseUpdate: `${AppConfig.hostUrl}/order/warehouse/item/update`,//修改配单行接口
+    warehouseEmpty: `${AppConfig.hostUrl}/order/warehouse/empty`,//清空配单仓接口
+    current: `${AppConfig.hostUrl}/account/brandshop/user/current`, //更新当前导购员基本信息
+    account: `${AppConfig.hostUrl}/account/brandshop/user/account`, //查询当前导购员基本信息
+    withdraw: `${AppConfig.hostUrl}/account/brandshop/user/withdraw/`, //提现
+    qrcode: `${AppConfig.hostUrl}/account/brandshop/user/qrcode`, //我的二维码
+    withdrawList: `${AppConfig.hostUrl}/account/brandshop/user/withdraw/list`, //提现记录
+    bonusList: `${AppConfig.hostUrl}/account/brandshop/user/bonus/list`, //查询可提现余额明显、审核中余额明细
+    bonusSum: `${AppConfig.hostUrl}/account/brandshop/user/bonus/sum`,
+    untreatedCount: `${AppConfig.hostUrl}/order/untreatedCount`,//查看待处理订单总数
+    connect: `${AppConfig.hostUrl}/connect/oauth2/authorize`,//获取code
+    sns: `${AppConfig.hostUrl}/sns/oauth2/access_token`,//获取access_token
+    signature: `${AppConfig.hostUrl}/evercos/wechat/jsapiticket/signature.json`,//JSSDK签名
+    orderReceive: `${AppConfig.hostUrl}/order/receive/received`, //确定订单
+    receiveGift: `${AppConfig.hostUrl}/promotion/member/gift/account/receiveGift`,
+    firstLogin: `${AppConfig.hostUrl}/uaa/info`,//查询是否第一次登录
+    editPassword: `${AppConfig.hostUrl}/uaa/password`,//更改密码
   };
 
   // ion-spinner
