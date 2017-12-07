@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
 import { Http, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import { Buffer } from 'buffer';
@@ -11,7 +10,7 @@ export class AppConfig {
 
   //域名基地址
   static hostUrl: string = "http://192.168.31.215:8082";
-
+  
   //请求超时时间
   static TIME_OUT: number = 30000;
 
@@ -99,10 +98,7 @@ export class AppService {
     });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //get request
@@ -131,7 +127,8 @@ export class AppService {
   //post request
   httpPost(url: string, body: any) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer '+ this.getItem('tpb_token'),
+      'content-type' : 'application/json'
     });
     return this.http.post(url, body, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
@@ -174,7 +171,7 @@ export class AppService {
   }
 
   //access_token过期
-  private handleError(error: Response) {
+  private handleError(error: any) {
     if (error.status == 401 && error.json().error == "invalid_token") {
       let base64encode = new Buffer('testClient:secret').toString('base64');
       this.oauthTokenHeaders = new Headers({
@@ -191,7 +188,7 @@ export class AppService {
         this.toast('网络异常，请稍后重试', 1000, 'middle');
       })
     }else {
-      return Observable.throw(error.status || "服务错误");
+      return Promise.reject(error.json() || error);
     }
   }
 
