@@ -28,6 +28,7 @@ export class OrderLayer {
   skuPrice: number;//sku切换价格
   overStock: Boolean = false;
   isShowAddNumber: Boolean = false;
+  brandshopSeq: number;
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ViewController,
@@ -39,13 +40,14 @@ export class OrderLayer {
     this.productName = navParams.get('productName');
     this.warehouseCount = navParams.get('warehouseCount');
     this.fileSeq = navParams.get('fileSeq');
+    this.brandshopSeq = navParams.get('brandshopSeq');
     this.load = AppConfig.load;
     this.getProductSkuWithDefault();
   }
 
   //初始化sku属性
   getProductSkuWithDefault() {
-    let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=133&productSeq=${this.productSeq}`;//brandshopSeq=${this.brandshopSeqId}
+    let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.productSeq}`;
     this.appService.httpGet(url).then(data => {
       this.isShowAddNumber = true;
       this.skuPrice = data.price;
@@ -73,6 +75,7 @@ export class OrderLayer {
       }
     }).catch(error => {
       this.loadingShow = false;
+      this.isShowAddNumber = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
@@ -127,7 +130,7 @@ export class OrderLayer {
         attrValueString += "&" + "attrValueArr=" + item;
       })
       attrString = attrSeqString + attrValueString;
-      let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=133&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
+      let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
       this.appService.httpGet(url).then(data => {
         this.skuPrice = data.price;
         this.orderLayerData = data;

@@ -90,9 +90,6 @@ export class AppService {
     public loadingCtrl: LoadingController,
     private toastCtrl: ToastController
   ) {
-  }
-  
-  ionViewDidEnter() {
     this.withTokenHeaders = new Headers({
       'Authorization': 'Bearer '+ this.getItem('tpb_token')
     });
