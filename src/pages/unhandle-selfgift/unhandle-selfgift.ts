@@ -45,7 +45,7 @@ export class UnhandleSelfgift {
 		});
   }
   getUnhandleSelfGiftList() {
-		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
+		let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
 		this.appService.httpGet(url).then( data => {
 			this.loadingShow = false;
 			if (data.count == 0) {
@@ -123,7 +123,7 @@ export class UnhandleSelfgift {
 		this.start = 0;
 		this.down = true;
 		this.up = false;
-		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
+		let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
 		this.appService.httpGet(url).then( data => {
 			refresher.complete();
 			if (data.data.length != 0) {
@@ -144,7 +144,7 @@ export class UnhandleSelfgift {
 	// 上拉刷新请求数据
 		this.down = false;
 		this.up = true;
-		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
+		let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
 		this.appService.httpGet(url).then( data => {
 			infiniteScroll.complete();
 			if (data.data.length != 0) {

@@ -30,7 +30,7 @@ export class HandleSelfgift {
   
   //进入页面，请求接口，得到数据
   getHandleSelfGiftList() {
-		let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=2&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
+		let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
 		this.appService.httpGet(url).then( data => {
 			this.loadingShow = false;
 			if (data.count == 0) {
@@ -65,7 +65,7 @@ export class HandleSelfgift {
     this.start = 0;
     this.down = true;
 	  this.up = false;
-    let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=2&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
       if (data.count == 0) {
@@ -94,7 +94,7 @@ export class HandleSelfgift {
   infiniteGetHandleSelfGiftList(infiniteScroll) {
     this.down = false;
 	  this.up = true;
-    let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       infiniteScroll.complete();
       if (data.count == 0) {
