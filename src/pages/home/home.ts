@@ -107,6 +107,9 @@ export class Home {
             if (url.indexOf('id') > 0) {
               let myCodeModal = this.modalCtrl.create(OrderInfo, {'url': url});
               myCodeModal.onDidDismiss(data => {
+                if (!data) {
+                  return;
+                }
                 if (data.type === '1') {
                   this.qrCodeScan();
                 } else if (data.type === '0') {
@@ -119,6 +122,9 @@ export class Home {
             }else if (url.indexOf('giftCode') > 0) {
               let myCodeModal = this.modalCtrl.create(GiftInfo, {'url': url});
               myCodeModal.onDidDismiss(data => {
+                if (!data) {
+                  return;
+                }
                 if (data.type === '1') {
                   this.qrCodeScan();
                 } else if (data.type === '0') {

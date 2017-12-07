@@ -7,6 +7,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'gift-info.html'
 })
 export class GiftInfo {
+	isAllow: boolean = true;
 	giftInfo: any = {
 		"memberGiftAccountSeq": null,
 		"giftSeq": null,
@@ -44,30 +45,46 @@ export class GiftInfo {
     this.getGiftDetail();
 	}
 	getGiftDetail() {
-	let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
-	this.appService.httpGet(url)
+		let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
+    this.appService.httpGet(url)
 		.then(data => {
 			console.log(data);
-			this.requestDefeat = false;
 			this.giftInfo = data;
 		}).catch(error => {
 			console.log(error);
-			this.requestDefeat = true;
+			if (error.type) {
+				const alert = this.alertCtrl.create({
+					message: error.message,
+					buttons: [
+						{
+							text: '确定',
+							handler: () => {
+								this.viewCtrl.dismiss();
+							}
+						}
+					]
+				});
+				alert.present();
+			}
 		});
 	}
 	presentConfirm() {
+		if (!this.isAllow) {
+      return;
+    }
+    this.isAllow = false;
 		let url = `${AppConfig.API.receiveGift}`;
     let body = {
       giftCode: this.giftInfo.giftCode
     }
     this.appService.httpPost(url, body)
 		.then(data => {
-			this.requestDefeat = false;
+			this.isAllow = true;
 			this.alertLayer();
 		})
 		.catch(error => {
+			this.isAllow = true;
 			console.log(error);
-			this.requestDefeat = true;
 		});
   }
   alertLayer() {
