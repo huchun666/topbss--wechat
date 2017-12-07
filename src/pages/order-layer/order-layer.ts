@@ -47,7 +47,7 @@ export class OrderLayer {
 
   //初始化sku属性
   getProductSkuWithDefault() {
-    let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=${this.brandshopSeq}&productSeq=`;//${this.productSeq}
+    let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.productSeq}`;
     this.appService.httpGet(url).then(data => {
       this.isShowAddNumber = true;
       this.skuPrice = data.price;
