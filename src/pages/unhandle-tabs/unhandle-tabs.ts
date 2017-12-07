@@ -59,7 +59,7 @@ export class UnhandleTabs {
     this.showNoMore = false;
     this.noData = false;
     this.requestDefeat = false;
-    let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       this.statusList[0].num = data.count;
@@ -168,7 +168,7 @@ export class UnhandleTabs {
     this.showNoMore = false;
     this.noData = false;
     this.requestDefeat = false;
-    let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       this.statusList[this.currentIndex].num = data.count;
@@ -289,7 +289,7 @@ export class UnhandleTabs {
   // 上拉刷新请求数据
   loadMore(infiniteScroll) {
     if (this.currentIndex == 0) {
-      let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=0&start=${this.start}&limit=${this.limit}`;
+      let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then(data => {
         infiniteScroll.complete();
         if (data.data.length != 0) {
@@ -305,7 +305,7 @@ export class UnhandleTabs {
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     } else {
-      let url = `${AppConfig.API.getGiftList}?brandshopSeq=133&type=1&start=${this.start}&limit=${this.limit}`;
+      let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then(data => {
         infiniteScroll.complete();
         if (data.count == 0) {

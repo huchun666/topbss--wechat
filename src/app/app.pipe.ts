@@ -1,4 +1,4 @@
-import { PipeTransform, Pipe, transition } from '@angular/core';
+import { PipeTransform, Pipe } from '@angular/core';
 
 // 订单状态的转换
 // pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
@@ -207,7 +207,7 @@ export class OverStockPipe implements PipeTransform {
 @Pipe({ name: 'productSkuDTOImage' })
 export class ProductSkuDTOImagePipe implements PipeTransform {
   transform(productSkuDTOImage: string): string {
-    return productSkuDTOImage ? "https://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage : "../../assets/image/nodata.png";
+    return productSkuDTOImage ? "https://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage : "./assets/image/nodata.png";
   }
 }
 
@@ -215,7 +215,7 @@ export class ProductSkuDTOImagePipe implements PipeTransform {
 @Pipe({ name: 'handleGiftImage' })
 export class HandleGiftImagePipe implements PipeTransform {
   transform(handleGiftImage: string): string {
-    return handleGiftImage ? "https://images.91topbaby.com/" + handleGiftImage : "../../assets/image/nodata.png";
+    return handleGiftImage ? "https://images.91topbaby.com/" + handleGiftImage : "./assets/image/nodata.png";
   }
 }
 

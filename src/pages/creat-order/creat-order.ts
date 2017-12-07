@@ -22,6 +22,7 @@ export class CreatOrder {
   load: any = {}; 
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
+  brandshopSeq: number;
   constructor(public modalCtrl: ModalController, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
@@ -37,7 +38,7 @@ export class CreatOrder {
   //进入页面，请求接口，得到数据
   getCreatOrderList() {
     this.loadingShow = true;
-    let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
     // 网络状况不好时，点击刷新按钮，保留搜索栏的关键字进行刷新
     if(this.searchKeyWord != '' && this.searchKeyWord != undefined) {
       url = url + `&searchKeyWord=${this.searchKeyWord}`;
@@ -76,7 +77,8 @@ export class CreatOrder {
       productSeq: this.creatOrderArray[index].productSeq,
       productName: this.creatOrderArray[index].productName,
       warehouseCount: this.warehouseCount,
-      fileSeq: this.creatOrderArray[index].fileSeq
+      fileSeq: this.creatOrderArray[index].fileSeq,
+      brandshopSeq: this.creatOrderArray[index].brandshopSeq
     }, {
 	    cssClass: 'order-sku-list'
     });
@@ -95,7 +97,7 @@ export class CreatOrder {
     this.searchKeyWord = event.target.value;
     if (this.searchKeyWord){
       this.loadingShow = true;
-      let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
+      let url = `${AppConfig.API.getBrandshopProducts}?searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         this.loadingShow = false;
         if (data.count == 0) {
@@ -118,6 +120,7 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
+        this.creatOrderArray = [];
         this.requestDefeat = true;
         this.showInfinite = false;
         this.loadingShow = false;
@@ -136,7 +139,7 @@ export class CreatOrder {
     this.down = true;
     this.up = false;
     this.requestDefeat = false;
-    let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
     // 下拉刷新时，判断当前搜索框的关键字是否为空 
     if(this.searchKeyWord != '') {
       url = url + `&searchKeyWord=${this.searchKeyWord}`
@@ -157,6 +160,7 @@ export class CreatOrder {
         }
       }
     }).catch(error => {
+      this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
       this.showInfinite = false;
@@ -169,7 +173,7 @@ export class CreatOrder {
     this.down = false;
 	  this.up = true;
     if (this.searchKeyWord) {
-      let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
+      let url = `${AppConfig.API.getBrandshopProducts}?searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
         if (data.count == 0) {
@@ -188,7 +192,7 @@ export class CreatOrder {
         this.requestDefeat = true;
       });
     }else {
-      let url = `${AppConfig.API.getBrandshopProducts}?brandshopSeq=133&start=${this.start}&limit=${this.limit}`;
+      let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then( data => {
         infiniteScroll.complete();
         if (data.count == 0) {

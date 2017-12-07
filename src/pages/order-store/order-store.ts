@@ -197,6 +197,7 @@ export class OrderStore {
       }
     
     }).catch(error => {
+      this.orderStoreDataArray = [];
       refresher.complete();
       console.log(error);
       this.requestDefeat = true;
