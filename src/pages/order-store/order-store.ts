@@ -183,6 +183,7 @@ export class OrderStore {
     this.down = true;
     this.up = false;
     this.requestDefeat = false;
+    this.noData = false;
     let url = `${AppConfig.API.warehouseList}?start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
@@ -196,6 +197,7 @@ export class OrderStore {
       }
     
     }).catch(error => {
+      this.orderStoreDataArray = [];
       refresher.complete();
       console.log(error);
       this.requestDefeat = true;

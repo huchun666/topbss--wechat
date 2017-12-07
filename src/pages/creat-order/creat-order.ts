@@ -17,7 +17,7 @@ export class CreatOrder {
   up: Boolean;//上拉刷新和第一次进入页面时
   down: Boolean;//下拉刷新和返回上一级页面时
   warehouseCount: number;//配单仓数目
-  searchKeyWord: string;//搜索内容
+  searchKeyWord: string = '';//搜索内容
   loadingShow: Boolean = true;
   load: any = {}; 
   requestDefeat: Boolean = false;
@@ -39,6 +39,10 @@ export class CreatOrder {
   getCreatOrderList() {
     this.loadingShow = true;
     let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
+    // 网络状况不好时，点击刷新按钮，保留搜索栏的关键字进行刷新
+    if(this.searchKeyWord != '' && this.searchKeyWord != undefined) {
+      url = url + `&searchKeyWord=${this.searchKeyWord}`;
+    }
     this.appService.httpGet(url).then( data => {
       this.loadingShow = false;
       if (data.count == 0) {
@@ -89,6 +93,7 @@ export class CreatOrder {
     this.down = true;
     this.up = false;
     this.start = 0;
+    this.requestDefeat = false;
     this.searchKeyWord = event.target.value;
     if (this.searchKeyWord){
       this.loadingShow = true;
@@ -115,6 +120,8 @@ export class CreatOrder {
         }
       }).catch(error => {
         console.log(error);
+        this.creatOrderArray = [];
+        this.requestDefeat = true;
         this.showInfinite = false;
         this.loadingShow = false;
       });
@@ -133,6 +140,10 @@ export class CreatOrder {
     this.up = false;
     this.requestDefeat = false;
     let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
+    // 下拉刷新时，判断当前搜索框的关键字是否为空 
+    if(this.searchKeyWord != '') {
+      url = url + `&searchKeyWord=${this.searchKeyWord}`
+    }
     this.appService.httpGet(url).then( data => {
       refresher.complete();
       if (data.count == 0) {
@@ -149,6 +160,7 @@ export class CreatOrder {
         }
       }
     }).catch(error => {
+      this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
       this.showInfinite = false;
@@ -228,6 +240,7 @@ export class CreatOrder {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.requestDefeat = false;
     this.getCreatOrderList();
   }
 }

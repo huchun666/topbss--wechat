@@ -67,7 +67,7 @@ export class AwardOrder {
   }
   /** 上拉翻页 **/
   loadMore(infiniteScroll) {
-    this.currentPage ++;
+    this.currentPage++;
     this.refreshPage(infiniteScroll);
   }
   /** 请求错误时，刷新页面 **/
@@ -81,6 +81,7 @@ export class AwardOrder {
     this.requestFail = false;
     this.isEmpty = false;
     this.currentPage = 1;
+    this.awardOrder = [];
     this.refreshPage(refresher);
   }
   /** 下拉上拉公共方法 **/
