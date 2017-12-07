@@ -91,15 +91,12 @@ export class AppService {
     private toastCtrl: ToastController
   ) {
   }
-  
-  ionViewDidEnter() {
-    this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
-    });
-  }
 
   //get request
   httpGet(url: string) {
+    this.withTokenHeaders = new Headers({
+      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+    });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
@@ -110,6 +107,9 @@ export class AppService {
 
   //get request
   httpGetReturnData(url: string) {
+    this.withTokenHeaders = new Headers({
+      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+    });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res)
       .catch(error => {
@@ -130,6 +130,9 @@ export class AppService {
   
   //post request
   httpPost(url: string, body: any) {
+    this.withTokenHeaders = new Headers({
+      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+    });
     return this.http.post(url, body, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
@@ -146,6 +149,9 @@ export class AppService {
   
   //put request
   httpPut(url: string, parameters: any) {
+    this.withTokenHeaders = new Headers({
+      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+    });
     return this.http.put(url, parameters, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {
@@ -156,6 +162,9 @@ export class AppService {
 
   //delete request
   httpDelete(url: string) {
+    this.withTokenHeaders = new Headers({
+      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+    });
     return this.http.delete(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(error => {

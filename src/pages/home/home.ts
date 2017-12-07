@@ -44,7 +44,7 @@ export class Home {
   }
   //获取自提赠品、快递赠品数量
   getUnHandleCount() {
-    let url = `${AppConfig.API.getUnhandleGiftCount}?brandshopSeq=133`;
+    let url = `${AppConfig.API.getUnhandleGiftCount}`;
     this.appService.httpGet(url).then( data => {
        this.selfGiftCount = data.reserved;
        this.expressgiftCount = data.undelivered;
