@@ -91,22 +91,22 @@ export class GiftInfo {
       .then(data => {
 				console.log(data);
         this.giftInfo = data;
-        if (data.status === '1') {
+      }).catch(error => {
+        console.log(error);
+        if (error.type) {
           const alert = this.alertCtrl.create({
-            message: '此赠品已经兑换过了，不能重复兑换哦',
+            message: error.message,
             buttons: [
               {
                 text: '确定',
                 handler: () => {
-                  this.viewCtrl.dismiss(data);
+                  this.viewCtrl.dismiss();
                 }
               }
             ]
           });
           alert.present();
         }
-      }).catch(error => {
-        console.log(error);
       });
   }
 }
