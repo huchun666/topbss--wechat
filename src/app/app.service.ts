@@ -175,7 +175,6 @@ export class AppService {
 
   //access_token过期
   private handleError(error: Response) {
-    // return Observable.throw(error.status || "服务错误");
     if (error.status == 401 && error.json().error == "invalid_token") {
       let base64encode = new Buffer('testClient:secret').toString('base64');
       this.oauthTokenHeaders = new Headers({
@@ -184,13 +183,15 @@ export class AppService {
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
       let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.getItem("refresh_token")}`;
-      return this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
+      this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         this.setItem("tpb_token", data.access_token);
         this.setItem("refresh_token", data.refresh_token);
       }).catch(err => {
         console.log(err);
         this.toast('网络异常，请稍后重试', 1000, 'middle');
       })
+    }else {
+      return Observable.throw(error.status || "服务错误");
     }
   }
 
