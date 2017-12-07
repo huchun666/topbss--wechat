@@ -13,7 +13,7 @@ import { UpdatePwd } from '../update-pwd/update-pwd';
 export class Login{
   oauthTokenHeaders: any;
   loginHeaders: any;
-  username: string = "";//testUser
+  username: string = "";//15618146206
   pwd: string = "";//123456
   isUserName: boolean = false;
   isPwd: boolean = false;
@@ -63,7 +63,6 @@ export class Login{
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
       let body = `username=${this.username}&password=${this.pwd}&grant_type=${AppConfig.grant_type}`;
-      console.log(body)
       this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         if (data.access_token) {
           loading.dismiss();
@@ -108,7 +107,6 @@ export class Login{
             'Content-Type': 'application/x-www-form-urlencoded'
           });
           let oauthTokenUrl = AppConfig.oauthTokenUrl;
-          let loginUrl = AppConfig.API.login;
           let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.appService.getItem("refresh_token")}`;
           return this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
             this.appService.setItem("tpb_token", data.access_token);

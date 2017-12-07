@@ -24,7 +24,7 @@
     },
     {
       "path": "/product",
-      "proxyUrl": "http://192.168.31.215:6003/product"
+      "proxyUrl": "http://192.168.31.215:8082/product"
     },
     {
       "path": "/promotion",
