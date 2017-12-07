@@ -107,7 +107,6 @@ export class Login{
             'Content-Type': 'application/x-www-form-urlencoded'
           });
           let oauthTokenUrl = AppConfig.oauthTokenUrl;
-          let loginUrl = AppConfig.API.login;
           let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.appService.getItem("refresh_token")}`;
           return this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
             this.appService.setItem("tpb_token", data.access_token);
@@ -128,19 +127,13 @@ export class Login{
     this.navCtrl.push(Forget);
   }
   onblurAffirm() {
-    // console.log(this.username)
-    //let url = AppConfig.API.;
-    //let body = {
-    //  username: this.username
-    //}
-    //this.appService.httpPost(url, body).then(data => {
-    //  if (data.success) {
-    //    this.isNameAndPwd = false;
-    //  } else {
-    //    this.isNameAndPwd = true;
-    //  }
-    //}).catch(error => {
-    //  console.log(error);
-    //});
+    if(this.username == ''){
+      this.isUserName = true;
+      this.userNameValue = '*账号不得为空'
+    } else {
+      this.isUserName = false;
+      this.userNameValue = '*账号不正确，请确认后重新输入'
+    }
+    
   }
 }
