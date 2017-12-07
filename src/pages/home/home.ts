@@ -76,6 +76,9 @@ export class Home {
   qrCodeScan() {
     this.barcodeScanner.scan().then((barcodeData) => { 
       let url = barcodeData.text;
+      if (!url) {
+        return;
+      }
       if (url.indexOf(AppConfig.hostUrl) < 0) {
         let alert = this.alertCtrl.create({
           title: '提示',
