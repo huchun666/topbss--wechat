@@ -27,7 +27,6 @@ export class Login{
     public http: Http
   ) {
     this.pageInit();
-    console.log(this.appService.getItem("tpb_token"))
   }
   pageInit() {
     let user = this.appService.getItem("user");
@@ -86,7 +85,6 @@ export class Login{
             }else if (firstLoginData.firstLogin == 0) {
               this.appService.setItem("user", JSON.stringify(user));
               this.appService.setItem("tpb_token",data.access_token);//测试一下看结果
-              console.log(this.appService.getItem("tpb_token"))
               this.appService.setItem("refresh_token",data.refresh_token);
               let appNav = this.app.getRootNav();
               appNav.setRoot(TabsPage);
