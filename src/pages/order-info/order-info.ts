@@ -94,22 +94,22 @@ export class OrderInfo {
       .then(data => {
         console.log(data);
         this.orderDetail = data;
-        if (data.type) {
+      }).catch(error => {
+        console.log(error);
+        if (error.type) {
           const alert = this.alertCtrl.create({
-            message: data.message,
+            message: error.message,
             buttons: [
               {
                 text: '确定',
                 handler: () => {
-                  this.viewCtrl.dismiss(data);
+                  this.viewCtrl.dismiss();
                 }
               }
             ]
           });
           alert.present();
         }
-      }).catch(error => {
-        console.log(error);
       });
     }
   }

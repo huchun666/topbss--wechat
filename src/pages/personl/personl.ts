@@ -65,6 +65,8 @@ export class Personl {
       "addAccount": AddAccount,
       "help": Help
     }
+  }
+  ionViewDidEnter(){
     this.getCurrent();
     this.getAccount();
   }
