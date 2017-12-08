@@ -8,35 +8,35 @@
   "proxies": [
     {
       "path": "/uaa",
-      "proxyUrl": "https://rest.91topbaby.com/uaa"
+      "proxyUrl": "https://10.9.191.223:8082/uaa"
     },
     {
       "path": "/order",
-      "proxyUrl": "https://rest.91topbaby.com/order"
+      "proxyUrl": "https://10.9.191.223:8082/order"
     },
     {
       "path": "/promotion",
-      "proxyUrl": "https://rest.91topbaby.com/promotion"
+      "proxyUrl": "https://10.9.191.223:8082/promotion"
     },
     {
       "path": "/product",
-      "proxyUrl": "https://rest.91topbaby.com/product"
+      "proxyUrl": "https://10.9.191.223:8082/product"
     },
     {
       "path": "/account",
-      "proxyUrl": "https://rest.91topbaby.com/account"
+      "proxyUrl": "https://10.9.191.223:8082/account"
     },
     {
       "path": "/connect",
-      "proxyUrl": "https://rest.91topbaby.com/connect"
+      "proxyUrl": "https://10.9.191.223:8082/connect"
     },
     {
       "path": "/sns",
-      "proxyUrl": "https://rest.91topbaby.com/sns"
+      "proxyUrl": "https://10.9.191.223:8082/sns"
     },
     {
       "path": "/evercos",
-      "proxyUrl": "https://rest.91topbaby.com/evercos"
+      "proxyUrl": "https://10.9.191.223:8082/evercos"
     }
   ]
 }

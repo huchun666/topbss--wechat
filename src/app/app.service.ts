@@ -9,7 +9,7 @@ import { Buffer } from 'buffer';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://rest.91topbaby.com";
+  static hostUrl: string = "https://10.9.191.223:8082";
   
   //请求超时时间
   static TIME_OUT: number = 30000;
