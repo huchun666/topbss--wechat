@@ -168,7 +168,8 @@ export class OrderStore {
       this.returnUrl = data['_body'];
       this.navCtrl.push(PaymentCode,{
         returnUrl: this.returnUrl,
-        totalPriceFloat: this.totalPriceFloat
+        totalPriceFloat: this.totalPriceFloat,
+        warehouseId: this.orderStoreDataArray[0].warehouseId
       });
     }).catch(error=>{
       loading.dismiss();
