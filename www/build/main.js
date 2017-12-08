@@ -6835,70 +6835,70 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AppConfig = (function () {
+var AppConfig = AppConfig_1 = (function () {
     function AppConfig() {
     }
     return AppConfig;
 }());
 //域名基地址
-AppConfig.hostUrl = "https://10.9.191.223:8082";
+AppConfig.hostUrl = "https://rest.91topbaby.com";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
 AppConfig.LOAD_TIME = 500;
 //获取token的url
-AppConfig.oauthTokenUrl = "/uaa/oauth/token";
+AppConfig.oauthTokenUrl = AppConfig_1.hostUrl + "/uaa/oauth/token";
 //testClient  生产client_id
 AppConfig.client_id = "topbss";
 //secret  生产client_pwd
 AppConfig.grant_type = "password";
 //接口url
 AppConfig.API = {
-    login: "/uaa/user",
-    getOrderList: "/order/bssList",
-    getCancelorder: "/order/cancel/list",
-    auditCancelOrder: "/order/cancel/approval",
-    getReturnorderList: "/order/return/list",
-    returnDetail: "/order/return/details",
-    returnReceived: "/order/return/received",
-    auditReturnOrder: "/order/return/approval",
-    getGiftList: "/promotion/member/gift/account/getGiftList",
-    getUnhandleGiftCount: "/promotion/member/gift/account/getUnhandleGiftCount",
-    confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",
-    confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",
-    getBrandshopProducts: "/product/getBrandshopProducts",
-    warehouseGetCount: "/order/warehouse/getCount",
-    getProductSkuWithDefault: "/product/sku/getProductSkuWithDefault",
-    getValidSKUAttrValue: "/product/sku/getValidSkuAttrValue",
-    warehouseAdd: "/order/warehouse/add",
-    warehouseList: "/order/warehouse/list",
-    warehouseGenerateCode: "/order/warehouse/generateCode",
-    warehouseDeleteById: "/order/warehouse/item/deleteById",
-    warehouseUpdate: "/order/warehouse/item/update",
-    warehouseEmpty: "/order/warehouse/empty",
-    checkStatus: "/order/warehouse/checkStatus",
-    current: "/account/brandshop/user/current",
-    account: "/account/brandshop/user/account",
-    withdraw: "/account/brandshop/user/withdraw/",
-    qrcode: "/account/brandshop/user/qrcode",
-    withdrawList: "/account/brandshop/user/withdraw/list",
-    bonusList: "/account/brandshop/user/bonus/list",
-    bonusSum: "/account/brandshop/user/bonus/sum",
-    untreatedCount: "/order/untreatedCount",
-    connect: "/connect/oauth2/authorize",
-    sns: "/sns/oauth2/access_token",
-    signature: "/evercos/wechat/jsapiticket/signature.json",
-    orderReceive: "/order/receive/received",
-    receiveGift: "/promotion/member/gift/account/receiveGift",
-    firstLogin: "/uaa/getInfo",
-    editPassword: "/uaa/password",
+    login: AppConfig_1.hostUrl + "/uaa/user",
+    getOrderList: AppConfig_1.hostUrl + "/order/bssList",
+    getCancelorder: AppConfig_1.hostUrl + "/order/cancel/list",
+    auditCancelOrder: AppConfig_1.hostUrl + "/order/cancel/approval",
+    getReturnorderList: AppConfig_1.hostUrl + "/order/return/list",
+    returnDetail: AppConfig_1.hostUrl + "/order/return/details",
+    returnReceived: AppConfig_1.hostUrl + "/order/return/received",
+    auditReturnOrder: AppConfig_1.hostUrl + "/order/return/approval",
+    getGiftList: AppConfig_1.hostUrl + "/promotion/member/gift/account/getGiftList",
+    getUnhandleGiftCount: AppConfig_1.hostUrl + "/promotion/member/gift/account/getUnhandleGiftCount",
+    confirmReserveShopTime: AppConfig_1.hostUrl + "/promotion/member/gift/account/confirmReserveShopTime",
+    confirmExpressInfo: AppConfig_1.hostUrl + "/promotion/member/gift/account/confirmExpressInfo",
+    getBrandshopProducts: AppConfig_1.hostUrl + "/product/getBrandshopProducts",
+    warehouseGetCount: AppConfig_1.hostUrl + "/order/warehouse/getCount",
+    getProductSkuWithDefault: AppConfig_1.hostUrl + "/product/sku/getProductSkuWithDefault",
+    getValidSKUAttrValue: AppConfig_1.hostUrl + "/product/sku/getValidSkuAttrValue",
+    warehouseAdd: AppConfig_1.hostUrl + "/order/warehouse/add",
+    warehouseList: AppConfig_1.hostUrl + "/order/warehouse/list",
+    warehouseGenerateCode: AppConfig_1.hostUrl + "/order/warehouse/generateCode",
+    warehouseDeleteById: AppConfig_1.hostUrl + "/order/warehouse/item/deleteById",
+    warehouseUpdate: AppConfig_1.hostUrl + "/order/warehouse/item/update",
+    warehouseEmpty: AppConfig_1.hostUrl + "/order/warehouse/empty",
+    checkStatus: AppConfig_1.hostUrl + "/order/warehouse/checkStatus",
+    current: AppConfig_1.hostUrl + "/account/brandshop/user/current",
+    account: AppConfig_1.hostUrl + "/account/brandshop/user/account",
+    withdraw: AppConfig_1.hostUrl + "/account/brandshop/user/withdraw/",
+    qrcode: AppConfig_1.hostUrl + "/account/brandshop/user/qrcode",
+    withdrawList: AppConfig_1.hostUrl + "/account/brandshop/user/withdraw/list",
+    bonusList: AppConfig_1.hostUrl + "/account/brandshop/user/bonus/list",
+    bonusSum: AppConfig_1.hostUrl + "/account/brandshop/user/bonus/sum",
+    untreatedCount: AppConfig_1.hostUrl + "/order/untreatedCount",
+    connect: AppConfig_1.hostUrl + "/connect/oauth2/authorize",
+    sns: AppConfig_1.hostUrl + "/sns/oauth2/access_token",
+    signature: AppConfig_1.hostUrl + "/evercos/wechat/jsapiticket/signature.json",
+    orderReceive: AppConfig_1.hostUrl + "/order/receive/received",
+    receiveGift: AppConfig_1.hostUrl + "/promotion/member/gift/account/receiveGift",
+    firstLogin: AppConfig_1.hostUrl + "/uaa/getInfo",
+    editPassword: AppConfig_1.hostUrl + "/uaa/password",
 };
 // ion-spinner
 AppConfig.load = {
     spinner: 'dots',
     content: '加载中'
 };
-AppConfig = __decorate([
+AppConfig = AppConfig_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])()
 ], AppConfig);
 
@@ -7045,10 +7045,12 @@ var AppService = (function () {
 }());
 AppService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]])
 ], AppService);
 
-var _a, _b, _c;
+var AppConfig_1;
 //# sourceMappingURL=app.service.js.map
 
 /***/ }),
