@@ -37,11 +37,30 @@ export class AddAccount {
       this.isName = false;
       this.isPhone = false;
       this.isIDCard = false;
-      let redirectUri = "";//还没给；这里的重定向地址也需要push
-      let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-      this.appService.httpGet(getCodeUrl)
-      .catch(error => {
+      this.loadingShow = true;
+      let editCurrentUrl = AppConfig.API.current;
+      let editParameters = {
+        id: this.userId,
+        salesName: this.salesName,
+        cellphone: this.cellphone,
+        idcard: this.IDcard
+      }
+      //更新导购员账户
+      this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
+        if (data.type == "success") {
+          this.loadingShow = false;
+          let redirectUri = "https://mobile.91topbaby.com";
+          let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+          this.appService.httpGet(getCodeUrl)
+          .catch(error => {
+            console.log(error);
+            this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+          });
+        }
+      }).catch(error => {
+        this.loadingShow = false;
         console.log(error);
+        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       });
     }else if (this.salesName == "") {
       this.isName = true;

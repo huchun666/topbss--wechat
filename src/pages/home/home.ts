@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, Events } from 'ionic-angular';
+import { ModalController, NavController, AlertController, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
@@ -23,10 +23,17 @@ export class Home {
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     public appService: AppService,
+    public alertCtrl: AlertController,
     public events: Events
   ) {
     this.getUnAuditCount();
     this.getUnHandleCount();
+  }
+  // 每次离开页面的时候执行
+  ionViewDidLeave(){
+    this.events.unsubscribe('check: status', () => {
+      console.log('did unsubscribe');
+    });
   }
   //获取取消订单、退货订单数量
   getUnAuditCount() {

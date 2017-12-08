@@ -10,6 +10,7 @@ export class PaymentCode {
   totalPriceFloat: any;
   warehouseId: number;
   isStatus: Boolean = true;
+  timer: any;
   constructor(
     public navCtrl: NavController,
     public app: App,
@@ -50,15 +51,21 @@ export class PaymentCode {
   Interval() {
     var self = this;
     let url = `${AppConfig.API.checkStatus}?warehouseId=${this.warehouseId}`;
-    var timer = window.setInterval(function() {
+    this.timer = window.setInterval(function() {
       self.appService.httpGet(url).then(data => {
       if (data.status == 0) {
-        window.clearInterval(timer);
+        self.isStatus = true;
+        window.clearInterval(self.timer);
         self.navCtrl.remove(0, self.navCtrl.length());
         self.events.publish('check: status', self.isStatus);
+      }else {
+        self.isStatus = false;
       }
     }).catch(error => {
       console.log(error);
     })},1000);
+  }
+  ionViewDidLeave() {
+    window.clearInterval(this.timer);
   }
 }
