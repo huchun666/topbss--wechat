@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController } from 'ionic-angular';
+import { ModalController, NavController, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
@@ -19,7 +19,8 @@ export class Home {
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
-    public appService: AppService
+    public appService: AppService,
+    public events: Events
   ) {
     this.getUnAuditCount();
     this.getUnHandleCount();
@@ -92,5 +93,12 @@ export class Home {
   goCreatOrder() {
     let creatOrderModal = this.modalCtrl.create(CreatOrder);
     creatOrderModal.present();
+  }
+  ionViewDidEnter() {
+    this.events.subscribe('check: status', (data) => {
+      if (data) {
+        this.navCtrl.parent.select(1);
+      }
+    });
   }
 }

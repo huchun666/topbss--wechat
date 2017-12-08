@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { App, NavController, NavParams } from 'ionic-angular';
+import { App, NavController, NavParams, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'payment-code',
@@ -9,15 +9,18 @@ export class PaymentCode {
   myCode: string = "";
   totalPriceFloat: any;
   warehouseId: number;
+  isStatus: Boolean = true;
   constructor(
     public navCtrl: NavController,
     public app: App,
     public navParams: NavParams,
     public appService: AppService,
+    public events: Events
   ) {
     this.myCode = this.navParams.get('returnUrl');
     this.totalPriceFloat = this.navParams.get('totalPriceFloat');
     this.warehouseId = this.navParams.get('warehouseId');
+    this.Interval();
   }
   // 修改此单
   updateOrder() {
@@ -44,12 +47,15 @@ export class PaymentCode {
     this.navCtrl.remove(0, this.navCtrl.length());
   }
   checkStatus(timer) {
-    let url = AppConfig.API.checkStatus;
+    let url = `${AppConfig.API.checkStatus}?warehouseId=${this.warehouseId}`;
     this.appService.httpGet(url).then(data => {
       if (data.status == 0) {
-        
-        window.clearInterval(timer)
+        window.clearInterval(timer);
+        this.navCtrl.remove(0, this.navCtrl.length());
+        this.events.publish('check: status', this.isStatus);
       }
+    }).catch(error => {
+      console.log(error);
     })
   }
   //定时检测配单仓状态
