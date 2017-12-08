@@ -2205,7 +2205,7 @@ var OrderStore = (function () {
     };
     OrderStore.prototype.resetProductNum = function (index) {
         if (this.orderStoreDataArray[index].productSkuDTO.stock >= this.orderStoreDataArray[index].productNum) {
-            this.warehouseUpdate(index);
+            this.warehouseUpdate(index, "reset");
         }
         else {
             this.appService.toast('不能超出库存哦', 1000, 'middle');
@@ -2272,16 +2272,18 @@ var OrderStore = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
 ], OrderStore.prototype, "content", void 0);
 OrderStore = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-store',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-store\order-store.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>配单仓</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n\n\n  <ion-refresher (ionRefresh)="refreshGetOrderStoreList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n\n\n  <ion-list>\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-item-sliding #item *ngFor="let single of orderStoreDataArray;let i = index">\n\n      <ion-item>\n\n        <ion-thumbnail item-start>\n\n          <img [src]="single.productSkuDTO.fileSeq | productSkuDTOImage" alt="产品">\n\n        </ion-thumbnail>\n\n        <h2>{{single.productSkuDTO.productName}}</h2>\n\n        <div class="count">\n\n          <span class="btn-add" (touchstart)="addCount(i,$event)">+</span>\n\n          <span class="btn-remove" [ngClass]="{changeGray: single.productNum | changeGray}" (touchstart)="removeCount(i,$event)">-</span>\n\n          <div class="add-count">\n\n            <input (change)="resetProductNum(i)" [(ngModel)]="single.productNum"  type="number">\n\n          </div>\n\n        </div>\n\n        <div class="total">\n\n            <div class="total-text">商品总额</div>\n\n            <div class="total-input">\n\n              <input (change)="resetCount(i,$event)" [(ngModel)]="single.itemPrice"  type="number">\n\n            </div>\n\n        </div>\n\n        <div class="remark">\n\n          <input (change)="resetCount(i)" placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">\n\n        </div>\n\n      </ion-item>\n\n      \n\n      <ion-item-options side="right">\n\n        <button class="btn-delete" ion-button color="danger" (click)="delete(i)">\n\n          <ion-icon name="trash"></ion-icon>\n\n          删除\n\n        </button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n    \n\n  </ion-list>\n\n\n\n  <div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n	</div>\n\n  <button class="btn-confirm" ion-button full (touchstart)="addProductModal()" *ngIf = "confirmOrder">\n\n    <span class="confirm">确认订单</span>\n\n    <span>（总额：￥{{totalPriceFloat}}）</span>\n\n  </button>\n\n\n\n</ion-content>\n\n\n\n\n\n        \n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-store\order-store.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]])
 ], OrderStore);
 
-var _a, _b, _c, _d, _e;
 //# sourceMappingURL=order-store.js.map
 
 /***/ }),
@@ -6833,7 +6835,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AppConfig = AppConfig_1 = (function () {
+var AppConfig = (function () {
     function AppConfig() {
     }
     return AppConfig;
@@ -6845,58 +6847,58 @@ AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
 AppConfig.LOAD_TIME = 500;
 //获取token的url
-AppConfig.oauthTokenUrl = AppConfig_1.hostUrl + "/uaa/oauth/token";
+AppConfig.oauthTokenUrl = "/uaa/oauth/token";
 //testClient  生产client_id
 AppConfig.client_id = "topbss";
 //secret  生产client_pwd
 AppConfig.grant_type = "password";
 //接口url
 AppConfig.API = {
-    login: AppConfig_1.hostUrl + "/uaa/user",
-    getOrderList: AppConfig_1.hostUrl + "/order/bssList",
-    getCancelorder: AppConfig_1.hostUrl + "/order/cancel/list",
-    auditCancelOrder: AppConfig_1.hostUrl + "/order/cancel/approval",
-    getReturnorderList: AppConfig_1.hostUrl + "/order/return/list",
-    returnDetail: AppConfig_1.hostUrl + "/order/return/details",
-    returnReceived: AppConfig_1.hostUrl + "/order/return/received",
-    auditReturnOrder: AppConfig_1.hostUrl + "/order/return/approval",
-    getGiftList: AppConfig_1.hostUrl + "/promotion/member/gift/account/getGiftList",
-    getUnhandleGiftCount: AppConfig_1.hostUrl + "/promotion/member/gift/account/getUnhandleGiftCount",
-    confirmReserveShopTime: AppConfig_1.hostUrl + "/promotion/member/gift/account/confirmReserveShopTime",
-    confirmExpressInfo: AppConfig_1.hostUrl + "/promotion/member/gift/account/confirmExpressInfo",
-    getBrandshopProducts: AppConfig_1.hostUrl + "/product/getBrandshopProducts",
-    warehouseGetCount: AppConfig_1.hostUrl + "/order/warehouse/getCount",
-    getProductSkuWithDefault: AppConfig_1.hostUrl + "/product/sku/getProductSkuWithDefault",
-    getValidSKUAttrValue: AppConfig_1.hostUrl + "/product/sku/getValidSkuAttrValue",
-    warehouseAdd: AppConfig_1.hostUrl + "/order/warehouse/add",
-    warehouseList: AppConfig_1.hostUrl + "/order/warehouse/list",
-    warehouseGenerateCode: AppConfig_1.hostUrl + "/order/warehouse/generateCode",
-    warehouseDeleteById: AppConfig_1.hostUrl + "/order/warehouse/item/deleteById",
-    warehouseUpdate: AppConfig_1.hostUrl + "/order/warehouse/item/update",
-    warehouseEmpty: AppConfig_1.hostUrl + "/order/warehouse/empty",
-    checkStatus: AppConfig_1.hostUrl + "/order/warehouse/checkStatus",
-    current: AppConfig_1.hostUrl + "/account/brandshop/user/current",
-    account: AppConfig_1.hostUrl + "/account/brandshop/user/account",
-    withdraw: AppConfig_1.hostUrl + "/account/brandshop/user/withdraw/",
-    qrcode: AppConfig_1.hostUrl + "/account/brandshop/user/qrcode",
-    withdrawList: AppConfig_1.hostUrl + "/account/brandshop/user/withdraw/list",
-    bonusList: AppConfig_1.hostUrl + "/account/brandshop/user/bonus/list",
-    bonusSum: AppConfig_1.hostUrl + "/account/brandshop/user/bonus/sum",
-    untreatedCount: AppConfig_1.hostUrl + "/order/untreatedCount",
-    connect: AppConfig_1.hostUrl + "/connect/oauth2/authorize",
-    sns: AppConfig_1.hostUrl + "/sns/oauth2/access_token",
-    signature: AppConfig_1.hostUrl + "/evercos/wechat/jsapiticket/signature.json",
-    orderReceive: AppConfig_1.hostUrl + "/order/receive/received",
-    receiveGift: AppConfig_1.hostUrl + "/promotion/member/gift/account/receiveGift",
-    firstLogin: AppConfig_1.hostUrl + "/uaa/getInfo",
-    editPassword: AppConfig_1.hostUrl + "/uaa/password",
+    login: "/uaa/user",
+    getOrderList: "/order/bssList",
+    getCancelorder: "/order/cancel/list",
+    auditCancelOrder: "/order/cancel/approval",
+    getReturnorderList: "/order/return/list",
+    returnDetail: "/order/return/details",
+    returnReceived: "/order/return/received",
+    auditReturnOrder: "/order/return/approval",
+    getGiftList: "/promotion/member/gift/account/getGiftList",
+    getUnhandleGiftCount: "/promotion/member/gift/account/getUnhandleGiftCount",
+    confirmReserveShopTime: "/promotion/member/gift/account/confirmReserveShopTime",
+    confirmExpressInfo: "/promotion/member/gift/account/confirmExpressInfo",
+    getBrandshopProducts: "/product/getBrandshopProducts",
+    warehouseGetCount: "/order/warehouse/getCount",
+    getProductSkuWithDefault: "/product/sku/getProductSkuWithDefault",
+    getValidSKUAttrValue: "/product/sku/getValidSkuAttrValue",
+    warehouseAdd: "/order/warehouse/add",
+    warehouseList: "/order/warehouse/list",
+    warehouseGenerateCode: "/order/warehouse/generateCode",
+    warehouseDeleteById: "/order/warehouse/item/deleteById",
+    warehouseUpdate: "/order/warehouse/item/update",
+    warehouseEmpty: "/order/warehouse/empty",
+    checkStatus: "/order/warehouse/checkStatus",
+    current: "/account/brandshop/user/current",
+    account: "/account/brandshop/user/account",
+    withdraw: "/account/brandshop/user/withdraw/",
+    qrcode: "/account/brandshop/user/qrcode",
+    withdrawList: "/account/brandshop/user/withdraw/list",
+    bonusList: "/account/brandshop/user/bonus/list",
+    bonusSum: "/account/brandshop/user/bonus/sum",
+    untreatedCount: "/order/untreatedCount",
+    connect: "/connect/oauth2/authorize",
+    sns: "/sns/oauth2/access_token",
+    signature: "/evercos/wechat/jsapiticket/signature.json",
+    orderReceive: "/order/receive/received",
+    receiveGift: "/promotion/member/gift/account/receiveGift",
+    firstLogin: "/uaa/getInfo",
+    editPassword: "/uaa/password",
 };
 // ion-spinner
 AppConfig.load = {
     spinner: 'dots',
     content: '加载中'
 };
-AppConfig = AppConfig_1 = __decorate([
+AppConfig = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])()
 ], AppConfig);
 
@@ -7048,7 +7050,6 @@ AppService = __decorate([
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]])
 ], AppService);
 
-var AppConfig_1;
 //# sourceMappingURL=app.service.js.map
 
 /***/ }),
