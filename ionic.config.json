@@ -7,44 +7,36 @@
   },
   "proxies": [
     {
-      "path": "/account",
-      "proxyUrl": "http://192.168.31.232:8082/account"
-    },
-    {
       "path": "/uaa",
-      "proxyUrl": "http://192.168.31.232:8082/uaa"
-    },
-    {
-      "path": "/demo-resource-server",
-      "proxyUrl": "http://192.168.31.172:8081/demo-resource-server"
+      "proxyUrl": "https://rest.91topbaby.com/uaa"
     },
     {
       "path": "/order",
-      "proxyUrl": "http://192.168.31.203:8082/order"
-    },
-    {
-      "path": "/product",
-      "proxyUrl": "http://192.168.31.215:8082/product"
+      "proxyUrl": "https://rest.91topbaby.com/order"
     },
     {
       "path": "/promotion",
-      "proxyUrl": "http://192.168.31.215:6004/promotion"
+      "proxyUrl": "https://rest.91topbaby.com/promotion"
+    },
+    {
+      "path": "/product",
+      "proxyUrl": "https://rest.91topbaby.com/product"
+    },
+    {
+      "path": "/account",
+      "proxyUrl": "https://rest.91topbaby.com/account"
     },
     {
       "path": "/connect",
-      "proxyUrl": "https://open.weixin.qq.com/connect"
-    },
-    {
-      "path": "/self",
-      "proxyUrl": "http%3a%2f%2f192.168.31.154%3a8100/self"
+      "proxyUrl": "https://rest.91topbaby.com/connect"
     },
     {
       "path": "/sns",
-      "proxyUrl": "https://api.weixin.qq.com/sns"
+      "proxyUrl": "https://rest.91topbaby.com/sns"
     },
     {
       "path": "/evercos",
-      "proxyUrl": "https://www.61topbaby.com/evercos"
+      "proxyUrl": "https://rest.91topbaby.com/evercos"
     }
   ]
 }
