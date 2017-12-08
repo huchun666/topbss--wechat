@@ -56,6 +56,7 @@ export class AppConfig {
     warehouseDeleteById: `${AppConfig.hostUrl}/order/warehouse/item/deleteById`,//删除单个配单行
     warehouseUpdate: `${AppConfig.hostUrl}/order/warehouse/item/update`,//修改配单行接口
     warehouseEmpty: `${AppConfig.hostUrl}/order/warehouse/empty`,//清空配单仓接口
+    checkStatus: `${AppConfig.hostUrl}/order/warehouse/checkStatus`,//检测配单仓状态接口
     current: `${AppConfig.hostUrl}/account/brandshop/user/current`, //更新当前导购员基本信息
     account: `${AppConfig.hostUrl}/account/brandshop/user/account`, //查询当前导购员基本信息
     withdraw: `${AppConfig.hostUrl}/account/brandshop/user/withdraw/`, //提现

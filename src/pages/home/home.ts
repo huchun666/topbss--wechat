@@ -30,6 +30,11 @@ export class Home {
   ionViewDidEnter(){
     this.getUnAuditCount();
     this.getUnHandleCount();
+    this.events.subscribe('check: status', (data) => {
+      if (data) {
+        this.navCtrl.parent.select(1);
+      }
+    });
   }
   //获取取消订单、退货订单数量
   getUnAuditCount() {
