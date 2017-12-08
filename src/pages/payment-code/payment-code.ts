@@ -46,20 +46,19 @@ export class PaymentCode {
   goTabs() {
     this.navCtrl.remove(0, this.navCtrl.length());
   }
-  checkStatus(timer) {
+  //定时检测配单仓状态
+  Interval() {
+    var self = this;
     let url = `${AppConfig.API.checkStatus}?warehouseId=${this.warehouseId}`;
-    this.appService.httpGet(url).then(data => {
+    var timer = window.setInterval(function() {
+      self.appService.httpGet(url).then(data => {
       if (data.status == 0) {
         window.clearInterval(timer);
-        this.navCtrl.remove(0, this.navCtrl.length());
-        this.events.publish('check: status', this.isStatus);
+        self.navCtrl.remove(0, self.navCtrl.length());
+        self.events.publish('check: status', self.isStatus);
       }
     }).catch(error => {
       console.log(error);
-    })
-  }
-  //定时检测配单仓状态
-  Interval() {
-    var timer = window.setInterval(this.checkStatus(timer),1000);
+    })},1000);
   }
 }
