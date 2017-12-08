@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
 import { Http, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import { Buffer } from 'buffer';
@@ -11,7 +10,7 @@ export class AppConfig {
 
   //域名基地址
   static hostUrl: string = "http://192.168.31.215:8082";
-
+  
   //请求超时时间
   static TIME_OUT: number = 30000;
 
@@ -99,10 +98,7 @@ export class AppService {
     });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //get request
@@ -112,33 +108,25 @@ export class AppService {
     });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res)
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //get request with headers
   httpGetHeader(url: string, header: any) {
     return this.http.get(url, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
   
   //post request
   httpPost(url: string, body: any) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer '+ this.getItem('tpb_token'),
+      'content-type' : 'application/json'
     });
     return this.http.post(url, body, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //post 带有headers 
@@ -154,10 +142,7 @@ export class AppService {
     });
     return this.http.put(url, parameters, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //delete request
@@ -167,15 +152,11 @@ export class AppService {
     });
     return this.http.delete(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //access_token过期
-  private handleError(error: Response) {
-    // return Observable.throw(error.status || "服务错误");
+  private handleError(error: any) {
     if (error.status == 401 && error.json().error == "invalid_token") {
       let base64encode = new Buffer('testClient:secret').toString('base64');
       this.oauthTokenHeaders = new Headers({
@@ -184,13 +165,15 @@ export class AppService {
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
       let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.getItem("refresh_token")}`;
-      return this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
+      this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         this.setItem("tpb_token", data.access_token);
         this.setItem("refresh_token", data.refresh_token);
       }).catch(err => {
         console.log(err);
         this.toast('网络异常，请稍后重试', 1000, 'middle');
       })
+    }else {
+      return Promise.reject(error.json() || error);
     }
   }
 
