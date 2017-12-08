@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
 import { ModalController, NavController, AlertController, Events } from 'ionic-angular';
-=======
-import { ModalController, NavController, Events } from 'ionic-angular';
->>>>>>> upstream/master
 import { AppService, AppConfig } from '../../app/app.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
