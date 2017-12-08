@@ -8,6 +8,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class PaymentCode {
   myCode: string = "";
   totalPriceFloat: any;
+  warehouseId: number;
   constructor(
     public navCtrl: NavController,
     public app: App,
@@ -16,6 +17,7 @@ export class PaymentCode {
   ) {
     this.myCode = this.navParams.get('returnUrl');
     this.totalPriceFloat = this.navParams.get('totalPriceFloat');
+    this.warehouseId = this.navParams.get('warehouseId');
   }
   // 修改此单
   updateOrder() {
@@ -40,5 +42,18 @@ export class PaymentCode {
   //关闭(完成)移除所有的view,直接显示home
   goTabs() {
     this.navCtrl.remove(0, this.navCtrl.length());
+  }
+  checkStatus(timer) {
+    let url = AppConfig.API.checkStatus;
+    this.appService.httpGet(url).then(data => {
+      if (data.status == 0) {
+        
+        window.clearInterval(timer)
+      }
+    })
+  }
+  //定时检测配单仓状态
+  Interval() {
+    var timer = window.setInterval(this.checkStatus(timer),1000);
   }
 }
