@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { App, NavController, NavParams } from 'ionic-angular';
+import { App, NavController, NavParams, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'payment-code',
@@ -8,14 +8,20 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class PaymentCode {
   myCode: string = "";
   totalPriceFloat: any;
+  warehouseId: number;
+  isStatus: Boolean = true;
+  timer: any;
   constructor(
     public navCtrl: NavController,
     public app: App,
     public navParams: NavParams,
     public appService: AppService,
+    public events: Events
   ) {
     this.myCode = this.navParams.get('returnUrl');
     this.totalPriceFloat = this.navParams.get('totalPriceFloat');
+    this.warehouseId = this.navParams.get('warehouseId');
+    this.Interval();
   }
   // 修改此单
   updateOrder() {
@@ -40,5 +46,26 @@ export class PaymentCode {
   //关闭(完成)移除所有的view,直接显示home
   goTabs() {
     this.navCtrl.remove(0, this.navCtrl.length());
+  }
+  //定时检测配单仓状态
+  Interval() {
+    var self = this;
+    let url = `${AppConfig.API.checkStatus}?warehouseId=${this.warehouseId}`;
+    this.timer = window.setInterval(function() {
+      self.appService.httpGet(url).then(data => {
+      if (data.status == 0) {
+        self.isStatus = true;
+        window.clearInterval(self.timer);
+        self.navCtrl.remove(0, self.navCtrl.length());
+        self.events.publish('check: status', self.isStatus);
+      }else {
+        self.isStatus = false;
+      }
+    }).catch(error => {
+      console.log(error);
+    })},1000);
+  }
+  ionViewDidLeave() {
+    window.clearInterval(this.timer);
   }
 }
