@@ -36,6 +36,12 @@ export class Home {
       }
     });
   }
+  // 每次离开页面的时候执行
+  ionViewDidLeave(){
+    this.events.unsubscribe('check: status', () => {
+      console.log('did unsubscribe');
+    });
+  }
   //获取取消订单、退货订单数量
   getUnAuditCount() {
     let url = AppConfig.API.untreatedCount
