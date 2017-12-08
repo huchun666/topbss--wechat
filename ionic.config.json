@@ -8,35 +8,35 @@
   "proxies": [
     {
       "path": "/uaa",
-      "proxyUrl": "10.9.191.223:8082/uaa"
+      "proxyUrl": "https://10.9.191.223:8082/uaa"
     },
     {
       "path": "/order",
-      "proxyUrl": "10.9.191.223:8082/order"
+      "proxyUrl": "https://10.9.191.223:8082/order"
     },
     {
       "path": "/promotion",
-      "proxyUrl": "10.9.191.223:8082/promotion"
+      "proxyUrl": "https://10.9.191.223:8082/promotion"
     },
     {
       "path": "/product",
-      "proxyUrl": "10.9.191.223:8082/product"
+      "proxyUrl": "https://10.9.191.223:8082/product"
     },
     {
       "path": "/account",
-      "proxyUrl": "10.9.191.223:8082/account"
+      "proxyUrl": "https://10.9.191.223:8082/account"
     },
     {
       "path": "/connect",
-      "proxyUrl": "10.9.191.223:8082/connect"
+      "proxyUrl": "https://10.9.191.223:8082/connect"
     },
     {
       "path": "/sns",
-      "proxyUrl": "10.9.191.223:8082/sns"
+      "proxyUrl": "https://10.9.191.223:8082/sns"
     },
     {
       "path": "/evercos",
-      "proxyUrl": "10.9.191.223:8082/evercos"
+      "proxyUrl": "https://10.9.191.223:8082/evercos"
     }
   ]
 }

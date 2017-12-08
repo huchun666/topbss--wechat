@@ -6841,7 +6841,7 @@ var AppConfig = (function () {
     return AppConfig;
 }());
 //域名基地址
-AppConfig.hostUrl = "10.9.191.223:8082";
+AppConfig.hostUrl = "https://10.9.191.223:8082";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
