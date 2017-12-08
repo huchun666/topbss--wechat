@@ -108,20 +108,14 @@ export class AppService {
     });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res)
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //get request with headers
   httpGetHeader(url: string, header: any) {
     return this.http.get(url, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
   
   //post request
@@ -132,10 +126,7 @@ export class AppService {
     });
     return this.http.post(url, body, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //post 带有headers 
@@ -151,10 +142,7 @@ export class AppService {
     });
     return this.http.put(url, parameters, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //delete request
@@ -164,10 +152,7 @@ export class AppService {
     });
     return this.http.delete(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //access_token过期
