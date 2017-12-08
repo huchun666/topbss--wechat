@@ -141,7 +141,7 @@ export class CreatOrder {
     this.requestDefeat = false;
     let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
     // 下拉刷新时，判断当前搜索框的关键字是否为空 
-    if(this.searchKeyWord != '') {
+    if(this.searchKeyWord) {
       url = url + `&searchKeyWord=${this.searchKeyWord}`
     }
     this.appService.httpGet(url).then( data => {
