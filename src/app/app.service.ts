@@ -9,7 +9,7 @@ import { Buffer } from 'buffer';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "http://192.168.31.215:8082";
+  static hostUrl: string = "https://rest.91topbaby.com";
   
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -26,11 +26,6 @@ export class AppConfig {
   //secret  生产client_pwd
   static grant_type: string = "password";
 
-  //appid
-  static appID: "wx11cc7b3a1a190796";//后面需改
-
-  //appSecret
-  static appSecret: "3c943a6a700db44e1bb7475e83c4bb17";//后面需改
 
   //接口url
   static API: any = {
@@ -172,7 +167,7 @@ export class AppService {
       }).catch(err => {
         console.log(err);
         this.toast('网络异常，请稍后重试', 1000, 'middle');
-      })
+      }) 
     }else {
       return Promise.reject(error.json() || error);
     }
