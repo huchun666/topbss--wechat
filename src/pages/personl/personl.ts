@@ -112,8 +112,8 @@ export class Personl {
     let url = AppConfig.API.current;
     this.appService.httpGet(url)
       .then( data => {
-        // this.userCurrent = data;
-        // this.formatTelphone();
+        this.userCurrent = data;
+        this.formatTelphone();
       })
       .catch(error => {
         console.log(error);
