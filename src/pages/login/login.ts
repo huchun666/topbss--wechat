@@ -17,7 +17,7 @@ export class Login{
   pwd: string = "";//123456
   isUserName: boolean = false;
   isPwd: boolean = false;
-  rememberPassword: boolean = false;
+  rememberPassword: boolean = true;
   userNameValue: string = "*账号不正确，请确认后重新输入";
   userPwdValue: string = "*请输入密码";
   constructor(

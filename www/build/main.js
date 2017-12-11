@@ -41,7 +41,7 @@ var Login = (function () {
         this.pwd = ""; //123456
         this.isUserName = false;
         this.isPwd = false;
-        this.rememberPassword = false;
+        this.rememberPassword = true;
         this.userNameValue = "*账号不正确，请确认后重新输入";
         this.userPwdValue = "*请输入密码";
         this.pageInit();
@@ -1033,7 +1033,7 @@ var AddAccount = (function () {
             this.appService.httpPut(editCurrentUrl, editParameters).then(function (data) {
                 if (data.type == "success") {
                     _this.loadingShow = false;
-                    var redirectUri = "https://mobile.91topbaby.com";
+                    var redirectUri = "https%3a%2f%2fmobile.91topbaby.com";
                     var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + redirectUri + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                     _this.appService.httpGet(getCodeUrl)
                         .catch(function (error) {
@@ -6842,6 +6842,7 @@ var AppConfig = AppConfig_1 = (function () {
 }());
 //域名基地址
 AppConfig.hostUrl = "https://rest.91topbaby.com";
+AppConfig.mainUrl = "91topbaby.com";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
@@ -6974,7 +6975,7 @@ var AppService = (function () {
                 'Content-Type': 'application/x-www-form-urlencoded'
             });
             var oauthTokenUrl = AppConfig.oauthTokenUrl;
-            var body = "grant_type=" + AppConfig.grant_type + "&refresh_token=" + this.getItem("refresh_token");
+            var body = "grant_type=refresh_token&refresh_token=" + this.getItem("refresh_token");
             this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(function (data) {
                 _this.setItem("tpb_token", data.access_token);
                 _this.setItem("refresh_token", data.refresh_token);
@@ -7045,12 +7046,10 @@ var AppService = (function () {
 }());
 AppService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]) === "function" && _c || Object])
 ], AppService);
 
-var AppConfig_1;
+var AppConfig_1, _a, _b, _c;
 //# sourceMappingURL=app.service.js.map
 
 /***/ }),

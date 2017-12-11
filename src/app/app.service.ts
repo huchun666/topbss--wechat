@@ -10,6 +10,7 @@ export class AppConfig {
 
   //域名基地址
   static hostUrl: string = "https://rest.91topbaby.com";
+  static mainUrl : string = "91topbaby.com";
   
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -164,7 +165,7 @@ export class AppService {
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
-      let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.getItem("refresh_token")}`;
+      let body = `grant_type=refresh_token&refresh_token=${this.getItem("refresh_token")}`;
       this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
         this.setItem("tpb_token", data.access_token);
         this.setItem("refresh_token", data.refresh_token);
