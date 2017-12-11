@@ -30134,6 +30134,7 @@ unhandle-tabs .selfGiftList .gift-list .gift-item .reserve-phone a {
   display: block;
   width: 32px;
   height: 32px;
+  z-index: 100;
 }
 
 unhandle-tabs .selfGiftList .gift-list .gift-item .reserve-phone a img {
