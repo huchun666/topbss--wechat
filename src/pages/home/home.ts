@@ -90,7 +90,7 @@ export class Home {
       if (!url) {
         return;
       }
-      if (url.indexOf(AppConfig.hostUrl) < 0) {
+      if (url.indexOf(AppConfig.mainUrl) < 0) {
         let alert = this.alertCtrl.create({
           title: '提示',
           subTitle: '请扫描淘璞系统内二维码',
