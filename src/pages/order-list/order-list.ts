@@ -98,6 +98,9 @@ export class OrderList {
         this.noData = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getOrderList();
+      });
       this.orderList = [];
       this.loadingShow = false;
       this.showInfinite = false;
