@@ -72,6 +72,9 @@ export class BrandshopOrderList {
       if (this.start < data.count) {
         this.start += this.pageSize;
         this.orderList.push(...data.data);
+        for (let i = 0; i < this.orderList.length; i++) {
+          this.isShowDetail[i] = false;
+        }
       } else if (data.count == 0) {
         this.noData = true;
       }
