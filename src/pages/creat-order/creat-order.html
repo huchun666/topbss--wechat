@@ -4,7 +4,7 @@
     <span class='icon-creat-order' (touchstart)="orderRepertory()">
       <img src="./assets/image/creatorder.png" alt="配单仓">
       配单仓
-      <ion-badge item-end>{{warehouseCount}}</ion-badge>
+      <ion-badge item-end>{{warehouseCount > 9 ? '9+' : warehouseCount}}</ion-badge>
     </span>
   </ion-navbar>
   <!-- 搜索框 -->

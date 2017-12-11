@@ -31,18 +31,18 @@
             <h2>{{ item.giftName }}</h2>
             <span [ngClass]="item.className">{{ item.giftType | setGiftType: item.status }}</span>
           </dd>
-          <dd class="reserve-phone">
+          <dd class="reserve-phone" *ngIf="item.giftType=='0'">
             <span>预约手机：{{ item.reservePhone }}</span>
-            <a href="tel:13761489650">
+            <a href="tel:{{item.reservePhone}}" style="z-index:100">
               <img src="./assets/image/phone.png">
             </a>
           </dd>
-          <dd class="member-phone" *ngIf="item.giftType=='0'">会员手机：{{ item.memberPhone }}</dd>
+          <dd class="member-phone">会员手机：{{ item.memberPhone }}</dd>
           <dd class="get-time">领取时间：{{ item.receiveDate | date:'yyyy-MM-dd HH:mm:ss' }}</dd>
         </dl>
         <div class="reserve-time" *ngIf="item.giftType=='0' && item.status=='2'">
           <div class="time-text">
-            <ion-datetime placeholder="会员预约到店时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD HH:mm:ss" [(ngModel)]="item.reserveShopTime">
+            <ion-datetime placeholder="会员预约到店时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="item.reserveShopTime">
             </ion-datetime>
             <span class="clear" *ngIf="item.reserveShopTime" (click)="clearReserveArriveTime(i)">X</span>
           </div>
@@ -117,9 +117,7 @@
         </div>
       </div>
     </div>
-    <div class="btn-selfview" (click)="goExpressgift()" *ngIf = "showInfinite">
-      <span>查看已发货赠品</span>
-    </div>
+
     <div class="no-data" *ngIf="noData">
       <img src="./assets/image/nodata.png" alt="">
       <p>空空如也</p>
@@ -133,6 +131,9 @@
       <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">
         刷新再找一找
       </button>
+    </div>
+    <div class="btn-selfview" (click)="goExpressgift()" *ngIf="showInfinite">
+      <span>查看已发货赠品</span>
     </div>
   </div>
 

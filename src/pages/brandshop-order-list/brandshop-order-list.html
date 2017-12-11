@@ -92,7 +92,8 @@
           <span>￥{{ order.payAmount }}</span>
         </div>
         <div class="btn-show" (click)="showDetail(i)">
-          点击查看明细
+          <span *ngIf="isShowDetail[i] == false">点击查看明细</span>
+          <span *ngIf="isShowDetail[i] == true">点击收起明细</span>
           <span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail[i]}"></span>
         </div>
       </div>
