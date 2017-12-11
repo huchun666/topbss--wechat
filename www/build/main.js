@@ -164,7 +164,7 @@ var Login = (function () {
 }());
 Login = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'login',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/'<ion-content>\n\n  <h1 class="logo" ><img src="./assets/image/logo.png" alt="淘璞帮"></h1>\n\n  <div class="login-content">\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="username" type="tel" placeholder="账号或手机号码" maxlength=11 required clearInput=true (ionBlur)="onblurAffirm()"></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isUserName">{{userNameValue}}</div>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="pwd" type="password" placeholder="密码" required clearInput=true></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isPwd">{{userPwdValue}}</div>\n\n      <ion-item>\n\n        <ion-label>记住密码</ion-label>\n\n        <ion-checkbox [(ngModel)]="rememberPassword"></ion-checkbox>\n\n      </ion-item>\n\n      <!-- <ion-item  class="forget" (click)="forget()">\n\n        <span>忘记密码?</span>\n\n      </ion-item> -->\n\n    </ion-list>\n\n    <button class="btn-login" ion-button block round (click)="login()">登录</button>\n\n    <!-- <div class="error3" *ngIf="isNameAndPwd">账号或密码不正确，请确认后重新输入</div> -->\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/
+        selector: 'login',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/'<ion-content>\n\n  <h1 class="logo" ><img src="./assets/image/logo.png" alt="淘璞帮"></h1>\n\n  <div class="login-content">\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="username" type="text" placeholder="账号或手机号码" maxlength=11 required clearInput=true (ionBlur)="onblurAffirm()"></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isUserName">{{userNameValue}}</div>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="pwd" type="password" placeholder="密码" required clearInput=true></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isPwd">{{userPwdValue}}</div>\n\n      <ion-item>\n\n        <ion-label>记住密码</ion-label>\n\n        <ion-checkbox [(ngModel)]="rememberPassword"></ion-checkbox>\n\n      </ion-item>\n\n      <!-- <ion-item  class="forget" (click)="forget()">\n\n        <span>忘记密码?</span>\n\n      </ion-item> -->\n\n    </ion-list>\n\n    <button class="btn-login" ion-button block round (click)="login()">登录</button>\n\n    <!-- <div class="error3" *ngIf="isNameAndPwd">账号或密码不正确，请确认后重新输入</div> -->\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* App */],
@@ -1033,8 +1033,9 @@ var AddAccount = (function () {
             this.appService.httpPut(editCurrentUrl, editParameters).then(function (data) {
                 if (data.type == "success") {
                     _this.loadingShow = false;
-                    var redirectUri = "https%3a%2f%2fmobile.91topbaby.com";
-                    var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + redirectUri + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                    var redirectUri = "https://mobile.91topbaby.com";
+                    var encodeUrl = encodeURIComponent(redirectUri);
+                    var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + encodeUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                     _this.appService.httpGet(getCodeUrl)
                         .catch(function (error) {
                         console.log(error);
@@ -1822,10 +1823,12 @@ CreatOrder = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'creat-order',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\creat-order\creat-order.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>配单列表</ion-title>\n\n    <span class=\'icon-creat-order\' (touchstart)="orderRepertory()">\n\n      <img src="./assets/image/creatorder.png" alt="配单仓">\n\n      配单仓\n\n      <ion-badge item-end>{{warehouseCount}}</ion-badge>\n\n    </span>\n\n  </ion-navbar>\n\n  <!-- 搜索框 -->\n\n  <div class="search-box">\n\n    <ion-searchbar [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" placeholder="请输入商品名称" >\n\n    </ion-searchbar>\n\n  </div>\n\n</ion-header>\n\n<ion-content>\n\n<ion-refresher (ionRefresh)="refreshGetCreatOrderList($event)" *ngIf="!loadingShow">\n\n  <ion-refresher-content></ion-refresher-content>\n\n</ion-refresher>\n\n<div>\n\n  <!-- loading -->\n\n  <div class="loading-wrapper" *ngIf="loadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n</div>\n\n<div class="product-list" *ngIf = "!noData">\n\n  <ul>\n\n    <li *ngFor = "let item of creatOrderArray;let i = index">\n\n      <img [src]="item.fileSeq | productSkuDTOImage" alt="产品">\n\n      <p>{{item.productName}}</p>\n\n      <div class="btn-add"><button ion-button round (click)="addProductModal(i)">加入配单仓</button></div>\n\n    </li>\n\n  </ul>\n\n</div>\n\n<div class="no-data" *ngIf = "noData">\n\n  <img src="./assets/image/nodata.png" alt="">\n\n  <p>空空如也</p>\n\n</div>\n\n<div class="btn-noMore" *ngIf = "showNoMore">\n\n  <span>—— 没有更多商品了 ——</span>\n\n</div>\n\n<div class="request-defeat" *ngIf = "requestDefeat">\n\n  <img src="./assets/image/requestDefeat.png" alt="">\n\n  <p>啊哦！页面走丢了</p>\n\n  <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n    刷新再找一找\n\n  </button>\n\n</div>\n\n<ion-infinite-scroll (ionInfinite)="infiniteGetCreatOrderList($event)" *ngIf = "!showNoMore && showInfinite">\n\n  <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n</ion-infinite-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\creat-order\creat-order.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__app_app_service__["b" /* AppService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_4__app_app_service__["b" /* AppService */]])
 ], CreatOrder);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=creat-order.js.map
 
 /***/ }),
@@ -1987,13 +1990,6 @@ var OrderLayer = (function () {
             }
         }
         if (this.attrMap.length == classLength) {
-            var loading_1 = this.loadingCtrl.create({
-                spinner: "dots",
-                content: "正在添加中",
-                dismissOnPageChange: true,
-                showBackdrop: false
-            });
-            loading_1.present();
             var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.warehouseAdd;
             var body = {
                 "productId": this.orderLayerData.productSeq,
@@ -2003,13 +1999,11 @@ var OrderLayer = (function () {
                 "remark": ""
             };
             this.appService.httpPost(url, body).then(function (data) {
-                loading_1.dismiss();
                 if (data.type == 'success') {
                     _this.appService.toast('添加成功！', 1000, 'middle');
                     _this.dismiss();
                 }
             }).catch(function (error) {
-                loading_1.dismiss();
                 console.log(error.message);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
             });
@@ -4283,16 +4277,17 @@ var OrderList = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
 ], OrderList.prototype, "content", void 0);
 OrderList = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-list',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>订单列表</ion-title>\n\n    <span class=\'brandshop-order\' (touchstart)="goBrandshoOrder()">\n\n      门店所有订单\n\n    </span>\n\n  </ion-navbar>\n\n  <ion-toolbar class="filter-box">\n\n    <div class="time-box">\n\n      <div class="search-title">选择日期</div>\n\n      <div class="search-list">\n\n        <div class="time-start">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">\n\n          </ion-datetime>\n\n          <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>\n\n        </div>\n\n        <span class="go">到</span>\n\n        <div class="time-end">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateEndMin}}" max="{{dateEndMax}}" [(ngModel)]="dateEnd">\n\n          </ion-datetime> \n\n          <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n    <div class="status-box">\n\n      <ul>\n\n        <li *ngFor="let orderStatus of orderStatusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>\n\n      </ul>\n\n    </div>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="order-list">\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-refresher *ngIf="!loadingShow" (ionRefresh)="doRefresh($event)">\n\n      <ion-refresher-content>\n\n      </ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <div class="order-items" *ngFor="let order of orderList; let i = index">\n\n      <!-- 订单编号 -->\n\n      <div class="order-title">\n\n        <h2>订单编号：\n\n          <span>{{ order.orderId }}</span>\n\n        </h2>\n\n        <!-- 订单状态-->\n\n        <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>\n\n      </div>\n\n      <!-- 商品1 -->\n\n      <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">\n\n        <dl>\n\n          <dt>\n\n            <img class="my-picture" src="{{product.productSkuDTO.fileSeq | productSkuDTOImage}}" [alt]="product.productSkuDTO.productName">\n\n          </dt>\n\n          <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>\n\n          <dd class="sku-list">\n\n            <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n          </dd>\n\n          <dd class=\'price\'>￥{{ product.unitPrice }}</dd>\n\n          <dd class="count">X{{ product.number }}</dd>\n\n        </dl>\n\n      </div>\n\n\n\n      <!-- 待支付订单 -->\n\n      <div *ngIf="order.status==0" class="orderOperate">\n\n        <div class="pay-money-left">\n\n          订单总金额\n\n          <span>￥{{ order.settAmount }}</span>\n\n        </div>\n\n      </div>\n\n\n\n      <!-- 已完成订单 -->\n\n      <div *ngIf="order.status!=0" class="orderOperate">\n\n        <dl>\n\n          <dt>\n\n            <a href="\'tel:\'+order.memberMobile">\n\n              <img src="./assets/image/phone.png" alt="">\n\n            </a>\n\n          </dt>\n\n          <dd class="total">会员手机：{{ order.memberMobile }}</dd>\n\n          <dd class="member-phone" *ngIf="order.status == 3 || order.status == 4 || order.status == 6 || order.status == \'C\'">收货时间：{{ order.receiptTime }}</dd>\n\n          <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime }}</dd>\n\n        </dl>\n\n      </div>\n\n      <div *ngIf="order.status!=0" class="order-dtail-box">\n\n        <div class="order-detail" *ngIf="isShowDetail[i]">\n\n          <ul>\n\n            <li>订单总额：￥{{ order.totalAmount }}</li>\n\n            <li>促销抵扣：￥{{ order.discountAmount }}</li>\n\n            <li>淘璞券折扣：￥{{ order.couponAmount }}</li>\n\n            <li>商户券抵扣：￥{{ order.merchantCouponAmount }}</li>\n\n            <li>积分抵扣：￥{{ order.integralAmount }}</li>\n\n          </ul>\n\n        </div>\n\n        <div class="pay-money">\n\n          会员实付金额\n\n          <span>￥{{ order.payAmount }}</span>\n\n        </div>\n\n        <div class="btn-show" (click)="showDetail(i)">\n\n          点击查看明细\n\n          <span [ngClass]="{\'icon-triangle\':true, \'icon-bottom\': isShowDetail[i]}"></span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="showInfinite && !loadingShow">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n  <div class="no-data" *ngIf="noData">\n\n    <img src="./assets/image/nodata.png" alt="">\n\n    <p>空空如也</p>\n\n  </div>\n\n  <div class="btn-noMore" *ngIf="showNoMore">\n\n    <span>—— 没有更多信息了 ——</span>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
 ], OrderList);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=order-list.js.map
 
 /***/ }),
@@ -4638,11 +4633,12 @@ var Personl = (function () {
     };
     /* 获取当前导购员基本信息 */
     Personl.prototype.getCurrent = function () {
+        var _this = this;
         var url = __WEBPACK_IMPORTED_MODULE_10__app_app_service__["a" /* AppConfig */].API.current;
         this.appService.httpGet(url)
             .then(function (data) {
-            // this.userCurrent = data;
-            // this.formatTelphone();
+            _this.userCurrent = data;
+            _this.formatTelphone();
         })
             .catch(function (error) {
             console.log(error);
@@ -5678,13 +5674,10 @@ UpdatePwd = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
         selector: 'update-pwd',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\update-pwd\update-pwd.html"*/'<ion-content>\n\n  <div class="forget-box">\n\n    <div class="update-instruction">\n\n      <dl>\n\n        <dt><img src="./assets/image/applogo.png"></dt>\n\n        <dd>\n\n          <p>初次登陆淘璞帮</p>\n\n          <p>请您修改登陆密码并牢记</p>\n\n        </dd>\n\n      </dl>\n\n    </div>\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-input type="password" [(ngModel)]="initialPwd" (ionBlur)="initialPwdBlur()" placeholder="请输入初始密码" required clearInput=true></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isInitialPwd">{{initialPwdValue}}</div>\n\n      <ion-item>\n\n        <ion-input type="password" [(ngModel)]="newPwd" (ionBlur)="newPwdBlur()" placeholder="输入新密码" required clearInput=true></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isNewPwd">{{newPwdValue}}</div>\n\n      <ion-item>\n\n        <ion-input type="password" [(ngModel)]="repeatPwd" (ionBlur)="repeatPwdBlur()" placeholder="重复密码" required clearInput=true></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isRepeatPwd">{{repeatPwdValue}}</div>\n\n    </ion-list>\n\n    <button class="btn-forget" ion-button block round (touchstart)="confirm()">确认</button>\n\n  </div>\n\n  </ion-content>\n\n  \n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\update-pwd\update-pwd.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* App */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* App */]) === "function" && _e || Object])
 ], UpdatePwd);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=update-pwd.js.map
 
 /***/ }),
@@ -7052,10 +7045,12 @@ var AppService = (function () {
 }());
 AppService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]])
 ], AppService);
 
-var AppConfig_1, _a, _b, _c;
+var AppConfig_1;
 //# sourceMappingURL=app.service.js.map
 
 /***/ }),
