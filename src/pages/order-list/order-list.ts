@@ -81,7 +81,7 @@ export class OrderList {
     this.requestDefeat = false;
     this.showNoMore = false;
     this.showInfinite = true;
-    var url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
+    var url = `${AppConfig.API.getOrderList}?userType=B&start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
     if (this.paramsStatus != '')
