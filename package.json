@@ -61,7 +61,9 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
-            "phonegap-plugin-barcodescanner": {},
+            "phonegap-plugin-barcodescanner": {
+                "CAMERA_USAGE_DESCRIPTION": "扫码取货"
+            },
             "cordova-plugin-dialogs": {},
             "cordova-plugin-compat": {}
         },
