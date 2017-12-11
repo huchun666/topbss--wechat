@@ -9,7 +9,8 @@ import { Buffer } from 'buffer';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://10.9.191.223:8082";
+  static hostUrl: string = "https://rest.91topbaby.com";
+  static mainUrl : string = "91topbaby.com";
   
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -18,7 +19,7 @@ export class AppConfig {
   static LOAD_TIME: number = 500;
 
   //获取token的url
-  static oauthTokenUrl: string = `/uaa/oauth/token`;
+  static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
   //testClient  生产client_id
   static client_id: string = "topbss";
@@ -27,51 +28,51 @@ export class AppConfig {
   static grant_type: string = "password";
 
   //appid
-  static appID: "wxadf96ade9aed2e45";//后面需改
+  static appID: string = "wxadf96ade9aed2e45";//后面需改
 
   //appSecret
-  static appSecret: "83af89b678690d2b8e12ecb693485308";//后面需改
+  static appSecret: string = "83af89b678690d2b8e12ecb693485308";//后面需改
 
   //接口url
   static API: any = {
-    login: `/uaa/user`,
-    getOrderList: `/order/bssList`,    //门店/导购员订单列表
-    getCancelorder: `/order/cancel/list`,    //待审核/已审核取消订单列表
-    auditCancelOrder: `/order/cancel/approval`,    //审核取消订单
-    getReturnorderList: `/order/return/list`,    //未处理/已处理退货订单列表
-    returnDetail: `/order/return/details`,    //退货订单详情
-    returnReceived: `/order/return/received`,    // 退货-确认收货
-    auditReturnOrder: `/order/return/approval`,    //审核退货订单
-    getGiftList: `/promotion/member/gift/account/getGiftList`,//各种赠品列表
-    getUnhandleGiftCount: `/promotion/member/gift/account/getUnhandleGiftCount`,//待处理自提订单列表
-    confirmReserveShopTime: `/promotion/member/gift/account/confirmReserveShopTime`,//确认预约时间
-    confirmExpressInfo: `/promotion/member/gift/account/confirmExpressInfo`,//确认发货
-    getBrandshopProducts: `/product/getBrandshopProducts`,//商品列表
-    warehouseGetCount: `/order/warehouse/getCount`,//查看配单仓订单总数
-    getProductSkuWithDefault: `/product/sku/getProductSkuWithDefault`,//SKU初始加载
-    getValidSKUAttrValue: `/product/sku/getValidSkuAttrValue`,//SKU切换
-    warehouseAdd: `/order/warehouse/add`,//添加配单行接口
-    warehouseList: `/order/warehouse/list`,//查看配单仓列表接口
-    warehouseGenerateCode: `/order/warehouse/generateCode`,//生成订单付款码接口
-    warehouseDeleteById: `/order/warehouse/item/deleteById`,//删除单个配单行
-    warehouseUpdate: `/order/warehouse/item/update`,//修改配单行接口
-    warehouseEmpty: `/order/warehouse/empty`,//清空配单仓接口
-    checkStatus: `/order/warehouse/checkStatus`,//检测配单仓状态接口
-    current: `/account/brandshop/user/current`, //更新当前导购员基本信息
-    account: `/account/brandshop/user/account`, //查询当前导购员基本信息
-    withdraw: `/account/brandshop/user/withdraw/`, //提现
-    qrcode: `/account/brandshop/user/qrcode`, //我的二维码
-    withdrawList: `/account/brandshop/user/withdraw/list`, //提现记录
-    bonusList: `/account/brandshop/user/bonus/list`, //查询可提现余额明显、审核中余额明细
-    bonusSum: `/account/brandshop/user/bonus/sum`,
-    untreatedCount: `/order/untreatedCount`,//查看待处理订单总数
-    connect: `/connect/oauth2/authorize`,//获取code
-    sns: `/sns/oauth2/access_token`,//获取access_token
-    signature: `/evercos/wechat/jsapiticket/signature.json`,//JSSDK签名
-    orderReceive: `/order/receive/received`, //确定订单
-    receiveGift: `/promotion/member/gift/account/receiveGift`,
-    firstLogin: `/uaa/getInfo`,//查询是否第一次登录
-    editPassword: `/uaa/password`,//更改密码
+    login: `${AppConfig.hostUrl}/uaa/user`,
+    getOrderList: `${AppConfig.hostUrl}/order/bssList`,    //门店/导购员订单列表
+    getCancelorder: `${AppConfig.hostUrl}/order/cancel/list`,    //待审核/已审核取消订单列表
+    auditCancelOrder: `${AppConfig.hostUrl}/order/cancel/approval`,    //审核取消订单
+    getReturnorderList: `${AppConfig.hostUrl}/order/return/list`,    //未处理/已处理退货订单列表
+    returnDetail: `${AppConfig.hostUrl}/order/return/details`,    //退货订单详情
+    returnReceived: `${AppConfig.hostUrl}/order/return/received`,    // 退货-确认收货
+    auditReturnOrder: `${AppConfig.hostUrl}/order/return/approval`,    //审核退货订单
+    getGiftList: `${AppConfig.hostUrl}/promotion/member/gift/account/getGiftList`,//各种赠品列表
+    getUnhandleGiftCount: `${AppConfig.hostUrl}/promotion/member/gift/account/getUnhandleGiftCount`,//待处理自提订单列表
+    confirmReserveShopTime: `${AppConfig.hostUrl}/promotion/member/gift/account/confirmReserveShopTime`,//确认预约时间
+    confirmExpressInfo: `${AppConfig.hostUrl}/promotion/member/gift/account/confirmExpressInfo`,//确认发货
+    getBrandshopProducts: `${AppConfig.hostUrl}/product/getBrandshopProducts`,//商品列表
+    warehouseGetCount: `${AppConfig.hostUrl}/order/warehouse/getCount`,//查看配单仓订单总数
+    getProductSkuWithDefault: `${AppConfig.hostUrl}/product/sku/getProductSkuWithDefault`,//SKU初始加载
+    getValidSKUAttrValue: `${AppConfig.hostUrl}/product/sku/getValidSkuAttrValue`,//SKU切换
+    warehouseAdd: `${AppConfig.hostUrl}/order/warehouse/add`,//添加配单行接口
+    warehouseList: `${AppConfig.hostUrl}/order/warehouse/list`,//查看配单仓列表接口
+    warehouseGenerateCode: `${AppConfig.hostUrl}/order/warehouse/generateCode`,//生成订单付款码接口
+    warehouseDeleteById: `${AppConfig.hostUrl}/order/warehouse/item/deleteById`,//删除单个配单行
+    warehouseUpdate: `${AppConfig.hostUrl}/order/warehouse/item/update`,//修改配单行接口
+    warehouseEmpty: `${AppConfig.hostUrl}/order/warehouse/empty`,//清空配单仓接口
+    checkStatus: `${AppConfig.hostUrl}/order/warehouse/checkStatus`,//检测配单仓状态接口
+    current: `${AppConfig.hostUrl}/account/brandshop/user/current`, //更新当前导购员基本信息
+    account: `${AppConfig.hostUrl}/account/brandshop/user/account`, //查询当前导购员基本信息
+    withdraw: `${AppConfig.hostUrl}/account/brandshop/user/withdraw/`, //提现
+    qrcode: `${AppConfig.hostUrl}/account/brandshop/user/qrcode`, //我的二维码
+    withdrawList: `${AppConfig.hostUrl}/account/brandshop/user/withdraw/list`, //提现记录
+    bonusList: `${AppConfig.hostUrl}/account/brandshop/user/bonus/list`, //查询可提现余额明显、审核中余额明细
+    bonusSum: `${AppConfig.hostUrl}/account/brandshop/user/bonus/sum`,
+    untreatedCount: `${AppConfig.hostUrl}/order/untreatedCount`,//查看待处理订单总数
+    connect: `https://open.weixin.qq.com/connect/oauth2/authorize`,//获取code
+    sns: `https://open.weixin.qq.com/sns/oauth2/access_token`,//获取access_token
+    signature: `https://open.weixin.qq.com/evercos/wechat/jsapiticket/signature.json`,//JSSDK签名
+    orderReceive: `${AppConfig.hostUrl}/order/receive/received`, //确定订单
+    receiveGift: `${AppConfig.hostUrl}/promotion/member/gift/account/receiveGift`,
+    firstLogin: `${AppConfig.hostUrl}/uaa/getInfo`,//查询是否第一次登录
+    editPassword: `${AppConfig.hostUrl}/uaa/password`,//更改密码
   };
 
   // ion-spinner
@@ -157,23 +158,27 @@ export class AppService {
 
   //access_token过期
   private handleError(error: any) {
-    if (error.status == 401 && error.json().error == "invalid_token") {
+    return Promise.reject(error.json() || error);
+  }
+
+  getToken(error, callback) {
+    let self = this;
+    if (error.error == "invalid_token") {
       let base64encode = new Buffer('testClient:secret').toString('base64');
-      this.oauthTokenHeaders = new Headers({
+      self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
-      let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.getItem("refresh_token")}`;
-      this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
-        this.setItem("tpb_token", data.access_token);
-        this.setItem("refresh_token", data.refresh_token);
+      let body = `grant_type=refresh_token&refresh_token=${self.getItem("refresh_token")}`;
+      self.httpPostHeader(oauthTokenUrl, body, self.oauthTokenHeaders).then(data => {
+        self.setItem("tpb_token", data.access_token);
+        self.setItem("refresh_token", data.refresh_token);
+        callback();
       }).catch(err => {
         console.log(err);
-        this.toast('网络异常，请稍后重试', 1000, 'middle');
+        self.toast('网络异常，请稍后重试', 1000, 'middle');
       })
-    }else {
-      return Promise.reject(error.json() || error);
     }
   }
 

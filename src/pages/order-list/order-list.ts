@@ -86,24 +86,28 @@ export class OrderList {
       url += this.paramsDate;
     if (this.paramsStatus != '')
       url += this.paramsStatus;
-    this.appService.httpGet(url).then(data => {
-      this.loadingShow = false;
-      if (this.start < data.count) {
-        this.start += this.pageSize;
-        this.orderList.push(...data.data);
-        for (let i = 0; i < this.orderList.length; i++) {
-          this.isShowDetail[i] = false;
+      this.appService.httpGet(url).then(data => {
+        this.loadingShow = false;
+        if (this.start < data.count) {
+          this.start += this.pageSize;
+          this.orderList.push(...data.data);
+          for (let i = 0; i < this.orderList.length; i++) {
+            this.isShowDetail[i] = false;
+          }
+        } else if (data.count == 0) {
+          this.noData = true;
         }
-      } else if (data.count == 0) {
-        this.noData = true;
+      }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getOrderList();
+        });
+        this.orderList = [];
+        this.loadingShow = false;
+        this.showInfinite = false;
+        this.requestDefeat = true;
+        console.log(error);
       }
-    }).catch(error => {
-      this.orderList = [];
-      this.loadingShow = false;
-      this.showInfinite = false;
-      this.requestDefeat = true;
-      console.log(error);
-    })
+    )
   }
   // 通过日期获取订单
   getOrderListByDate() {

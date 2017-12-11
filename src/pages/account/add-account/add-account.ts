@@ -50,7 +50,8 @@ export class AddAccount {
         if (data.type == "success") {
           this.loadingShow = false;
           let redirectUri = "https://mobile.91topbaby.com";
-          let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+          let encodeUrl = encodeURIComponent(redirectUri);
+          let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${encodeUrl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
           this.appService.httpGet(getCodeUrl)
           .catch(error => {
             console.log(error);

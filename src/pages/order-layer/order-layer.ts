@@ -155,13 +155,6 @@ export class OrderLayer {
       }
     }
     if (this.attrMap.length == classLength) {
-      let loading = this.loadingCtrl.create({
-        spinner: "dots",
-        content: "正在添加中",
-        dismissOnPageChange: true,
-        showBackdrop: false
-      });
-      loading.present();
       let url = AppConfig.API.warehouseAdd;
       let body = {
         "productId": this.orderLayerData.productSeq,
@@ -171,13 +164,11 @@ export class OrderLayer {
         "remark": ""
       }
       this.appService.httpPost(url, body).then(data => {
-        loading.dismiss();
         if (data.type == 'success') {
           this.appService.toast('添加成功！', 1000, 'middle');
           this.dismiss();
         }
       }).catch(error => {
-        loading.dismiss();
         console.log(error.message);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       })
