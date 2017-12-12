@@ -168,6 +168,9 @@ export class CreatOrder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetCreatOrderList(refresher);
+      });
       this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
@@ -196,6 +199,9 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.infiniteGetCreatOrderList(infiniteScroll);
+        });
         console.log(error);
         this.requestDefeat = true;
       });
@@ -216,6 +222,9 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.infiniteGetCreatOrderList(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.requestDefeat = true;
@@ -230,6 +239,9 @@ export class CreatOrder {
       this.warehouseCount = number;
       this.showInfinite = true;
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getWarehouseCount();
+      });
       console.log(error);
       this.showInfinite = false;
       this.requestDefeat = true;

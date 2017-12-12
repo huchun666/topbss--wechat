@@ -26515,7 +26515,21 @@ creat-order .icon-creat-order img {
 
 creat-order .search-box {
   background: #fff;
-  padding: .8rem 0;
+}
+
+creat-order .search-box .item {
+  border-bottom: 0;
+}
+
+creat-order .search-box .item .item-inner {
+  border-bottom: 0;
+}
+
+creat-order .search-box .item .input {
+  font-size: 1.5rem;
+  border-radius: 3.4rem;
+  padding-left: 3%;
+  border: 1px solid #ccc;
 }
 
 creat-order .searchbar {
