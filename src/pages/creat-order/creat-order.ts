@@ -65,6 +65,9 @@ export class CreatOrder {
       }
       
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getCreatOrderList();
+      });
       this.showInfinite = false;
       this.loadingShow = false;
       this.requestDefeat = true;
@@ -119,6 +122,9 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.onInput(event);
+        });
         console.log(error);
         this.creatOrderArray = [];
         this.requestDefeat = true;

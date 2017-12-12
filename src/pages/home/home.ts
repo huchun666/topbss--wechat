@@ -43,6 +43,9 @@ export class Home {
       this.returnOrderCount = data.returnCount;
     })
     .catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnAuditCount();
+      });
       console.log(error);
     });
   }
@@ -54,6 +57,9 @@ export class Home {
        this.expressgiftCount = data.undelivered;
      })
      .catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnHandleCount();
+      });
        console.log(error);
      });
   }
@@ -78,8 +84,9 @@ export class Home {
     })
   }
   qrCodeScan() {
-    let signUrl = "https%3A%2F%2Fwww.61topbaby.com%2Fevercos%2Fmember%2Findex.html&_=1512438037846";
-    let url = `${AppConfig.API.signature}?url=${signUrl}`;
+    let signUrl = window.location.href;
+    let encodeUrl = encodeURIComponent(signUrl);
+    let url = `${AppConfig.API.signature}?url=${encodeUrl}`;
     this.appService.httpGet(url).then(data => {
       wx.config({
         debug: false,
@@ -160,6 +167,9 @@ export class Home {
         }
       });
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.qrCodeScan();
+      });
       console.log(error);
       this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
     })

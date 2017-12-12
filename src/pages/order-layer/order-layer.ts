@@ -74,6 +74,9 @@ export class OrderLayer {
         this.orderLayerData = {}
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+				this.getProductSkuWithDefault();
+			});
       this.loadingShow = false;
       this.isShowAddNumber = false;
       console.log(error);
@@ -136,6 +139,9 @@ export class OrderLayer {
         this.orderLayerData = data;
         this.attrImageSeq = this.orderLayerData.attrImageSeq;
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.changeRadio(event, index);
+        });
         console.log(error);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       });
@@ -169,6 +175,9 @@ export class OrderLayer {
           this.dismiss();
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.warehouseAdd();
+        });
         console.log(error.message);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       })

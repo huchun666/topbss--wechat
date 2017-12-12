@@ -87,6 +87,9 @@ export class OrderInfo {
 			this.alertLayer();
 		})
 		.catch(error => {
+			this.appService.getToken(error, () => {
+				this.presentConfirm();
+			});
 			this.isAllow = true;
 			console.log(error);
 		});

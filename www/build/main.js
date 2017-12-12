@@ -230,6 +230,9 @@ var MyCode = (function () {
             _this.getMyQRcode(myCodeUrl);
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getParams();
+            });
             console.log(error);
         });
     };
@@ -241,6 +244,9 @@ var MyCode = (function () {
             _this.myCode = data.url;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getMyQRcode(paramUrl);
+            });
             console.log(error);
         });
     };
@@ -357,6 +363,9 @@ var AuditCancelorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAuditCancelorder();
+            });
             _this.auditCancelorderArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -389,6 +398,9 @@ var AuditCancelorder = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetSelfGiftList(refresher);
+            });
             _this.auditCancelorderArray = [];
             refresher.complete();
             console.log(error);
@@ -420,6 +432,9 @@ var AuditCancelorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -525,6 +540,9 @@ var AuditReturnorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAuditReturnorderList();
+            });
             _this.auditReturnorderArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -558,6 +576,9 @@ var AuditReturnorder = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.doRefresh(refresher);
+            });
             _this.auditReturnorderArray = [];
             refresher.complete();
             console.log(error);
@@ -589,6 +610,9 @@ var AuditReturnorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -723,6 +747,9 @@ var ReturnDetail = (function () {
                 _this.imageArray = _this.returnDetail.orderReturn.imageIds.split(",");
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getReturnDetailList();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -852,7 +879,7 @@ var HandleExpressgift = (function () {
     }
     HandleExpressgift.prototype.getHandleExpressGiftList = function () {
         var _this = this;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=1&start=" + this.start + "&limit=" + this.limit; //brandshopSeq=${this.brandshopSeqId}
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=1&start=" + this.start + "&limit=" + this.limit;
         this.appService.httpGet(url).then(function (data) {
             _this.loadingShow = false;
             if (data.count == 0) {
@@ -879,6 +906,9 @@ var HandleExpressgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getHandleExpressGiftList();
+            });
             _this.handleExpressGiftArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -911,6 +941,9 @@ var HandleExpressgift = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetHandleExpressGiftList(refresher);
+            });
             _this.handleExpressGiftArray = [];
             refresher.complete();
             console.log(error);
@@ -942,6 +975,9 @@ var HandleExpressgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetHandleExpressGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -1036,13 +1072,12 @@ var AddAccount = (function () {
                     var redirectUri = "https://mobile.91topbaby.com";
                     var encodeUrl = encodeURIComponent(redirectUri);
                     var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + encodeUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-                    _this.appService.httpGet(getCodeUrl)
-                        .catch(function (error) {
-                        console.log(error);
-                        _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-                    });
+                    window.location.href = getCodeUrl;
                 }
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.bindWX();
+                });
                 _this.loadingShow = false;
                 console.log(error);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
@@ -1068,7 +1103,7 @@ var AddAccount = (function () {
     AddAccount.prototype.editCurrent = function () {
         var _this = this;
         if (this.salesName != "" && this.cellphone.length == 11 && this.IdentityCodeValid(this.IDcard)) {
-            var confirm_1 = this.alertCtrl.create({
+            var confirm = this.alertCtrl.create({
                 title: '确认修改收款人信息？',
                 buttons: [
                     {
@@ -1097,6 +1132,9 @@ var AddAccount = (function () {
                                     _this.appService.toast('更新成功', 1000, 'middle');
                                 }
                             }).catch(function (error) {
+                                _this.appService.getToken(error, function () {
+                                    _this.editCurrent();
+                                });
                                 _this.loadingShow = false;
                                 console.log(error);
                                 _this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
@@ -1105,7 +1143,7 @@ var AddAccount = (function () {
                     }
                 ]
             });
-            confirm_1.present();
+            confirm.present();
         }
         else if (this.salesName == "") {
             this.isName = true;
@@ -1147,6 +1185,9 @@ var AddAccount = (function () {
             }
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getCurrent();
+            });
             console.log(error);
             _this.loadingShow = false;
             _this.requestDefeat = true;
@@ -1241,14 +1282,10 @@ AddAccount = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'add-account',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>收款账户</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <!-- loading -->\n\n  <div class="loading-wrapper" *ngIf="loadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <div *ngIf="accountContent">\n\n    <div class="account-title" *ngIf="noBind">\n\n      填写收款人信息并绑定微信作为收款账户\n\n    </div>\n\n    <div class="account-title" *ngIf="!noBind">\n\n      <div class="binded"><img src="./assets/image/ok.png" alt="">已绑定微信</div>\n\n    </div>\n\n    <div class="form-list">\n\n      <ion-list>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="salesName" placeholder="输入收款人姓名" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isName">*请填写收款人</div>\n\n        <ion-item>\n\n          <ion-input type="tel" [(ngModel)]="cellphone" placeholder="输入收款人手机号码" maxlength=11 required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isPhone">*请输入正确的手机号</div>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="IDcard" placeholder="输入收款人身份证号" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isIDCard">*请输入正确的身份证号</div>\n\n      </ion-list>\n\n    <button class="btn-bind" ion-button (click)="bindWX()" *ngIf="noBind">绑定微信</button>\n\n    <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="!noBind">确定</button>\n\n    <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="getCurrent()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object])
 ], AddAccount);
 
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=add-account.js.map
 
 /***/ }),
@@ -1385,6 +1422,9 @@ var Home = (function () {
             _this.returnOrderCount = data.returnCount;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnAuditCount();
+            });
             console.log(error);
         });
     };
@@ -1397,6 +1437,9 @@ var Home = (function () {
             _this.expressgiftCount = data.undelivered;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnHandleCount();
+            });
             console.log(error);
         });
     };
@@ -1424,8 +1467,9 @@ var Home = (function () {
     };
     Home.prototype.qrCodeScan = function () {
         var _this = this;
-        var signUrl = "https%3A%2F%2Fwww.61topbaby.com%2Fevercos%2Fmember%2Findex.html&_=1512438037846";
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.signature + "?url=" + signUrl;
+        var signUrl = window.location.href;
+        var encodeUrl = encodeURIComponent(signUrl);
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.signature + "?url=" + encodeUrl;
         this.appService.httpGet(url).then(function (data) {
             wx.config({
                 debug: false,
@@ -1512,6 +1556,9 @@ var Home = (function () {
                 }
             });
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.qrCodeScan();
+            });
             console.log(error);
             _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
         });
@@ -1627,6 +1674,9 @@ var CreatOrder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getCreatOrderList();
+            });
             _this.showInfinite = false;
             _this.loadingShow = false;
             _this.requestDefeat = true;
@@ -1684,6 +1734,9 @@ var CreatOrder = (function () {
                 }
                 var _a;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.onInput(event);
+                });
                 console.log(error);
                 _this.creatOrderArray = [];
                 _this.requestDefeat = true;
@@ -1910,6 +1963,9 @@ var OrderLayer = (function () {
                 _this.orderLayerData = {};
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getProductSkuWithDefault();
+            });
             _this.loadingShow = false;
             _this.isShowAddNumber = false;
             console.log(error);
@@ -1970,6 +2026,9 @@ var OrderLayer = (function () {
                 _this.orderLayerData = data;
                 _this.attrImageSeq = _this.orderLayerData.attrImageSeq;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.changeRadio(event, index);
+                });
                 console.log(error);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
             });
@@ -2004,6 +2063,9 @@ var OrderLayer = (function () {
                     _this.dismiss();
                 }
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.warehouseAdd();
+                });
                 console.log(error.message);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
             });
@@ -2107,6 +2169,9 @@ var OrderStore = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getOrderStore();
+            });
             _this.loadingShow = false;
             _this.requestDefeat = true;
             console.log(error);
@@ -2138,6 +2203,9 @@ var OrderStore = (function () {
                 _this.totalPriceFloat = parseFloat("" + _this.totalPrice.toString()).toFixed(2);
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.warehouseUpdate(index, addOrRemove);
+            });
             if (addOrRemove == "add") {
                 _this.orderStoreDataArray[index].productNum--;
             }
@@ -2331,6 +2399,9 @@ var PaymentCode = (function () {
                 _this.navCtrl.remove(_this.navCtrl.length() - 2, 2);
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.orderAgain();
+            });
             loading.dismiss();
             console.log(error);
             _this.appService.toast('操作失败', 1000, 'middle');
@@ -2478,6 +2549,9 @@ var GiftInfo = (function () {
             _this.alertLayer();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.presentConfirm();
+            });
             _this.isAllow = true;
             console.log(error);
         });
@@ -2626,6 +2700,9 @@ var OrderInfo = (function () {
             _this.alertLayer();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.presentConfirm();
+            });
             _this.isAllow = true;
             console.log(error);
         });
@@ -2771,6 +2848,9 @@ var UnauditTabs = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnauditCancelorder();
+            });
             _this.unauditCancelorderArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -2870,6 +2950,9 @@ var UnauditTabs = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnauditReturnorderList();
+            });
             _this.unauditReturnorderArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -2972,6 +3055,9 @@ var UnauditTabs = (function () {
                 }
                 var _a;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.loadMore(infiniteScroll);
+                });
                 infiniteScroll.complete();
                 console.log(error);
                 _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -2998,6 +3084,9 @@ var UnauditTabs = (function () {
                 }
                 var _a;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.loadMore(infiniteScroll);
+                });
                 infiniteScroll.complete();
                 console.log(error);
                 _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -3192,6 +3281,9 @@ var UnauditCancelorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnauditCancelorder();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.requestDefeat = true;
@@ -3223,6 +3315,9 @@ var UnauditCancelorder = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshMore(refresher);
+            });
             refresher.complete();
             console.log(error);
             _this.requestDefeat = true;
@@ -3254,6 +3349,9 @@ var UnauditCancelorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.loadMore(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.requestDefeat = true;
@@ -3415,6 +3513,9 @@ var UnauditReturnorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnauditReturnorderList();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.requestDefeat = true;
@@ -3446,6 +3547,9 @@ var UnauditReturnorder = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.doRefresh(refresher);
+            });
             refresher.complete();
             console.log(error);
             _this.requestDefeat = true;
@@ -3478,6 +3582,9 @@ var UnauditReturnorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.requestDefeat = true;
@@ -3614,6 +3721,9 @@ var ReturnedDetail = (function () {
                 _this.imageArray = _this.returnedDetail.orderReturn.imageIds.split(",");
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getReturnedDetailList();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -3730,6 +3840,9 @@ var UnhandleTabs = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnhandleSelfGiftList();
+            });
             _this.unhandleSeflGiftArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -3786,6 +3899,9 @@ var UnhandleTabs = (function () {
                     _this.getUnhandleSelfGiftList();
                 }
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.reserveAffirm(index);
+                });
                 loading_1.dismiss();
                 console.log(error.message);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
@@ -3846,6 +3962,9 @@ var UnhandleTabs = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnhandleExpressGiftList();
+            });
             _this.unhandleExpressGiftArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -3960,6 +4079,9 @@ var UnhandleTabs = (function () {
                 }
                 var _a;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.loadMore(infiniteScroll);
+                });
                 infiniteScroll.complete();
                 console.log(error);
                 _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -3985,6 +4107,9 @@ var UnhandleTabs = (function () {
                 }
                 var _a;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.loadMore(infiniteScroll);
+                });
                 infiniteScroll.complete();
                 console.log(error);
                 _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -4259,6 +4384,9 @@ var OrderList = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.loadMore(infiniteScroll);
+            });
             _this.showInfinite = false;
             infiniteScroll.complete();
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -4644,6 +4772,9 @@ var Personl = (function () {
             _this.formatTelphone();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getCurrent();
+            });
             console.log(error);
         });
     };
@@ -4658,6 +4789,9 @@ var Personl = (function () {
             _this.userAccount = data;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAccount();
+            });
             console.log(error);
         });
     };
@@ -4670,6 +4804,9 @@ var Personl = (function () {
             pageModal.present();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAccountCreat();
+            });
             console.log(error);
             var pageModal = _this.modalCtrl.create(_this.pageList.addAccount, { 'userId': null });
             pageModal.present();
@@ -4745,6 +4882,9 @@ var Withdraw = (function () {
         this.appService.httpPost(url, body).then(function (data) {
             _this.isAllow = true;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.withdraw();
+            });
             console.log(error);
             _this.isAllow = true;
         });
@@ -4869,6 +5009,9 @@ var OrderDetail = (function () {
             _this.isLoadingShow = false;
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getOrderDetail();
+            });
             console.log(error);
             _this.requestFail = true;
             _this.isEmpty = false;
@@ -4884,6 +5027,9 @@ var OrderDetail = (function () {
             _this.sum = data.sum;
             _this.setIsShow(_this.sum);
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getBonusSum();
+            });
             console.log(error);
         });
     };
@@ -5417,6 +5563,9 @@ var WithdrawRecord = (function () {
             var _a;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getWithdrawList();
+            });
             console.log(error);
             _this.requestFail = true;
             _this.isEmpty = false;
@@ -5627,6 +5776,9 @@ var UpdatePwd = (function () {
                     appNav.setRoot(__WEBPACK_IMPORTED_MODULE_4__tabs_tabs__["a" /* TabsPage */]);
                 }
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.confirm();
+                });
                 loading_1.dismiss();
                 console.log(error);
                 _this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
@@ -6388,6 +6540,9 @@ var UnhandleExpressgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnhandleExpressGiftList();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -6486,6 +6641,9 @@ var UnhandleExpressgift = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetUnhandleExpressGiftList(refresher);
+            });
             refresher.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -6515,6 +6673,9 @@ var UnhandleExpressgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetUnhandleExpressGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -6623,6 +6784,9 @@ var UnhandleSelfgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnhandleSelfGiftList();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -6663,6 +6827,9 @@ var UnhandleSelfgift = (function () {
                     _this.getUnhandleSelfGiftList();
                 }
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.reserveAffirm(index);
+                });
                 loading_1.dismiss();
                 console.log(error.message);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
@@ -6690,6 +6857,9 @@ var UnhandleSelfgift = (function () {
                 _this.showNoMore = true;
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetUnhandleSelfGiftList(refresher);
+            });
             refresher.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -6713,6 +6883,9 @@ var UnhandleSelfgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetUnhandleSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -6891,8 +7064,8 @@ AppConfig.API = {
     bonusSum: AppConfig_1.hostUrl + "/account/brandshop/user/bonus/sum",
     untreatedCount: AppConfig_1.hostUrl + "/order/untreatedCount",
     connect: "https://open.weixin.qq.com/connect/oauth2/authorize",
-    sns: "https://open.weixin.qq.com/sns/oauth2/access_token",
-    signature: "https://open.weixin.qq.com/evercos/wechat/jsapiticket/signature.json",
+    sns: "https://api.weixin.qq.com/sns/oauth2/access_token",
+    signature: "https://www.91topbaby.com/everbss/wechat/jsapiticket/signature.json",
     orderReceive: AppConfig_1.hostUrl + "/order/receive/received",
     receiveGift: AppConfig_1.hostUrl + "/promotion/member/gift/account/receiveGift",
     firstLogin: AppConfig_1.hostUrl + "/uaa/getInfo",
@@ -7051,12 +7224,10 @@ var AppService = (function () {
 }());
 AppService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ToastController */]) === "function" && _c || Object])
 ], AppService);
 
-var AppConfig_1;
+var AppConfig_1, _a, _b, _c;
 //# sourceMappingURL=app.service.js.map
 
 /***/ }),
@@ -7180,6 +7351,9 @@ var HandleSelfgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getHandleSelfGiftList();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.showInfinite = false;
@@ -7211,6 +7385,9 @@ var HandleSelfgift = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetHandleSelfGiftList(refresher);
+            });
             _this.handleSeflGiftArray = [];
             refresher.complete();
             console.log(error);
@@ -7242,6 +7419,9 @@ var HandleSelfgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetHandleSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
