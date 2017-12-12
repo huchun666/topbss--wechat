@@ -35,7 +35,8 @@ export class PaymentCode {
     this.appService.httpPut(url, null).then( data => {
       if (data.type=="success") {
         loading.dismiss();
-        this.navCtrl.remove(this.navCtrl.length() - 2, 2);
+        console.log(this.navCtrl.length())
+        this.navCtrl.remove(1, 2);
       }
     }).catch(error=>{
       this.appService.getToken(error, () => {
