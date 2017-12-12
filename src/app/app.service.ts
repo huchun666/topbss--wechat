@@ -27,7 +27,6 @@ export class AppConfig {
   //secret  生产client_pwd
   static grant_type: string = "password";
 
-
   //接口url
   static API: any = {
     login: `${AppConfig.hostUrl}/uaa/user`,
@@ -61,9 +60,6 @@ export class AppConfig {
     bonusList: `${AppConfig.hostUrl}/account/brandshop/user/bonus/list`, //查询可提现余额明显、审核中余额明细
     bonusSum: `${AppConfig.hostUrl}/account/brandshop/user/bonus/sum`,
     untreatedCount: `${AppConfig.hostUrl}/order/untreatedCount`,//查看待处理订单总数
-    connect: `https://open.weixin.qq.com/connect/oauth2/authorize`,//获取code
-    sns: `https://open.weixin.qq.com/sns/oauth2/access_token`,//获取access_token
-    signature: `https://open.weixin.qq.com/evercos/wechat/jsapiticket/signature.json`,//JSSDK签名
     orderReceive: `${AppConfig.hostUrl}/order/receive/received`, //确定订单
     receiveGift: `${AppConfig.hostUrl}/promotion/member/gift/account/receiveGift`,
     firstLogin: `${AppConfig.hostUrl}/uaa/getInfo`,//查询是否第一次登录
@@ -162,9 +158,10 @@ export class AppService {
   private handleError(error: any) {
     return Promise.reject(error.json() || error);
   }
-  public getToken(error, callback) {
+
+  getToken(error, callback) {
     let self = this;
-    if (error.error === 'invalid_token') {
+    if (error.error == "invalid_token") {
       let base64encode = new Buffer('testClient:secret').toString('base64');
       self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
@@ -175,10 +172,11 @@ export class AppService {
       self.httpPostHeader(oauthTokenUrl, body, self.oauthTokenHeaders).then(data => {
         self.setItem("tpb_token", data.access_token);
         self.setItem("refresh_token", data.refresh_token);
+        callback();
       }).catch(err => {
         console.log(err);
         self.toast('网络异常，请稍后重试', 1000, 'middle');
-      }) 
+      })
     }
   }
 

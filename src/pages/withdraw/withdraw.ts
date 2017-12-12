@@ -33,6 +33,9 @@ export class Withdraw {
     this.appService.httpPost(url, body).then(data => {
       this.isAllow = true;
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.withdraw();
+      });
       console.log(error);
       this.isAllow = true
     });

@@ -35,6 +35,9 @@ export class MyCode {
         this.getMyQRcode(myCodeUrl);
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getParams();
+        });
         console.log(error);
       });
   }
@@ -45,6 +48,9 @@ export class MyCode {
         this.myCode = data.url;
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getMyQRcode(paramUrl);
+        });
         console.log(error);
       });
   }

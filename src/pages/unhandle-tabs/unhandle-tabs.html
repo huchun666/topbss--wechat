@@ -42,7 +42,7 @@
         </dl>
         <div class="reserve-time" *ngIf="item.giftType=='0' && item.status=='2'">
           <div class="time-text">
-            <ion-datetime placeholder="会员预约到店时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="item.reserveShopTime">
+            <ion-datetime placeholder="会员预约到店时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="item.reserveShopTime" min="{{reserveShopTimeMin}}" max="2099">
             </ion-datetime>
             <span class="clear" *ngIf="item.reserveShopTime" (click)="clearReserveArriveTime(i)">X</span>
           </div>

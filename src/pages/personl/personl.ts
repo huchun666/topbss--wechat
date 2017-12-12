@@ -115,6 +115,9 @@ export class Personl {
         this.formatTelphone();
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getCurrent();
+        });
         console.log(error);
       });
   }
@@ -128,6 +131,9 @@ export class Personl {
         this.userAccount = data;
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getAccount();
+        });
         console.log(error);
       });
   }
