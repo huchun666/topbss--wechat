@@ -30,7 +30,7 @@ export class HandleExpressgift {
     this.getHandleExpressGiftList()
   }
   getHandleExpressGiftList() {
-    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (data.count == 0) {

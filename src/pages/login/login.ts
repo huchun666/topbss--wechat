@@ -36,6 +36,8 @@ export class Login{
       this.pwd = user.pwd;
       if (this.pwd) {
         this.rememberPassword = true;
+      }else {
+        this.rememberPassword = false;
       }
     }
   }
