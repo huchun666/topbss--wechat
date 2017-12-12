@@ -116,6 +116,9 @@ export class Personl {
         this.formatTelphone();
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getCurrent();
+        });
         console.log(error);
       });
   }
@@ -129,6 +132,9 @@ export class Personl {
         this.userAccount = data;
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getAccount();
+        });
         console.log(error);
       });
   }
@@ -140,6 +146,9 @@ export class Personl {
       pageModal.present();
     })
     .catch(error => {
+      this.appService.getToken(error, () => {
+        this.getAccountCreat();
+      });
       console.log(error);
       let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': null});
       pageModal.present();

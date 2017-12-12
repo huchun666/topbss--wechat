@@ -43,6 +43,9 @@ export class Home {
       this.returnOrderCount = data.returnCount;
     })
     .catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnAuditCount();
+      });
       console.log(error);
     });
   }
@@ -54,6 +57,9 @@ export class Home {
        this.expressgiftCount = data.undelivered;
      })
      .catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnHandleCount();
+      });
        console.log(error);
      });
   }
@@ -160,6 +166,9 @@ export class Home {
         }
       });
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.qrCodeScan();
+      });
       console.log(error);
       this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
     })

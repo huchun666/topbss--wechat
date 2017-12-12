@@ -230,6 +230,9 @@ var MyCode = (function () {
             _this.getMyQRcode(myCodeUrl);
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getParams();
+            });
             console.log(error);
         });
     };
@@ -241,6 +244,9 @@ var MyCode = (function () {
             _this.myCode = data.url;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getMyQRcode(paramUrl);
+            });
             console.log(error);
         });
     };
@@ -357,6 +363,9 @@ var AuditCancelorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAuditCancelorder();
+            });
             _this.auditCancelorderArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -389,6 +398,9 @@ var AuditCancelorder = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetSelfGiftList(refresher);
+            });
             _this.auditCancelorderArray = [];
             refresher.complete();
             console.log(error);
@@ -420,6 +432,9 @@ var AuditCancelorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -525,6 +540,9 @@ var AuditReturnorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAuditReturnorderList();
+            });
             _this.auditReturnorderArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -558,6 +576,9 @@ var AuditReturnorder = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.doRefresh(refresher);
+            });
             _this.auditReturnorderArray = [];
             refresher.complete();
             console.log(error);
@@ -589,6 +610,9 @@ var AuditReturnorder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -852,7 +876,7 @@ var HandleExpressgift = (function () {
     }
     HandleExpressgift.prototype.getHandleExpressGiftList = function () {
         var _this = this;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=1&start=" + this.start + "&limit=" + this.limit; //brandshopSeq=${this.brandshopSeqId}
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=1&start=" + this.start + "&limit=" + this.limit;
         this.appService.httpGet(url).then(function (data) {
             _this.loadingShow = false;
             if (data.count == 0) {
@@ -879,6 +903,9 @@ var HandleExpressgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getHandleExpressGiftList();
+            });
             _this.handleExpressGiftArray = [];
             _this.loadingShow = false;
             console.log(error);
@@ -911,6 +938,9 @@ var HandleExpressgift = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetHandleExpressGiftList(refresher);
+            });
             _this.handleExpressGiftArray = [];
             refresher.complete();
             console.log(error);
@@ -942,6 +972,9 @@ var HandleExpressgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetHandleExpressGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -1036,13 +1069,12 @@ var AddAccount = (function () {
                     var redirectUri = "https://mobile.91topbaby.com";
                     var encodeUrl = encodeURIComponent(redirectUri);
                     var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + encodeUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-                    _this.appService.httpGet(getCodeUrl)
-                        .catch(function (error) {
-                        console.log(error);
-                        _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-                    });
+                    window.location.href = getCodeUrl;
                 }
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.bindWX();
+                });
                 _this.loadingShow = false;
                 console.log(error);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
@@ -1068,7 +1100,7 @@ var AddAccount = (function () {
     AddAccount.prototype.editCurrent = function () {
         var _this = this;
         if (this.salesName != "" && this.cellphone.length == 11 && this.IdentityCodeValid(this.IDcard)) {
-            var confirm_1 = this.alertCtrl.create({
+            var confirm = this.alertCtrl.create({
                 title: '确认修改收款人信息？',
                 buttons: [
                     {
@@ -1097,6 +1129,9 @@ var AddAccount = (function () {
                                     _this.appService.toast('更新成功', 1000, 'middle');
                                 }
                             }).catch(function (error) {
+                                _this.appService.getToken(error, function () {
+                                    _this.editCurrent();
+                                });
                                 _this.loadingShow = false;
                                 console.log(error);
                                 _this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
@@ -1105,7 +1140,7 @@ var AddAccount = (function () {
                     }
                 ]
             });
-            confirm_1.present();
+            confirm.present();
         }
         else if (this.salesName == "") {
             this.isName = true;
@@ -1147,6 +1182,9 @@ var AddAccount = (function () {
             }
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getCurrent();
+            });
             console.log(error);
             _this.loadingShow = false;
             _this.requestDefeat = true;
@@ -1158,6 +1196,7 @@ var AddAccount = (function () {
         this.userId = this.navParams.get("userId");
         //重定向判断
         if (this.userId && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+            console.log("enter");
             this.accountContent = false;
             var loading_1 = this.appService.loading();
             loading_1.present();
@@ -1241,14 +1280,10 @@ AddAccount = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'add-account',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>收款账户</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <!-- loading -->\n\n  <div class="loading-wrapper" *ngIf="loadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <div *ngIf="accountContent">\n\n    <div class="account-title" *ngIf="noBind">\n\n      填写收款人信息并绑定微信作为收款账户\n\n    </div>\n\n    <div class="account-title" *ngIf="!noBind">\n\n      <div class="binded"><img src="./assets/image/ok.png" alt="">已绑定微信</div>\n\n    </div>\n\n    <div class="form-list">\n\n      <ion-list>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="salesName" placeholder="输入收款人姓名" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isName">*请填写收款人</div>\n\n        <ion-item>\n\n          <ion-input type="tel" [(ngModel)]="cellphone" placeholder="输入收款人手机号码" maxlength=11 required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isPhone">*请输入正确的手机号</div>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="IDcard" placeholder="输入收款人身份证号" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isIDCard">*请输入正确的身份证号</div>\n\n      </ion-list>\n\n    <button class="btn-bind" ion-button (click)="bindWX()" *ngIf="noBind">绑定微信</button>\n\n    <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="!noBind">确定</button>\n\n    <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="getCurrent()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object])
 ], AddAccount);
 
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=add-account.js.map
 
 /***/ }),
@@ -1385,6 +1420,9 @@ var Home = (function () {
             _this.returnOrderCount = data.returnCount;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnAuditCount();
+            });
             console.log(error);
         });
     };
@@ -1397,6 +1435,9 @@ var Home = (function () {
             _this.expressgiftCount = data.undelivered;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnHandleCount();
+            });
             console.log(error);
         });
     };
@@ -1512,6 +1553,9 @@ var Home = (function () {
                 }
             });
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.qrCodeScan();
+            });
             console.log(error);
             _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
         });
@@ -1627,6 +1671,9 @@ var CreatOrder = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getCreatOrderList();
+            });
             _this.showInfinite = false;
             _this.loadingShow = false;
             _this.requestDefeat = true;
@@ -1684,6 +1731,9 @@ var CreatOrder = (function () {
                 }
                 var _a;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.onInput(event);
+                });
                 console.log(error);
                 _this.creatOrderArray = [];
                 _this.requestDefeat = true;
@@ -1910,6 +1960,9 @@ var OrderLayer = (function () {
                 _this.orderLayerData = {};
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getProductSkuWithDefault();
+            });
             _this.loadingShow = false;
             _this.isShowAddNumber = false;
             console.log(error);
@@ -1970,6 +2023,9 @@ var OrderLayer = (function () {
                 _this.orderLayerData = data;
                 _this.attrImageSeq = _this.orderLayerData.attrImageSeq;
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.changeRadio(event, index);
+                });
                 console.log(error);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
             });
@@ -2004,6 +2060,9 @@ var OrderLayer = (function () {
                     _this.dismiss();
                 }
             }).catch(function (error) {
+                _this.appService.getToken(error, function () {
+                    _this.warehouseAdd();
+                });
                 console.log(error.message);
                 _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
             });
@@ -2107,6 +2166,9 @@ var OrderStore = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getOrderStore();
+            });
             _this.loadingShow = false;
             _this.requestDefeat = true;
             console.log(error);
@@ -2138,6 +2200,9 @@ var OrderStore = (function () {
                 _this.totalPriceFloat = parseFloat("" + _this.totalPrice.toString()).toFixed(2);
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.warehouseUpdate(index, addOrRemove);
+            });
             if (addOrRemove == "add") {
                 _this.orderStoreDataArray[index].productNum--;
             }
@@ -2265,18 +2330,16 @@ var OrderStore = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], OrderStore.prototype, "content", void 0);
 OrderStore = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-store',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-store\order-store.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>配单仓</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n\n\n  <ion-refresher (ionRefresh)="refreshGetOrderStoreList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n\n\n  <ion-list>\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-item-sliding #item *ngFor="let single of orderStoreDataArray;let i = index">\n\n      <ion-item>\n\n        <ion-thumbnail item-start>\n\n          <img [src]="single.productSkuDTO.fileSeq | productSkuDTOImage" alt="产品">\n\n        </ion-thumbnail>\n\n        <h2>{{single.productSkuDTO.productName}}</h2>\n\n        <div class="count">\n\n          <span class="btn-add" (touchstart)="addCount(i,$event)">+</span>\n\n          <span class="btn-remove" [ngClass]="{changeGray: single.productNum | changeGray}" (touchstart)="removeCount(i,$event)">-</span>\n\n          <div class="add-count">\n\n            <input (change)="resetProductNum(i)" [(ngModel)]="single.productNum"  type="number">\n\n          </div>\n\n        </div>\n\n        <div class="total">\n\n            <div class="total-text">商品总额</div>\n\n            <div class="total-input">\n\n              <input (change)="resetCount(i,$event)" [(ngModel)]="single.itemPrice"  type="number">\n\n            </div>\n\n        </div>\n\n        <div class="remark">\n\n          <input (change)="resetCount(i)" placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">\n\n        </div>\n\n      </ion-item>\n\n      \n\n      <ion-item-options side="right">\n\n        <button class="btn-delete" ion-button color="danger" (click)="delete(i)">\n\n          <ion-icon name="trash"></ion-icon>\n\n          删除\n\n        </button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n    \n\n  </ion-list>\n\n\n\n  <div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n	</div>\n\n  <button class="btn-confirm" ion-button full (touchstart)="addProductModal()" *ngIf = "confirmOrder">\n\n    <span class="confirm">确认订单</span>\n\n    <span>（总额：￥{{totalPriceFloat}}）</span>\n\n  </button>\n\n\n\n</ion-content>\n\n\n\n\n\n        \n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-store\order-store.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _e || Object])
 ], OrderStore);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=order-store.js.map
 
 /***/ }),
@@ -2331,6 +2394,9 @@ var PaymentCode = (function () {
                 _this.navCtrl.remove(_this.navCtrl.length() - 2, 2);
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.orderAgain();
+            });
             loading.dismiss();
             console.log(error);
             _this.appService.toast('操作失败', 1000, 'middle');
@@ -2369,13 +2435,10 @@ PaymentCode = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'payment-code',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\payment-code\payment-code.html"*/'<ion-header>\n\n  <ion-navbar hideBackButton>\n\n    <ion-title text-center>收款码</ion-title>\n\n    <div class="btn-close" (touchstart)="goTabs()">关闭</div>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n	<div class="qrcode-box">\n\n		<div class=\'qrcode\'>\n\n			<qr-code [value]="myCode" [size]="200"></qr-code>\n\n			<span>扫码完成支付</span>\n\n			<div class="total">￥{{ totalPriceFloat }}</div>\n\n		</div>\n\n	</div>\n\n	<div class="btn-list">\n\n		<button class="btn-update" ion-button outline (touchstart)="updateOrder()">修改此单</button>\n\n		<button class="order-again" ion-button (touchstart)="orderAgain()">再来一单</button>\n\n	</div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\payment-code\payment-code.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _e || Object])
 ], PaymentCode);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=payment-code.js.map
 
 /***/ }),
@@ -2478,6 +2541,9 @@ var GiftInfo = (function () {
             _this.alertLayer();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.presentConfirm();
+            });
             _this.isAllow = true;
             console.log(error);
         });
@@ -2626,6 +2692,9 @@ var OrderInfo = (function () {
             _this.alertLayer();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.presentConfirm();
+            });
             _this.isAllow = true;
             console.log(error);
         });
@@ -4259,6 +4328,9 @@ var OrderList = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.loadMore(infiniteScroll);
+            });
             _this.showInfinite = false;
             infiniteScroll.complete();
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -4277,17 +4349,16 @@ var OrderList = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], OrderList.prototype, "content", void 0);
 OrderList = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-list',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>订单列表</ion-title>\n\n    <span class=\'brandshop-order\' (touchstart)="goBrandshoOrder()">\n\n      门店所有订单\n\n    </span>\n\n  </ion-navbar>\n\n  <ion-toolbar class="filter-box">\n\n    <div class="time-box">\n\n      <div class="search-title">选择日期</div>\n\n      <div class="search-list">\n\n        <div class="time-start">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">\n\n          </ion-datetime>\n\n          <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>\n\n        </div>\n\n        <span class="go">到</span>\n\n        <div class="time-end">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateEndMin}}" max="{{dateEndMax}}" [(ngModel)]="dateEnd">\n\n          </ion-datetime> \n\n          <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n    <div class="status-box">\n\n      <ul>\n\n        <li *ngFor="let orderStatus of orderStatusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>\n\n      </ul>\n\n    </div>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="order-list">\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-refresher *ngIf="!loadingShow" (ionRefresh)="doRefresh($event)">\n\n      <ion-refresher-content>\n\n      </ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <div class="order-items" *ngFor="let order of orderList; let i = index">\n\n      <!-- 订单编号 -->\n\n      <div class="order-title">\n\n        <h2>订单编号：\n\n          <span>{{ order.orderId }}</span>\n\n        </h2>\n\n        <!-- 订单状态-->\n\n        <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>\n\n      </div>\n\n      <!-- 商品1 -->\n\n      <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">\n\n        <dl>\n\n          <dt>\n\n            <img class="my-picture" src="{{product.productSkuDTO.fileSeq | productSkuDTOImage}}" [alt]="product.productSkuDTO.productName">\n\n          </dt>\n\n          <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>\n\n          <dd class="sku-list">\n\n            <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n          </dd>\n\n          <dd class=\'price\'>￥{{ product.unitPrice }}</dd>\n\n          <dd class="count">X{{ product.number }}</dd>\n\n        </dl>\n\n      </div>\n\n\n\n      <!-- 待支付订单 -->\n\n      <div *ngIf="order.status==0" class="orderOperate">\n\n        <div class="pay-money-left">\n\n          订单总金额\n\n          <span>￥{{ order.settAmount }}</span>\n\n        </div>\n\n      </div>\n\n\n\n      <!-- 已完成订单 -->\n\n      <div *ngIf="order.status!=0" class="orderOperate">\n\n        <dl>\n\n          <dt>\n\n            <a href="\'tel:\'+order.memberMobile">\n\n              <img src="./assets/image/phone.png" alt="">\n\n            </a>\n\n          </dt>\n\n          <dd class="total">会员手机：{{ order.memberMobile }}</dd>\n\n          <dd class="member-phone" *ngIf="order.status == 3 || order.status == 4 || order.status == 6 || order.status == \'C\'">收货时间：{{ order.receiptTime }}</dd>\n\n          <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime }}</dd>\n\n        </dl>\n\n      </div>\n\n      <div *ngIf="order.status!=0" class="order-dtail-box">\n\n        <div class="order-detail" *ngIf="isShowDetail[i]">\n\n          <ul>\n\n            <li>订单总额：￥{{ order.totalAmount }}</li>\n\n            <li>促销抵扣：￥{{ order.discountAmount }}</li>\n\n            <li>淘璞券折扣：￥{{ order.couponAmount }}</li>\n\n            <li>商户券抵扣：￥{{ order.merchantCouponAmount }}</li>\n\n            <li>积分抵扣：￥{{ order.integralAmount }}</li>\n\n          </ul>\n\n        </div>\n\n        <div class="pay-money">\n\n          会员实付金额\n\n          <span>￥{{ order.payAmount }}</span>\n\n        </div>\n\n        <div class="btn-show" (click)="showDetail(i)">\n\n          <span *ngIf="isShowDetail[i] == false">点击查看明细</span>\n\n          <span *ngIf="isShowDetail[i] == true">点击收起明细</span>\n\n          <span [ngClass]="{\'icon-triangle\':true, \'icon-bottom\': isShowDetail[i]}"></span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="showInfinite && !loadingShow">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n  <div class="no-data" *ngIf="noData">\n\n    <img src="./assets/image/nodata.png" alt="">\n\n    <p>空空如也</p>\n\n  </div>\n\n  <div class="btn-noMore" *ngIf="showNoMore">\n\n    <span>—— 没有更多信息了 ——</span>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _d || Object])
 ], OrderList);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=order-list.js.map
 
 /***/ }),
@@ -4644,6 +4715,9 @@ var Personl = (function () {
             _this.formatTelphone();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getCurrent();
+            });
             console.log(error);
         });
     };
@@ -4658,6 +4732,9 @@ var Personl = (function () {
             _this.userAccount = data;
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAccount();
+            });
             console.log(error);
         });
     };
@@ -4670,6 +4747,9 @@ var Personl = (function () {
             pageModal.present();
         })
             .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getAccountCreat();
+            });
             console.log(error);
             var pageModal = _this.modalCtrl.create(_this.pageList.addAccount, { 'userId': null });
             pageModal.present();
@@ -4686,14 +4766,10 @@ Personl = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'personl',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\personl\personl.html"*/'<ion-content>\n\n  <div class="person-header">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col col-4>\n\n          <img class="my-picture" src="./assets/image/mypicture.png" alt="我的">\n\n        </ion-col>\n\n        <ion-col col-8>\n\n          <h2>{{ userCurrent.cellphone }}</h2>\n\n          <button ion-button outline round color="light" (touchstart)="redirectPage(pageList.myCode)">\n\n            <img src="./assets/image/qrcode.png" alt="我的">\n\n            我的二维码\n\n          </button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="funds">\n\n    <h2 class="funds-title">\n\n      我的资金\n\n      <span class="showTotal" (touchstart)="showMoney()">\n\n        {{ showText }}\n\n      </span>\n\n      <span class="showImg"><img [src]="\'./assets/image/\'+showImg" alt="我的资金"></span>\n\n    </h2>\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <div class="total"><span>￥</span>{{ userAccount.balance }}</div>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col>\n\n          <div class="approve">审核中金额：￥{{ userAccount.verifyAmount }}</div>\n\n        </ion-col>\n\n        <ion-col>\n\n          <div class="withdrawal">已提现：￥{{ userAccount.withdrawAmount }}</div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <ion-grid class="btn-list">\n\n      <ion-row>\n\n        <ion-col col-4>\n\n          <button class="btn-canwithdrawal" ion-button outline round (touchstart)="redirectPage(pageList.detailTabs)">已审核明细</button>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <button class="btn-approve" ion-button outline round (touchstart)="redirectPage(pageList.awardTabs)">审核中明细</button>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <button class="btn-withdrawal" ion-button outline round (touchstart)="redirectPage(pageList.withdraw, userAccount.balance, userCurrent)">提现</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord, userAccount.withdrawAmount)">\n\n      提现记录\n\n      <span><img src="./assets/image/in.png" alt="提现记录"></span>\n\n    </div>\n\n    <div class="withdrawal-record" (click)="redirectPage(pageList.addAccount, pageList.boundWechat, userCurrent)">\n\n      收款账户\n\n      <span><img src="./assets/image/in.png" alt="收款账户"></span>\n\n    </div>\n\n  </div>\n\n  <div class="help">\n\n    <ul>\n\n      <li (click)="redirectPage(pageList.help)">帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>\n\n      <li><a href="tel:4008916161">客服热线<span>400-891-6161<img src="./assets/image/in.png" alt="客服热线"></span></a></li>\n\n    </ul>\n\n  </div>\n\n  <button class="btn-logout" ion-button (click)="logOut()">退出登录</button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\personl\personl.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
-        __WEBPACK_IMPORTED_MODULE_10__app_app_service__["b" /* AppService */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_10__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__app_app_service__["b" /* AppService */]) === "function" && _f || Object])
 ], Personl);
 
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=personl.js.map
 
 /***/ }),
@@ -4869,6 +4945,9 @@ var OrderDetail = (function () {
             _this.isLoadingShow = false;
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getOrderDetail();
+            });
             console.log(error);
             _this.requestFail = true;
             _this.isEmpty = false;
@@ -4884,6 +4963,9 @@ var OrderDetail = (function () {
             _this.sum = data.sum;
             _this.setIsShow(_this.sum);
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getBonusSum();
+            });
             console.log(error);
         });
     };
@@ -7180,6 +7262,9 @@ var HandleSelfgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getHandleSelfGiftList();
+            });
             _this.loadingShow = false;
             console.log(error);
             _this.showInfinite = false;
@@ -7211,6 +7296,9 @@ var HandleSelfgift = (function () {
                 }
             }
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetHandleSelfGiftList(refresher);
+            });
             _this.handleSeflGiftArray = [];
             refresher.complete();
             console.log(error);
@@ -7242,6 +7330,9 @@ var HandleSelfgift = (function () {
             }
             var _a;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetHandleSelfGiftList(infiniteScroll);
+            });
             infiniteScroll.complete();
             console.log(error);
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

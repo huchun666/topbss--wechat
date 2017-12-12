@@ -52,13 +52,12 @@ export class AddAccount {
           let redirectUri = "https://mobile.91topbaby.com";
           let encodeUrl = encodeURIComponent(redirectUri);
           let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${encodeUrl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-          this.appService.httpGet(getCodeUrl)
-          .catch(error => {
-            console.log(error);
-            this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-          });
+          window.location.href = getCodeUrl;
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.bindWX();
+        });
         this.loadingShow = false;
         console.log(error);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
@@ -111,6 +110,9 @@ export class AddAccount {
                   this.appService.toast('更新成功', 1000, 'middle');
                 }
               }).catch(error => {
+                this.appService.getToken(error, () => {
+                  this.editCurrent();
+                });
                 this.loadingShow = false;
                 console.log(error);
                 this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
@@ -156,6 +158,9 @@ export class AddAccount {
         }
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getCurrent();
+        });
         console.log(error);
         this.loadingShow = false;
         this.requestDefeat = true;
@@ -166,6 +171,7 @@ export class AddAccount {
     this.userId = this.navParams.get("userId");
     //重定向判断
     if (this.userId && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+      console.log("enter")
       this.accountContent = false;
       let loading = this.appService.loading();
       loading.present();

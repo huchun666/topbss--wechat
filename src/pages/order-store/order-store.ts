@@ -69,6 +69,9 @@ export class OrderStore {
         }
       
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getOrderStore();
+        });
         this.loadingShow = false;
         this.requestDefeat = true;
         console.log(error);
@@ -100,6 +103,9 @@ export class OrderStore {
         this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
       }
     }).catch(error=>{
+      this.appService.getToken(error, () => {
+        this.warehouseUpdate(index, addOrRemove);
+      });
       if (addOrRemove == "add") {
         this.orderStoreDataArray[index].productNum--;
       }else if (addOrRemove == "remove") {
