@@ -47,8 +47,8 @@
 		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">
 			刷新再找一找
 		</button>
+		<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">
+			<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+		</ion-infinite-scroll>
 	</div>
-	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">
-    <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>
