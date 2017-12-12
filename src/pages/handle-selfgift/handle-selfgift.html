@@ -32,8 +32,10 @@
 		<div class="show-time">导购员：{{item.brandshopUserName}}</div>
 	  </div>
 	</div>
-	
 	</div>
+	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">
+		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 	<div class="no-data" *ngIf = "noData">
 		<img src="./assets/image/nodata.png" alt="">
 		<p>空空如也</p>
@@ -47,8 +49,5 @@
 		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">
 			刷新再找一找
 		</button>
-		<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">
-			<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
-		</ion-infinite-scroll>
 	</div>
 </ion-content>
