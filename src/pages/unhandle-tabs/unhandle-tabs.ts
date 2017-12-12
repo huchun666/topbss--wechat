@@ -24,6 +24,7 @@ export class UnhandleTabs {
   load: any = {};
   loadingShow: Boolean = true;
   currentIndex = 1;
+  reserveShopTimeMin: string =  '';
   toTop: Boolean;//是否显示返回顶部按钮
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
@@ -39,6 +40,7 @@ export class UnhandleTabs {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
+    this.reserveShopTimeMin = this.appService.reserveDate();
     this.currentStatus = '快递到家赠品'
     this.selfGiftCount = navParams.get('selfGiftCount'); //自提赠品数量
     this.expressGiftCount = navParams.get('expressGiftCount'); //快递赠品数量
