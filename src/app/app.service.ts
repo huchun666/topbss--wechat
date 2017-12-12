@@ -27,9 +27,6 @@ export class AppConfig {
   //secret  生产client_pwd
   static grant_type: string = "password";
 
-  //appid
-  static appID: string = "wxadf96ade9aed2e45";
-
   //接口url
   static API: any = {
     login: `${AppConfig.hostUrl}/uaa/user`,
