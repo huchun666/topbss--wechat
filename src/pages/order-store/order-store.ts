@@ -69,6 +69,9 @@ export class OrderStore {
         }
       
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getOrderStore();
+        });
         this.loadingShow = false;
         this.requestDefeat = true;
         console.log(error);
@@ -100,6 +103,9 @@ export class OrderStore {
         this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
       }
     }).catch(error=>{
+      this.appService.getToken(error, () => {
+        this.warehouseUpdate(index, addOrRemove);
+      });
       if (addOrRemove == "add") {
         this.orderStoreDataArray[index].productNum--;
       }else if (addOrRemove == "remove") {
@@ -147,6 +153,9 @@ export class OrderStore {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.delete(index);
+      });
       loading.dismiss();
       console.log(error);
       this.appService.toast('删除失败，请稍后再试', 1000, 'middle');
@@ -178,6 +187,9 @@ export class OrderStore {
         warehouseId: this.orderStoreDataArray[0].warehouseId
       });
     }).catch(error=>{
+      this.appService.getToken(error, () => {
+        this.addProductModal();
+      });
       loading.dismiss();
       console.log(error);
       this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
@@ -204,6 +216,9 @@ export class OrderStore {
       }
     
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetOrderStoreList(refresher);
+      });
       this.orderStoreDataArray = [];
       refresher.complete();
       console.log(error);

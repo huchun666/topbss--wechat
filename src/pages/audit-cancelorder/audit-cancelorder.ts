@@ -52,6 +52,9 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getAuditCancelorder();
+      });
       this.auditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -82,6 +85,9 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetSelfGiftList(refresher);
+      });
       this.auditCancelorderArray = [];
       refresher.complete();
       console.log(error);
@@ -110,6 +116,9 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetSelfGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

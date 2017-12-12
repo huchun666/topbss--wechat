@@ -86,6 +86,9 @@ export class UnauditTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnauditCancelorder();
+      });
       this.unauditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -180,6 +183,9 @@ export class UnauditTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnauditReturnorderList();
+      });
       this.unauditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -276,6 +282,9 @@ export class UnauditTabs {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.loadMore(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -298,6 +307,9 @@ export class UnauditTabs {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.loadMore(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

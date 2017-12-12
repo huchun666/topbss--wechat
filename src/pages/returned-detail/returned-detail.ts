@@ -93,6 +93,9 @@ export class ReturnedDetail {
         this.imageArray = this.returnedDetail.orderReturn.imageIds.split(",");
       }
     }).catch( error=>{
+      this.appService.getToken(error, () => {
+        this.getReturnedDetailList();
+      });
       this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

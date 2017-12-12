@@ -28,10 +28,10 @@ export class AppConfig {
   static grant_type: string = "password";
 
   //appid
-  static appID: "wx11cc7b3a1a190796";//后面需改
+  static appID: string = "wxadf96ade9aed2e45";//后面需改
 
   //appSecret
-  static appSecret: "3c943a6a700db44e1bb7475e83c4bb17";//后面需改
+  static appSecret: string = "83af89b678690d2b8e12ecb693485308";//后面需改
 
   //接口url
   static API: any = {
@@ -66,9 +66,9 @@ export class AppConfig {
     bonusList: `${AppConfig.hostUrl}/account/brandshop/user/bonus/list`, //查询可提现余额明显、审核中余额明细
     bonusSum: `${AppConfig.hostUrl}/account/brandshop/user/bonus/sum`,
     untreatedCount: `${AppConfig.hostUrl}/order/untreatedCount`,//查看待处理订单总数
-    connect: `${AppConfig.hostUrl}/connect/oauth2/authorize`,//获取code
-    sns: `${AppConfig.hostUrl}/sns/oauth2/access_token`,//获取access_token
-    signature: `${AppConfig.hostUrl}/evercos/wechat/jsapiticket/signature.json`,//JSSDK签名
+    connect: `https://open.weixin.qq.com/connect/oauth2/authorize`,//获取code
+    sns: `https://api.weixin.qq.com/sns/oauth2/access_token`,//获取access_token
+    signature: `https://www.91topbaby.com/everbss/wechat/jsapiticket/signature.json`,//JSSDK签名
     orderReceive: `${AppConfig.hostUrl}/order/receive/received`, //确定订单
     receiveGift: `${AppConfig.hostUrl}/promotion/member/gift/account/receiveGift`,
     firstLogin: `${AppConfig.hostUrl}/uaa/getInfo`,//查询是否第一次登录
@@ -164,23 +164,27 @@ export class AppService {
 
   //access_token过期
   private handleError(error: any) {
-    if (error.status == 401 && error.json().error == "invalid_token") {
+    return Promise.reject(error.json() || error);
+  }
+
+  getToken(error, callback) {
+    let self = this;
+    if (error.error == "invalid_token") {
       let base64encode = new Buffer('testClient:secret').toString('base64');
-      this.oauthTokenHeaders = new Headers({
+      self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
-      let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.getItem("refresh_token")}`;
-      this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
-        this.setItem("tpb_token", data.access_token);
-        this.setItem("refresh_token", data.refresh_token);
+      let body = `grant_type=refresh_token&refresh_token=${self.getItem("refresh_token")}`;
+      self.httpPostHeader(oauthTokenUrl, body, self.oauthTokenHeaders).then(data => {
+        self.setItem("tpb_token", data.access_token);
+        self.setItem("refresh_token", data.refresh_token);
+        callback();
       }).catch(err => {
         console.log(err);
-        this.toast('网络异常，请稍后重试', 1000, 'middle');
+        self.toast('网络异常，请稍后重试', 1000, 'middle');
       })
-    }else {
-      return Promise.reject(error.json() || error);
     }
   }
 
