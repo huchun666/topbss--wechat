@@ -43,7 +43,7 @@ export class MyCode {
   }
   // 获取导购员带参二维码
   getMyQRcode(paramUrl) {
-    this.appService.httpGet(paramUrl)
+    this.appService.httpGetNoAuthor(paramUrl)
       .then(data => {
         this.myCode = data.url;
       })
