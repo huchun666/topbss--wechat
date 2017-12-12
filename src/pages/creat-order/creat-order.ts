@@ -97,7 +97,6 @@ export class CreatOrder {
     this.up = false;
     this.start = 0;
     this.requestDefeat = false;
-    this.searchKeyWord = event.target.value;
     if (this.searchKeyWord){
       this.loadingShow = true;
       let url = `${AppConfig.API.getBrandshopProducts}?searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
@@ -131,10 +130,12 @@ export class CreatOrder {
         this.showInfinite = false;
         this.loadingShow = false;
       });
-    }else {
+    } else {
       this.start = 0;
       this.down = true;
       this.up = false;
+      this.showInfinite = true;
+      this.showNoMore = false;
       this.getCreatOrderList();
     }
   }
@@ -167,6 +168,9 @@ export class CreatOrder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetCreatOrderList(refresher);
+      });
       this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
@@ -195,6 +199,9 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.infiniteGetCreatOrderList(infiniteScroll);
+        });
         console.log(error);
         this.requestDefeat = true;
       });
@@ -215,6 +222,9 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.infiniteGetCreatOrderList(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.requestDefeat = true;
@@ -229,6 +239,9 @@ export class CreatOrder {
       this.warehouseCount = number;
       this.showInfinite = true;
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getWarehouseCount();
+      });
       console.log(error);
       this.showInfinite = false;
       this.requestDefeat = true;
