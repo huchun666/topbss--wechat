@@ -44,7 +44,11 @@
 			<ul>
 				<li>退货数量：{{returnDetail.orderReturn.number}}</li>
 				<li>联系方式：{{returnDetail.orderReturn.mobile}}</li> 
-				<li>退货方式：{{returnDetail.orderReturn.returnType==1?'其他': '快递'}}</li>
+				<li>退货方式：
+          <span *ngIf="returnedDetail.orderReturn.returnType == 1">门店</span>
+          <span *ngIf="returnedDetail.orderReturn.returnType == 2">快递</span>
+          <span *ngIf="returnedDetail.orderReturn.returnType == 0">其他</span>
+        </li>
 				<li>是否有发票：{{returnDetail.orderReturn.invoiced==1?'有': '无'}}</li>
 				<li>退货原因：{{returnDetail.orderReturn.reasonType | reasonType}}</li>
 				<li>问题描述：{{returnDetail.orderReturn.detail}}</li>
