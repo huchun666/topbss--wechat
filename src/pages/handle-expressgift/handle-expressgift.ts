@@ -30,7 +30,7 @@ export class HandleExpressgift {
     this.getHandleExpressGiftList()
   }
   getHandleExpressGiftList() {
-    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
+    let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (data.count == 0) {
@@ -66,7 +66,7 @@ export class HandleExpressgift {
     this.start = 0;
     this.down = true;
     this.up = false;
-    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       refresher.complete();
       if (data.count == 0) {
@@ -95,7 +95,7 @@ export class HandleExpressgift {
   infiniteGetHandleExpressGiftList(infiniteScroll) {
     this.down = false;
     this.up = true;
-    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
       if (data.count == 0) {

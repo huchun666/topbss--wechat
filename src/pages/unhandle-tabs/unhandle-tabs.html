@@ -100,13 +100,13 @@
             <span class="unstart">立即兑换</span>
           </dd>
           <dd class="reserve-phone">
-            <span>预约手机：{{item.reservePhone}}</span>
-            <a href="tel:{{item.reservePhone}}">
+            <span>会员手机：{{item.memberPhone}}</span>
+            <a href="tel:{{item.memberPhone}}">
               <img src="assets/image/phone.png">
             </a>
           </dd>
-          <dd class="member-phone">会员手机：{{item.memberPhone}}</dd>
           <dd class="get-time">领取时间：{{item.receiveDate | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
+          <dd class="get-time">兑换时间：{{item.useDate | date:'yyyy-MM-dd HH:mm:ss'}}</dd>
         </dl>
         <div class="reserve-time">
           <div class="member-info">
