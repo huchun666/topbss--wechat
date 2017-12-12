@@ -72,10 +72,16 @@ export class BrandshopOrderList {
       if (this.start < data.count) {
         this.start += this.pageSize;
         this.orderList.push(...data.data);
+        for (let i = 0; i < this.orderList.length; i++) {
+          this.isShowDetail[i] = false;
+        }
       } else if (data.count == 0) {
         this.noData = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getOrderList();
+      });
       this.orderList = [];
       this.loadingShow = false;
       this.requestDefeat = true;
@@ -159,6 +165,9 @@ export class BrandshopOrderList {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.loadMore(infiniteScroll);
+      });
       infiniteScroll.complete();
       this.showInfinite = false;
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

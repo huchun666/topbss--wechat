@@ -42,6 +42,9 @@ export class OrderDetail{
         this.requestFail = false;
         this.isLoadingShow = false;
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getOrderDetail();
+        });
         console.log(error);
         this.requestFail = true;
         this.isEmpty = false;
@@ -56,6 +59,9 @@ export class OrderDetail{
         this.sum = data.sum;
         this.setIsShow(this.sum);
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getBonusSum();
+        });
         console.log(error);
       });
   }

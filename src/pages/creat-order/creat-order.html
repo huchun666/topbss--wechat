@@ -4,13 +4,15 @@
     <span class='icon-creat-order' (touchstart)="orderRepertory()">
       <img src="./assets/image/creatorder.png" alt="配单仓">
       配单仓
-      <ion-badge item-end>{{warehouseCount}}</ion-badge>
+      <ion-badge item-end>{{warehouseCount > 9 ? '9+' : warehouseCount}}</ion-badge>
     </span>
   </ion-navbar>
   <!-- 搜索框 -->
   <div class="search-box">
-    <ion-searchbar [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" placeholder="请输入商品名称" >
-    </ion-searchbar>
+    <ion-item>
+      <ion-input [(ngModel)]="searchKeyWord" (ionChange)="onInput($event)" type="text" clearInput=true placeholder="请输入商品名称" >
+    </ion-input>
+    </ion-item>  
   </div>
 </ion-header>
 <ion-content>

@@ -81,7 +81,7 @@ export class OrderList {
     this.requestDefeat = false;
     this.showNoMore = false;
     this.showInfinite = true;
-    var url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
+    var url = `${AppConfig.API.getOrderList}?userType=B&start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
     if (this.paramsStatus != '')
@@ -188,6 +188,9 @@ export class OrderList {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.loadMore(infiniteScroll);
+      });
       this.showInfinite = false;
       infiniteScroll.complete();
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

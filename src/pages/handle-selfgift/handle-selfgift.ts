@@ -53,6 +53,9 @@ export class HandleSelfgift {
 				}
 			}
 		}).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getHandleSelfGiftList();
+      });
 			this.loadingShow = false;
 			console.log(error);
       this.showInfinite = false;
@@ -82,6 +85,9 @@ export class HandleSelfgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetHandleSelfGiftList(refresher);
+      });
       this.handleSeflGiftArray = [];
       refresher.complete();
       console.log(error);
@@ -110,6 +116,9 @@ export class HandleSelfgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetHandleSelfGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);      
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');      

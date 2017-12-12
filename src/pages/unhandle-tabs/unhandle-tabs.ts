@@ -23,7 +23,8 @@ export class UnhandleTabs {
   showNoMore: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
-  currentIndex = 0;
+  currentIndex = 1;
+  reserveShopTimeMin: string =  '';
   toTop: Boolean;//是否显示返回顶部按钮
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
@@ -39,9 +40,8 @@ export class UnhandleTabs {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.currentStatus = '到店自提赠品'
-    this.selfGiftCount = navParams.get('selfGiftCount'); //自提赠品数量
-    this.expressGiftCount = navParams.get('expressGiftCount'); //快递赠品数量
+    this.reserveShopTimeMin = this.appService.reserveDate();
+    this.currentStatus = '快递到家赠品'
     this.statusList = [{
       label: '到店自提赠品',
       num: this.selfGiftCount
@@ -49,8 +49,29 @@ export class UnhandleTabs {
       label: '快递到家赠品',
       num: this.expressGiftCount
     }];
-    // 获取待审核取消订单
-    this.getUnhandleSelfGiftList();
+    // 获取tab数量
+    this.getTabCount();
+    // 获取快递到家赠品
+    this.getUnhandleExpressGiftList();
+  }
+
+  // 获取tab上显示的数量
+
+  getTabCount () {
+    let urlExpress = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
+    let urlSelf = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
+    this.appService.httpGet(urlExpress).then(data => {
+      this.expressGiftCount = data.count;
+      this.statusList[0].num = data.count;
+    }).catch(error => {
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    });
+    this.appService.httpGet(urlSelf).then(data => {
+      this.selfGiftCount = data.count;
+      this.statusList[1].num = data.count;
+    }).catch(error => {
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    })
   }
 
   // 获取自提赠品
@@ -83,6 +104,9 @@ export class UnhandleTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnhandleSelfGiftList();
+      });
       this.unhandleSeflGiftArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -138,6 +162,9 @@ export class UnhandleTabs {
           this.getUnhandleSelfGiftList();
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.reserveAffirm(index);
+        });
         loading.dismiss();
         console.log(error.message);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
@@ -168,6 +195,7 @@ export class UnhandleTabs {
     this.showNoMore = false;
     this.noData = false;
     this.requestDefeat = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
@@ -176,7 +204,6 @@ export class UnhandleTabs {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
-        this.showInfinite = true;
         if (this.up) {
           this.unhandleExpressGiftArray.push(...data.data);
         } else if (this.down) {
@@ -192,6 +219,9 @@ export class UnhandleTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnhandleExpressGiftList();
+      });
       this.unhandleExpressGiftArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -300,6 +330,9 @@ export class UnhandleTabs {
           this.showNoMore = true;
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.loadMore(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -321,6 +354,9 @@ export class UnhandleTabs {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.loadMore(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
