@@ -79,7 +79,7 @@
       <div *ngIf="order.status!=0" class="orderOperate">
         <dl>
           <dt>
-            <a href="'tel:'+order.memberMobile">
+            <a href="tel:{{order.memberMobile}}">
               <img src="./assets/image/phone.png" alt="">
             </a>
           </dt>
