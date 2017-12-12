@@ -67,16 +67,10 @@
         </dl>
       </div>
 
-      <!-- 待支付订单 -->
-      <div *ngIf="order.status==0" class="orderOperate">
-        <div class="pay-money-left">
-          订单总金额
-          <span>￥{{ order.settAmount }}</span>
-        </div>
-      </div>
+
 
       <!-- 已完成订单 -->
-      <div *ngIf="order.status!=0" class="orderOperate">
+      <div class="orderOperate">
         <dl>
           <dt>
             <a href="tel:{{order.memberMobile}}">
@@ -88,7 +82,7 @@
           <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime | date:'yyyy-MM-dd HH:mm:ss' }}</dd>
         </dl>
       </div>
-      <div *ngIf="order.status!=0" class="order-dtail-box">
+      <div class="order-dtail-box">
         <div class="order-detail" *ngIf="isShowDetail[i]">
           <ul>
             <li>订单总额：￥{{ order.totalAmount }}</li>
