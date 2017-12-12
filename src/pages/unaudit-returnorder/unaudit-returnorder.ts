@@ -101,6 +101,9 @@ export class UnauditReturnorder{
         }
       }
 	  }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnauditReturnorderList();
+      });
       this.loadingShow = false;
       console.log(error);
       this.requestDefeat = true;
@@ -130,6 +133,9 @@ export class UnauditReturnorder{
         }
       }
 	  }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.doRefresh(refresher);
+      });
       refresher.complete();
       console.log(error);
       this.requestDefeat = true;
@@ -159,6 +165,9 @@ export class UnauditReturnorder{
         }
       }
 	  }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetSelfGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.requestDefeat = true;

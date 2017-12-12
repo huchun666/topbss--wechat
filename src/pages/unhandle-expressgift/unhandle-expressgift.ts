@@ -53,6 +53,9 @@ export class UnhandleExpressgift {
 				}
 			}
 		}).catch(error => {
+			this.appService.getToken(error, () => {
+				this.getUnhandleExpressGiftList();
+			});
 			this.loadingShow = false;
 			console.log(error);
 			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -146,6 +149,9 @@ export class UnhandleExpressgift {
 				}
 			}
     }).catch(error => {
+			this.appService.getToken(error, () => {
+				this.refreshGetUnhandleExpressGiftList(refresher);
+			});
       refresher.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -171,6 +177,9 @@ export class UnhandleExpressgift {
 				}
 			}
 		}).catch(error => {
+			this.appService.getToken(error, () => {
+				this.infiniteGetUnhandleExpressGiftList(infiniteScroll);
+			});
 			infiniteScroll.complete();
 			console.log(error);
 			this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
