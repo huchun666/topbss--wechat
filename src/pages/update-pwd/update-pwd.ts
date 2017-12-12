@@ -73,6 +73,9 @@ export class UpdatePwd {
           appNav.setRoot(TabsPage);
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.confirm();
+        });
         loading.dismiss();
         console.log(error);
         this.appService.toast('网络错误，请稍后重试', 1000, 'middle');

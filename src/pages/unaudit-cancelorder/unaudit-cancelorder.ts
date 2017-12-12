@@ -113,6 +113,9 @@ export class UnauditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnauditCancelorder();
+      });
       this.loadingShow = false;
       console.log(error);
       this.requestDefeat = true;
@@ -142,6 +145,9 @@ export class UnauditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshMore(refresher);
+      });
       refresher.complete();
       console.log(error);
       this.requestDefeat = true;
@@ -170,6 +176,9 @@ export class UnauditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.loadMore(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.requestDefeat = true;

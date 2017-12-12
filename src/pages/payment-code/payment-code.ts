@@ -38,6 +38,9 @@ export class PaymentCode {
         this.navCtrl.remove(this.navCtrl.length() - 2, 2);
       }
     }).catch(error=>{
+      this.appService.getToken(error, () => {
+        this.orderAgain();
+      });
       loading.dismiss();
       console.log(error);
       this.appService.toast('操作失败', 1000, 'middle');

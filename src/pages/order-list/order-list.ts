@@ -98,6 +98,9 @@ export class OrderList {
         this.noData = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getOrderList();
+      });
       this.orderList = [];
       this.loadingShow = false;
       this.showInfinite = false;
@@ -185,6 +188,9 @@ export class OrderList {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.loadMore(infiniteScroll);
+      });
       this.showInfinite = false;
       infiniteScroll.complete();
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
