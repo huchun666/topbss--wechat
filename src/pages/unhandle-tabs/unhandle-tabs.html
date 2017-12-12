@@ -76,6 +76,9 @@
         刷新再找一找
       </button>
     </div>
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
+        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
   </div>
 
   <div class="expressGiftList" *ngIf="currentIndex == 1">
@@ -135,9 +138,10 @@
     <div class="btn-selfview" (click)="goExpressgift()" *ngIf="showInfinite">
       <span>查看已发货赠品</span>
     </div>
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
+      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
-    <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  
 </ion-content>
