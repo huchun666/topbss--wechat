@@ -23,7 +23,7 @@ export class UnhandleTabs {
   showNoMore: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
-  currentIndex = 0;
+  currentIndex = 1;
   toTop: Boolean;//是否显示返回顶部按钮
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
@@ -39,7 +39,7 @@ export class UnhandleTabs {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.currentStatus = '到店自提赠品'
+    this.currentStatus = '快递到家赠品'
     this.selfGiftCount = navParams.get('selfGiftCount'); //自提赠品数量
     this.expressGiftCount = navParams.get('expressGiftCount'); //快递赠品数量
     this.statusList = [{
@@ -49,8 +49,8 @@ export class UnhandleTabs {
       label: '快递到家赠品',
       num: this.expressGiftCount
     }];
-    // 获取待审核取消订单
-    this.getUnhandleSelfGiftList();
+    // 获取快递到家赠品
+    this.getUnhandleExpressGiftList();
   }
 
   // 获取自提赠品
@@ -168,6 +168,7 @@ export class UnhandleTabs {
     this.showNoMore = false;
     this.noData = false;
     this.requestDefeat = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
@@ -176,7 +177,6 @@ export class UnhandleTabs {
         this.showNoMore = false;
         this.noData = false;
         this.start += this.limit;
-        this.showInfinite = true;
         if (this.up) {
           this.unhandleExpressGiftArray.push(...data.data);
         } else if (this.down) {
