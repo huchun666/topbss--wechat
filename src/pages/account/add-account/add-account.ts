@@ -175,37 +175,19 @@ export class AddAccount {
       let loading = this.appService.loading();
       loading.present();
       let code = window.location.search.split("?")[1].split("&")[0].split("=")[1];
-      let getTokenUrl = `${AppConfig.API.sns}?appid=${AppConfig.appID}&secret=${AppConfig.appSecret}&code=${code}&grant_type=authorization_code`;
+      let getTokenUrl = `${AppConfig.API.callback}?code=${code}&state=STATE`;
       this.appService.httpGet(getTokenUrl).then(data => {
-        if (data.errcode) {//请求token失败时
+        if (data.type == "success") {
           loading.dismiss();
-          this.requestDefeat = true;
-          this.noBind = true;
-        }else {
-          let openid = data.openid;
-          let updateCurrentUrl = AppConfig.API.current;
-          let updateParameters = {
-            id: this.userId,
-            salesName: this.salesName,
-            cellphone: this.cellphone,
-            wechatOpenid: openid,
-            idcard: this.IDcard
-          }
-          //更新导购员账户
-          this.appService.httpPut(updateCurrentUrl, updateParameters).then(data => {
-            if (data.type == "success") {
-              loading.dismiss();
-              this.noBind = false;
-              this.getCurrent();
-            }
-          }).catch(error => {
-            loading.dismiss();
-            this.accountContent = false;
-            this.noBind = true;
-            console.log(error);
-            this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
-          });
+          this.noBind = false;
+          this.getCurrent();
         }
+      }).catch(error => {
+        loading.dismiss();
+        this.accountContent = false;
+        this.noBind = true;
+        console.log(error);
+        this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
       })
     }else {
       this.getCurrent();
