@@ -39,6 +39,9 @@ export class Home {
       this.returnOrderCount = data.returnCount;
     })
     .catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnAuditCount();
+      });
       console.log(error);
     });
   }
@@ -50,6 +53,9 @@ export class Home {
        this.expressgiftCount = data.undelivered;
      })
      .catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnHandleCount();
+      });
        console.log(error);
      });
   }

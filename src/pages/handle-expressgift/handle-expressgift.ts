@@ -53,6 +53,9 @@ export class HandleExpressgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getHandleExpressGiftList();
+      });
       this.handleExpressGiftArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -83,6 +86,9 @@ export class HandleExpressgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetHandleExpressGiftList(refresher);
+      });
       this.handleExpressGiftArray = [];
       refresher.complete();
       console.log(error);
@@ -111,6 +117,9 @@ export class HandleExpressgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetHandleExpressGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

@@ -104,6 +104,9 @@ export class UnhandleTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnhandleSelfGiftList();
+      });
       this.unhandleSeflGiftArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -159,6 +162,9 @@ export class UnhandleTabs {
           this.getUnhandleSelfGiftList();
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.reserveAffirm(index);
+        });
         loading.dismiss();
         console.log(error.message);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
@@ -213,6 +219,9 @@ export class UnhandleTabs {
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getUnhandleExpressGiftList();
+      });
       this.unhandleExpressGiftArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -321,6 +330,9 @@ export class UnhandleTabs {
           this.showNoMore = true;
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.loadMore(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -342,6 +354,9 @@ export class UnhandleTabs {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.loadMore(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

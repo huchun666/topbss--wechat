@@ -45,6 +45,9 @@ export class WithdrawRecord {
         this.withdrawAmount = this.navParams.get("param1"); //提现总计，从当前账户传入过来
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getWithdrawList();
+        });
         console.log(error);
         this.requestFail = true;
         this.isEmpty = false;
