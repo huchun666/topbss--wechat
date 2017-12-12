@@ -153,6 +153,9 @@ export class OrderStore {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.delete(index);
+      });
       loading.dismiss();
       console.log(error);
       this.appService.toast('删除失败，请稍后再试', 1000, 'middle');
@@ -184,6 +187,9 @@ export class OrderStore {
         warehouseId: this.orderStoreDataArray[0].warehouseId
       });
     }).catch(error=>{
+      this.appService.getToken(error, () => {
+        this.addProductModal();
+      });
       loading.dismiss();
       console.log(error);
       this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
@@ -210,6 +216,9 @@ export class OrderStore {
       }
     
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetOrderStoreList(refresher);
+      });
       this.orderStoreDataArray = [];
       refresher.complete();
       console.log(error);

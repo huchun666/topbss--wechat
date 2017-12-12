@@ -42,8 +42,6 @@ export class UnhandleTabs {
     this.load = AppConfig.load;
     this.reserveShopTimeMin = this.appService.reserveDate();
     this.currentStatus = '快递到家赠品'
-    this.selfGiftCount = navParams.get('selfGiftCount'); //自提赠品数量
-    this.expressGiftCount = navParams.get('expressGiftCount'); //快递赠品数量
     this.statusList = [{
       label: '到店自提赠品',
       num: this.selfGiftCount
@@ -51,8 +49,29 @@ export class UnhandleTabs {
       label: '快递到家赠品',
       num: this.expressGiftCount
     }];
+    // 获取tab数量
+    this.getTabCount();
     // 获取快递到家赠品
     this.getUnhandleExpressGiftList();
+  }
+
+  // 获取tab上显示的数量
+
+  getTabCount () {
+    let urlExpress = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
+    let urlSelf = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
+    this.appService.httpGet(urlExpress).then(data => {
+      this.expressGiftCount = data.count;
+      this.statusList[0].num = data.count;
+    }).catch(error => {
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    });
+    this.appService.httpGet(urlSelf).then(data => {
+      this.selfGiftCount = data.count;
+      this.statusList[1].num = data.count;
+    }).catch(error => {
+      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+    })
   }
 
   // 获取自提赠品
