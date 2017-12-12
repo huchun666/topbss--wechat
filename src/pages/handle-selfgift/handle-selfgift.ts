@@ -100,7 +100,7 @@ export class HandleSelfgift {
   infiniteGetHandleSelfGiftList(infiniteScroll) {
     this.down = false;
 	  this.up = true;
-    let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       infiniteScroll.complete();
       if (data.count == 0) {
