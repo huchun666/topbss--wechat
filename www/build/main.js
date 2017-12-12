@@ -7121,7 +7121,7 @@ AppConfig.API = {
     bonusSum: AppConfig_1.hostUrl + "/account/brandshop/user/bonus/sum",
     untreatedCount: AppConfig_1.hostUrl + "/order/untreatedCount",
     connect: "https://open.weixin.qq.com/connect/oauth2/authorize",
-    signature: "https://www.91topbaby.com/everbss/wechat/jsapiticket/signature.json",
+    signature: AppConfig_1.hostUrl + "/account/wechat/signature",
     orderReceive: AppConfig_1.hostUrl + "/order/receive/received",
     receiveGift: AppConfig_1.hostUrl + "/promotion/member/gift/account/receiveGift",
     firstLogin: AppConfig_1.hostUrl + "/uaa/getInfo",
