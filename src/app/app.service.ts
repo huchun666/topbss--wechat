@@ -92,12 +92,18 @@ export class AppService {
   ) {
   }
 
-  //get request
+  //get request with Authorization
   httpGet(url: string) {
     this.withTokenHeaders = new Headers({
       'Authorization': 'Bearer '+ this.getItem('tpb_token')
     });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
+  }
+  //get request with No Authorization
+  httpGetNoAuthor(url: string) {
+    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(this.handleError);
   }
