@@ -67,7 +67,7 @@ export class AppConfig {
     bonusSum: `${AppConfig.hostUrl}/account/brandshop/user/bonus/sum`,
     untreatedCount: `${AppConfig.hostUrl}/order/untreatedCount`,//查看待处理订单总数
     connect: `https://open.weixin.qq.com/connect/oauth2/authorize`,//获取code
-    sns: `https://open.weixin.qq.com/sns/oauth2/access_token`,//获取access_token
+    sns: `https://api.weixin.qq.com/sns/oauth2/access_token`,//获取access_token
     signature: `https://www.91topbaby.com/everbss/wechat/jsapiticket/signature.json`,//JSSDK签名
     orderReceive: `${AppConfig.hostUrl}/order/receive/received`, //确定订单
     receiveGift: `${AppConfig.hostUrl}/promotion/member/gift/account/receiveGift`,

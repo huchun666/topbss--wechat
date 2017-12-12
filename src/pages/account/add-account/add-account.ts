@@ -171,7 +171,6 @@ export class AddAccount {
     this.userId = this.navParams.get("userId");
     //重定向判断
     if (this.userId && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
-      console.log("enter")
       this.accountContent = false;
       let loading = this.appService.loading();
       loading.present();
