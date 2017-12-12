@@ -178,6 +178,7 @@ export class AddAccount {
       let getTokenUrl = `${AppConfig.API.callback}?code=${code}&state=STATE`;
       this.appService.httpGet(getTokenUrl).then(data => {
         if (data.type == "success") {
+          this.appService.setItem("stopReturn", "have");
           loading.dismiss();
           this.noBind = false;
           this.getCurrent();

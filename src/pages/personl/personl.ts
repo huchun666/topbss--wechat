@@ -82,6 +82,7 @@ export class Personl {
   /* 退出登录 */
   logOut() {
     this.appService.setItem("tpb_token","");
+    this.appService.setItem("stopReturn", "");
     if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
       window.location.href = window.location.href.split("?")[0];
     }else {
@@ -155,7 +156,7 @@ export class Personl {
     });
   }
   ionViewDidEnter() {
-    if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+    if ((this.appService.getItem("stopReturn") != "have") && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
       this.getAccountCreat();
     }
   }
