@@ -94,11 +94,11 @@ export class BrandshopOrderList {
     this.paramsDate = '';
     this.orderList = [];
     if (this.dateStart != '') {
-      this.paramsDate += `&dateStart=${this.dateStart}`;
+      this.paramsDate += `&startTime=${this.dateStart}`;
       this.dateEndMin = this.dateStart;
     }
     if (this.dateEnd != '') {
-      this.paramsDate += `&dateEnd=${this.dateEnd}`;
+      this.paramsDate += `&endTime=${this.dateEnd}`;
       this.dateStartMax = this.dateEnd;
     }
     this.content.scrollTo(0, 0, 0);
