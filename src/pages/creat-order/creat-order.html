@@ -9,8 +9,10 @@
   </ion-navbar>
   <!-- 搜索框 -->
   <div class="search-box">
-    <ion-searchbar [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" placeholder="请输入商品名称" >
-    </ion-searchbar>
+    <ion-item>
+      <ion-input [(ngModel)]="searchKeyWord" (ionChange)="onInput($event)" type="text" clearInput=true placeholder="请输入商品名称" >
+    </ion-input>
+    </ion-item>  
   </div>
 </ion-header>
 <ion-content>
