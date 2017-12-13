@@ -159,6 +159,7 @@ export class UnhandleTabs {
           this.down = true;
           this.up = false;
           loading.dismiss();
+          this.appService.toast('预约成功！', 1000, 'middle');
           this.getUnhandleSelfGiftList();
         }
       }).catch(error => {
