@@ -11,9 +11,9 @@ export class HandleExpressgift {
   start: number = 0;
   limit: number = 10;
   showNoMore: Boolean = false;
-  noData: Boolean;
-  up: Boolean;//上拉刷新和第一次进入页面时
-  down: Boolean;//下拉刷新和返回上一级页面时
+  up: Boolean = true;//上拉刷新和第一次进入页面时
+  down: Boolean = false;//下拉刷新和返回上一级页面时
+  noData: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
   requestDefeat: Boolean = false;

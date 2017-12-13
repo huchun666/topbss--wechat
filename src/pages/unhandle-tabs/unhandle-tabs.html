@@ -62,7 +62,7 @@
     <div class="toTop" (click)="scrollTo()" *ngIf="toTop">
       <img src="./assets/image/toTop.png" alt="">
     </div>
-    <div class="btn-selfview" (click)="goSelfgift()" *ngIf = "showInfinite">
+    <div class="btn-selfview" (click)="goSelfgift()">
       <span>查看已兑换自提赠品</span>
     </div>
     <div class="no-data" *ngIf="noData">
@@ -120,7 +120,7 @@
         </div>
       </div>
     </div>
-    <div class="btn-selfview" (click)="goExpressgift()" *ngIf="showInfinite">
+    <div class="btn-selfview" (click)="goExpressgift()">
       <span>查看已发货赠品</span>
     </div>
     <div class="no-data" *ngIf="noData">
