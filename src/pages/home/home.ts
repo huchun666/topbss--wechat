@@ -195,8 +195,7 @@ export class Home {
     let signUrl = window.location.href;
     let encodeUrl = encodeURIComponent(signUrl);
     let url = `${AppConfig.API.signature}?url=${encodeUrl}`;
-    var self = this;
-    self.appService.httpGet(url).then(data => {
+    this.appService.httpGet(url).then(data => {
       wx.config({
         debug: false,
         appId: data.appId,

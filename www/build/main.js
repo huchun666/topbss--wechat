@@ -1582,8 +1582,7 @@ var Home = (function () {
         var signUrl = window.location.href;
         var encodeUrl = encodeURIComponent(signUrl);
         var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.signature + "?url=" + encodeUrl;
-        var self = this;
-        self.appService.httpGet(url).then(function (data) {
+        this.appService.httpGet(url).then(function (data) {
             wx.config({
                 debug: false,
                 appId: data.appId,
