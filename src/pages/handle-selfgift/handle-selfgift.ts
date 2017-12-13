@@ -68,6 +68,8 @@ export class HandleSelfgift {
     this.start = 0;
     this.down = true;
 	  this.up = false;
+    this.showNoMore = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
