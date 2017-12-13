@@ -17,7 +17,7 @@ export class Login{
   pwd: string = "";//123456
   isUserName: boolean = false;
   isPwd: boolean = false;
-  rememberPassword: boolean = true;
+  rememberPassword: boolean = false;
   userNameValue: string = "*账号不正确，请确认后重新输入";
   userPwdValue: string = "*请输入密码";
   constructor(
@@ -36,6 +36,8 @@ export class Login{
       this.pwd = user.pwd;
       if (this.pwd) {
         this.rememberPassword = true;
+      }else {
+        this.rememberPassword = false;
       }
     }
   }
