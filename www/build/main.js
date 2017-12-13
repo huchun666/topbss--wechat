@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 111:
+/***/ 112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11,7 +11,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_service__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__forget_forget__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tabs_tabs__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_buffer__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_buffer__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_buffer__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__update_pwd_update_pwd__ = __webpack_require__(238);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -179,7 +179,7 @@ Login = __decorate([
 
 /***/ }),
 
-/***/ 112:
+/***/ 113:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -294,7 +294,7 @@ MyCode = __decorate([
 
 /***/ }),
 
-/***/ 115:
+/***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -382,6 +382,8 @@ var AuditCancelorder = (function () {
         this.start = 0;
         this.down = true;
         this.up = false;
+        this.showNoMore = false;
+        this.showInfinite = true;
         var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getCancelorder + "?deliveryType=1&status=1&start=" + this.start + "&limit=" + this.limit;
         this.appService.httpGet(url).then(function (data) {
             refresher.complete();
@@ -467,7 +469,7 @@ AuditCancelorder = __decorate([
 
 /***/ }),
 
-/***/ 116:
+/***/ 117:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -560,6 +562,7 @@ var AuditReturnorder = (function () {
         this.down = true;
         this.up = false;
         this.showNoMore = false;
+        this.showInfinite = true;
         var url = __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].API.getReturnorderList + "?deliveryType=1&status=1&start=" + this.start + "&limit=" + this.limit;
         this.appService.httpGet(url).then(function (data) {
             refresher.complete();
@@ -646,7 +649,7 @@ AuditReturnorder = __decorate([
 
 /***/ }),
 
-/***/ 117:
+/***/ 118:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -842,178 +845,6 @@ ReturnDetail = __decorate([
 
 /***/ }),
 
-/***/ 118:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HandleSelfgift; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var HandleSelfgift = (function () {
-    function HandleSelfgift(navCtrl, alertCtrl, appService) {
-        this.navCtrl = navCtrl;
-        this.alertCtrl = alertCtrl;
-        this.appService = appService;
-        this.handleSeflGiftArray = [];
-        this.start = 0;
-        this.limit = 10;
-        this.showNoMore = false;
-        this.load = {};
-        this.loadingShow = true;
-        this.requestDefeat = false;
-        this.showInfinite = false;
-        this.down = true;
-        this.up = false;
-        this.load = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].load;
-        this.getHandleSelfGiftList();
-    }
-    //进入页面，请求接口，得到数据
-    HandleSelfgift.prototype.getHandleSelfGiftList = function () {
-        var _this = this;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit; //brandshopSeq=${this.brandshopSeqId}
-        this.appService.httpGet(url).then(function (data) {
-            _this.loadingShow = false;
-            if (data.count == 0) {
-                //空空如也
-                _this.noData = true;
-            }
-            else {
-                _this.noData = false;
-                _this.showInfinite = true;
-                if (_this.start < data.count) {
-                    if (_this.up) {
-                        (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
-                        _this.start += _this.limit;
-                    }
-                    else if (_this.down) {
-                        _this.handleSeflGiftArray = data.data;
-                        _this.start += _this.limit;
-                        _this.content.scrollTo(0, 0, 0);
-                    }
-                }
-                else {
-                    _this.showNoMore = true;
-                }
-            }
-            var _a;
-        }).catch(function (error) {
-            _this.appService.getToken(error, function () {
-                _this.getHandleSelfGiftList();
-            });
-            _this.loadingShow = false;
-            console.log(error);
-            _this.showInfinite = false;
-            _this.requestDefeat = true;
-        });
-    };
-    // 下拉刷新请求数据
-    HandleSelfgift.prototype.refreshGetHandleSelfGiftList = function (refresher) {
-        var _this = this;
-        this.start = 0;
-        this.down = true;
-        this.up = false;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
-        this.appService.httpGet(url).then(function (data) {
-            refresher.complete();
-            if (data.count == 0) {
-                //空空如也
-                _this.noData = true;
-            }
-            else {
-                _this.noData = false;
-                _this.showInfinite = true;
-                if (data.data.length != 0) {
-                    _this.handleSeflGiftArray = data.data;
-                    _this.start += _this.limit;
-                }
-                else {
-                    _this.showNoMore = true;
-                }
-            }
-        }).catch(function (error) {
-            _this.appService.getToken(error, function () {
-                _this.refreshGetHandleSelfGiftList(refresher);
-            });
-            _this.handleSeflGiftArray = [];
-            refresher.complete();
-            console.log(error);
-            _this.showInfinite = false;
-            _this.requestDefeat = true;
-        });
-    };
-    // 上拉刷新请求数据
-    HandleSelfgift.prototype.infiniteGetHandleSelfGiftList = function (infiniteScroll) {
-        var _this = this;
-        this.down = false;
-        this.up = true;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
-        this.appService.httpGet(url).then(function (data) {
-            infiniteScroll.complete();
-            if (data.count == 0) {
-                //空空如也
-                _this.noData = true;
-            }
-            else {
-                _this.noData = false;
-                if (data.data.length != 0) {
-                    (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
-                    _this.start += _this.limit;
-                }
-                else {
-                    _this.showNoMore = true;
-                }
-            }
-            var _a;
-        }).catch(function (error) {
-            _this.appService.getToken(error, function () {
-                _this.infiniteGetHandleSelfGiftList(infiniteScroll);
-            });
-            infiniteScroll.complete();
-            console.log(error);
-            _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-        });
-    };
-    //请求失败后刷新
-    HandleSelfgift.prototype.requestDefeatRefresh = function () {
-        this.requestDefeat = false;
-        this.loadingShow = true;
-        this.start = 0;
-        this.down = true;
-        this.up = false;
-        this.getHandleSelfGiftList();
-    };
-    return HandleSelfgift;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
-], HandleSelfgift.prototype, "content", void 0);
-HandleSelfgift = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'handle-selfgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已兑换自提赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n	<ion-refresher (ionRefresh)="refreshGetHandleSelfGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="gift-list">\n\n	<!-- loading -->\n\n	<div class="loading-wrapper" *ngIf="loadingShow">\n\n		<div>\n\n			<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n		</div>\n\n		<div [innerHTML]="load.content"></div>\n\n	</div>\n\n	<div class="gift-item" *ngFor = "let item of handleSeflGiftArray">\n\n	  <dl>\n\n		<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n		<dd class="product-title">\n\n		  <h2>{{item.giftName}}</h2>\n\n			<span class="unstart">{{ item.giftType | setHandleGiftType }}</span>\n\n		</dd>\n\n			<dd class="member-phone">会员手机：{{item.memberPhone}}</dd>\n\n			<dd class="member-phone" *ngIf = "item.giftType==\'0\'">预约手机：{{item.reservePhone}}</dd>\n\n		  <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n		  <dd class="get-time exchangeTime">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n	  </dl>\n\n	  <div class="reserve-time">\n\n		<div class="show-time" *ngIf = "item.giftType==\'0\'">预约到店时间：{{item.reserveShopTime | date:\'yyyy-MM-dd HH:mm:ss\'}}</div>\n\n		<div class="show-time">导购员：{{item.brandshopUserName}}</div>\n\n	  </div>\n\n	</div>\n\n	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n	</ion-infinite-scroll>\n\n	<div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n	</div>\n\n	<div class="btn-noMore" *ngIf = "showNoMore">\n\n		<span>—— 没有更多已兑换赠品了 ——</span>\n\n	</div>\n\n	<div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n		<p>啊哦！页面走丢了</p>\n\n		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n			刷新再找一找\n\n		</button>\n\n	</div>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
-], HandleSelfgift);
-
-//# sourceMappingURL=handle-selfgift.js.map
-
-/***/ }),
-
 /***/ 119:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1050,8 +881,10 @@ var HandleExpressgift = (function () {
         this.down = true;
         this.up = false;
         this.load = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].load;
-        this.getHandleExpressGiftList();
     }
+    HandleExpressgift.prototype.ionViewDidEnter = function () {
+        setTimeout(this.getHandleExpressGiftList(), 100);
+    };
     HandleExpressgift.prototype.getHandleExpressGiftList = function () {
         var _this = this;
         var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=3&start=" + this.start + "&limit=" + this.limit;
@@ -1097,6 +930,8 @@ var HandleExpressgift = (function () {
         this.start = 0;
         this.down = true;
         this.up = false;
+        this.showNoMore = false;
+        this.showInfinite = true;
         var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=3&start=" + this.start + "&limit=" + this.limit;
         this.appService.httpGet(url).then(function (data) {
             refresher.complete();
@@ -1175,7 +1010,7 @@ __decorate([
 ], HandleExpressgift.prototype, "content", void 0);
 HandleExpressgift = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'handle-expressgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已发货赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="refreshGetHandleExpressGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n<div class="gift-list">\n\n	<!-- loading -->\n\n	<div class="loading-wrapper" *ngIf="loadingShow">\n\n		<div>\n\n			<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n		</div>\n\n		<div [innerHTML]="load.content"></div>\n\n	</div>\n\n  <div class="gift-item" *ngFor = "let item of handleExpressGiftArray">\n\n		<dl>\n\n			<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n			<dd class="product-title">\n\n				<h2>{{item.giftName}}</h2>\n\n				<span class="unstart">立即兑换</span>\n\n			</dd>\n\n			<dd class="reserve-phone">\n\n				<span>会员手机：{{item.memberPhone}}</span>\n\n			</dd>\n\n			<dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n			<dd class="get-time">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n			<dd class="get-time">导购员：{{item.brandshopUserName}}</dd>\n\n		</dl>\n\n		<div class="reserve-time member-box">\n\n			<div class="member-info">\n\n				<ul>\n\n					<li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>\n\n				</ul>\n\n			</div>\n\n		</div>\n\n		<div class="reserve-time">\n\n			<div class="show-time">备注信息：{{item.expressCompany}} {{item.expressNo}}</div>\n\n		</div>\n\n  </div>\n\n	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleExpressGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n	</ion-infinite-scroll>\n\n	<div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n	</div>\n\n	<div class="btn-noMore" *ngIf = "showNoMore">\n\n		<span>—— 没有更多已兑换赠品了 ——</span>\n\n	</div>\n\n	<div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n		<p>啊哦！页面走丢了</p>\n\n		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n			刷新再找一找\n\n		</button>\n\n	</div>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/
+        selector: 'handle-expressgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已发货赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="refreshGetHandleExpressGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="gift-list">\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <div class="gift-item" *ngFor = "let item of handleExpressGiftArray">\n\n      <dl>\n\n        <dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n        <dd class="product-title">\n\n          <h2>{{item.giftName}}</h2>\n\n          <span class="unstart">立即兑换</span>\n\n        </dd>\n\n        <dd class="reserve-phone">\n\n          <span>会员手机：{{item.memberPhone}}</span>\n\n        </dd>\n\n        <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n        <dd class="get-time">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n        <dd class="get-time">导购员：{{item.brandshopUserName}}</dd>\n\n      </dl>\n\n      <div class="reserve-time member-box">\n\n        <div class="member-info">\n\n          <ul>\n\n            <li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>\n\n          </ul>\n\n        </div>\n\n      </div>\n\n      <div class="reserve-time">\n\n        <div class="show-time">备注信息：{{item.expressCompany}} {{item.expressNo}}</div>\n\n      </div>\n\n    </div>\n\n    <div class="no-data" *ngIf = "noData">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf = "showNoMore">\n\n      <span>—— 没有更多已兑换赠品了 ——</span>\n\n    </div>\n\n    <div class="request-defeat" *ngIf = "requestDefeat">\n\n      <img src="./assets/image/requestDefeat.png" alt="">\n\n      <p>啊哦！页面走丢了</p>\n\n      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n        刷新再找一找\n\n      </button>\n\n    </div>\n\n    <ion-infinite-scroll (ionInfinite)="infiniteGetHandleExpressGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
@@ -1437,7 +1272,7 @@ var AddAccount = (function () {
 }());
 AddAccount = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'add-account',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>收款账户</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <!-- loading -->\n\n  <div class="loading-wrapper" *ngIf="loadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <div *ngIf="accountContent">\n\n    <div class="account-title" *ngIf="noBind">\n\n      填写收款人信息并绑定微信作为收款账户\n\n    </div>\n\n    <div class="account-title" *ngIf="!noBind">\n\n      <div class="binded"><img src="./assets/image/ok.png" alt="">已绑定微信</div>\n\n    </div>\n\n    <div class="form-list">\n\n      <ion-list>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="salesName" placeholder="输入收款人姓名" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isName">*请填写收款人</div>\n\n        <ion-item>\n\n          <ion-input type="tel" [(ngModel)]="cellphone" placeholder="输入收款人手机号码" maxlength=11 required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isPhone">*请输入正确的手机号</div>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="IDcard" placeholder="输入收款人身份证号" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isIDCard">*请输入正确的身份证号</div>\n\n      </ion-list>\n\n    <button class="btn-bind" ion-button (click)="bindWX()" *ngIf="noBind">绑定微信</button>\n\n    <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="!noBind">确定</button>\n\n    <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="getCurrent()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/
+        selector: 'add-account',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>收款账户</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <!-- loading -->\n\n  <div class="loading-wrapper" *ngIf="loadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <div *ngIf="accountContent">\n\n    <div class="account-title" *ngIf="noBind">\n\n      填写收款人信息并绑定微信作为收款账户\n\n    </div>\n\n    <div class="account-title" *ngIf="!noBind">\n\n      <div class="binded"><img src="./assets/image/OK.png" alt="">已绑定微信</div>\n\n    </div>\n\n    <div class="form-list">\n\n      <ion-list>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="salesName" placeholder="输入收款人姓名" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isName">*请填写收款人</div>\n\n        <ion-item>\n\n          <ion-input type="tel" [(ngModel)]="cellphone" placeholder="输入收款人手机号码" maxlength=11 required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isPhone">*请输入正确的手机号</div>\n\n        <ion-item>\n\n          <ion-input [(ngModel)]="IDcard" placeholder="输入收款人身份证号" required></ion-input>\n\n        </ion-item>\n\n        <div class=\'bind-error\' *ngIf="isIDCard">*请输入正确的身份证号</div>\n\n      </ion-list>\n\n    <button class="btn-bind" ion-button (click)="bindWX()" *ngIf="noBind">绑定微信</button>\n\n    <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="!noBind">确定</button>\n\n    <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="getCurrent()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\account\add-account\add-account.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
@@ -1528,12 +1363,13 @@ Forget = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mycode_mycode__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mycode_mycode__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__creat_order_creat_order__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gift_info_gift_info__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__order_info_order_info__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__unaudit_tabs_unaudit_tabs__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__unhandle_tabs_unhandle_tabs__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__handle_selfgift_handle_selfgift__ = __webpack_require__(61);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1543,6 +1379,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1653,7 +1490,6 @@ var Home = (function () {
                 success: function (res) {
                     var _this = this;
                     var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                    alert(url);
                     if (!url) {
                         return;
                     }
@@ -1683,21 +1519,19 @@ var Home = (function () {
                             myCodeModal.present();
                         }
                         else if (url.indexOf('giftCode') > 0) {
-                            alert("Inter");
                             var myCodeModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_5__gift_info_gift_info__["a" /* GiftInfo */], { 'url': url });
-                            // myCodeModal.onDidDismiss(data => {
-                            //   alert("inetr293")
-                            //   alert(data)
-                            //   if (!data) {
-                            //     return;
-                            //   }
-                            //   if (data.type === '1') {
-                            //     this.qrCodeScan();
-                            //   } else if (data.type === '0') {
-                            //     const giftModal = this.modalCtrl.create(HandleSelfgift);
-                            //     giftModal.present();
-                            //   }
-                            // });
+                            myCodeModal.onDidDismiss(function (data) {
+                                if (!data) {
+                                    return;
+                                }
+                                if (data.type === '1') {
+                                    _this.qrCodeScan();
+                                }
+                                else if (data.type === '0') {
+                                    var giftModal = _this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_9__handle_selfgift_handle_selfgift__["a" /* HandleSelfgift */]);
+                                    giftModal.present();
+                                }
+                            });
                             myCodeModal.present();
                         }
                         else {
@@ -2945,9 +2779,9 @@ OrderInfo = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__unaudit_cancelorder_unaudit_cancelorder__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__unaudit_returnorder_unaudit_returnorder__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_service__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__audit_cancelorder_audit_cancelorder__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__audit_returnorder_audit_returnorder__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__return_detail_return_detail__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__audit_cancelorder_audit_cancelorder__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__audit_returnorder_audit_returnorder__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__return_detail_return_detail__ = __webpack_require__(118);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3322,7 +3156,7 @@ __decorate([
 ], UnauditTabs.prototype, "content", void 0);
 UnauditTabs = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'unaudit-tabs',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unaudit-tabs\unaudit-tabs.html"*/'<ion-header>\n\n    <ion-navbar>\n\n      <ion-title text-center>待审核订单</ion-title>\n\n    </ion-navbar>\n\n    <ion-toolbar class="statusBox">\n\n      <ul>\n\n        <li *ngFor="let status of statusList, let i = index" [ngClass]="{active:currentStatus == status.label}" (click)="getCurrentStatus(i)">{{ status.label }}（{{status.num}}）</li>\n\n      </ul>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <!-- 下拉刷新 -->\n\n    <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!loadingShow">\n\n      <ion-refresher-content></ion-refresher-content>\n\n    </ion-refresher>\n\n  \n\n    <!-- 待审核取消订单列表 -->\n\n    <div class="order-cancelList" *ngIf="currentIndex == 0">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="order-items" *ngFor="let item of unauditCancelorderArray;let i = index">\n\n        <div class="order-title">\n\n          <h2>订单编号：\n\n            <span>{{item.orderId}}</span>\n\n          </h2>\n\n          <span [ngClass]="{auditStatus: true, pass:(item.status | setCancelOrderStatus).pass , auditing:(item.status | setCancelOrderStatus).audit} ">{{(item.status | setCancelOrderStatus).status}}</span>\n\n        </div>\n\n  \n\n        <div class="order-item" *ngFor="let single of item.itemList">\n\n          <dl>\n\n            <dt>\n\n              <img class="my-picture" [src]="single.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="single.productSkuDTO.productName">\n\n            </dt>\n\n            <dd class="product-title">{{ single.productSkuDTO.productName }}</dd>\n\n            <dd class="sku-list">\n\n              <span *ngFor="let sku of single.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n            </dd>\n\n            <dd class=\'price\'>￥{{ single.unitPrice }}</dd>\n\n            <dd class="count">X{{ single.number }}</dd>\n\n          </dl>\n\n        </div>\n\n  \n\n        <div class="orderOperate">\n\n          <dl>\n\n            <dt>\n\n              <button class="btn-audit" ion-button (click)="auditOrder(i)">审核</button>\n\n            </dt>\n\n            <dd class="total">{{item.totalNumber}}件商品，实付￥{{item.payAmount}}</dd>\n\n            <dd class="member-phone">会员手机：{{item.memberMobile}}</dd>\n\n          </dl>\n\n        </div>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多信息了 ——</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshCancelorder()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n      <div class="btn-cancelView" (touchstart)="goAuditCancel()" *ngIf="showInfinite">\n\n        <span>查看审核完成订单</span>\n\n      </div>\n\n    </div>\n\n  \n\n    <!-- 待审核退货订单列表 -->\n\n    <div class="order-returnList" *ngIf="currentIndex == 1">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="order-items" *ngFor="let item of unauditReturnorderArray;let i = index">\n\n        <div class="order-title">\n\n          <h2>订单编号：\n\n            <span>{{item.orderId}}</span>\n\n          </h2>\n\n          <span [ngClass]="{auditStatus: true, pass:(item.status | setReturnOrderStatus).pass , auditing:(item.status | setReturnOrderStatus).audit} ">{{(item.status | setReturnOrderStatus).status}}</span>\n\n        </div>\n\n  \n\n        <div class="order-item">\n\n          <dl>\n\n            <dt>\n\n              <img class="my-picture" [src]="item.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="item.productSkuDTO.productName">\n\n            </dt>\n\n            <dd class="product-title">{{ item.productSkuDTO.productName }}</dd>\n\n            <dd class="sku-list">\n\n              <span *ngFor="let sku of item.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n            </dd>\n\n            <dd class=\'price\'>￥{{ item.unitPrice }}</dd>\n\n            <dd class="count">X{{ item.buyNumber }}</dd>\n\n          </dl>\n\n        </div>\n\n  \n\n        <div class="orderOperate">\n\n          <dl>\n\n            <dt>\n\n              <button class="btn-audit" ion-button (click)="auditReturn(i)" *ngIf="item.status==0">审核</button>\n\n              <button class="btn-audit" ion-button (click)="confirmReturn(i)" *ngIf="item.status==1">确认收货</button>\n\n            </dt>\n\n            <dd class="total">退货数量: {{item.number}}</dd>\n\n            <dd class="member-phone">会员手机：{{item.mobile}}</dd>\n\n          </dl>\n\n        </div>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多信息了 ——</span>\n\n      </div>\n\n      <div class="btn-cancelView" (touchstart)="goAuditReturn()" *ngIf="showInfinite">\n\n        <span>查看已处理退货订单</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshReturnorder()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n    </div>\n\n  </ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unaudit-tabs\unaudit-tabs.html"*/
+        selector: 'unaudit-tabs',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unaudit-tabs\unaudit-tabs.html"*/'<ion-header>\n\n    <ion-navbar>\n\n      <ion-title text-center>待审核订单</ion-title>\n\n    </ion-navbar>\n\n    <ion-toolbar class="statusBox">\n\n      <ul>\n\n        <li *ngFor="let status of statusList, let i = index" [ngClass]="{active:currentStatus == status.label}" (click)="getCurrentStatus(i)">{{ status.label }}（{{status.num}}）</li>\n\n      </ul>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <!-- 下拉刷新 -->\n\n    <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!loadingShow">\n\n      <ion-refresher-content></ion-refresher-content>\n\n    </ion-refresher>\n\n  \n\n    <!-- 待审核取消订单列表 -->\n\n    <div class="order-cancelList" *ngIf="currentIndex == 0">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="order-items" *ngFor="let item of unauditCancelorderArray;let i = index">\n\n        <div class="order-title">\n\n          <h2>订单编号：\n\n            <span>{{item.orderId}}</span>\n\n          </h2>\n\n          <span [ngClass]="{auditStatus: true, pass:(item.status | setCancelOrderStatus).pass , auditing:(item.status | setCancelOrderStatus).audit} ">{{(item.status | setCancelOrderStatus).status}}</span>\n\n        </div>\n\n  \n\n        <div class="order-item" *ngFor="let single of item.itemList">\n\n          <dl>\n\n            <dt>\n\n              <img class="my-picture" [src]="single.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="single.productSkuDTO.productName">\n\n            </dt>\n\n            <dd class="product-title">{{ single.productSkuDTO.productName }}</dd>\n\n            <dd class="sku-list">\n\n              <span *ngFor="let sku of single.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n            </dd>\n\n            <dd class=\'price\'>￥{{ single.unitPrice }}</dd>\n\n            <dd class="count">X{{ single.number }}</dd>\n\n          </dl>\n\n        </div>\n\n  \n\n        <div class="orderOperate">\n\n          <dl>\n\n            <dt>\n\n              <button class="btn-audit" ion-button (click)="auditOrder(i)">审核</button>\n\n            </dt>\n\n            <dd class="total">{{item.totalNumber}}件商品，实付￥{{item.payAmount}}</dd>\n\n            <dd class="member-phone">会员手机：{{item.memberMobile}}</dd>\n\n          </dl>\n\n        </div>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-cancelView" (touchstart)="goAuditCancel()" *ngIf="showInfinite">\n\n        <span>查看审核完成订单</span>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多信息了 ——</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshCancelorder()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n      <div class="btn-cancelView" (touchstart)="goAuditCancel()" *ngIf="showInfinite">\n\n        <span>查看审核完成订单</span>\n\n      </div>\n\n    </div>\n\n  \n\n    <!-- 待审核退货订单列表 -->\n\n    <div class="order-returnList" *ngIf="currentIndex == 1">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="order-items" *ngFor="let item of unauditReturnorderArray;let i = index">\n\n        <div class="order-title">\n\n          <h2>订单编号：\n\n            <span>{{item.orderId}}</span>\n\n          </h2>\n\n          <span [ngClass]="{auditStatus: true, pass:(item.status | setReturnOrderStatus).pass , auditing:(item.status | setReturnOrderStatus).audit} ">{{(item.status | setReturnOrderStatus).status}}</span>\n\n        </div>\n\n  \n\n        <div class="order-item">\n\n          <dl>\n\n            <dt>\n\n              <img class="my-picture" [src]="item.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="item.productSkuDTO.productName">\n\n            </dt>\n\n            <dd class="product-title">{{ item.productSkuDTO.productName }}</dd>\n\n            <dd class="sku-list">\n\n              <span *ngFor="let sku of item.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n            </dd>\n\n            <dd class=\'price\'>￥{{ item.unitPrice }}</dd>\n\n            <dd class="count">X{{ item.buyNumber }}</dd>\n\n          </dl>\n\n        </div>\n\n  \n\n        <div class="orderOperate">\n\n          <dl>\n\n            <dt>\n\n              <button class="btn-audit" ion-button (click)="auditReturn(i)" *ngIf="item.status==0">审核</button>\n\n              <button class="btn-audit" ion-button (click)="confirmReturn(i)" *ngIf="item.status==1">确认收货</button>\n\n            </dt>\n\n            <dd class="total">退货数量: {{item.number}}</dd>\n\n            <dd class="member-phone">会员手机：{{item.mobile}}</dd>\n\n          </dl>\n\n        </div>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多信息了 ——</span>\n\n      </div>\n\n      <div class="btn-cancelView" (touchstart)="goAuditReturn()" *ngIf="showInfinite">\n\n        <span>查看已处理退货订单</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshReturnorder()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n    </div>\n\n  </ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unaudit-tabs\unaudit-tabs.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
@@ -3342,7 +3176,7 @@ UnauditTabs = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UnauditCancelorder; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_cancelorder_audit_cancelorder__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_cancelorder_audit_cancelorder__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_service__ = __webpack_require__(5);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3583,8 +3417,8 @@ UnauditCancelorder = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UnauditReturnorder; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_returnorder_audit_returnorder__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__return_detail_return_detail__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_returnorder_audit_returnorder__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__return_detail_return_detail__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_service__ = __webpack_require__(5);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3941,7 +3775,7 @@ ReturnedDetail = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handle_selfgift_handle_selfgift__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handle_selfgift_handle_selfgift__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handle_expressgift_handle_expressgift__ = __webpack_require__(119);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4261,9 +4095,11 @@ var UnhandleTabs = (function () {
         this.requestDefeat = false;
         setTimeout(function () {
             if (_this.currentIndex == 0) {
+                _this.unhandleSeflGiftArray = [];
                 _this.getUnhandleSelfGiftList();
             }
             else {
+                _this.unhandleExpressGiftArray = [];
                 _this.getUnhandleExpressGiftList();
             }
             refresher.complete();
@@ -4373,7 +4209,7 @@ __decorate([
 ], UnhandleTabs.prototype, "content", void 0);
 UnhandleTabs = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'unhandle-tabs',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unhandle-tabs\unhandle-tabs.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>待处理赠品</ion-title>\n\n  </ion-navbar>\n\n  <ion-toolbar class="statusBox">\n\n    <ul>\n\n      <li *ngFor="let status of statusList, let i = index" [ngClass]="{active:currentStatus == status.label}" (click)="getCurrentStatus(i)">{{ status.label }}（{{status.num}}）</li>\n\n    </ul>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n\n\n  <div class="selfGiftList" *ngIf="currentIndex == 0">\n\n    <div class="gift-list">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="gift-item" *ngFor="let item of unhandleSeflGiftArray;let i = index">\n\n        <dl>\n\n          <dt>\n\n            <img [src]="item.imageName | handleGiftImage" alt="">\n\n          </dt>\n\n          <dd class="product-title">\n\n            <h2>{{ item.giftName }}</h2>\n\n            <span [ngClass]="item.className">{{ item.giftType | setGiftType: item.status }}</span>\n\n          </dd>\n\n          <dd class="reserve-phone" *ngIf="item.giftType==\'0\'">\n\n            <span>预约手机：{{ item.reservePhone }}</span>\n\n            <a href="tel:{{item.reservePhone}}" style="z-index:100">\n\n              <img src="./assets/image/phone.png">\n\n            </a>\n\n          </dd>\n\n          <dd class="member-phone">会员手机：{{ item.memberPhone }}</dd>\n\n          <dd class="get-time">领取时间：{{ item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd>\n\n        </dl>\n\n        <div class="reserve-time" *ngIf="item.giftType==\'0\' && item.status==\'2\'">\n\n          <div class="time-text">\n\n            <ion-datetime placeholder="会员预约到店时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="item.reserveShopTime" min="{{reserveShopTimeMin}}" max="2099">\n\n            </ion-datetime>\n\n            <span class="clear" *ngIf="item.reserveShopTime" (click)="clearReserveArriveTime(i)">X</span>\n\n          </div>\n\n          <div class="btn-time">\n\n            <button ion-button round (touchend)="reserveAffirm(i)">预约确认</button>\n\n          </div>\n\n        </div>\n\n        <div class="reserve-time" *ngIf="item.giftType==\'0\' && item.status==\'3\'">\n\n          <div class="show-time">预约到店时间：{{ item.reserveShopTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</div>\n\n        </div>\n\n\n\n      </div>\n\n    </div>\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n    <div class="toTop" (click)="scrollTo()" *ngIf="toTop">\n\n      <img src="./assets/image/toTop.png" alt="">\n\n    </div>\n\n    <div class="btn-selfview" (click)="goSelfgift()" *ngIf = "showInfinite">\n\n      <span>查看已兑换自提赠品</span>\n\n    </div>\n\n    <div class="no-data" *ngIf="noData">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="showNoMore">\n\n      <span>—— 没有更多赠品了 ——</span>\n\n    </div>\n\n    <div class="request-defeat" *ngIf = "requestDefeat">\n\n      <img src="./assets/image/requestDefeat.png" alt="">\n\n      <p>啊哦！页面走丢了</p>\n\n      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshSelfGift()">\n\n        刷新再找一找\n\n      </button>\n\n    </div>\n\n  </div>\n\n\n\n  <div class="expressGiftList" *ngIf="currentIndex == 1">\n\n    <div class="gift-list">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="gift-item" *ngFor="let item of unhandleExpressGiftArray;let i = index">\n\n        <dl>\n\n          <dt>\n\n            <img [src]="item.imageName | handleGiftImage" alt="">\n\n          </dt>\n\n          <dd class="product-title">\n\n            <h2>{{item.giftName}}</h2>\n\n            <span class="unstart">立即兑换</span>\n\n          </dd>\n\n          <dd class="reserve-phone">\n\n            <span>会员手机：{{item.memberPhone}}</span>\n\n            <a href="tel:{{item.memberPhone}}">\n\n              <img src="assets/image/phone.png">\n\n            </a>\n\n          </dd>\n\n          <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n          <dd class="get-time">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n        </dl>\n\n        <div class="reserve-time">\n\n          <div class="member-info">\n\n            <ul>\n\n              <li *ngFor="let single of item.attrValueList">{{single.label}}：{{single.value}}</li>\n\n            </ul>\n\n          </div>\n\n          <div class="btn-time">\n\n            <button ion-button round (click)="sendProduct(i)">发货</button>\n\n          </div>\n\n        </div>\n\n      </div>\n\n    </div>\n\n\n\n    <div class="no-data" *ngIf="noData">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="showNoMore">\n\n      <span>—— 没有更多赠品了 ——</span>\n\n    </div>\n\n    <div class="request-defeat" *ngIf = "requestDefeat">\n\n      <img src="./assets/image/requestDefeat.png" alt="">\n\n      <p>啊哦！页面走丢了</p>\n\n      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">\n\n        刷新再找一找\n\n      </button>\n\n    </div>\n\n    <div class="btn-selfview" (click)="goExpressgift()" *ngIf="showInfinite">\n\n      <span>查看已发货赠品</span>\n\n    </div>\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n\n\n  \n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unhandle-tabs\unhandle-tabs.html"*/
+        selector: 'unhandle-tabs',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unhandle-tabs\unhandle-tabs.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>待处理赠品</ion-title>\n\n  </ion-navbar>\n\n  <ion-toolbar class="statusBox">\n\n    <ul>\n\n      <li *ngFor="let status of statusList, let i = index" [ngClass]="{active:currentStatus == status.label}" (click)="getCurrentStatus(i)">{{ status.label }}（{{status.num}}）</li>\n\n    </ul>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n\n\n  <div class="selfGiftList" *ngIf="currentIndex == 0">\n\n    <div class="gift-list">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="gift-item" *ngFor="let item of unhandleSeflGiftArray;let i = index">\n\n        <dl>\n\n          <dt>\n\n            <img [src]="item.imageName | handleGiftImage" alt="">\n\n          </dt>\n\n          <dd class="product-title">\n\n            <h2>{{ item.giftName }}</h2>\n\n            <span [ngClass]="item.className">{{ item.giftType | setGiftType: item.status }}</span>\n\n          </dd>\n\n          <dd class="reserve-phone" *ngIf="item.giftType==\'0\'">\n\n            <span>预约手机：{{ item.reservePhone }}</span>\n\n            <a href="tel:{{item.reservePhone}}" style="z-index:100">\n\n              <img src="./assets/image/phone.png">\n\n            </a>\n\n          </dd>\n\n          <dd class="member-phone">会员手机：{{ item.memberPhone }}</dd>\n\n          <dd class="get-time">领取时间：{{ item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd>\n\n        </dl>\n\n        <div class="reserve-time" *ngIf="item.giftType==\'0\' && item.status==\'2\'">\n\n          <div class="time-text">\n\n            <ion-datetime placeholder="会员预约到店时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="item.reserveShopTime" min="{{reserveShopTimeMin}}" max="2099">\n\n            </ion-datetime>\n\n            <span class="clear" *ngIf="item.reserveShopTime" (click)="clearReserveArriveTime(i)">X</span>\n\n          </div>\n\n          <div class="btn-time">\n\n            <button ion-button round (touchend)="reserveAffirm(i)">预约确认</button>\n\n          </div>\n\n        </div>\n\n        <div class="reserve-time" *ngIf="item.giftType==\'0\' && item.status==\'3\'">\n\n          <div class="show-time">预约到店时间：{{ item.reserveShopTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</div>\n\n        </div>\n\n\n\n      </div>\n\n    </div>\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n    <div class="toTop" (click)="scrollTo()" *ngIf="toTop">\n\n      <img src="./assets/image/toTop.png" alt="">\n\n    </div>\n\n    <div class="btn-selfview" (click)="goSelfgift()" *ngIf = "showInfinite">\n\n      <span>查看已兑换自提赠品</span>\n\n    </div>\n\n    <div class="no-data" *ngIf="noData">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="showNoMore">\n\n      <span>—— 没有更多赠品了 ——</span>\n\n    </div>\n\n    <div class="request-defeat" *ngIf = "requestDefeat">\n\n      <img src="./assets/image/requestDefeat.png" alt="">\n\n      <p>啊哦！页面走丢了</p>\n\n      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshSelfGift()">\n\n        刷新再找一找\n\n      </button>\n\n    </div>\n\n  </div>\n\n\n\n  <div class="expressGiftList" *ngIf="currentIndex == 1">\n\n    <div class="gift-list">\n\n      <!-- loading -->\n\n      <div class="loading-wrapper" *ngIf="loadingShow">\n\n        <div>\n\n          <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n        </div>\n\n        <div [innerHTML]="load.content"></div>\n\n      </div>\n\n      <div class="gift-item" *ngFor="let item of unhandleExpressGiftArray;let i = index">\n\n        <dl>\n\n          <dt>\n\n            <img [src]="item.imageName | handleGiftImage" alt="">\n\n          </dt>\n\n          <dd class="product-title">\n\n            <h2>{{item.giftName}}</h2>\n\n            <span class="unstart">立即兑换</span>\n\n          </dd>\n\n          <dd class="reserve-phone">\n\n            <span>会员手机：{{item.memberPhone}}</span>\n\n            <a href="tel:{{item.memberPhone}}">\n\n              <img src="assets/image/phone.png">\n\n            </a>\n\n          </dd>\n\n          <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n          <dd class="get-time">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n        </dl>\n\n        <div class="reserve-time">\n\n          <div class="member-info">\n\n            <ul>\n\n              <li *ngFor="let single of item.attrValueList">{{single.label}}：{{single.value}}</li>\n\n            </ul>\n\n          </div>\n\n          <div class="btn-time">\n\n            <button ion-button round (click)="sendProduct(i)">发货</button>\n\n          </div>\n\n        </div>\n\n      </div>\n\n    </div>\n\n    <div class="btn-selfview" (click)="goExpressgift()" *ngIf="showInfinite">\n\n      <span>查看已发货赠品</span>\n\n    </div>\n\n    <div class="no-data" *ngIf="noData">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="showNoMore">\n\n      <span>—— 没有更多赠品了 ——</span>\n\n    </div>\n\n    <div class="request-defeat" *ngIf = "requestDefeat">\n\n      <img src="./assets/image/requestDefeat.png" alt="">\n\n      <p>啊哦！页面走丢了</p>\n\n      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">\n\n        刷新再找一找\n\n      </button>\n\n    </div>\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n\n\n  \n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\unhandle-tabs\unhandle-tabs.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
@@ -4853,8 +4689,8 @@ var BrandshopOrderList_1;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__withdraw_withdraw__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mycode_mycode__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mycode_mycode__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__detail_tabs_detail_tabs__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__award_tabs_award_tabs__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__withdraw_record_withdraw_record__ = __webpack_require__(235);
@@ -4961,6 +4797,9 @@ var Personl = (function () {
     /* 跳转页面 */
     Personl.prototype.redirectPage = function (page, param1, param2) {
         var _this = this;
+        if (!this.userCurrent.boundWechat && page === __WEBPACK_IMPORTED_MODULE_2__withdraw_withdraw__["a" /* Withdraw */]) {
+            page = this.pageList.addAccount;
+        }
         var pageModal = this.modalCtrl.create(page, { 'param1': param1, 'param2': param2 });
         pageModal.onDidDismiss(function (data) {
             var componentName = pageModal['_component'].name; //获取返回页面名
@@ -5036,7 +4875,7 @@ var Personl = (function () {
 }());
 Personl = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'personl',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\personl\personl.html"*/'<ion-content>\n\n  <div class="person-header">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col col-4>\n\n          <img class="my-picture" src="./assets/image/mypicture.png" alt="我的">\n\n        </ion-col>\n\n        <ion-col col-8>\n\n          <h2>{{ userCurrent.cellphone }}</h2>\n\n          <button ion-button outline round color="light" (touchstart)="redirectPage(pageList.myCode)">\n\n            <img src="./assets/image/qrcode.png" alt="我的">\n\n            我的二维码\n\n          </button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="funds">\n\n    <h2 class="funds-title">\n\n      我的资金\n\n      <span class="showTotal" (touchstart)="showMoney()">\n\n        {{ showText }}\n\n      </span>\n\n      <span class="showImg"><img [src]="\'./assets/image/\'+showImg" alt="我的资金"></span>\n\n    </h2>\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <div class="total"><span>￥</span>{{ userAccount.balance }}</div>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col>\n\n          <div class="approve">审核中金额：￥{{ userAccount.verifyAmount }}</div>\n\n        </ion-col>\n\n        <ion-col>\n\n          <div class="withdrawal">已提现：￥{{ userAccount.withdrawAmount }}</div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <ion-grid class="btn-list">\n\n      <ion-row>\n\n        <ion-col col-4>\n\n          <button class="btn-canwithdrawal" ion-button outline round (touchstart)="redirectPage(pageList.detailTabs)">已审核明细</button>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <button class="btn-approve" ion-button outline round (touchstart)="redirectPage(pageList.awardTabs)">审核中明细</button>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <button class="btn-withdrawal" ion-button outline round (touchstart)="redirectPage(pageList.withdraw, userAccount.balance, userCurrent)">提现</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord, userAccount.withdrawAmount)">\n\n      提现记录\n\n      <span><img src="./assets/image/in.png" alt="提现记录"></span>\n\n    </div>\n\n    <div class="withdrawal-record" (click)="redirectPage(pageList.addAccount, pageList.boundWechat, userCurrent)">\n\n      收款账户\n\n      <span><img src="./assets/image/in.png" alt="收款账户"></span>\n\n    </div>\n\n  </div>\n\n  <div class="help">\n\n    <ul>\n\n      <li (click)="redirectPage(pageList.help)">帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>\n\n      <li><a href="tel:4008916161" style="display:block">客服热线<span>400-891-6161<img src="./assets/image/in.png" alt="客服热线"></span></a></li>\n\n    </ul>\n\n  </div>\n\n  <button class="btn-logout" ion-button (click)="logOut()">退出登录</button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\personl\personl.html"*/
+        selector: 'personl',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\personl\personl.html"*/'<ion-content>\n\n  <div class="person-header">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col col-4>\n\n          <img class="my-picture" src="./assets/image/mypicture.png" alt="我的">\n\n        </ion-col>\n\n        <ion-col col-8>\n\n          <h2>{{ userCurrent.cellphone }}</h2>\n\n          <button ion-button outline round color="light" (touchstart)="redirectPage(pageList.myCode)">\n\n            <img src="./assets/image/qrcode.png" alt="我的">\n\n            我的二维码\n\n          </button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="funds">\n\n    <h2 class="funds-title">\n\n      我的资金\n\n      <span class="showTotal" (touchstart)="showMoney()">\n\n        {{ showText }}\n\n      </span>\n\n      <span class="showImg"><img [src]="\'./assets/image/\'+showImg" alt="我的资金"></span>\n\n    </h2>\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <div class="total"><span>￥</span>{{ userAccount.balance }}</div>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col>\n\n          <div class="approve">审核中金额：￥{{ userAccount.verifyAmount }}</div>\n\n        </ion-col>\n\n        <ion-col>\n\n          <div class="withdrawal">已提现：￥{{ userAccount.withdrawAmount }}</div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <ion-grid class="btn-list">\n\n      <ion-row>\n\n        <ion-col col-4>\n\n          <button class="btn-canwithdrawal" ion-button outline round (touchstart)="redirectPage(pageList.detailTabs)">已审核明细</button>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <button class="btn-approve" ion-button outline round (touchstart)="redirectPage(pageList.awardTabs)">审核中明细</button>\n\n        </ion-col>\n\n        <ion-col col-4>\n\n          <button class="btn-withdrawal" ion-button outline round (touchstart)="redirectPage(pageList.withdraw, userAccount.balance, userCurrent)">提现</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <div class="withdrawal-record" (click)="redirectPage(pageList.withdrawRecord, userAccount.withdrawAmount)">\n\n      提现记录\n\n      <span><img src="./assets/image/in.png" alt="提现记录"></span>\n\n    </div>\n\n    <div class="withdrawal-record" (click)="redirectPage(pageList.addAccount, pageList.boundWechat, userCurrent)">\n\n      收款账户\n\n      <span><img src="./assets/image/in.png" alt="收款账户"></span>\n\n    </div>\n\n  </div>\n\n  <div class="help">\n\n    <ul>\n\n      <li (click)="redirectPage(pageList.help)">帮助中心<span><img src="./assets/image/in.png" alt="帮助中心"></span></li>\n\n      <li><a href="tel:4008916161" style="display: block;">客服热线<span>400-891-6161<img src="./assets/image/in.png" alt="客服热线"></span></a></li>\n\n    </ul>\n\n  </div>\n\n  <button class="btn-logout" ion-button (click)="logOut()">退出登录</button>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\personl\personl.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
@@ -5157,7 +4996,7 @@ var DetailTabs = (function () {
     return DetailTabs;
 }());
 DetailTabs = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\detail-tabs\detail-tabs.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已审核明细</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-tabs class="tabs-basic" tabsPlacement="top">\n\n    <ion-tab tabTitle="订单处理金额明细" [root]="orderDetail"></ion-tab>\n\n    <ion-tab tabTitle="奖励活动金额明细" [root]="awardDetail"></ion-tab>\n\n  </ion-tabs>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\detail-tabs\detail-tabs.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\detail-tabs\detail-tabs.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已审核明细</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-tabs class="tabs-list" tabsPlacement="top">\n\n    <ion-tab tabTitle="订单处理金额明细" [root]="orderDetail"></ion-tab>\n\n    <ion-tab tabTitle="奖励活动金额明细" [root]="awardDetail"></ion-tab>\n\n  </ion-tabs>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\detail-tabs\detail-tabs.html"*/,
         selector: 'withdraw-detailTabs'
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["q" /* ViewController */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* Platform */]])
@@ -5287,7 +5126,7 @@ var OrderDetail = (function () {
     return OrderDetail;
 }());
 OrderDetail = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-detail\order-detail.html"*/'<ion-content>\n\n  <div class="totle-money" *ngIf="isShow">总金额：￥ {{ sum }}</div>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <ul class="first-card" *ngFor = "let item of orderDetail">\n\n    <li>订单编号：{{ item.relateId }}</li>\n\n    <li>结算基数：￥{{ item.baseAmount }}</li>\n\n    <li>奖励比例：{{ item.percent }}</li>\n\n    <li>奖励金额：￥{{ item.amount }}</li>\n\n  </ul>\n\n  <div class="no-data" *ngIf="isEmpty">\n\n    <img src="./assets/image/nodata.png" alt="">\n\n    <p>空空如也</p>\n\n  </div>\n\n  <div class="btn-noMore" *ngIf="orderDetail.length !== 0 && orderDetail.length === count">\n\n    <span>—— 没有更多信息了 ——</span>\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="orderDetail.length < count">\n\n    <ion-infinite-scroll-content\n\n      loadingSpinner="bubbles"\n\n      loadingText="加载中">\n\n    </ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-detail\order-detail.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-detail\order-detail.html"*/'<ion-content>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="withdraw-record">\n\n    <div class="withdraw-total">\n\n     <span *ngIf="isShow">总金额：￥ {{ sum }}</span>\n\n    </div>\n\n    <div class="record-list">\n\n      <div class="withdraw-item" *ngFor = "let item of orderDetail">\n\n        <ul>\n\n          <li class=\'order-number\'>订单编号：{{ item.relateId }}</li>\n\n          <li class=\'base-number\'>结算基数：￥{{ item.baseAmount }}</li>\n\n          <li class=\'percentage\'>奖励比例：{{ item.percent }}</li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n    </div>\n\n    <div class="no-data" *ngIf="isEmpty">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="orderDetail.length !== 0 && orderDetail.length === count">\n\n      <span>—— 没有更多信息了 ——</span>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="orderDetail.length < count">\n\n      <ion-infinite-scroll-content\n\n        loadingSpinner="bubbles"\n\n        loadingText="加载中">\n\n      </ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-detail\order-detail.html"*/,
         selector: 'withdraw-orderDetail'
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__app_app_service__["b" /* AppService */]])
@@ -5417,7 +5256,7 @@ var AwardDetail = (function () {
     return AwardDetail;
 }());
 AwardDetail = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-detail\award-detail.html"*/'<ion-content>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="totle-money" *ngIf="isShow">总金额：{{ sum }}</div>\n\n  <ul class="first-card" *ngFor = "let item of awardDetail">\n\n      <li class=\'order-number\'>\n\n          <span *ngIf="item.type === 3">订单编号：{{ item.relateId }}</span>\n\n          <span *ngIf="item.type === 4">会员手机：{{ item.mobile }}</span>\n\n        </li>\n\n        <li class=\'date\'>活动时间范围：{{ item.startTime | date:\'yyyy.MM.dd\' }}--{{ item.endTime | date:\'yyyy.MM.dd\' }}</li>\n\n        <li class=\'base-number\'>\n\n            <span *ngIf="item.type === 3">结算基数：￥{{ item.baseAmount }}</span>\n\n            <span *ngIf="item.type === 4">结算基数：——</span>\n\n        </li>\n\n        <li class=\'percentage\'>\n\n          <span *ngIf="item.type === 3">奖励比例：{{ item.percent }}</span>\n\n          <span *ngIf="item.type === 4">奖励比例：——</span>\n\n        </li>\n\n        <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n  </ul>\n\n  <div class="no-data" *ngIf="isEmpty">\n\n    <img src="./assets/image/nodata.png" alt="">\n\n    <p>空空如也</p>\n\n  </div>\n\n  <div class="btn-noMore" *ngIf="awardDetail.length !== 0 && awardDetail.length === count">\n\n    <span>—— 没有更多信息了 ——</span>\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardDetail.length < count">\n\n    <ion-infinite-scroll-content\n\n      loadingSpinner="bubbles"\n\n      loadingText="加载中">\n\n    </ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-detail\award-detail.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-detail\award-detail.html"*/'<ion-content>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="withdraw-record">\n\n    <div class="withdraw-total">\n\n      <span *ngIf="isShow">总金额：￥ {{ sum }}</span>\n\n    </div>\n\n    <div class="record-list">\n\n      <div class="withdraw-item" *ngFor = "let item of awardDetail">\n\n        <ul>\n\n          <li class=\'order-number\'>\n\n            <span *ngIf="item.type === 3">订单编号：{{ item.relateId }}</span>\n\n            <span *ngIf="item.type === 4">会员手机：{{ item.mobile }}</span>\n\n          </li>\n\n          <li class=\'date\'>活动时间：{{ item.startTime | date:\'yyyy.MM.dd\' }}--{{ item.endTime | date:\'yyyy.MM.dd\' }} </li>\n\n          <li class=\'base-number\'>\n\n              <span *ngIf="item.type === 3">结算基数：￥{{ item.baseAmount }}</span>\n\n              <span *ngIf="item.type === 4">结算基数：——</span>\n\n          </li>\n\n          <li class=\'percentage\'>\n\n            <span *ngIf="item.type === 3">奖励比例：{{ item.percent }}</span>\n\n            <span *ngIf="item.type === 4">奖励比例：——</span>\n\n          </li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n    </div>\n\n    <div class="no-data" *ngIf="isEmpty">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="awardDetail.length !== 0 && awardDetail.length === count">\n\n      <span>—— 没有更多信息了 ——</span>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardDetail.length < count">\n\n    <ion-infinite-scroll-content\n\n      loadingSpinner="bubbles"\n\n      loadingText="加载中">\n\n    </ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-detail\award-detail.html"*/,
         selector: 'withdraw-awardDetail'
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* NavParams */],
@@ -5592,7 +5431,7 @@ var AwardActivity = (function () {
 }());
 AwardActivity = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'award-activity',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-activity\award-activity.html"*/'<ion-content>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="withdraw-record">\n\n    <div class="withdraw-total">\n\n      <span *ngIf="isShow">总金额：￥ {{ sum }}</span>\n\n    </div>\n\n    <div class="record-list">\n\n      <div class="withdraw-item" *ngFor = "let item of awardActivity">\n\n        <ul>\n\n          <li class=\'order-number\'>\n\n            <span *ngIf="item.type === 3">订单编号：{{ item.relateId }}</span>\n\n            <span *ngIf="item.type === 4">会员手机：{{ item.mobile }}</span>\n\n          </li>\n\n          <li class=\'date\'>活动时间范围：{{ item.startTime | date:\'yyyy.MM.dd\' }}--{{ item.endTime | date:\'yyyy.MM.dd\' }} </li>\n\n          <li class=\'base-number\'>\n\n              <span *ngIf="item.type === 3">结算基数：￥{{ item.baseAmount }}</span>\n\n              <span *ngIf="item.type === 4">结算基数：——</span>\n\n          </li>\n\n          <li class=\'percentage\'>\n\n            <span *ngIf="item.type === 3">奖励比例：{{ item.percent }}</span>\n\n            <span *ngIf="item.type === 4">奖励比例：——</span>\n\n          </li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n    </div>\n\n    <div class="no-data" *ngIf="isEmpty">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="awardActivity.length !== 0 && awardActivity.length === count">\n\n      <span>—— 没有更多信息了 ——</span>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardActivity.length < count">\n\n    <ion-infinite-scroll-content\n\n      loadingSpinner="bubbles"\n\n      loadingText="加载中">\n\n    </ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-activity\award-activity.html"*/
+        selector: 'award-activity',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-activity\award-activity.html"*/'<ion-content>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="withdraw-record">\n\n    <div class="withdraw-total">\n\n      <span *ngIf="isShow">总金额：￥ {{ sum }}</span>\n\n    </div>\n\n    <div class="record-list">\n\n      <div class="withdraw-item" *ngFor = "let item of awardActivity">\n\n        <ul>\n\n          <li class=\'order-number\'>\n\n            <span *ngIf="item.type === 3">订单编号：{{ item.relateId }}</span>\n\n            <span *ngIf="item.type === 4">会员手机：{{ item.mobile }}</span>\n\n          </li>\n\n          <li class=\'date\'>活动时间：{{ item.startTime | date:\'yyyy.MM.dd\' }}--{{ item.endTime | date:\'yyyy.MM.dd\' }} </li>\n\n          <li class=\'base-number\'>\n\n              <span *ngIf="item.type === 3">结算基数：￥{{ item.baseAmount }}</span>\n\n              <span *ngIf="item.type === 4">结算基数：——</span>\n\n          </li>\n\n          <li class=\'percentage\'>\n\n            <span *ngIf="item.type === 3">奖励比例：{{ item.percent }}</span>\n\n            <span *ngIf="item.type === 4">奖励比例：——</span>\n\n          </li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n    </div>\n\n    <div class="no-data" *ngIf="isEmpty">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf="awardActivity.length !== 0 && awardActivity.length === count">\n\n      <span>—— 没有更多信息了 ——</span>\n\n    </div>\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="awardActivity.length < count">\n\n    <ion-infinite-scroll-content\n\n      loadingSpinner="bubbles"\n\n      loadingText="加载中">\n\n    </ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-activity\award-activity.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
@@ -6102,7 +5941,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_pipe__ = __webpack_require__(351);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_qrcode__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_login_login__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_login_login__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_forget_forget__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_update_pwd_update_pwd__ = __webpack_require__(238);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_home_home__ = __webpack_require__(211);
@@ -6119,17 +5958,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_unhandle_tabs_unhandle_tabs__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_unaudit_cancelorder_unaudit_cancelorder__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_unaudit_returnorder_unaudit_returnorder__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_audit_cancelorder_audit_cancelorder__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_audit_returnorder_audit_returnorder__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_return_detail_return_detail__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_audit_cancelorder_audit_cancelorder__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_audit_returnorder_audit_returnorder__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_return_detail_return_detail__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_returned_detail_returned_detail__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_unhandle_expressgift_unhandle_expressgift__ = __webpack_require__(354);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_unhandle_selfgift_unhandle_selfgift__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_handle_selfgift_handle_selfgift__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_handle_selfgift_handle_selfgift__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_handle_expressgift_handle_expressgift__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_withdraw_withdraw__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_withdraw_record_withdraw_record__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_mycode_mycode__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_mycode_mycode__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_award_tabs_award_tabs__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_award_activity_award_activity__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__pages_award_order_award_order__ = __webpack_require__(234);
@@ -6301,7 +6140,7 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_login_login__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_login_login__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_tabs_tabs__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__ = __webpack_require__(240);
@@ -6941,7 +6780,7 @@ UnhandleExpressgift = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UnhandleSelfgift; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handle_selfgift_handle_selfgift__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handle_selfgift_handle_selfgift__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_service__ = __webpack_require__(5);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7224,7 +7063,7 @@ BindAccount = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_buffer__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7521,6 +7360,182 @@ TabsPage = __decorate([
 ], TabsPage);
 
 //# sourceMappingURL=tabs.js.map
+
+/***/ }),
+
+/***/ 61:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HandleSelfgift; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var HandleSelfgift = (function () {
+    function HandleSelfgift(navCtrl, alertCtrl, appService) {
+        this.navCtrl = navCtrl;
+        this.alertCtrl = alertCtrl;
+        this.appService = appService;
+        this.handleSeflGiftArray = [];
+        this.start = 0;
+        this.limit = 10;
+        this.showNoMore = false;
+        this.load = {};
+        this.loadingShow = true;
+        this.requestDefeat = false;
+        this.showInfinite = false;
+        this.down = true;
+        this.up = false;
+        this.load = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].load;
+    }
+    HandleSelfgift.prototype.ionViewDidEnter = function () {
+        setTimeout(this.getHandleSelfGiftList(), 100);
+    };
+    //进入页面，请求接口，得到数据
+    HandleSelfgift.prototype.getHandleSelfGiftList = function () {
+        var _this = this;
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit; //brandshopSeq=${this.brandshopSeqId}
+        this.appService.httpGet(url).then(function (data) {
+            _this.loadingShow = false;
+            if (data.count == 0) {
+                //空空如也
+                _this.noData = true;
+            }
+            else {
+                _this.noData = false;
+                _this.showInfinite = true;
+                if (_this.start < data.count) {
+                    if (_this.up) {
+                        (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
+                        _this.start += _this.limit;
+                    }
+                    else if (_this.down) {
+                        _this.handleSeflGiftArray = data.data;
+                        _this.start += _this.limit;
+                        _this.content.scrollTo(0, 0, 0);
+                    }
+                }
+                else {
+                    _this.showNoMore = true;
+                }
+            }
+            var _a;
+        }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getHandleSelfGiftList();
+            });
+            _this.loadingShow = false;
+            console.log(error);
+            _this.showInfinite = false;
+            _this.requestDefeat = true;
+        });
+    };
+    // 下拉刷新请求数据
+    HandleSelfgift.prototype.refreshGetHandleSelfGiftList = function (refresher) {
+        var _this = this;
+        this.start = 0;
+        this.down = true;
+        this.up = false;
+        this.showNoMore = false;
+        this.showInfinite = true;
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
+        this.appService.httpGet(url).then(function (data) {
+            refresher.complete();
+            if (data.count == 0) {
+                //空空如也
+                _this.noData = true;
+            }
+            else {
+                _this.noData = false;
+                _this.showInfinite = true;
+                if (data.data.length != 0) {
+                    _this.handleSeflGiftArray = data.data;
+                    _this.start += _this.limit;
+                }
+                else {
+                    _this.showNoMore = true;
+                }
+            }
+        }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetHandleSelfGiftList(refresher);
+            });
+            _this.handleSeflGiftArray = [];
+            refresher.complete();
+            console.log(error);
+            _this.showInfinite = false;
+            _this.requestDefeat = true;
+        });
+    };
+    // 上拉刷新请求数据
+    HandleSelfgift.prototype.infiniteGetHandleSelfGiftList = function (infiniteScroll) {
+        var _this = this;
+        this.down = false;
+        this.up = true;
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
+        this.appService.httpGet(url).then(function (data) {
+            infiniteScroll.complete();
+            if (data.count == 0) {
+                //空空如也
+                _this.noData = true;
+            }
+            else {
+                _this.noData = false;
+                if (data.data.length != 0) {
+                    (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
+                    _this.start += _this.limit;
+                }
+                else {
+                    _this.showNoMore = true;
+                }
+            }
+            var _a;
+        }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetHandleSelfGiftList(infiniteScroll);
+            });
+            infiniteScroll.complete();
+            console.log(error);
+            _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        });
+    };
+    //请求失败后刷新
+    HandleSelfgift.prototype.requestDefeatRefresh = function () {
+        this.requestDefeat = false;
+        this.loadingShow = true;
+        this.start = 0;
+        this.down = true;
+        this.up = false;
+        this.getHandleSelfGiftList();
+    };
+    return HandleSelfgift;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+], HandleSelfgift.prototype, "content", void 0);
+HandleSelfgift = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'handle-selfgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已兑换自提赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n	<ion-refresher (ionRefresh)="refreshGetHandleSelfGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="gift-list">\n\n	<!-- loading -->\n\n	<div class="loading-wrapper" *ngIf="loadingShow">\n\n		<div>\n\n			<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n		</div>\n\n		<div [innerHTML]="load.content"></div>\n\n	</div>\n\n	<div class="gift-item" *ngFor = "let item of handleSeflGiftArray">\n\n	  <dl>\n\n		<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n		<dd class="product-title">\n\n		  <h2>{{item.giftName}}</h2>\n\n			<span class="unstart">{{ item.giftType | setHandleGiftType }}</span>\n\n		</dd>\n\n			<dd class="member-phone">会员手机：{{item.memberPhone}}</dd>\n\n			<dd class="member-phone" *ngIf = "item.giftType==\'0\'">预约手机：{{item.reservePhone}}</dd>\n\n		  <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n		  <dd class="get-time exchangeTime">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n	  </dl>\n\n	  <div class="reserve-time">\n\n		<div class="show-time" *ngIf = "item.giftType==\'0\'">预约到店时间：{{item.reserveShopTime | date:\'yyyy-MM-dd HH:mm:ss\'}}</div>\n\n		<div class="show-time">导购员：{{item.brandshopUserName}}</div>\n\n	  </div>\n\n	</div>\n\n	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n	</ion-infinite-scroll>\n\n	<div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n	</div>\n\n	<div class="btn-noMore" *ngIf = "showNoMore">\n\n		<span>—— 没有更多已兑换赠品了 ——</span>\n\n	</div>\n\n	<div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n		<p>啊哦！页面走丢了</p>\n\n		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n			刷新再找一找\n\n		</button>\n\n	</div>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
+], HandleSelfgift);
+
+//# sourceMappingURL=handle-selfgift.js.map
 
 /***/ })
 

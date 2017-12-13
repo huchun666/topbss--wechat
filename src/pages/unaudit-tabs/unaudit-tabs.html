@@ -62,6 +62,9 @@
         <img src="./assets/image/nodata.png" alt="">
         <p>空空如也</p>
       </div>
+      <div class="btn-cancelView" (touchstart)="goAuditCancel()" *ngIf="showInfinite">
+        <span>查看审核完成订单</span>
+      </div>
       <div class="btn-noMore" *ngIf="showNoMore">
         <span>—— 没有更多信息了 ——</span>
       </div>

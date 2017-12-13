@@ -27,7 +27,9 @@ export class HandleExpressgift {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.getHandleExpressGiftList()
+  }
+  ionViewDidEnter(){
+    setTimeout(this.getHandleExpressGiftList(),100);
   }
   getHandleExpressGiftList() {
     let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
@@ -69,6 +71,8 @@ export class HandleExpressgift {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.showNoMore = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       refresher.complete();
