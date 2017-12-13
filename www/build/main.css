@@ -29987,11 +29987,8 @@ unhandle-tabs .tabs-list[tabsPlacement=top] .tabbar {
   border-bottom: solid 1px #f0f0f0;
 }
 
-unhandle-tabs .selfGiftList .gift-list {
-  background: #fff;
-}
-
 unhandle-tabs .selfGiftList .gift-list .gift-item {
+  background: #fff;
   border-top: solid 5px #f0f0f0;
 }
 
@@ -30150,11 +30147,8 @@ unhandle-tabs .selfGiftList .toTop {
   height: 50px;
 }
 
-unhandle-tabs .expressGiftList .gift-list {
-  background: #fff;
-}
-
 unhandle-tabs .expressGiftList .gift-list .gift-item {
+  background: #fff;
   border-top: solid 5px #f0f0f0;
 }
 
