@@ -1550,7 +1550,7 @@ var Home = (function () {
                     console.log(error);
                     var alert = self.alertCtrl.create({
                         title: '提示',
-                        subTitle: '扫描失败，请重新再试',
+                        subTitle: '扫描失败，请重新再试!',
                         buttons: ['确定']
                     });
                     alert.present();
@@ -4077,10 +4077,10 @@ var UnhandleTabs = (function () {
                             });
                         }
                         else if (data.companyName != "") {
-                            _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+                            _this.appService.toast('请填写快递单号', 1000, 'middle');
                         }
                         else if (data.orderNum != "") {
-                            _this.appService.toast('请填写快递单号', 1000, 'middle');
+                            _this.appService.toast('请填写公司名称', 1000, 'middle');
                         }
                     }
                 }

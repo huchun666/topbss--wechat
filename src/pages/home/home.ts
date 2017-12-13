@@ -164,7 +164,7 @@ export class Home {
           console.log(error);
           let alert = self.alertCtrl.create({
             title: '提示',
-            subTitle: '扫描失败，请重新再试',
+            subTitle: '扫描失败，请重新再试!',
             buttons: ['确定']
           });
           alert.present();
