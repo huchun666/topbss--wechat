@@ -123,32 +123,32 @@ export class OrderLayer {
     var currentValue = event.target.getAttribute("ng-reflect-value");
     if (this.attrValueArr[index] != currentValue) {
       this.attrValueArr[index] = currentValue;
-      let attrSeqString = "";
-      let attrValueString = "";
-      let attrString = "";
-      this.attrSeqArr.map(function (item, i) {
-        attrSeqString += "&" + "attrSeqArr=" + item;
-      })
-      this.attrValueArr.map(function (item, i) {
-        attrValueString += "&" + "attrValueArr=" + item;
-      })
-      attrString = attrSeqString + attrValueString;
-      let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
-      this.appService.httpGet(url).then(data => {
-        this.skuPrice = data.price;
-        this.orderLayerData = data;
-        this.attrImageSeq = this.orderLayerData.attrImageSeq;
-      }).catch(error => {
-        this.appService.getToken(error, () => {
-          this.changeRadio(event, index);
-        });
-        console.log(error);
-        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-      });
     } else {
       this.attrValueArr[index] = "";
       event.target.setAttribute("checked", false);
     }
+    let attrSeqString = "";
+    let attrValueString = "";
+    let attrString = "";
+    this.attrSeqArr.map(function (item, i) {
+      attrSeqString += "&" + "attrSeqArr=" + item;
+    })
+    this.attrValueArr.map(function (item, i) {
+      attrValueString += "&" + "attrValueArr=" + item;
+    })
+    attrString = attrSeqString + attrValueString;
+    let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
+    this.appService.httpGet(url).then(data => {
+      this.skuPrice = data.price;
+      this.orderLayerData = data;
+      this.attrImageSeq = this.orderLayerData.attrImageSeq;
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.changeRadio(event, index);
+      });
+      console.log(error);
+      this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+    });
   }
 
   //确认添加
