@@ -55,30 +55,31 @@
         </div>
 
       </div>
+      <div class="no-data" *ngIf="noData">
+        <img src="./assets/image/nodata.png" alt="">
+        <p>空空如也</p>
+      </div>
+      <div class="btn-selfview" (click)="goSelfgift()">
+        <span>查看已兑换自提赠品</span>
+      </div>
+      <div class="btn-noMore" *ngIf="showNoMore">
+        <span>—— 没有更多赠品了 ——</span>
+      </div>
+      <div class="request-defeat" *ngIf = "requestDefeat">
+        <img src="./assets/image/requestDefeat.png" alt="">
+        <p>啊哦！页面走丢了</p>
+        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshSelfGift()">
+          刷新再找一找
+        </button>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
+        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </div>
     <div class="toTop" (click)="scrollTo()" *ngIf="toTop">
       <img src="./assets/image/toTop.png" alt="">
     </div>
-    <div class="btn-selfview" (click)="goSelfgift()">
-      <span>查看已兑换自提赠品</span>
-    </div>
-    <div class="no-data" *ngIf="noData">
-      <img src="./assets/image/nodata.png" alt="">
-      <p>空空如也</p>
-    </div>
-    <div class="btn-noMore" *ngIf="showNoMore">
-      <span>—— 没有更多赠品了 ——</span>
-    </div>
-    <div class="request-defeat" *ngIf = "requestDefeat">
-      <img src="./assets/image/requestDefeat.png" alt="">
-      <p>啊哦！页面走丢了</p>
-      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshSelfGift()">
-        刷新再找一找
-      </button>
-    </div>
-    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
-        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+    
   </div>
 
   <div class="expressGiftList" *ngIf="currentIndex == 1">
@@ -119,27 +120,29 @@
           </div>
         </div>
       </div>
+      <div class="no-data" *ngIf="noData">
+        <img src="./assets/image/nodata.png" alt="">
+        <p>空空如也</p>
+      </div>
+      <div class="btn-selfview" (click)="goExpressgift()">
+        <span>查看已发货赠品</span>
+      </div>
+      <div class="btn-noMore" *ngIf="showNoMore">
+        <span>—— 没有更多赠品了 ——</span>
+      </div>
+      <div class="request-defeat" *ngIf = "requestDefeat">
+        <img src="./assets/image/requestDefeat.png" alt="">
+        <p>啊哦！页面走丢了</p>
+        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">
+          刷新再找一找
+        </button>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
+        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </div>
-    <div class="btn-selfview" (click)="goExpressgift()">
-      <span>查看已发货赠品</span>
-    </div>
-    <div class="no-data" *ngIf="noData">
-      <img src="./assets/image/nodata.png" alt="">
-      <p>空空如也</p>
-    </div>
-    <div class="btn-noMore" *ngIf="showNoMore">
-      <span>—— 没有更多赠品了 ——</span>
-    </div>
-    <div class="request-defeat" *ngIf = "requestDefeat">
-      <img src="./assets/image/requestDefeat.png" alt="">
-      <p>啊哦！页面走丢了</p>
-      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">
-        刷新再找一找
-      </button>
-    </div>
-    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
-      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    
+    
   </div>
 
   
