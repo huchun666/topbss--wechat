@@ -123,18 +123,24 @@ export class OrderLayer {
     var currentValue = event.target.getAttribute("ng-reflect-value");
     if (this.attrValueArr[index] != currentValue) {
       this.attrValueArr[index] = currentValue;
+      this.attrSeqArr[index] = this.attrSeqArr[index];
     } else {
       this.attrValueArr[index] = "";
+      this.attrSeqArr[index] = "";
       event.target.setAttribute("checked", false);
     }
     let attrSeqString = "";
     let attrValueString = "";
     let attrString = "";
     this.attrSeqArr.map(function (item, i) {
-      attrSeqString += "&" + "attrSeqArr=" + item;
+      if (item) {
+        attrSeqString += "&" + "attrSeqArr=" + item;
+      }
     })
     this.attrValueArr.map(function (item, i) {
-      attrValueString += "&" + "attrValueArr=" + item;
+      if (item) {
+        attrValueString += "&" + "attrValueArr=" + item;
+      }
     })
     attrString = attrSeqString + attrValueString;
     let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
