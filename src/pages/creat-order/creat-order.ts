@@ -202,7 +202,7 @@ export class CreatOrder {
           this.infiniteGetCreatOrderList(infiniteScroll);
         });
         console.log(error);
-        this.requestDefeat = true;
+        this.appService.toast("网络不好，请稍后重试", 1000, "middle")
       });
     }else {
       let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
@@ -226,7 +226,7 @@ export class CreatOrder {
         });
         infiniteScroll.complete();
         console.log(error);
-        this.requestDefeat = true;
+        this.appService.toast("网络不好，请稍后重试", 1000, "middle")
       });
     }
   }
