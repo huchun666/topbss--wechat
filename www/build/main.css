@@ -27589,6 +27589,10 @@ order-layer .content {
   position: fixed;
 }
 
+order-layer .content .scroll-content {
+  position: fixed;
+}
+
 order-layer .layer-out {
   position: fixed;
   background: rgba(0, 0, 0, 0.4);
@@ -27668,10 +27672,15 @@ order-layer .sku-attr .sku-value label {
   line-height: 30px;
   text-align: center;
   margin: 0 0 6px 8px;
+  position: relative;
 }
 
 order-layer .sku-attr .sku-value label input {
-  display: none;
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 order-layer .sku-attr .sku-value .active {
@@ -27731,6 +27740,7 @@ order-layer .btn-add {
   bottom: 0;
   width: 100%;
   margin: 0;
+  z-index: 20;
 }
 
 order-list .brandshop-order {
