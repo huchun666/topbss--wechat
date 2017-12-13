@@ -111,7 +111,6 @@ export class Home {
         scanType: ["qrCode","barCode"],
         success: function (res) {
           var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-          alert(url);
           if (!url) {
             return;
           }
@@ -138,7 +137,6 @@ export class Home {
               });
               myCodeModal.present();
             }else if (url.indexOf('giftCode') > 0) {
-              alert("inter")
               let myCodeModal = self.modalCtrl.create(GiftInfo, {'url': url});
               myCodeModal.onDidDismiss(data => {
                 if (!data) {
