@@ -1,5 +1,4 @@
 <ion-content>
-  <div class="totle-money" *ngIf="isShow">总金额：￥ {{ sum }}</div>
   <div class="loading-wrapper" *ngIf="isLoadingShow">
     <div>
       <ion-spinner item-start [name]="load.spinner"></ion-spinner>
@@ -9,18 +8,27 @@
   <ion-refresher *ngIf="!isLoadingShow" (ionRefresh)="pullRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ul class="first-card" *ngFor = "let item of orderDetail">
-    <li>订单编号：{{ item.relateId }}</li>
-    <li>结算基数：￥{{ item.baseAmount }}</li>
-    <li>奖励比例：{{ item.percent }}</li>
-    <li>奖励金额：￥{{ item.amount }}</li>
-  </ul>
-  <div class="no-data" *ngIf="isEmpty">
-    <img src="./assets/image/nodata.png" alt="">
-    <p>空空如也</p>
-  </div>
-  <div class="btn-noMore" *ngIf="orderDetail.length !== 0 && orderDetail.length === count">
-    <span>—— 没有更多信息了 ——</span>
+  <div class="withdraw-record">
+    <div class="withdraw-total">
+     <span *ngIf="isShow">总金额：￥ {{ sum }}</span>
+    </div>
+    <div class="record-list">
+      <div class="withdraw-item" *ngFor = "let item of orderDetail">
+        <ul>
+          <li class='order-number'>订单编号：{{ item.relateId }}</li>
+          <li class='base-number'>结算基数：￥{{ item.baseAmount }}</li>
+          <li class='percentage'>奖励比例：{{ item.percent }}</li>
+          <li class="money">奖励金额：￥{{ item.amount }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="no-data" *ngIf="isEmpty">
+      <img src="./assets/image/nodata.png" alt="">
+      <p>空空如也</p>
+    </div>
+    <div class="btn-noMore" *ngIf="orderDetail.length !== 0 && orderDetail.length === count">
+      <span>—— 没有更多信息了 ——</span>
+    </div>
   </div>
   <div class="request-defeat" *ngIf="requestFail">
     <img src="./assets/image/requestDefeat.png" alt="">
@@ -30,9 +38,9 @@
     </button>
   </div>
   <ion-infinite-scroll  (ionInfinite)="loadMore($event)" *ngIf="orderDetail.length < count">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="加载中">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="加载中">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
