@@ -26837,11 +26837,8 @@ handle-expressgift .back-button {
   display: block;
 }
 
-handle-expressgift .gift-list {
-  background: #fff;
-}
-
 handle-expressgift .gift-list .gift-item {
+  background: #fff;
   border-top: solid 5px #f0f0f0;
 }
 
@@ -26966,18 +26963,19 @@ handle-expressgift .gift-list .gift-item .member-info {
   color: #999;
 }
 
-handle-expressgift .btn-selfview {
+handle-expressgift .gift-list .btn-selfview {
+  margin: 0 .8rem .8rem;
   text-align: center;
   padding: 2rem 0;
 }
 
-handle-expressgift .btn-selfview span {
+handle-expressgift .gift-list .btn-selfview span {
   font-size: 1.5rem;
   color: #999;
   text-decoration: underline;
 }
 
-handle-expressgift .btn-noMore {
+handle-expressgift .gift-list .btn-noMore {
   margin: 2rem;
 }
 
@@ -27002,11 +27000,8 @@ handle-selfgift .back-button {
   display: block;
 }
 
-handle-selfgift .gift-list {
-  background: #fff;
-}
-
 handle-selfgift .gift-list .gift-item {
+  background: #fff;
   border-top: solid 5px #f0f0f0;
 }
 
