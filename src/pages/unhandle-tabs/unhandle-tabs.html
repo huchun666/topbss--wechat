@@ -55,12 +55,12 @@
         </div>
 
       </div>
-      <div class="btn-selfview" (click)="goSelfgift()">
-        <span>查看已兑换自提赠品</span>
-      </div>
       <div class="no-data" *ngIf="noData">
         <img src="./assets/image/nodata.png" alt="">
         <p>空空如也</p>
+      </div>
+      <div class="btn-selfview" (click)="goSelfgift()">
+        <span>查看已兑换自提赠品</span>
       </div>
       <div class="btn-noMore" *ngIf="showNoMore">
         <span>—— 没有更多赠品了 ——</span>
