@@ -29,7 +29,7 @@
 						type="radio" 
 						[value]="skuAttr.attrValue" 
 						[disabled]="skuAttr.invalidAttrValue | isOrIsnotInvalidAttrValue"
-						(click)="changeRadio($event,i)"
+						(click)="changeRadio($event, i, skuAttr.attrValue)"
 						/>{{ skuAttr.attrValue }}
 					</label>
 				</div>
@@ -45,10 +45,8 @@
 					</div>
 				</div>
 			</div>
-
-			<button class="btn-add" ion-button full (touchstart)="warehouseAdd()" *ngIf="confirmAdd">确认添加</button>
-
 		</div>
 	</div>
+	<button class="btn-add" ion-button full (touchstart)="warehouseAdd()" *ngIf="confirmAdd">确认添加</button>
 	
 </ion-content>
