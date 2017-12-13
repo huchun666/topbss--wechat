@@ -137,8 +137,11 @@ export class Home {
               });
               myCodeModal.present();
             }else if (url.indexOf('giftCode') > 0) {
+              alert("Inter")
               let myCodeModal = this.modalCtrl.create(GiftInfo, {'url': url});
               myCodeModal.onDidDismiss(data => {
+                alert("inetr293")
+                alert(data)
                 if (!data) {
                   return;
                 }
