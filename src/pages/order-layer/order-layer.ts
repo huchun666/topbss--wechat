@@ -67,11 +67,7 @@ export class OrderLayer {
           }
         }
         for (let i = 0; i < this.attrMap.length; i++) {
-          for (let j = 0; j < this.attrMap[i].length; j++) {
-            if (this.attrMap[i][j].selectedAttrValue == "selectedAttrValue") {
-              this.attrSeqArr.push(this.attrMap[i][j].attrSeq);
-            }
-          }
+          this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
         }
         this.attrValueArr = this.skuAttrValue;
       } else {
