@@ -163,9 +163,17 @@ export class OrderStore {
   }
   //失去焦点
   resetCount(index) {
+    if(this.orderStoreDataArray[index].itemPrice == null){
+      this.orderStoreDataArray[index].itemPrice = 0;
+      this.appService.toast('商品总额不能为空', 1000, 'middle');
+    } 
     this.warehouseUpdate(index, "reset");
   }
   resetProductNum(index) {
+    if(this.orderStoreDataArray[index].productNum <= 0){
+      this.orderStoreDataArray[index].productNum = 1;
+      this.appService.toast('商品数量不能为空', 1000, 'middle');
+    } 
     if (this.orderStoreDataArray[index].productSkuDTO.stock >= this.orderStoreDataArray[index].productNum) {
       this.warehouseUpdate(index, "reset");
     }else {

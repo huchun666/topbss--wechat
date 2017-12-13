@@ -160,6 +160,9 @@ export class BrandshopOrderList {
       if (this.start < data.count) {
         this.orderList.push(...data.data);
         this.start += this.pageSize;
+        for (let i = 0; i < this.orderList.length; i++) {
+          this.isShowDetail[i] = false;
+        }
       } else if (data.data.length == 0) {
         this.showInfinite = false;
         this.showNoMore = true;
