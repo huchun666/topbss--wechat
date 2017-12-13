@@ -1009,16 +1009,17 @@ var HandleExpressgift = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
 ], HandleExpressgift.prototype, "content", void 0);
 HandleExpressgift = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'handle-expressgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已发货赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="refreshGetHandleExpressGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="gift-list">\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <div class="gift-item" *ngFor = "let item of handleExpressGiftArray">\n\n      <dl>\n\n        <dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n        <dd class="product-title">\n\n          <h2>{{item.giftName}}</h2>\n\n          <span class="unstart">立即兑换</span>\n\n        </dd>\n\n        <dd class="reserve-phone">\n\n          <span>会员手机：{{item.memberPhone}}</span>\n\n        </dd>\n\n        <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n        <dd class="get-time">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n        <dd class="get-time">导购员：{{item.brandshopUserName}}</dd>\n\n      </dl>\n\n      <div class="reserve-time member-box">\n\n        <div class="member-info">\n\n          <ul>\n\n            <li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>\n\n          </ul>\n\n        </div>\n\n      </div>\n\n      <div class="reserve-time">\n\n        <div class="show-time">备注信息：{{item.expressCompany}} {{item.expressNo}}</div>\n\n      </div>\n\n    </div>\n\n    <div class="no-data" *ngIf = "noData">\n\n      <img src="./assets/image/nodata.png" alt="">\n\n      <p>空空如也</p>\n\n    </div>\n\n    <div class="btn-noMore" *ngIf = "showNoMore">\n\n      <span>—— 没有更多已兑换赠品了 ——</span>\n\n    </div>\n\n    <div class="request-defeat" *ngIf = "requestDefeat">\n\n      <img src="./assets/image/requestDefeat.png" alt="">\n\n      <p>啊哦！页面走丢了</p>\n\n      <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n        刷新再找一找\n\n      </button>\n\n    </div>\n\n    <ion-infinite-scroll (ionInfinite)="infiniteGetHandleExpressGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
 ], HandleExpressgift);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=handle-expressgift.js.map
 
 /***/ }),
@@ -1477,15 +1478,15 @@ var Home = (function () {
                 signature: data.signature,
                 jsApiList: ['scanQRCode']
             });
-            wx.error(function (res) {
-                console.log("微信验证失败" + res);
-                var alert = self.alertCtrl.create({
-                    title: '提示',
-                    subTitle: '扫描失败，请重新再试',
-                    buttons: ['确定']
-                });
-                alert.present();
-            });
+            // wx.error(function(res){
+            //   console.log("微信验证失败"+res);
+            //   let alert = self.alertCtrl.create({
+            //     title: '提示',
+            //     subTitle: '扫描失败，请重新再试',
+            //     buttons: ['确定']
+            //   });
+            //   alert.present();
+            // });
             wx.scanQRCode({
                 needResult: 1,
                 scanType: ["qrCode", "barCode"],
@@ -1495,7 +1496,7 @@ var Home = (function () {
                         return;
                     }
                     if (url.indexOf(__WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].mainUrl) < 0) {
-                        var alert = self.alertCtrl.create({
+                        var alert_1 = self.alertCtrl.create({
                             title: '提示',
                             subTitle: '请扫描淘璞系统内二维码',
                             buttons: ['确定']
@@ -1536,12 +1537,12 @@ var Home = (function () {
                             myCodeModal.present();
                         }
                         else {
-                            var alert = self.alertCtrl.create({
+                            var alert_2 = self.alertCtrl.create({
                                 title: '提示',
                                 subTitle: '请扫描订单或者赠品二维码',
                                 buttons: ['确定']
                             });
-                            alert.present();
+                            alert_2.present();
                         }
                     }
                 },
@@ -1585,10 +1586,13 @@ Home = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'home',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-toolbar>\n\n	  <img class="logo-img" src="./assets/image/top.png" alt="淘璞帮">\n\n		<img class="logo-text" src="./assets/image/tpb.png" alt="淘璞帮">\n\n		<!-- <img class="logo-info" src="./assets/image/info.png" alt="淘璞帮"> -->\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="menu-list">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col (touchstart)="qrCodeScan()">\n\n          <img class="logo-img" src="./assets/image/scan.png" alt="扫码确认">\n\n          <span>扫一扫</span>\n\n        </ion-col>\n\n        <ion-col (touchstart)="goMyCode()">\n\n          <img class="logo-img" src="./assets/image/mycode.png" alt="我的二维码">\n\n          <span>我的二维码</span>\n\n        </ion-col>\n\n        <ion-col (touchstart)="goCreatOrder()">\n\n          <img class="logo-img" src="./assets/image/order.png" alt="生成订单">\n\n          <span>生成订单</span>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="order-unaudit">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <dl>\n\n            <dt class="order-title">待审核订单<span>{{ cancelOrderCount + returnOrderCount }}</span></dt>\n\n            <dd>取消订单<span>({{ cancelOrderCount }})</span></dd>\n\n            <dd>退货订单<span>({{ returnOrderCount }})</span></dd>\n\n          </dl>\n\n        </ion-col>\n\n        <ion-col>\n\n          <button ion-button outline round color="light" (touchstart)="goUnAudit()">立即处理</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="gift-unhandle">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <dl>\n\n            <dt class="gift-title">待处理赠品<span>{{ selfGiftCount + expressgiftCount }}</span></dt>\n\n            <dd>自提赠品<span>({{ selfGiftCount }})</span></dd>\n\n            <dd>快递赠品<span>({{ expressgiftCount }})</span></dd>\n\n          </dl>\n\n        </ion-col>\n\n        <ion-col>\n\n          <button ion-button outline round color="light" (touchstart)="goUnHandle()">立即处理</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
 ], Home);
 
-var _a, _b, _c, _d, _e;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
