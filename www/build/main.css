@@ -26376,34 +26376,40 @@ award-activity .withdraw-item .date {
   color: #999;
 }
 
-withdraw-awardDetail .totle-money {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  min-height: 46px;
+withdraw-awardDetail .back-button {
+  display: block;
 }
 
-withdraw-awardDetail .first-card {
-  background: #fff;
-  width: 100%;
-  min-height: 100px;
-  padding: 1.5rem 1rem;
-  margin-bottom: 1rem;
-}
-
-withdraw-awardDetail .first-card > li {
+withdraw-awardDetail .withdraw-record {
+  color: #333;
   font-size: 1.5rem;
-  margin-bottom: 1.3rem;
 }
 
-withdraw-awardDetail .first-card > li > span {
-  float: right;
-  color: #96dd91;
-  font-style: normal;
+withdraw-awardDetail .withdraw-total {
+  line-height: 46px;
+  min-height: 16px;
+  padding: 0 1rem;
 }
 
-withdraw-awardDetail .first-card > li:last-child {
-  color: #5E9EFF;
-  margin-bottom: 0;
+withdraw-awardDetail .record-list {
+  padding: 0 1rem;
+}
+
+withdraw-awardDetail .withdraw-item {
+  background: #fff;
+  line-height: 24px;
+  margin-bottom: 5px;
+  padding: 12px 1rem;
+  position: relative;
+}
+
+withdraw-awardDetail .withdraw-item .money {
+  color: #5e9efe;
+}
+
+withdraw-awardDetail .withdraw-item .order-number,
+withdraw-awardDetail .withdraw-item .date {
+  color: #999;
 }
 
 award-order .withdraw-record {
@@ -26607,127 +26613,39 @@ withdraw-detailTabs .back-button {
   display: block;
 }
 
-withdraw-detailTabs .tabs .tab-button:hover:not(.disable-hover),
-withdraw-detailTabs .tabs .tab-button {
-  height: 100%;
-  color: #999999;
-  font-size: 1.5rem;
-  margin-bottom: 0;
-}
-
-withdraw-detailTabs .tabs .tab-button:hover:not(.disable-hover),
-withdraw-detailTabs .tabs .tab-button[aria-selected=true] {
-  font-size: 1.5rem;
-}
-
-withdraw-detailTabs .tabs[tabsLayout=icon-hide] .tab-button .tab-button-text,
-withdraw-detailTabs .tabs .tab-button.has-title-only .tab-button-text {
-  font-size: 1.5rem;
-  margin-bottom: 0;
-  height: 50px;
-  line-height: 50px;
-  border-bottom: .4rem solid transparent;
-  margin-top: .2rem;
-}
-
-withdraw-detailTabs .tabs-ios[tabsLayout=icon-hide] .tab-button,
-withdraw-detailTabs .tabs-ios .tab-button.has-title-only {
-  font-size: 1.5rem;
-}
-
-withdraw-detailTabs .tabs-md[tabsLayout=icon-hide] .tab-button,
-withdraw-detailTabs .tabs-md[tabsLayout=title-hide] .tab-button,
-withdraw-detailTabs .tabs-md .tab-button.icon-only,
-withdraw-detailTabs .tabs-md .tab-button.has-title-only {
-  height: 50px;
-}
-
-withdraw-detailTabs .tabs .tab-button[aria-selected=true] .tab-button-text {
-  -webkit-transform: none;
-  transform: none;
-  -webkit-transition: none;
-  transition: none;
-  margin-bottom: 0;
-  border-bottom: .4rem solid #5E9EFF;
-  color: #5e9eff;
-  height: 50px;
-  line-height: 50px;
-}
-
-withdraw-detailTabs .tabs .tabbar {
-  background: #fff;
-}
-
-withdraw-detailTabs .tabs[tabsPlacement=top] .tabbar {
-  border-bottom: 0;
-  height: 50px;
-}
-
-withdraw-detailTabs .scroll-content {
-  background: #f5f5f5;
-  padding: 1rem;
-  padding-top: 1.7rem;
-}
-
-withdraw-detailTabs .tabs-md .tab-button {
-  min-height: 5.4rem;
-}
-
-withdraw-detailTabs .header-md::after,
-withdraw-detailTabs .tabs-md[tabsPlacement="top"] > .tabbar::after,
-withdraw-detailTabs .footer-md::before,
-withdraw-detailTabs .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
-  background-image: none;
-}
-
 withdraw-detailTabs .tabbar.show-tabbar {
-  -webkit-box-shadow: 2px 0px 5px 0px #fff;
-  box-shadow: 2px 0px 5px 0px #fff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
-withdraw-detailTabs ion-header div {
-  background-color: #5E9EFF;
-  height: 44px;
-  line-height: 44px;
-  text-align: center;
-  font-size: 1.8rem;
+withdraw-detailTabs .back-button {
+  display: block;
 }
 
-withdraw-detailTabs ion-header div > .back {
-  color: #fff;
-  display: inline-block;
-  float: left;
-  width: 7rem;
+withdraw-detailTabs .tabs-list .tab-button {
+  padding: 0 !important;
+  margin: 0 1.5rem;
 }
 
-withdraw-detailTabs ion-header div > .back > ion-icon {
-  margin-left: -.5rem;
+withdraw-detailTabs .tabs-list .tab-button span {
+  font-size: 1.5rem !important;
 }
 
-withdraw-detailTabs ion-header div > .back > span {
-  display: inline-block;
-  font-weight: normal;
+withdraw-detailTabs .tabs-list .tab-button[aria-selected=true] {
+  border-bottom: solid 4px #5e9eff;
 }
 
-withdraw-detailTabs ion-header div .title {
-  color: #fff;
-  display: inline-block;
-  height: 100%;
-  font-weight: normal;
+withdraw-detailTabs .tabs-list .tab-button[aria-selected=true] .tab-button-text {
+  -webkit-transform: scale3d(1, 11, 1);
+  transform: scale3d(1, 1, 1);
 }
 
-withdraw-detailTabs ion-header div .pairings {
-  float: right;
-  color: #fff;
-  height: 100%;
-  line-height: 4rem;
-  margin-right: 1rem;
+withdraw-detailTabs .tabs-list .tab-button {
+  min-height: 49px !important;
 }
 
-withdraw-detailTabs ion-header div .pairings img {
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-bottom: -.3rem;
+withdraw-detailTabs .tabs-list[tabsPlacement=top] .tabbar {
+  border-bottom: solid 1px #f0f0f0;
 }
 
 forget .btn-forget {
@@ -27527,33 +27445,42 @@ mycode .qrcode-box .brandshop-code {
   padding-bottom: 30px;
 }
 
-withdraw-orderDetail .totle-money {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-}
-
-withdraw-orderDetail .first-card {
-  background: #fff;
-  width: 100%;
-  min-height: 100px;
-  padding: 1.5rem 1rem;
-  margin-bottom: 1rem;
-}
-
-withdraw-orderDetail .first-card > li {
+withdraw-orderDetail .withdraw-record {
+  color: #333;
   font-size: 1.5rem;
-  margin-bottom: 1.3rem;
 }
 
-withdraw-orderDetail .first-card > li > span {
+withdraw-orderDetail .withdraw-total {
+  line-height: 46px;
+  min-height: 16px;
+  padding: 0 1rem;
+}
+
+withdraw-orderDetail .record-list {
+  padding: 0 1rem;
+}
+
+withdraw-orderDetail .withdraw-item {
+  background: #fff;
+  line-height: 24px;
+  margin-bottom: 5px;
+  padding: 12px 1rem;
+  position: relative;
+}
+
+withdraw-orderDetail .withdraw-item .money {
+  color: #5e9efe;
+}
+
+withdraw-orderDetail .withdraw-item .order-number,
+withdraw-orderDetail .withdraw-item .date {
+  color: #999;
+}
+
+withdraw-orderDetail .withdraw-item .order-number span {
   float: right;
   color: #96dd91;
-  font-style: normal;
-}
-
-withdraw-orderDetail .first-card > li:last-child {
-  color: #5E9EFF;
-  margin-bottom: 0;
+  margin-right: 1rem;
 }
 
 order-info .back-button {

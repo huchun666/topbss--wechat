@@ -307,8 +307,10 @@ export class UnhandleTabs {
     this.requestDefeat = false;
     setTimeout(() => {
       if (this.currentIndex == 0) {
+        this.unhandleSeflGiftArray = [];
         this.getUnhandleSelfGiftList();
       } else {
+        this.unhandleExpressGiftArray = [];
         this.getUnhandleExpressGiftList();
       }
       refresher.complete();
