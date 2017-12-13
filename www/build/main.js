@@ -2309,9 +2309,17 @@ var OrderStore = (function () {
     };
     //失去焦点
     OrderStore.prototype.resetCount = function (index) {
+        if (this.orderStoreDataArray[index].itemPrice == null) {
+            this.orderStoreDataArray[index].itemPrice = 0;
+            this.appService.toast('商品总额不能为空', 1000, 'middle');
+        }
         this.warehouseUpdate(index, "reset");
     };
     OrderStore.prototype.resetProductNum = function (index) {
+        if (this.orderStoreDataArray[index].productNum <= 0) {
+            this.orderStoreDataArray[index].productNum = 1;
+            this.appService.toast('商品数量不能为空', 1000, 'middle');
+        }
         if (this.orderStoreDataArray[index].productSkuDTO.stock >= this.orderStoreDataArray[index].productNum) {
             this.warehouseUpdate(index, "reset");
         }
@@ -2386,18 +2394,16 @@ var OrderStore = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], OrderStore.prototype, "content", void 0);
 OrderStore = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-store',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-store\order-store.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>配单仓</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n\n\n  <ion-refresher (ionRefresh)="refreshGetOrderStoreList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n\n\n  <ion-list>\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-item-sliding #item *ngFor="let single of orderStoreDataArray;let i = index">\n\n      <ion-item>\n\n        <ion-thumbnail item-start>\n\n          <img [src]="single.productSkuDTO.fileSeq | productSkuDTOImage" alt="产品">\n\n        </ion-thumbnail>\n\n        <h2>{{single.productSkuDTO.productName}}</h2>\n\n        <div class="count">\n\n          <span class="btn-add" (touchstart)="addCount(i,$event)">+</span>\n\n          <span class="btn-remove" [ngClass]="{changeGray: single.productNum | changeGray}" (touchstart)="removeCount(i,$event)">-</span>\n\n          <div class="add-count">\n\n            <input (change)="resetProductNum(i)" [(ngModel)]="single.productNum"  type="number">\n\n          </div>\n\n        </div>\n\n        <div class="total">\n\n            <div class="total-text">商品总额</div>\n\n            <div class="total-input">\n\n              <input (change)="resetCount(i,$event)" [(ngModel)]="single.itemPrice"  type="number">\n\n            </div>\n\n        </div>\n\n        <div class="remark">\n\n          <input (change)="resetCount(i)" placeholder="备注一下商品信息吧"  type="text" [(ngModel)]="single.remark">\n\n        </div>\n\n      </ion-item>\n\n      \n\n      <ion-item-options side="right">\n\n        <button class="btn-delete" ion-button color="danger" (click)="delete(i)">\n\n          <ion-icon name="trash"></ion-icon>\n\n          删除\n\n        </button>\n\n      </ion-item-options>\n\n    </ion-item-sliding>\n\n    \n\n  </ion-list>\n\n\n\n  <div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n	</div>\n\n  <button class="btn-confirm" ion-button full (touchstart)="addProductModal()" *ngIf = "confirmOrder">\n\n    <span class="confirm">确认订单</span>\n\n    <span>（总额：￥{{totalPriceFloat}}）</span>\n\n  </button>\n\n\n\n</ion-content>\n\n\n\n\n\n        \n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-store\order-store.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _e || Object])
 ], OrderStore);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=order-store.js.map
 
 /***/ }),
@@ -4670,6 +4676,9 @@ var BrandshopOrderList = BrandshopOrderList_1 = (function () {
             if (_this.start < data.count) {
                 (_a = _this.orderList).push.apply(_a, data.data);
                 _this.start += _this.pageSize;
+                for (var i = 0; i < _this.orderList.length; i++) {
+                    _this.isShowDetail[i] = false;
+                }
             }
             else if (data.data.length == 0) {
                 _this.showInfinite = false;
@@ -4698,17 +4707,16 @@ var BrandshopOrderList = BrandshopOrderList_1 = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], BrandshopOrderList.prototype, "content", void 0);
 BrandshopOrderList = BrandshopOrderList_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-list',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\brandshop-order-list\brandshop-order-list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>门店订单列表</ion-title>\n\n  </ion-navbar>\n\n  <ion-toolbar class="filter-box">\n\n    <div class="time-box">\n\n      <div class="search-title">选择日期</div>\n\n      <div class="search-list">\n\n        <div class="time-start">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">\n\n          </ion-datetime>\n\n          <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>\n\n        </div>\n\n        <span class="go">到</span>\n\n        <div class="time-end">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateEndMin}}" max="{{dateEndMax}}" [(ngModel)]="dateEnd">\n\n          </ion-datetime>\n\n          <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n    <div class="status-box">\n\n      <ul>\n\n        <li *ngFor="let orderStatus of orderStatusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>\n\n      </ul>\n\n    </div>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="order-list">\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-refresher *ngIf="!loadingShow" (ionRefresh)="doRefresh($event)">\n\n      <ion-refresher-content>\n\n      </ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <div class="order-items" *ngFor="let order of orderList;let i = index">\n\n        <!-- 订单编号 -->\n\n        <div class="order-title">\n\n          <h2>订单编号：\n\n            <span>{{ order.orderId }}</span>\n\n          </h2>\n\n          <!--color auditing or pass -->\n\n          <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>\n\n        </div>\n\n        <!-- 商品1 -->\n\n        <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">\n\n          <dl>\n\n            <dt>\n\n              <img class="my-picture" [src]="product.productSkuDTO.fileSeq | productSkuDTOImage" [alt]="product.productSkuDTO.productName">\n\n            </dt>\n\n            <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>\n\n            <dd class="sku-list">\n\n              <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n            </dd>\n\n            <dd class=\'price\' *ngIf="order.userType != \'B\'">￥{{ product.unitPrice }}</dd>\n\n            <dd class=\'price\' *ngIf="order.userType == \'B\'">商品总额：￥{{ product.unitPrice }}</dd>\n\n            <dd class="count">X{{ product.number }}</dd>\n\n          </dl>\n\n        </div>\n\n\n\n        <div class="orderOperate">\n\n          <dl>\n\n            <dt>\n\n              <a href="tel:{{order.memberMobile}}">\n\n                <img src="./assets/image/phone.png" alt="">\n\n              </a>\n\n            </dt>\n\n            <dd class="total">会员手机：{{ order.memberMobile }}</dd>\n\n            <dd class="member-phone" *ngIf="order.status == 3 || order.status == 4 || order.status == 6 || order.status == \'C\'">收货时间：{{ order.receiptTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd>\n\n            <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd>\n\n\n\n          </dl>\n\n        </div>\n\n        <div class="order-dtail-box">\n\n          <div class="order-detail" *ngIf="isShowDetail[i]">\n\n            <ul>\n\n              <li>订单总额：￥{{ order.totalAmount }}</li>\n\n              <li>促销抵扣：￥{{ order.discountAmount }}</li>\n\n              <li>淘璞券折扣：￥{{ order.couponAmount }}</li>\n\n              <li>商户券抵扣：￥{{ order.merchantCouponAmount }}</li>\n\n              <li>积分抵扣：￥{{ order.integralAmount }}</li>\n\n            </ul>\n\n          </div>\n\n          <div class="pay-money">\n\n            会员实付金额\n\n            <span>￥{{ order.payAmount }}</span>\n\n          </div>\n\n          <div class="btn-show" (click)="showDetail(i)">\n\n            <span *ngIf="isShowDetail[i] == false">点击查看明细</span>\n\n            <span *ngIf="isShowDetail[i] == true">点击收起明细</span>\n\n            <span [ngClass]="{\'icon-triangle\':true, \'icon-bottom\': isShowDetail[i]}"></span>\n\n          </div>\n\n        </div>\n\n    </div>\n\n\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)"  *ngIf="showInfinite && !loadingShow && !requestDefeat">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n\n\n  </div>\n\n  <div class="no-data" *ngIf="noData">\n\n    <img src="./assets/image/nodata.png" alt="">\n\n    <p>空空如也</p>\n\n  </div>\n\n  <div class="btn-noMore" *ngIf="showNoMore">\n\n    <span>—— 没有更多信息了 ——</span>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\brandshop-order-list\brandshop-order-list.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _c || Object])
 ], BrandshopOrderList);
 
-var BrandshopOrderList_1;
+var BrandshopOrderList_1, _a, _b, _c;
 //# sourceMappingURL=brandshop-order-list.js.map
 
 /***/ }),
