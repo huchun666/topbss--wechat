@@ -123,8 +123,8 @@ export class OrderLayer {
   }
 
   // 切换sku属性时
-  changeRadio(event, index) {
-    var currentValue = event.target.getAttribute("ng-reflect-value");
+  changeRadio(event, index, skuAttrAttrValue) {
+    var currentValue = skuAttrAttrValue;
     if (this.attrValueArr[index] != currentValue) {
       this.attrValueArr[index] = currentValue;
       this.attrSeqArrPJ[index] = this.attrSeqArr[index];
@@ -151,10 +151,14 @@ export class OrderLayer {
     this.appService.httpGet(url).then(data => {
       this.skuPrice = data.price;
       this.orderLayerData = data;
+      this.attrMap = [];
+      for (let key in this.orderLayerData.attrMap) {
+        this.attrMap.push(this.orderLayerData.attrMap[key])
+      }
       this.attrImageSeq = this.orderLayerData.attrImageSeq;
     }).catch(error => {
       this.appService.getToken(error, () => {
-        this.changeRadio(event, index);
+        this.changeRadio(event, index, skuAttrAttrValue);
       });
       console.log(error);
       this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
