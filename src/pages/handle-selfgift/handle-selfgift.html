@@ -32,7 +32,6 @@
 		<div class="show-time">导购员：{{item.brandshopUserName}}</div>
 	  </div>
 	</div>
-	</div>
 	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">
 		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
 	</ion-infinite-scroll>
@@ -50,4 +49,5 @@
 			刷新再找一找
 		</button>
 	</div>
+</div>
 </ion-content>

@@ -139,19 +139,19 @@ export class Home {
             }else if (url.indexOf('giftCode') > 0) {
               alert("Inter")
               let myCodeModal = this.modalCtrl.create(GiftInfo, {'url': url});
-              myCodeModal.onDidDismiss(data => {
-                alert("inetr293")
-                alert(data)
-                if (!data) {
-                  return;
-                }
-                if (data.type === '1') {
-                  this.qrCodeScan();
-                } else if (data.type === '0') {
-                  const giftModal = this.modalCtrl.create(HandleSelfgift);
-                  giftModal.present();
-                }
-              });
+              // myCodeModal.onDidDismiss(data => {
+              //   alert("inetr293")
+              //   alert(data)
+              //   if (!data) {
+              //     return;
+              //   }
+              //   if (data.type === '1') {
+              //     this.qrCodeScan();
+              //   } else if (data.type === '0') {
+              //     const giftModal = this.modalCtrl.create(HandleSelfgift);
+              //     giftModal.present();
+              //   }
+              // });
               myCodeModal.present();
             }else {
               let alert = this.alertCtrl.create({
