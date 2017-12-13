@@ -228,7 +228,7 @@ var MyCode = (function () {
         var url = __WEBPACK_IMPORTED_MODULE_1__app_app_service__["a" /* AppConfig */].API.qrcode;
         this.appService.httpGet(url)
             .then(function (data) {
-            _this.brandshopIndexUrl = data.brandshopIndexUrl;
+            _this.brandshopIndexUrl = data.brandshopIndexUrl + "?id=" + data.brandshopId;
             var myCodeUrl = data.userRecommendWechatQrCodeUrl + "?type=U&userId=" + data.brandshopUserId + "&accessKeyId=topbabyBs&signature=" + obj.signature + "&expires=" + obj.expires;
             _this.getMyQRcode(myCodeUrl);
         })
@@ -2044,33 +2044,33 @@ var OrderLayer = (function () {
         var currentValue = event.target.getAttribute("ng-reflect-value");
         if (this.attrValueArr[index] != currentValue) {
             this.attrValueArr[index] = currentValue;
-            var attrSeqString_1 = "";
-            var attrValueString_1 = "";
-            var attrString = "";
-            this.attrSeqArr.map(function (item, i) {
-                attrSeqString_1 += "&" + "attrSeqArr=" + item;
-            });
-            this.attrValueArr.map(function (item, i) {
-                attrValueString_1 += "&" + "attrValueArr=" + item;
-            });
-            attrString = attrSeqString_1 + attrValueString_1;
-            var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getValidSKUAttrValue + "?brandshopSeq=" + this.brandshopSeq + "&productSeq=" + this.orderLayerData.productSeq + "&skulength=" + this.orderLayerData.skuLength + attrString;
-            this.appService.httpGet(url).then(function (data) {
-                _this.skuPrice = data.price;
-                _this.orderLayerData = data;
-                _this.attrImageSeq = _this.orderLayerData.attrImageSeq;
-            }).catch(function (error) {
-                _this.appService.getToken(error, function () {
-                    _this.changeRadio(event, index);
-                });
-                console.log(error);
-                _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-            });
         }
         else {
             this.attrValueArr[index] = "";
             event.target.setAttribute("checked", false);
         }
+        var attrSeqString = "";
+        var attrValueString = "";
+        var attrString = "";
+        this.attrSeqArr.map(function (item, i) {
+            attrSeqString += "&" + "attrSeqArr=" + item;
+        });
+        this.attrValueArr.map(function (item, i) {
+            attrValueString += "&" + "attrValueArr=" + item;
+        });
+        attrString = attrSeqString + attrValueString;
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getValidSKUAttrValue + "?brandshopSeq=" + this.brandshopSeq + "&productSeq=" + this.orderLayerData.productSeq + "&skulength=" + this.orderLayerData.skuLength + attrString;
+        this.appService.httpGet(url).then(function (data) {
+            _this.skuPrice = data.price;
+            _this.orderLayerData = data;
+            _this.attrImageSeq = _this.orderLayerData.attrImageSeq;
+        }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.changeRadio(event, index);
+            });
+            console.log(error);
+            _this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+        });
     };
     //确认添加
     OrderLayer.prototype.warehouseAdd = function () {

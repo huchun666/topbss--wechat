@@ -30,7 +30,7 @@ export class MyCode {
     let url = AppConfig.API.qrcode;
     this.appService.httpGet(url)
       .then(data => {
-        this.brandshopIndexUrl = data.brandshopIndexUrl;
+        this.brandshopIndexUrl = `${data.brandshopIndexUrl}?id=${data.brandshopId}`;
         let myCodeUrl = `${data.userRecommendWechatQrCodeUrl}?type=U&userId=${data.brandshopUserId}&accessKeyId=topbabyBs&signature=${obj.signature}&expires=${obj.expires}`;
         this.getMyQRcode(myCodeUrl);
       })
