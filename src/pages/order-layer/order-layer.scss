@@ -82,8 +82,13 @@ order-layer {
 				line-height: 30px;
 				text-align: center;
 				margin: 0 0 6px 8px;
+				position: relative;
 				input {
-					display: none;
+					visibility: hidden;
+					position: absolute;
+					left: 0;
+					width: 100%;
+					height: 100%;
 				}
 			}
 			.active {
