@@ -25,7 +25,9 @@ export class HandleSelfgift {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.getHandleSelfGiftList();
+  }
+  ionViewDidEnter(){
+    setTimeout(this.getHandleSelfGiftList(),100);
   }
   
   //进入页面，请求接口，得到数据
