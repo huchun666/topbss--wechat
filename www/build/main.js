@@ -1483,7 +1483,11 @@ var Home = (function () {
                 success: function (res) {
                     var _this = this;
                     var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                    if (url.indexOf(__WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].hostUrl) < 0) {
+                    alert(url);
+                    if (!url) {
+                        return;
+                    }
+                    if (url.indexOf(__WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].mainUrl) < 0) {
                         var alert_1 = this.alertCtrl.create({
                             title: '提示',
                             subTitle: '请扫描淘璞系统内二维码',
