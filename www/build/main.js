@@ -5107,7 +5107,7 @@ var OrderDetail = (function () {
             if (data.data.length > 0) {
                 data.data.map(function (item) {
                     item.baseAmount = item.baseAmount.toFixed(2);
-                    item.percent = item.percent.toFixed(2);
+                    item.percent = item.percent;
                     item.amount = item.amount.toFixed(2);
                     item.returnAmount = item.returnAmount.toFixed(2);
                 });
@@ -5237,7 +5237,7 @@ var AwardDetail = (function () {
             if (data.data.length > 0) {
                 data.data.map(function (item) {
                     item.baseAmount = item.baseAmount.toFixed(2);
-                    item.percent = item.percent.toFixed(2);
+                    item.percent = item.percent;
                     item.amount = item.amount.toFixed(2);
                     item.returnAmount = item.returnAmount.toFixed(2);
                 });
@@ -5411,7 +5411,7 @@ var AwardActivity = (function () {
             if (data.data.length > 0) {
                 data.data.map(function (item) {
                     item.baseAmount = item.baseAmount.toFixed(2);
-                    item.percent = item.percent.toFixed(2);
+                    item.percent = item.percent;
                     item.amount = item.amount.toFixed(2);
                     item.returnAmount = item.returnAmount.toFixed(2);
                 });
@@ -5544,7 +5544,7 @@ var AwardOrder = (function () {
             if (data.data.length > 0) {
                 data.data.map(function (item) {
                     item.baseAmount = item.baseAmount.toFixed(2);
-                    item.percent = item.percent.toFixed(2);
+                    item.percent = item.percent;
                     item.amount = item.amount.toFixed(2);
                     item.returnAmount = item.returnAmount.toFixed(2);
                 });
