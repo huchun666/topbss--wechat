@@ -3,9 +3,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { Login } from '../pages/login/login';
+import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AppService, AppConfig } from './app.service';
 
 
 @Component({
@@ -16,14 +18,15 @@ export class MyApp {
 
   // make TabsPage the root (or first) page
 
-  rootPage = Login;
+  rootPage = this.appService.getItem("tpb_token") ? TabsPage : Login;
 
 
   constructor(
     public platform: Platform,
     public menu: MenuController,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public appService: AppService
   ) {
     this.initializeApp();
   }

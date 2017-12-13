@@ -40,7 +40,7 @@
         <dl>
           <dt>
           </dt>
-          <dd class="total">共{{returnedDetail.orderReturn.number}}件商品，实付￥{{returnedDetail.orderReturn.totalReturnPrice}}</dd>
+          <dd class="total">共{{returnedDetail.orderReturn.number}}件商品，实付￥{{returnedDetail.returnAmount}}</dd>
         </dl>
       </div>
     </div>
@@ -55,7 +55,7 @@
           <span *ngIf="returnedDetail.orderReturn.returnType == 0">其他</span>
         </li>
         <li>是否有发票：{{returnedDetail.orderReturn.invoiced==1?'有': '无'}}</li>
-        <li>退货原因：{{returnedDetail.orderReturn.returnReason}}</li>
+        <li>退货原因：{{returnedDetail.orderReturn.reasonType | reasonType}}</li>
         <li>问题描述：{{returnedDetail.orderReturn.detail}}</li>
         <li class="img-list" *ngIf="imageArray">
           <img [src]="itemImg | productSkuDTOImage" alt="" *ngFor="let itemImg of imageArray">

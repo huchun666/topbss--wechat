@@ -11,9 +11,9 @@ export class HandleExpressgift {
   start: number = 0;
   limit: number = 10;
   showNoMore: Boolean = false;
-  noData: Boolean;
-  up: Boolean;//上拉刷新和第一次进入页面时
-  down: Boolean;//下拉刷新和返回上一级页面时
+  up: Boolean = true;//上拉刷新和第一次进入页面时
+  down: Boolean = false;//下拉刷新和返回上一级页面时
+  noData: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
   requestDefeat: Boolean = false;
@@ -27,7 +27,9 @@ export class HandleExpressgift {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.getHandleExpressGiftList()
+  }
+  ionViewDidEnter(){
+    setTimeout(this.getHandleExpressGiftList(),100);
   }
   getHandleExpressGiftList() {
     let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
@@ -69,6 +71,8 @@ export class HandleExpressgift {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.showNoMore = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       refresher.complete();
