@@ -26376,12 +26376,6 @@ award-activity .withdraw-item .date {
   color: #999;
 }
 
-award-activity .withdraw-item .order-number span {
-  float: right;
-  color: #96dd91;
-  margin-right: 1rem;
-}
-
 withdraw-awardDetail .totle-money {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;

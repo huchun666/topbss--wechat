@@ -134,7 +134,7 @@ export class ReturnDetail {
 	}
 	refuseReturn() {
 		let alert = this.alertCtrl.create({
-			message: `确认拒绝会员${this.returnDetail.orderReturn.name}的订单${this.returnDetail.orderReturn.returnOrderId}退货申请？`,
+			message: `确认拒绝会员${this.returnDetail.orderReturn.mobile}的订单${this.returnDetail.orderReturn.returnOrderId}退货申请？`,
 			buttons: [
 			  {
 			    text: '取消',
