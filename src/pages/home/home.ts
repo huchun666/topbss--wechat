@@ -87,7 +87,8 @@ export class Home {
     let signUrl = window.location.href;
     let encodeUrl = encodeURIComponent(signUrl);
     let url = `${AppConfig.API.signature}?url=${encodeUrl}`;
-    this.appService.httpGet(url).then(data => {
+    var self = this;
+    self.appService.httpGet(url).then(data => {
       wx.config({
         debug: false,
         appId: data.appId,
@@ -98,7 +99,7 @@ export class Home {
       });
       wx.error(function(res){
         console.log("微信验证失败"+res);
-        let alert = this.alertCtrl.create({
+        let alert = self.alertCtrl.create({
           title: '提示',
           subTitle: '扫描失败，请重新再试',
           buttons: ['确定']
@@ -110,47 +111,49 @@ export class Home {
         scanType: ["qrCode","barCode"],
         success: function (res) {
           var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+          alert(url);
           if (!url) {
             return;
           }
           if (url.indexOf(AppConfig.mainUrl) < 0) {
-            let alert = this.alertCtrl.create({
+            let alert = self.alertCtrl.create({
               title: '提示',
               subTitle: '请扫描淘璞系统内二维码',
               buttons: ['确定']
             });
           }else {
             if (url.indexOf('id') > 0) {
-              let myCodeModal = this.modalCtrl.create(OrderInfo, {'url': url});
+              let myCodeModal = self.modalCtrl.create(OrderInfo, {'url': url});
               myCodeModal.onDidDismiss(data => {
                 if (!data) {
                   return;
                 }
                 if (data.type === '1') {
-                  this.qrCodeScan();
+                  self.qrCodeScan();
                 } else if (data.type === '0') {
-                  this.navCtrl.parent.select(1);
+                  self.navCtrl.parent.select(1);
                   let orderStatus = 'C';
-                  this.events.publish('order:status', orderStatus);
+                  self.events.publish('order:status', orderStatus);
                 }
               });
               myCodeModal.present();
             }else if (url.indexOf('giftCode') > 0) {
-              let myCodeModal = this.modalCtrl.create(GiftInfo, {'url': url});
+              alert("inter")
+              let myCodeModal = self.modalCtrl.create(GiftInfo, {'url': url});
               myCodeModal.onDidDismiss(data => {
                 if (!data) {
                   return;
                 }
                 if (data.type === '1') {
-                  this.qrCodeScan();
+                  self.qrCodeScan();
                 } else if (data.type === '0') {
-                  const giftModal = this.modalCtrl.create(HandleSelfgift);
+                  const giftModal = self.modalCtrl.create(HandleSelfgift);
                   giftModal.present();
                 }
               });
               myCodeModal.present();
             }else {
-              let alert = this.alertCtrl.create({
+              let alert = self.alertCtrl.create({
                 title: '提示',
                 subTitle: '请扫描订单或者赠品二维码',
                 buttons: ['确定']
@@ -161,7 +164,7 @@ export class Home {
         },
         fail: function(error) {
           console.log(error);
-          let alert = this.alertCtrl.create({
+          let alert = self.alertCtrl.create({
             title: '提示',
             subTitle: '扫描失败，请重新再试',
             buttons: ['确定']
@@ -170,11 +173,11 @@ export class Home {
         }
       });
     }).catch(error => {
-      this.appService.getToken(error, () => {
-        this.qrCodeScan();
+      self.appService.getToken(error, () => {
+        self.qrCodeScan();
       });
       console.log(error);
-      this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+      self.appService.toast('操作失败，请稍后重试', 1000, 'middle');
     })
   }
   goMyCode() {
