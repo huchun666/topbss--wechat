@@ -159,6 +159,7 @@ export class UnhandleTabs {
           this.down = true;
           this.up = false;
           loading.dismiss();
+          this.appService.toast('预约成功！', 1000, 'middle');
           this.getUnhandleSelfGiftList();
         }
       }).catch(error => {
@@ -288,9 +289,9 @@ export class UnhandleTabs {
                 this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
               });
             } else if (data.companyName != "") {
-              this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-            } else if (data.orderNum != "") {
               this.appService.toast('请填写快递单号', 1000, 'middle');
+            } else if (data.orderNum != "") {
+              this.appService.toast('请填写公司名称', 1000, 'middle');
             }
           }
         }
