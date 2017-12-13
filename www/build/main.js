@@ -1465,104 +1465,104 @@ var Home = (function () {
         });
     };
     Home.prototype.qrCodeScan = function () {
-        var signUrl = window.location.href;
-        var encodeUrl = encodeURIComponent(signUrl);
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.signature + "?url=" + encodeUrl;
+        // let signUrl = window.location.href;
+        // let encodeUrl = encodeURIComponent(signUrl);
+        // let url = `${AppConfig.API.signature}?url=${encodeUrl}`;
         var self = this;
-        self.appService.httpGet(url).then(function (data) {
-            wx.config({
-                debug: false,
-                appId: data.appId,
-                timestamp: data.timestamp,
-                nonceStr: data.noncestr,
-                signature: data.signature,
-                jsApiList: ['scanQRCode']
-            });
-            // wx.error(function(res){
-            //   console.log("微信验证失败"+res);
-            //   let alert = self.alertCtrl.create({
-            //     title: '提示',
-            //     subTitle: '扫描失败，请重新再试',
-            //     buttons: ['确定']
-            //   });
-            //   alert.present();
-            // });
-            wx.scanQRCode({
-                needResult: 1,
-                scanType: ["qrCode", "barCode"],
-                success: function (res) {
-                    var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                    if (!url) {
-                        return;
-                    }
-                    if (url.indexOf(__WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].mainUrl) < 0) {
-                        var alert_1 = self.alertCtrl.create({
-                            title: '提示',
-                            subTitle: '请扫描淘璞系统内二维码',
-                            buttons: ['确定']
-                        });
-                    }
-                    else {
-                        if (url.indexOf('id') > 0) {
-                            var myCodeModal = self.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_6__order_info_order_info__["a" /* OrderInfo */], { 'url': url });
-                            myCodeModal.onDidDismiss(function (data) {
-                                if (!data) {
-                                    return;
-                                }
-                                if (data.type === '1') {
-                                    self.qrCodeScan();
-                                }
-                                else if (data.type === '0') {
-                                    self.navCtrl.parent.select(1);
-                                    var orderStatus = 'C';
-                                    self.events.publish('order:status', orderStatus);
-                                }
-                            });
-                            myCodeModal.present();
-                        }
-                        else if (url.indexOf('giftCode') > 0) {
-                            var myCodeModal = self.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_5__gift_info_gift_info__["a" /* GiftInfo */], { 'url': url });
-                            myCodeModal.onDidDismiss(function (data) {
-                                if (!data) {
-                                    return;
-                                }
-                                if (data.type === '1') {
-                                    self.qrCodeScan();
-                                }
-                                else if (data.type === '0') {
-                                    var giftModal = self.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_9__handle_selfgift_handle_selfgift__["a" /* HandleSelfgift */]);
-                                    giftModal.present();
-                                }
-                            });
-                            myCodeModal.present();
-                        }
-                        else {
-                            var alert_2 = self.alertCtrl.create({
-                                title: '提示',
-                                subTitle: '请扫描订单或者赠品二维码',
-                                buttons: ['确定']
-                            });
-                            alert_2.present();
-                        }
-                    }
-                },
-                fail: function (error) {
-                    console.log(error);
-                    var alert = self.alertCtrl.create({
+        // self.appService.httpGet(url).then(data => {
+        //   wx.config({
+        //     debug: false,
+        //     appId: data.appId,
+        //     timestamp: data.timestamp,
+        //     nonceStr: data.noncestr,
+        //     signature: data.signature,
+        //     jsApiList: ['scanQRCode']
+        //   });
+        //   // wx.error(function(res){
+        //   //   console.log("微信验证失败"+res);
+        //   //   let alert = self.alertCtrl.create({
+        //   //     title: '提示',
+        //   //     subTitle: '扫描失败，请重新再试',
+        //   //     buttons: ['确定']
+        //   //   });
+        //   //   alert.present();
+        //   // });
+        wx.scanQRCode({
+            needResult: 1,
+            scanType: ["qrCode", "barCode"],
+            success: function (res) {
+                var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                if (!url) {
+                    return;
+                }
+                if (url.indexOf(__WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].mainUrl) < 0) {
+                    var alert_1 = self.alertCtrl.create({
                         title: '提示',
-                        subTitle: '扫描失败，请重新再试!',
+                        subTitle: '请扫描淘璞系统内二维码',
                         buttons: ['确定']
                     });
-                    alert.present();
                 }
-            });
-        }).catch(function (error) {
-            self.appService.getToken(error, function () {
-                self.qrCodeScan();
-            });
-            console.log(error);
-            self.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+                else {
+                    if (url.indexOf('id') > 0) {
+                        var myCodeModal = self.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_6__order_info_order_info__["a" /* OrderInfo */], { 'url': url });
+                        myCodeModal.onDidDismiss(function (data) {
+                            if (!data) {
+                                return;
+                            }
+                            if (data.type === '1') {
+                                self.qrCodeScan();
+                            }
+                            else if (data.type === '0') {
+                                self.navCtrl.parent.select(1);
+                                var orderStatus = 'C';
+                                self.events.publish('order:status', orderStatus);
+                            }
+                        });
+                        myCodeModal.present();
+                    }
+                    else if (url.indexOf('giftCode') > 0) {
+                        var myCodeModal = self.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_5__gift_info_gift_info__["a" /* GiftInfo */], { 'url': url });
+                        myCodeModal.onDidDismiss(function (data) {
+                            if (!data) {
+                                return;
+                            }
+                            if (data.type === '1') {
+                                self.qrCodeScan();
+                            }
+                            else if (data.type === '0') {
+                                var giftModal = self.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_9__handle_selfgift_handle_selfgift__["a" /* HandleSelfgift */]);
+                                giftModal.present();
+                            }
+                        });
+                        myCodeModal.present();
+                    }
+                    else {
+                        var alert_2 = self.alertCtrl.create({
+                            title: '提示',
+                            subTitle: '请扫描订单或者赠品二维码',
+                            buttons: ['确定']
+                        });
+                        alert_2.present();
+                    }
+                }
+            },
+            fail: function (error) {
+                console.log(error);
+                var alert = self.alertCtrl.create({
+                    title: '提示',
+                    subTitle: '扫描失败，请重新再试!!',
+                    buttons: ['确定']
+                });
+                alert.present();
+            }
         });
+        // }).catch(error => {
+        //   self.appService.getToken(error, () => {
+        //     self.qrCodeScan();
+        //   });
+        //   console.log(error);
+        //   self.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+        // })
     };
     Home.prototype.goMyCode = function () {
         var myCodeModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__mycode_mycode__["a" /* MyCode */]);
@@ -1578,6 +1578,26 @@ var Home = (function () {
             if (data) {
                 _this.navCtrl.parent.select(1);
             }
+        });
+        var signUrl = window.location.href;
+        var encodeUrl = encodeURIComponent(signUrl);
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.signature + "?url=" + encodeUrl;
+        this.appService.httpGet(url).then(function (data) {
+            wx.config({
+                debug: false,
+                appId: data.appId,
+                timestamp: data.timestamp,
+                nonceStr: data.noncestr,
+                signature: data.signature,
+                jsApiList: ['scanQRCode']
+            });
+        })
+            .catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getUnHandleCount();
+            });
+            console.log(error);
+            _this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
         });
     };
     return Home;
@@ -2092,7 +2112,7 @@ var OrderLayer = (function () {
 }());
 OrderLayer = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'order-layer',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-layer\order-layer.html"*/'<ion-content>\n\n	<div class="layer-out" (touchstart)="dismiss()"></div>\n\n	<div class="sku-box">\n\n		<ion-list>\n\n		  <ion-item>\n\n		    <ion-thumbnail item-start>\n\n					<img [src]="attrImageSeq | productSkuDTOImage">\n\n		    </ion-thumbnail>\n\n				<h2>{{ productName }}</h2>\n\n				<h2>￥{{ skuPrice }}</h2>\n\n		  </ion-item>\n\n		</ion-list>\n\n\n\n		<div class="sku-list">\n\n			<!-- loading -->\n\n			<div class="loading-wrapper" *ngIf="loadingShow">\n\n				<div>\n\n					<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n				</div>\n\n				<div [innerHTML]="load.content"></div>\n\n			</div>\n\n			<div class="sku-attr" *ngFor = "let item of attrMap;let i = index">\n\n				<div class="sku-key">{{ item[0].attrName }}</div>\n\n				<div class="sku-value">\n\n					<label class="labelTag" [ngClass]="{active: skuAttrValue[i] === skuAttr.attrValue, invalidAttrValueClass: skuAttr.invalidAttrValue | invalidAttrValueClass}" *ngFor="let skuAttr of item">\n\n						<input \n\n						[(ngModel)]="skuAttrValue[i]" \n\n						name="Fruit" \n\n						type="radio" \n\n						[value]="skuAttr.attrValue" \n\n						[disabled]="skuAttr.invalidAttrValue | isOrIsnotInvalidAttrValue"\n\n						(touchstart)="changeRadio($event,i)"\n\n						/>{{ skuAttr.attrValue }}\n\n					</label>\n\n				</div>\n\n			</div>\n\n			\n\n			<div class="sku-attr" *ngIf="isShowAddNumber">\n\n				<div class="sku-key">数量</div>\n\n				<div class="sku-value count">\n\n					<ion-icon class="icon-add" [ngClass]="{changeGray: overStock | overStockPipe}" name="add" (touchstart)="addCount()"></ion-icon>\n\n					<ion-icon class="icon-remove" [ngClass]="{changeGray: count | changeGray}" name="remove" (touchstart)="removeCount()"></ion-icon>\n\n					<div class="add-count">\n\n						<ion-input (ionBlur)="resetCount()" [(ngModel)]="count" type="number" clearInput=true></ion-input>\n\n					</div>\n\n				</div>\n\n			</div>\n\n\n\n			<button class="btn-add" ion-button full (touchstart)="warehouseAdd()" *ngIf="confirmAdd">确认添加</button>\n\n\n\n		</div>\n\n	</div>\n\n	\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-layer\order-layer.html"*/
+        selector: 'order-layer',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-layer\order-layer.html"*/'<ion-content>\n\n	<div class="layer-out" (touchstart)="dismiss()"></div>\n\n	<div class="sku-box">\n\n		<ion-list>\n\n		  <ion-item>\n\n		    <ion-thumbnail item-start>\n\n					<img [src]="attrImageSeq | productSkuDTOImage">\n\n		    </ion-thumbnail>\n\n				<h2>{{ productName }}</h2>\n\n				<h2>￥{{ skuPrice }}</h2>\n\n		  </ion-item>\n\n		</ion-list>\n\n\n\n		<div class="sku-list">\n\n			<!-- loading -->\n\n			<div class="loading-wrapper" *ngIf="loadingShow">\n\n				<div>\n\n					<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n				</div>\n\n				<div [innerHTML]="load.content"></div>\n\n			</div>\n\n			<div class="sku-attr" *ngFor = "let item of attrMap;let i = index">\n\n				<div class="sku-key">{{ item[0].attrName }}</div>\n\n				<div class="sku-value">\n\n					<label class="labelTag" [ngClass]="{active: skuAttrValue[i] === skuAttr.attrValue, invalidAttrValueClass: skuAttr.invalidAttrValue | invalidAttrValueClass}" *ngFor="let skuAttr of item">\n\n						<input \n\n						[(ngModel)]="skuAttrValue[i]" \n\n						name="Fruit" \n\n						type="radio" \n\n						[value]="skuAttr.attrValue" \n\n						[disabled]="skuAttr.invalidAttrValue | isOrIsnotInvalidAttrValue"\n\n						(click)="changeRadio($event,i)"\n\n						/>{{ skuAttr.attrValue }}\n\n					</label>\n\n				</div>\n\n			</div>\n\n			\n\n			<div class="sku-attr" *ngIf="isShowAddNumber">\n\n				<div class="sku-key">数量</div>\n\n				<div class="sku-value count">\n\n					<ion-icon class="icon-add" [ngClass]="{changeGray: overStock | overStockPipe}" name="add" (touchstart)="addCount()"></ion-icon>\n\n					<ion-icon class="icon-remove" [ngClass]="{changeGray: count | changeGray}" name="remove" (touchstart)="removeCount()"></ion-icon>\n\n					<div class="add-count">\n\n						<ion-input (ionBlur)="resetCount()" [(ngModel)]="count" type="number" clearInput=true></ion-input>\n\n					</div>\n\n				</div>\n\n			</div>\n\n\n\n			<button class="btn-add" ion-button full (touchstart)="warehouseAdd()" *ngIf="confirmAdd">确认添加</button>\n\n\n\n		</div>\n\n	</div>\n\n	\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-layer\order-layer.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */],
