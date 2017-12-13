@@ -110,7 +110,11 @@ export class Home {
         scanType: ["qrCode","barCode"],
         success: function (res) {
           var url = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-          if (url.indexOf(AppConfig.hostUrl) < 0) {
+          alert(url)
+          if (!url) {
+            return;
+          }
+          if (url.indexOf(AppConfig.mainUrl) < 0) {
             let alert = this.alertCtrl.create({
               title: '提示',
               subTitle: '请扫描淘璞系统内二维码',
