@@ -59,6 +59,9 @@
         <img src="./assets/image/nodata.png" alt="">
         <p>空空如也</p>
       </div>
+      <div class="btn-cancelView" (touchstart)="goAuditCancel()" *ngIf="showInfinite">
+        <span>查看审核完成订单</span>
+      </div>
       <div class="btn-noMore" *ngIf="showNoMore">
         <span>—— 没有更多信息了 ——</span>
       </div>
@@ -68,9 +71,6 @@
         <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshCancelorder()">
           刷新再找一找
         </button>
-      </div>
-      <div class="btn-cancelView" (touchstart)="goAuditCancel()" *ngIf="showInfinite">
-        <span>查看审核完成订单</span>
       </div>
       <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
         <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
@@ -124,11 +124,11 @@
         <p>空空如也</p>
       </div>
   
-      <div class="btn-noMore" *ngIf="showNoMore">
-        <span>—— 没有更多信息了 ——</span>
-      </div>
       <div class="btn-cancelView" (touchstart)="goAuditReturn()" *ngIf="showInfinite">
         <span>查看已处理退货订单</span>
+      </div>
+      <div class="btn-noMore" *ngIf="showNoMore">
+        <span>—— 没有更多信息了 ——</span>
       </div>
   
   
