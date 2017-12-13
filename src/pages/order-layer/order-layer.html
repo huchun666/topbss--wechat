@@ -29,7 +29,7 @@
 						type="radio" 
 						[value]="skuAttr.attrValue" 
 						[disabled]="skuAttr.invalidAttrValue | isOrIsnotInvalidAttrValue"
-						(touchstart)="changeRadio($event,i)"
+						(click)="changeRadio($event,i)"
 						/>{{ skuAttr.attrValue }}
 					</label>
 				</div>
