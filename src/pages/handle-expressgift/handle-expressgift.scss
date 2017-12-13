@@ -3,8 +3,8 @@ handle-expressgift {
 		display: block;
   }
   .gift-list {
-		background: #fff;
 		.gift-item {
+      background: #fff;
 			border-top: solid 5px #f0f0f0;
 			dl {
 				border-bottom: dashed 1px #f0f0f0;
@@ -108,18 +108,19 @@ handle-expressgift {
 				color: #999;
 			}
 		}
-	}
-	.btn-selfview {
-		text-align: center;
-		padding: 2rem 0;
-		span {
-			font-size: 1.5rem;
-			color: #999;
-			text-decoration: underline;
-		}
-	}
-	.btn-noMore {
-		margin: 2rem;
+    .btn-selfview {
+      margin: 0 .8rem .8rem;
+      text-align: center;
+      padding: 2rem 0;
+      span {
+        font-size: 1.5rem;
+        color: #999;
+        text-decoration: underline;
+      }
+    }
+    .btn-noMore {
+      margin: 2rem;
+    }
 	}
 }
 ion-alert.alert-top {
