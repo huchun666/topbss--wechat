@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 112:
+/***/ 111:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11,7 +11,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_service__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__forget_forget__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tabs_tabs__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_buffer__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_buffer__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_buffer__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__update_pwd_update_pwd__ = __webpack_require__(238);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -179,7 +179,7 @@ Login = __decorate([
 
 /***/ }),
 
-/***/ 113:
+/***/ 112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -294,7 +294,7 @@ MyCode = __decorate([
 
 /***/ }),
 
-/***/ 116:
+/***/ 115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -467,7 +467,7 @@ AuditCancelorder = __decorate([
 
 /***/ }),
 
-/***/ 117:
+/***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -646,7 +646,7 @@ AuditReturnorder = __decorate([
 
 /***/ }),
 
-/***/ 118:
+/***/ 117:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -842,6 +842,178 @@ ReturnDetail = __decorate([
 
 /***/ }),
 
+/***/ 118:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HandleSelfgift; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var HandleSelfgift = (function () {
+    function HandleSelfgift(navCtrl, alertCtrl, appService) {
+        this.navCtrl = navCtrl;
+        this.alertCtrl = alertCtrl;
+        this.appService = appService;
+        this.handleSeflGiftArray = [];
+        this.start = 0;
+        this.limit = 10;
+        this.showNoMore = false;
+        this.load = {};
+        this.loadingShow = true;
+        this.requestDefeat = false;
+        this.showInfinite = false;
+        this.down = true;
+        this.up = false;
+        this.load = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].load;
+        this.getHandleSelfGiftList();
+    }
+    //进入页面，请求接口，得到数据
+    HandleSelfgift.prototype.getHandleSelfGiftList = function () {
+        var _this = this;
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit; //brandshopSeq=${this.brandshopSeqId}
+        this.appService.httpGet(url).then(function (data) {
+            _this.loadingShow = false;
+            if (data.count == 0) {
+                //空空如也
+                _this.noData = true;
+            }
+            else {
+                _this.noData = false;
+                _this.showInfinite = true;
+                if (_this.start < data.count) {
+                    if (_this.up) {
+                        (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
+                        _this.start += _this.limit;
+                    }
+                    else if (_this.down) {
+                        _this.handleSeflGiftArray = data.data;
+                        _this.start += _this.limit;
+                        _this.content.scrollTo(0, 0, 0);
+                    }
+                }
+                else {
+                    _this.showNoMore = true;
+                }
+            }
+            var _a;
+        }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getHandleSelfGiftList();
+            });
+            _this.loadingShow = false;
+            console.log(error);
+            _this.showInfinite = false;
+            _this.requestDefeat = true;
+        });
+    };
+    // 下拉刷新请求数据
+    HandleSelfgift.prototype.refreshGetHandleSelfGiftList = function (refresher) {
+        var _this = this;
+        this.start = 0;
+        this.down = true;
+        this.up = false;
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
+        this.appService.httpGet(url).then(function (data) {
+            refresher.complete();
+            if (data.count == 0) {
+                //空空如也
+                _this.noData = true;
+            }
+            else {
+                _this.noData = false;
+                _this.showInfinite = true;
+                if (data.data.length != 0) {
+                    _this.handleSeflGiftArray = data.data;
+                    _this.start += _this.limit;
+                }
+                else {
+                    _this.showNoMore = true;
+                }
+            }
+        }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.refreshGetHandleSelfGiftList(refresher);
+            });
+            _this.handleSeflGiftArray = [];
+            refresher.complete();
+            console.log(error);
+            _this.showInfinite = false;
+            _this.requestDefeat = true;
+        });
+    };
+    // 上拉刷新请求数据
+    HandleSelfgift.prototype.infiniteGetHandleSelfGiftList = function (infiniteScroll) {
+        var _this = this;
+        this.down = false;
+        this.up = true;
+        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
+        this.appService.httpGet(url).then(function (data) {
+            infiniteScroll.complete();
+            if (data.count == 0) {
+                //空空如也
+                _this.noData = true;
+            }
+            else {
+                _this.noData = false;
+                if (data.data.length != 0) {
+                    (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
+                    _this.start += _this.limit;
+                }
+                else {
+                    _this.showNoMore = true;
+                }
+            }
+            var _a;
+        }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.infiniteGetHandleSelfGiftList(infiniteScroll);
+            });
+            infiniteScroll.complete();
+            console.log(error);
+            _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        });
+    };
+    //请求失败后刷新
+    HandleSelfgift.prototype.requestDefeatRefresh = function () {
+        this.requestDefeat = false;
+        this.loadingShow = true;
+        this.start = 0;
+        this.down = true;
+        this.up = false;
+        this.getHandleSelfGiftList();
+    };
+    return HandleSelfgift;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+], HandleSelfgift.prototype, "content", void 0);
+HandleSelfgift = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'handle-selfgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已兑换自提赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n	<ion-refresher (ionRefresh)="refreshGetHandleSelfGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="gift-list">\n\n	<!-- loading -->\n\n	<div class="loading-wrapper" *ngIf="loadingShow">\n\n		<div>\n\n			<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n		</div>\n\n		<div [innerHTML]="load.content"></div>\n\n	</div>\n\n	<div class="gift-item" *ngFor = "let item of handleSeflGiftArray">\n\n	  <dl>\n\n		<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n		<dd class="product-title">\n\n		  <h2>{{item.giftName}}</h2>\n\n			<span class="unstart">{{ item.giftType | setHandleGiftType }}</span>\n\n		</dd>\n\n			<dd class="member-phone">会员手机：{{item.memberPhone}}</dd>\n\n			<dd class="member-phone" *ngIf = "item.giftType==\'0\'">预约手机：{{item.reservePhone}}</dd>\n\n		  <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n		  <dd class="get-time exchangeTime">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n	  </dl>\n\n	  <div class="reserve-time">\n\n		<div class="show-time" *ngIf = "item.giftType==\'0\'">预约到店时间：{{item.reserveShopTime | date:\'yyyy-MM-dd HH:mm:ss\'}}</div>\n\n		<div class="show-time">导购员：{{item.brandshopUserName}}</div>\n\n	  </div>\n\n	</div>\n\n	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n	</ion-infinite-scroll>\n\n	<div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n	</div>\n\n	<div class="btn-noMore" *ngIf = "showNoMore">\n\n		<span>—— 没有更多已兑换赠品了 ——</span>\n\n	</div>\n\n	<div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n		<p>啊哦！页面走丢了</p>\n\n		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n			刷新再找一找\n\n		</button>\n\n	</div>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
+], HandleSelfgift);
+
+//# sourceMappingURL=handle-selfgift.js.map
+
+/***/ }),
+
 /***/ 119:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1003,7 +1175,7 @@ __decorate([
 ], HandleExpressgift.prototype, "content", void 0);
 HandleExpressgift = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'handle-expressgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已发货赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="refreshGetHandleExpressGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n<div class="gift-list">\n\n	<!-- loading -->\n\n	<div class="loading-wrapper" *ngIf="loadingShow">\n\n		<div>\n\n			<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n		</div>\n\n		<div [innerHTML]="load.content"></div>\n\n	</div>\n\n  <div class="gift-item" *ngFor = "let item of handleExpressGiftArray">\n\n		<dl>\n\n			<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n			<dd class="product-title">\n\n				<h2>{{item.giftName}}</h2>\n\n				<span class="unstart">立即兑换</span>\n\n			</dd>\n\n			<dd class="reserve-phone">\n\n				<span>会员手机：{{item.memberPhone}}</span>\n\n			</dd>\n\n			<dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n			<dd class="get-time">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n			<dd class="get-time">导购员：{{item.brandshopUserName}}</dd>\n\n		</dl>\n\n		<div class="reserve-time member-box">\n\n			<div class="member-info">\n\n				<ul>\n\n					<li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>\n\n				</ul>\n\n			</div>\n\n		</div>\n\n		<div class="reserve-time">\n\n			<div class="show-time">备注信息：{{item.expressCompany}} {{item.expressNo}}</div>\n\n		</div>\n\n  </div>\n\n\n\n</div>\n\n<ion-infinite-scroll (ionInfinite)="infiniteGetHandleExpressGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n	<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n</ion-infinite-scroll>\n\n<div class="no-data" *ngIf = "noData">\n\n	<img src="./assets/image/nodata.png" alt="">\n\n	<p>空空如也</p>\n\n</div>\n\n<div class="btn-noMore" *ngIf = "showNoMore">\n\n	<span>—— 没有更多已兑换赠品了 ——</span>\n\n</div>\n\n<div class="request-defeat" *ngIf = "requestDefeat">\n\n	<img src="./assets/image/requestDefeat.png" alt="">\n\n	<p>啊哦！页面走丢了</p>\n\n	<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n		刷新再找一找\n\n	</button>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/
+        selector: 'handle-expressgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已发货赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="refreshGetHandleExpressGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n<div class="gift-list">\n\n	<!-- loading -->\n\n	<div class="loading-wrapper" *ngIf="loadingShow">\n\n		<div>\n\n			<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n		</div>\n\n		<div [innerHTML]="load.content"></div>\n\n	</div>\n\n  <div class="gift-item" *ngFor = "let item of handleExpressGiftArray">\n\n		<dl>\n\n			<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n			<dd class="product-title">\n\n				<h2>{{item.giftName}}</h2>\n\n				<span class="unstart">立即兑换</span>\n\n			</dd>\n\n			<dd class="reserve-phone">\n\n				<span>会员手机：{{item.memberPhone}}</span>\n\n			</dd>\n\n			<dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n			<dd class="get-time">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n			<dd class="get-time">导购员：{{item.brandshopUserName}}</dd>\n\n		</dl>\n\n		<div class="reserve-time member-box">\n\n			<div class="member-info">\n\n				<ul>\n\n					<li *ngFor = "let single of item.attrValueList">{{single.label}}：{{single.value}}</li>\n\n				</ul>\n\n			</div>\n\n		</div>\n\n		<div class="reserve-time">\n\n			<div class="show-time">备注信息：{{item.expressCompany}} {{item.expressNo}}</div>\n\n		</div>\n\n  </div>\n\n	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleExpressGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n	</ion-infinite-scroll>\n\n	<div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n	</div>\n\n	<div class="btn-noMore" *ngIf = "showNoMore">\n\n		<span>—— 没有更多已兑换赠品了 ——</span>\n\n	</div>\n\n	<div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n		<p>啊哦！页面走丢了</p>\n\n		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n			刷新再找一找\n\n		</button>\n\n	</div>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-expressgift\handle-expressgift.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
@@ -1356,13 +1528,12 @@ Forget = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mycode_mycode__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mycode_mycode__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__creat_order_creat_order__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gift_info_gift_info__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__order_info_order_info__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__unaudit_tabs_unaudit_tabs__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__unhandle_tabs_unhandle_tabs__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__handle_selfgift_handle_selfgift__ = __webpack_require__(61);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1372,7 +1543,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -1515,20 +1685,19 @@ var Home = (function () {
                         else if (url.indexOf('giftCode') > 0) {
                             alert("Inter");
                             var myCodeModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_5__gift_info_gift_info__["a" /* GiftInfo */], { 'url': url });
-                            myCodeModal.onDidDismiss(function (data) {
-                                alert("inetr293");
-                                alert(data);
-                                if (!data) {
-                                    return;
-                                }
-                                if (data.type === '1') {
-                                    _this.qrCodeScan();
-                                }
-                                else if (data.type === '0') {
-                                    var giftModal = _this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_9__handle_selfgift_handle_selfgift__["a" /* HandleSelfgift */]);
-                                    giftModal.present();
-                                }
-                            });
+                            // myCodeModal.onDidDismiss(data => {
+                            //   alert("inetr293")
+                            //   alert(data)
+                            //   if (!data) {
+                            //     return;
+                            //   }
+                            //   if (data.type === '1') {
+                            //     this.qrCodeScan();
+                            //   } else if (data.type === '0') {
+                            //     const giftModal = this.modalCtrl.create(HandleSelfgift);
+                            //     giftModal.present();
+                            //   }
+                            // });
                             myCodeModal.present();
                         }
                         else {
@@ -2776,9 +2945,9 @@ OrderInfo = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__unaudit_cancelorder_unaudit_cancelorder__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__unaudit_returnorder_unaudit_returnorder__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_service__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__audit_cancelorder_audit_cancelorder__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__audit_returnorder_audit_returnorder__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__return_detail_return_detail__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__audit_cancelorder_audit_cancelorder__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__audit_returnorder_audit_returnorder__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__return_detail_return_detail__ = __webpack_require__(117);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3173,7 +3342,7 @@ UnauditTabs = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UnauditCancelorder; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_cancelorder_audit_cancelorder__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_cancelorder_audit_cancelorder__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_service__ = __webpack_require__(5);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3414,8 +3583,8 @@ UnauditCancelorder = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UnauditReturnorder; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_returnorder_audit_returnorder__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__return_detail_return_detail__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__audit_returnorder_audit_returnorder__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__return_detail_return_detail__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_service__ = __webpack_require__(5);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3772,7 +3941,7 @@ ReturnedDetail = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handle_selfgift_handle_selfgift__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__handle_selfgift_handle_selfgift__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__handle_expressgift_handle_expressgift__ = __webpack_require__(119);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4684,8 +4853,8 @@ var BrandshopOrderList_1;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__withdraw_withdraw__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mycode_mycode__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mycode_mycode__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__detail_tabs_detail_tabs__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__award_tabs_award_tabs__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__withdraw_record_withdraw_record__ = __webpack_require__(235);
@@ -5933,7 +6102,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_pipe__ = __webpack_require__(351);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_qrcode__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_login_login__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_login_login__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_forget_forget__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_update_pwd_update_pwd__ = __webpack_require__(238);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_home_home__ = __webpack_require__(211);
@@ -5950,17 +6119,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_unhandle_tabs_unhandle_tabs__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_unaudit_cancelorder_unaudit_cancelorder__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_unaudit_returnorder_unaudit_returnorder__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_audit_cancelorder_audit_cancelorder__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_audit_returnorder_audit_returnorder__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_return_detail_return_detail__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_audit_cancelorder_audit_cancelorder__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_audit_returnorder_audit_returnorder__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_return_detail_return_detail__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_returned_detail_returned_detail__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_unhandle_expressgift_unhandle_expressgift__ = __webpack_require__(354);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_unhandle_selfgift_unhandle_selfgift__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_handle_selfgift_handle_selfgift__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_handle_selfgift_handle_selfgift__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_handle_expressgift_handle_expressgift__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_withdraw_withdraw__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_withdraw_record_withdraw_record__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_mycode_mycode__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_mycode_mycode__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_award_tabs_award_tabs__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_award_activity_award_activity__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__pages_award_order_award_order__ = __webpack_require__(234);
@@ -6132,7 +6301,7 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_login_login__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_login_login__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_tabs_tabs__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__ = __webpack_require__(240);
@@ -6772,7 +6941,7 @@ UnhandleExpressgift = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UnhandleSelfgift; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handle_selfgift_handle_selfgift__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handle_selfgift_handle_selfgift__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_service__ = __webpack_require__(5);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7055,7 +7224,7 @@ BindAccount = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_buffer__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7352,178 +7521,6 @@ TabsPage = __decorate([
 ], TabsPage);
 
 //# sourceMappingURL=tabs.js.map
-
-/***/ }),
-
-/***/ 61:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HandleSelfgift; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_service__ = __webpack_require__(5);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var HandleSelfgift = (function () {
-    function HandleSelfgift(navCtrl, alertCtrl, appService) {
-        this.navCtrl = navCtrl;
-        this.alertCtrl = alertCtrl;
-        this.appService = appService;
-        this.handleSeflGiftArray = [];
-        this.start = 0;
-        this.limit = 10;
-        this.showNoMore = false;
-        this.load = {};
-        this.loadingShow = true;
-        this.requestDefeat = false;
-        this.showInfinite = false;
-        this.down = true;
-        this.up = false;
-        this.load = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].load;
-        this.getHandleSelfGiftList();
-    }
-    //进入页面，请求接口，得到数据
-    HandleSelfgift.prototype.getHandleSelfGiftList = function () {
-        var _this = this;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit; //brandshopSeq=${this.brandshopSeqId}
-        this.appService.httpGet(url).then(function (data) {
-            _this.loadingShow = false;
-            if (data.count == 0) {
-                //空空如也
-                _this.noData = true;
-            }
-            else {
-                _this.noData = false;
-                _this.showInfinite = true;
-                if (_this.start < data.count) {
-                    if (_this.up) {
-                        (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
-                        _this.start += _this.limit;
-                    }
-                    else if (_this.down) {
-                        _this.handleSeflGiftArray = data.data;
-                        _this.start += _this.limit;
-                        _this.content.scrollTo(0, 0, 0);
-                    }
-                }
-                else {
-                    _this.showNoMore = true;
-                }
-            }
-            var _a;
-        }).catch(function (error) {
-            _this.appService.getToken(error, function () {
-                _this.getHandleSelfGiftList();
-            });
-            _this.loadingShow = false;
-            console.log(error);
-            _this.showInfinite = false;
-            _this.requestDefeat = true;
-        });
-    };
-    // 下拉刷新请求数据
-    HandleSelfgift.prototype.refreshGetHandleSelfGiftList = function (refresher) {
-        var _this = this;
-        this.start = 0;
-        this.down = true;
-        this.up = false;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
-        this.appService.httpGet(url).then(function (data) {
-            refresher.complete();
-            if (data.count == 0) {
-                //空空如也
-                _this.noData = true;
-            }
-            else {
-                _this.noData = false;
-                _this.showInfinite = true;
-                if (data.data.length != 0) {
-                    _this.handleSeflGiftArray = data.data;
-                    _this.start += _this.limit;
-                }
-                else {
-                    _this.showNoMore = true;
-                }
-            }
-        }).catch(function (error) {
-            _this.appService.getToken(error, function () {
-                _this.refreshGetHandleSelfGiftList(refresher);
-            });
-            _this.handleSeflGiftArray = [];
-            refresher.complete();
-            console.log(error);
-            _this.showInfinite = false;
-            _this.requestDefeat = true;
-        });
-    };
-    // 上拉刷新请求数据
-    HandleSelfgift.prototype.infiniteGetHandleSelfGiftList = function (infiniteScroll) {
-        var _this = this;
-        this.down = false;
-        this.up = true;
-        var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getGiftList + "?type=2&start=" + this.start + "&limit=" + this.limit;
-        this.appService.httpGet(url).then(function (data) {
-            infiniteScroll.complete();
-            if (data.count == 0) {
-                //空空如也
-                _this.noData = true;
-            }
-            else {
-                _this.noData = false;
-                if (data.data.length != 0) {
-                    (_a = _this.handleSeflGiftArray).push.apply(_a, data.data);
-                    _this.start += _this.limit;
-                }
-                else {
-                    _this.showNoMore = true;
-                }
-            }
-            var _a;
-        }).catch(function (error) {
-            _this.appService.getToken(error, function () {
-                _this.infiniteGetHandleSelfGiftList(infiniteScroll);
-            });
-            infiniteScroll.complete();
-            console.log(error);
-            _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-        });
-    };
-    //请求失败后刷新
-    HandleSelfgift.prototype.requestDefeatRefresh = function () {
-        this.requestDefeat = false;
-        this.loadingShow = true;
-        this.start = 0;
-        this.down = true;
-        this.up = false;
-        this.getHandleSelfGiftList();
-    };
-    return HandleSelfgift;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
-], HandleSelfgift.prototype, "content", void 0);
-HandleSelfgift = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'handle-selfgift',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已兑换自提赠品</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n	<ion-refresher (ionRefresh)="refreshGetHandleSelfGiftList($event)" *ngIf="!loadingShow">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="gift-list">\n\n	<!-- loading -->\n\n	<div class="loading-wrapper" *ngIf="loadingShow">\n\n		<div>\n\n			<ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n		</div>\n\n		<div [innerHTML]="load.content"></div>\n\n	</div>\n\n	<div class="gift-item" *ngFor = "let item of handleSeflGiftArray">\n\n	  <dl>\n\n		<dt><img [src]="item.imageName | handleGiftImage" alt=""></dt>\n\n		<dd class="product-title">\n\n		  <h2>{{item.giftName}}</h2>\n\n			<span class="unstart">{{ item.giftType | setHandleGiftType }}</span>\n\n		</dd>\n\n			<dd class="member-phone">会员手机：{{item.memberPhone}}</dd>\n\n			<dd class="member-phone" *ngIf = "item.giftType==\'0\'">预约手机：{{item.reservePhone}}</dd>\n\n		  <dd class="get-time">领取时间：{{item.receiveDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n		  <dd class="get-time exchangeTime">兑换时间：{{item.useDate | date:\'yyyy-MM-dd HH:mm:ss\'}}</dd>\n\n	  </dl>\n\n	  <div class="reserve-time">\n\n		<div class="show-time" *ngIf = "item.giftType==\'0\'">预约到店时间：{{item.reserveShopTime | date:\'yyyy-MM-dd HH:mm:ss\'}}</div>\n\n		<div class="show-time">导购员：{{item.brandshopUserName}}</div>\n\n	  </div>\n\n	</div>\n\n	</div>\n\n	<ion-infinite-scroll (ionInfinite)="infiniteGetHandleSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">\n\n		<ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n	</ion-infinite-scroll>\n\n	<div class="no-data" *ngIf = "noData">\n\n		<img src="./assets/image/nodata.png" alt="">\n\n		<p>空空如也</p>\n\n	</div>\n\n	<div class="btn-noMore" *ngIf = "showNoMore">\n\n		<span>—— 没有更多已兑换赠品了 ——</span>\n\n	</div>\n\n	<div class="request-defeat" *ngIf = "requestDefeat">\n\n		<img src="./assets/image/requestDefeat.png" alt="">\n\n		<p>啊哦！页面走丢了</p>\n\n		<button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n			刷新再找一找\n\n		</button>\n\n	</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\handle-selfgift\handle-selfgift.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
-], HandleSelfgift);
-
-//# sourceMappingURL=handle-selfgift.js.map
 
 /***/ })
 
