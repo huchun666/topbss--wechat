@@ -18,6 +18,7 @@ export class OrderLayer {
   down: Boolean;//下拉刷新和返回上一级页面时
   skuAttrValue: any = [];//sku切换时选中的值
   attrSeqArr: any = [];//选中属性的attrSeq数组
+  attrSeqArrPJ: any = [];//拼接的attrSeq数组
   attrValueArr: any = [];//选中属性的attrValue数组
   warehouseCount: number;
   fileSeq: string;//图片
@@ -69,14 +70,17 @@ export class OrderLayer {
         for (let i = 0; i < this.attrMap.length; i++) {
           this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
         }
+        for (let i = 0; i < this.attrMap.length; i++) {
+          this.attrSeqArrPJ.push(this.attrMap[i][0].attrSeq);
+        }
         this.attrValueArr = this.skuAttrValue;
       } else {
         this.orderLayerData = {}
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-        this.getProductSkuWithDefault();
-      });
+				this.getProductSkuWithDefault();
+			});
       this.loadingShow = false;
       this.isShowAddNumber = false;
       console.log(error);
@@ -123,18 +127,24 @@ export class OrderLayer {
     var currentValue = event.target.getAttribute("ng-reflect-value");
     if (this.attrValueArr[index] != currentValue) {
       this.attrValueArr[index] = currentValue;
+      this.attrSeqArrPJ[index] = this.attrSeqArr[index];
     } else {
       this.attrValueArr[index] = "";
+      this.attrSeqArrPJ[index] = "";
       event.target.setAttribute("checked", false);
     }
     let attrSeqString = "";
     let attrValueString = "";
     let attrString = "";
-    this.attrSeqArr.map(function (item, i) {
-      attrSeqString += "&" + "attrSeqArr=" + item;
+    this.attrSeqArrPJ.map(function (item, i) {
+      if (item) {
+        attrSeqString += "&" + "attrSeqArr=" + item;
+      }
     })
     this.attrValueArr.map(function (item, i) {
-      attrValueString += "&" + "attrValueArr=" + item;
+      if (item) {
+        attrValueString += "&" + "attrValueArr=" + item;
+      }
     })
     attrString = attrSeqString + attrValueString;
     let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
