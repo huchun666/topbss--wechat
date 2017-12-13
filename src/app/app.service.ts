@@ -120,7 +120,8 @@ export class AppService {
   //post request
   httpPost(url: string, body: any) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer '+ this.getItem('tpb_token'),
+      'content-type' : 'application/json'
     });
     return this.http.post(url, body, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())

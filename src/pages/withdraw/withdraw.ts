@@ -29,13 +29,21 @@ export class Withdraw {
     }
     this.isAllow = false;
     let url = `${AppConfig.API.withdraw}`;
-    let body = Number(this.amount).toFixed(2);
+    let body = Number(Number(this.amount).toFixed(2));
     this.appService.httpPost(url, body).then(data => {
       this.isAllow = true;
     }).catch(error => {
       this.appService.getToken(error, () => {
         this.withdraw();
       });
+      if (error.type) {
+        let alert = this.alertCtrl.create({
+          title: '提示',
+          subTitle: error.message,
+          buttons: ['确定']
+        });
+        alert.present();
+      }
       console.log(error);
       this.isAllow = true
     });
