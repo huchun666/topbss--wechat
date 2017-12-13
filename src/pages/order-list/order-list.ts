@@ -170,7 +170,7 @@ export class OrderList {
 
   // 上拉加载更多 请求数据
   loadMore(infiniteScroll) {
-    let url = `${AppConfig.API.getOrderList}?userType=A&start=${this.start}&limit=${this.pageSize}`;
+    let url = `${AppConfig.API.getOrderList}?userType=B&start=${this.start}&limit=${this.pageSize}`;
     if (this.paramsDate != '')
       url += this.paramsDate;
     if (this.paramsStatus != '')

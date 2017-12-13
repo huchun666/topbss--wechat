@@ -62,12 +62,11 @@
           <dd class="sku-list">
             <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>
           </dd>
-          <dd class='price'>￥{{ product.unitPrice }}</dd>
+          <dd class='price' *ngIf="order.userType != 'B'">￥{{ product.unitPrice }}</dd>
+          <dd class='price' *ngIf="order.userType == 'B'">商品总额：￥{{ product.unitPrice }}</dd>
           <dd class="count">X{{ product.number }}</dd>
         </dl>
       </div>
-
-
 
       <!-- 已完成订单 -->
       <div class="orderOperate">
@@ -95,6 +94,7 @@
         <div class="pay-money">
           会员实付金额
           <span>￥{{ order.payAmount }}</span>
+          
         </div>
         <div class="btn-show" (click)="showDetail(i)">
           <span *ngIf="isShowDetail[i] == false">点击查看明细</span>
