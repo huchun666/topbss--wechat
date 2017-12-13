@@ -97,15 +97,15 @@ export class Home {
         signature: data.signature,
         jsApiList: ['scanQRCode']
       });
-      wx.error(function(res){
-        console.log("微信验证失败"+res);
-        let alert = self.alertCtrl.create({
-          title: '提示',
-          subTitle: '扫描失败，请重新再试',
-          buttons: ['确定']
-        });
-        alert.present();
-      });
+      // wx.error(function(res){
+      //   console.log("微信验证失败"+res);
+      //   let alert = self.alertCtrl.create({
+      //     title: '提示',
+      //     subTitle: '扫描失败，请重新再试',
+      //     buttons: ['确定']
+      //   });
+      //   alert.present();
+      // });
       wx.scanQRCode({
         needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
         scanType: ["qrCode","barCode"],
