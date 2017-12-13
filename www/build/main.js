@@ -1989,7 +1989,11 @@ var OrderLayer = (function () {
                     }
                 }
                 for (var i = 0; i < _this.attrMap.length; i++) {
-                    _this.attrSeqArr.push(_this.attrMap[i][0].attrSeq);
+                    for (var j = 0; j < _this.attrMap[i].length; j++) {
+                        if (_this.attrMap[i][j].selectedAttrValue == "selectedAttrValue") {
+                            _this.attrSeqArr.push(_this.attrMap[i][j].attrSeq);
+                        }
+                    }
                 }
                 _this.attrValueArr = _this.skuAttrValue;
             }
@@ -2044,19 +2048,25 @@ var OrderLayer = (function () {
         var currentValue = event.target.getAttribute("ng-reflect-value");
         if (this.attrValueArr[index] != currentValue) {
             this.attrValueArr[index] = currentValue;
+            this.attrSeqArr[index] = this.attrSeqArr[index];
         }
         else {
             this.attrValueArr[index] = "";
+            this.attrSeqArr[index] = "";
             event.target.setAttribute("checked", false);
         }
         var attrSeqString = "";
         var attrValueString = "";
         var attrString = "";
         this.attrSeqArr.map(function (item, i) {
-            attrSeqString += "&" + "attrSeqArr=" + item;
+            if (item) {
+                attrSeqString += "&" + "attrSeqArr=" + item;
+            }
         });
         this.attrValueArr.map(function (item, i) {
-            attrValueString += "&" + "attrValueArr=" + item;
+            if (item) {
+                attrValueString += "&" + "attrValueArr=" + item;
+            }
         });
         attrString = attrSeqString + attrValueString;
         var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.getValidSKUAttrValue + "?brandshopSeq=" + this.brandshopSeq + "&productSeq=" + this.orderLayerData.productSeq + "&skulength=" + this.orderLayerData.skuLength + attrString;

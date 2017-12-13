@@ -67,7 +67,11 @@ export class OrderLayer {
           }
         }
         for (let i = 0; i < this.attrMap.length; i++) {
-          this.attrSeqArr.push(this.attrMap[i][0].attrSeq);
+          for (let j = 0; j < this.attrMap[i].length; j++) {
+            if (this.attrMap[i][j].selectedAttrValue == "selectedAttrValue") {
+              this.attrSeqArr.push(this.attrMap[i][j].attrSeq);
+            }
+          }
         }
         this.attrValueArr = this.skuAttrValue;
       } else {
@@ -123,18 +127,24 @@ export class OrderLayer {
     var currentValue = event.target.getAttribute("ng-reflect-value");
     if (this.attrValueArr[index] != currentValue) {
       this.attrValueArr[index] = currentValue;
+      this.attrSeqArr[index] = this.attrSeqArr[index];
     } else {
       this.attrValueArr[index] = "";
+      this.attrSeqArr[index] = "";
       event.target.setAttribute("checked", false);
     }
     let attrSeqString = "";
     let attrValueString = "";
     let attrString = "";
     this.attrSeqArr.map(function (item, i) {
-      attrSeqString += "&" + "attrSeqArr=" + item;
+      if (item) {
+        attrSeqString += "&" + "attrSeqArr=" + item;
+      }
     })
     this.attrValueArr.map(function (item, i) {
-      attrValueString += "&" + "attrValueArr=" + item;
+      if (item) {
+        attrValueString += "&" + "attrValueArr=" + item;
+      }
     })
     attrString = attrSeqString + attrValueString;
     let url = `${AppConfig.API.getValidSKUAttrValue}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.orderLayerData.productSeq}&skulength=${this.orderLayerData.skuLength}${attrString}`;
