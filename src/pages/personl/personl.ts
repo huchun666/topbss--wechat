@@ -90,13 +90,8 @@ export class Personl {
     }
     let pageModal = this.modalCtrl.create(page, {'param1': param1, 'param2': param2});
     pageModal.onDidDismiss(data => {
-      let componentName = pageModal['_component'].name; //获取返回页面名
-      if (data) {
-        if (data.isRefash){
-          this.getCurrent();
-          this.getAccount();
-        }
-      }
+      this.getCurrent();
+      this.getAccount();
     });
     pageModal.present();
   }
