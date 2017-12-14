@@ -27,7 +27,7 @@ export class OrderInfo {
   }
   presentConfirm() {
 	const alert = this.alertCtrl.create({
-		message: '确认提货完成',
+    message: '确认提货完成',
 		buttons: [
 		  {
 		    text: '查看订单',  //type: 0
