@@ -1,0 +1,18 @@
+version: '2.1'
+networks:
+   default:
+      external:
+         name: spring-cloud-network
+services:
+  wechat-server:
+    container_name: wechat-server
+    volumes:
+      - ./www:/usr/share/nginx/html:ro
+    image: nginx
+    restart: always
+    environment:
+      - VIRTUAL_HOST=mobile.91topbaby.com
+      - LETSENCRYPT_HOST=mobile.91topbaby.com
+      - LETSENCRYPT_EMAIL=qing.wang@61topbaby.com
+    ports:
+      - 10088:80
