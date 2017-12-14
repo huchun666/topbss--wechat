@@ -28551,8 +28551,9 @@ order-store .total input {
   border: none;
   height: 26px;
   line-height: 20px;
-  width: 96%;
+  width: 86%;
   text-align: right;
+        padding-right: 10%;
 }
 
 order-store .btn-confirm {

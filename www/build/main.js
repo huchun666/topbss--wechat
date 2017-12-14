@@ -2328,6 +2328,7 @@ var OrderStore = (function () {
         else {
             this.appService.toast('不能超出库存哦', 1000, 'middle');
             this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productSkuDTO.stock;
+            this.warehouseUpdate(index, "reset");
         }
     };
     //确认订单
