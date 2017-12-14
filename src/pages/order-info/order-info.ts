@@ -48,7 +48,7 @@ export class OrderInfo {
     public navParams: NavParams,
     public appService: AppService
   ) {
-		this.getOrderDetail();
+    this.getOrderDetail();
   }
   presentConfirm() {
     if (!this.isAllow) {
@@ -113,5 +113,5 @@ export class OrderInfo {
           alert.present();
         }
       });
-    }
   }
+}
