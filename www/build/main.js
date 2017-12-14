@@ -1210,7 +1210,6 @@ var AddAccount = (function () {
         var _this = this;
         //重定向判断
         if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
-            console.log("inter");
             this.accountContent = false;
             var loading_1 = this.appService.loading();
             loading_1.present();
@@ -4143,11 +4142,9 @@ var UnhandleTabs = (function () {
         this.requestDefeat = false;
         setTimeout(function () {
             if (_this.currentIndex == 0) {
-                _this.unhandleSeflGiftArray = [];
                 _this.getUnhandleSelfGiftList();
             }
             else {
-                _this.unhandleExpressGiftArray = [];
                 _this.getUnhandleExpressGiftList();
             }
             refresher.complete();
@@ -4310,6 +4307,8 @@ var OrderList = (function () {
         this.showNoMore = false;
         this.loadingShow = true;
         this.load = {};
+        this.up = false; //上拉刷新和第一次进入页面时
+        this.down = true; //下拉刷新和返回上一级页面时
         this.dateEndMin = '1970'; //结束日期的最小值
         this.requestDefeat = false;
         this.showInfinite = true;
@@ -4372,14 +4371,31 @@ var OrderList = (function () {
         this.appService.httpGet(url).then(function (data) {
             _this.loadingShow = false;
             if (_this.start < data.count) {
+                _this.showNoMore = false;
+                _this.noData = false;
                 _this.start += _this.pageSize;
-                (_a = _this.orderList).push.apply(_a, data.data);
-                for (var i = 0; i < _this.orderList.length; i++) {
-                    _this.isShowDetail[i] = false;
+                _this.showInfinite = true;
+                if (_this.up) {
+                    (_a = _this.orderList).push.apply(_a, data.data);
+                    for (var i = 0; i < _this.orderList.length; i++) {
+                        _this.isShowDetail[i] = false;
+                    }
+                }
+                else if (_this.down) {
+                    _this.orderList = data.data;
+                    for (var i = 0; i < _this.orderList.length; i++) {
+                        _this.isShowDetail[i] = false;
+                    }
                 }
             }
             else if (data.count == 0) {
                 _this.noData = true;
+                _this.showNoMore = false;
+                _this.orderList = [];
+            }
+            else if (data.data.length == 0) {
+                _this.noData = false;
+                _this.showNoMore = true;
             }
             var _a;
         }).catch(function (error) {
@@ -4427,6 +4443,7 @@ var OrderList = (function () {
     };
     // 进入门店所有订单
     OrderList.prototype.goBrandshoOrder = function () {
+        this.orderList = [];
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__brandshop_order_list_brandshop_order_list__["a" /* BrandshopOrderList */]);
     };
     // 清除开始日期
@@ -4443,15 +4460,15 @@ var OrderList = (function () {
     // 下拉刷新请求数据
     OrderList.prototype.doRefresh = function (refresher) {
         var _this = this;
-        this.showNoMore = false;
-        this.requestDefeat = false;
-        this.noData = false;
         this.start = 0;
-        this.orderList = [];
+        this.down = true;
+        this.up = false;
+        this.requestDefeat = false;
         setTimeout(function () {
             _this.getOrderList();
             refresher.complete();
         }, __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].LOAD_TIME);
+        this.showNoMore = false;
     };
     // 上拉加载更多 请求数据
     OrderList.prototype.loadMore = function (infiniteScroll) {
@@ -4553,6 +4570,8 @@ var BrandshopOrderList = BrandshopOrderList_1 = (function () {
         this.dateStartMax = ''; //开始日期的最大值
         this.requestDefeat = false;
         this.showInfinite = true;
+        this.up = false; //上拉刷新和第一次进入页面时
+        this.down = true; //下拉刷新和返回上一级页面时
         this.orderStatusList = [{
                 label: "全部",
                 status: 'all'
@@ -4594,14 +4613,31 @@ var BrandshopOrderList = BrandshopOrderList_1 = (function () {
         this.appService.httpGet(url).then(function (data) {
             _this.loadingShow = false;
             if (_this.start < data.count) {
+                _this.showNoMore = false;
+                _this.noData = false;
                 _this.start += _this.pageSize;
-                (_a = _this.orderList).push.apply(_a, data.data);
-                for (var i = 0; i < _this.orderList.length; i++) {
-                    _this.isShowDetail[i] = false;
+                _this.showInfinite = true;
+                if (_this.up) {
+                    (_a = _this.orderList).push.apply(_a, data.data);
+                    for (var i = 0; i < _this.orderList.length; i++) {
+                        _this.isShowDetail[i] = false;
+                    }
+                }
+                else if (_this.down) {
+                    _this.orderList = data.data;
+                    for (var i = 0; i < _this.orderList.length; i++) {
+                        _this.isShowDetail[i] = false;
+                    }
                 }
             }
             else if (data.count == 0) {
                 _this.noData = true;
+                _this.showNoMore = false;
+                _this.orderList = [];
+            }
+            else if (data.data.length == 0) {
+                _this.noData = false;
+                _this.showNoMore = true;
             }
             var _a;
         }).catch(function (error) {
@@ -4663,15 +4699,15 @@ var BrandshopOrderList = BrandshopOrderList_1 = (function () {
     // 下拉刷新请求数据
     BrandshopOrderList.prototype.doRefresh = function (refresher) {
         var _this = this;
-        this.showNoMore = false;
-        this.requestDefeat = false;
-        this.noData = false;
         this.start = 0;
-        this.orderList = [];
+        this.down = true;
+        this.up = false;
+        this.requestDefeat = false;
         setTimeout(function () {
             _this.getOrderList();
             refresher.complete();
         }, __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].LOAD_TIME);
+        this.showNoMore = false;
     };
     // 上拉加载更多 请求数据
     BrandshopOrderList.prototype.loadMore = function (infiniteScroll) {
@@ -5286,12 +5322,12 @@ var DetailTabs = (function () {
         this.requestDefeat = false;
         setTimeout(function () {
             if (_this.currentStatus == 0) {
-                _this.orderDetail = [];
                 _this.getOrderDetail();
+                _this.getBonusSum1();
             }
             else {
-                _this.awardDetail = [];
                 _this.getAwardDetail();
+                _this.getBonusSum2();
             }
             refresher.complete();
         }, __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].LOAD_TIME);
@@ -5603,12 +5639,12 @@ var AwardTabs = (function () {
         this.requestDefeat = false;
         setTimeout(function () {
             if (_this.currentStatus == 0) {
-                _this.orderDetail = [];
                 _this.getOrderDetail();
+                _this.getBonusSum1();
             }
             else {
-                _this.awardDetail = [];
                 _this.getAwardDetail();
+                _this.getBonusSum2();
             }
             refresher.complete();
         }, __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].LOAD_TIME);
@@ -5622,7 +5658,7 @@ __decorate([
 ], AwardTabs.prototype, "content", void 0);
 AwardTabs = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'award-tabs',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-tabs\award-tabs.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>已审核明细</ion-title>\n\n  </ion-navbar>\n\n  <ion-toolbar class="filter-box">\n\n    <div class="status-box">\n\n      <ul>\n\n        <li *ngFor="let orderStatus of statusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>\n\n      </ul>\n\n    </div>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher (ionRefresh)="pullRefresh($event)" *ngIf="!loadingShow" style="margin-top: 50px;z-index:100">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="withdraw-record">\n\n    <div class="withdraw-total">\n\n      <span *ngIf="isShow">总金额：￥ {{ sum }}</span>\n\n    </div>\n\n    <div class="record-list1" *ngIf="currentStatus == 0">\n\n      <div class="withdraw-item" *ngFor="let item of orderDetail">\n\n        <ul>\n\n          <li class=\'order-number\'>订单编号：{{ item.relateId }}</li>\n\n          <li class=\'base-number\'>结算基数：￥{{ item.baseAmount }}</li>\n\n          <li class=\'percentage\'>奖励比例：{{ item.percent }}</li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多赠品了 ——</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n    </div>\n\n    <div class="record-list2" *ngIf="currentStatus == 1">\n\n      <div class="withdraw-item" *ngFor="let item of awardDetail">\n\n        <ul>\n\n          <li class=\'order-number\'>\n\n            <span *ngIf="item.type === 3">订单编号：{{ item.relateId }}</span>\n\n            <span *ngIf="item.type === 4">会员手机：{{ item.mobile }}</span>\n\n          </li>\n\n          <li class=\'date\'>活动时间：{{ item.startTime | date:\'yyyy.MM.dd\' }}--{{ item.endTime | date:\'yyyy.MM.dd\' }} </li>\n\n          <li class=\'base-number\'>\n\n            <span *ngIf="item.type === 3">结算基数：￥{{ item.baseAmount }}</span>\n\n            <span *ngIf="item.type === 4">结算基数：——</span>\n\n          </li>\n\n          <li class=\'percentage\'>\n\n            <span *ngIf="item.type === 3">奖励比例：{{ item.percent }}</span>\n\n            <span *ngIf="item.type === 4">奖励比例：——</span>\n\n          </li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多赠品了 ——</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n\n\n    </div>\n\n\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="orderDetail.length < count">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中">\n\n    </ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-tabs\award-tabs.html"*/
+        selector: 'award-tabs',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-tabs\award-tabs.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>审核中明细</ion-title>\n\n  </ion-navbar>\n\n  <ion-toolbar class="filter-box">\n\n    <div class="status-box">\n\n      <ul>\n\n        <li *ngFor="let orderStatus of statusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>\n\n      </ul>\n\n    </div>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="loading-wrapper" *ngIf="isLoadingShow">\n\n    <div>\n\n      <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n    </div>\n\n    <div [innerHTML]="load.content"></div>\n\n  </div>\n\n  <ion-refresher (ionRefresh)="pullRefresh($event)" *ngIf="!loadingShow" style="margin-top: 50px;z-index:100">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n  <div class="withdraw-record">\n\n    <div class="withdraw-total">\n\n      <span *ngIf="isShow">总金额：￥ {{ sum }}</span>\n\n    </div>\n\n    <div class="record-list1" *ngIf="currentStatus == 0">\n\n      <div class="withdraw-item" *ngFor="let item of orderDetail">\n\n        <ul>\n\n          <li class=\'order-number\'>订单编号：{{ item.relateId }}</li>\n\n          <li class=\'base-number\'>结算基数：￥{{ item.baseAmount }}</li>\n\n          <li class=\'percentage\'>奖励比例：{{ item.percent }}</li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多赠品了 ——</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n    </div>\n\n    <div class="record-list2" *ngIf="currentStatus == 1">\n\n      <div class="withdraw-item" *ngFor="let item of awardDetail">\n\n        <ul>\n\n          <li class=\'order-number\'>\n\n            <span *ngIf="item.type === 3">订单编号：{{ item.relateId }}</span>\n\n            <span *ngIf="item.type === 4">会员手机：{{ item.mobile }}</span>\n\n          </li>\n\n          <li class=\'date\'>活动时间：{{ item.startTime | date:\'yyyy.MM.dd\' }}--{{ item.endTime | date:\'yyyy.MM.dd\' }} </li>\n\n          <li class=\'base-number\'>\n\n            <span *ngIf="item.type === 3">结算基数：￥{{ item.baseAmount }}</span>\n\n            <span *ngIf="item.type === 4">结算基数：——</span>\n\n          </li>\n\n          <li class=\'percentage\'>\n\n            <span *ngIf="item.type === 3">奖励比例：{{ item.percent }}</span>\n\n            <span *ngIf="item.type === 4">奖励比例：——</span>\n\n          </li>\n\n          <li class="money">奖励金额：￥{{ item.amount }}</li>\n\n        </ul>\n\n      </div>\n\n      <div class="no-data" *ngIf="noData">\n\n        <img src="./assets/image/nodata.png" alt="">\n\n        <p>空空如也</p>\n\n      </div>\n\n      <div class="btn-noMore" *ngIf="showNoMore">\n\n        <span>—— 没有更多赠品了 ——</span>\n\n      </div>\n\n      <div class="request-defeat" *ngIf="requestDefeat">\n\n        <img src="./assets/image/requestDefeat.png" alt="">\n\n        <p>啊哦！页面走丢了</p>\n\n        <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">\n\n          刷新再找一找\n\n        </button>\n\n      </div>\n\n      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">\n\n        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n      </ion-infinite-scroll>\n\n\n\n    </div>\n\n\n\n  </div>\n\n  <div class="request-defeat" *ngIf="requestFail">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="orderDetail.length < count">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中">\n\n    </ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\award-tabs\award-tabs.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["q" /* ViewController */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
 ], AwardTabs);
