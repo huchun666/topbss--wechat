@@ -80,7 +80,7 @@ var Login = (function () {
             this.isPwd = false;
             var loading_1 = this.appService.loading();
             loading_1.present();
-            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"]('testClient:secret').toString('base64');
+            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"]('topBssClient:client@topbaby').toString('base64');
             this.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Headers */]({
                 'Authorization': 'Basic ' + base64encode,
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -1081,7 +1081,7 @@ var AddAccount = (function () {
             this.appService.httpPut(editCurrentUrl, editParameters).then(function (data) {
                 if (data.type == "success") {
                     _this.loadingShow = false;
-                    var redirectUri = "https://mobile.91topbaby.com";
+                    var redirectUri = "https://mobile.61topbaby.com";
                     var encodeUrl = encodeURIComponent(redirectUri);
                     var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + encodeUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                     window.location.href = getCodeUrl;
@@ -7704,8 +7704,8 @@ var AppConfig = AppConfig_1 = (function () {
     return AppConfig;
 }());
 //域名基地址
-AppConfig.hostUrl = "https://rest.91topbaby.com";
-AppConfig.mainUrl = "91topbaby.com";
+AppConfig.hostUrl = "https://rest.61topbaby.com";
+AppConfig.mainUrl = "61topbaby.com";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
@@ -7717,7 +7717,7 @@ AppConfig.client_id = "topbss";
 //secret  生产client_pwd
 AppConfig.grant_type = "password";
 //appid
-AppConfig.appID = "wxadf96ade9aed2e45"; //后面需改
+AppConfig.appID = "wxa7257af9de640f52"; //后面需改
 //appSecret
 AppConfig.appSecret = "83af89b678690d2b8e12ecb693485308"; //后面需改
 //接口url
