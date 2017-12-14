@@ -123,15 +123,14 @@ export class OrderLayer {
   }
 
   // 切换sku属性时
-  changeRadio(event, index, skuAttrAttrValue) {
-    var currentValue = skuAttrAttrValue;
+  changeRadio(event, index, currentValue) {
     if (this.attrValueArr[index] != currentValue) {
       this.attrValueArr[index] = currentValue;
       this.attrSeqArrPJ[index] = this.attrSeqArr[index];
     } else {
       this.attrValueArr[index] = "";
       this.attrSeqArrPJ[index] = "";
-      event.target.setAttribute("checked", false);
+      event.target.setAttribute("class", "labelTag");
     }
     let attrSeqString = "";
     let attrValueString = "";
@@ -158,7 +157,7 @@ export class OrderLayer {
       this.attrImageSeq = this.orderLayerData.attrImageSeq;
     }).catch(error => {
       this.appService.getToken(error, () => {
-        this.changeRadio(event, index, skuAttrAttrValue);
+        this.changeRadio(event, index, currentValue);
       });
       console.log(error);
       this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
