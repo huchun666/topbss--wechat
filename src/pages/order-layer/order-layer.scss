@@ -71,7 +71,7 @@ order-layer {
 		}
 		.sku-value {
 			margin: 0 10px 0 -8px;
-			label {
+			li.labelTag {
 				border: solid 1px #ccc;
 				border-radius: 4px;
 				display: block;
@@ -83,12 +83,16 @@ order-layer {
 				text-align: center;
 				margin: 0 0 6px 8px;
 				position: relative;
-				input {
-					visibility: hidden;
-					position: absolute;
-					left: 0;
+				span {
+					display: inline-block;
 					width: 100%;
 					height: 100%;
+				}
+				span.modal {
+					color: #ccc;
+					position: absolute;
+					top: 0;
+					left: 0;
 				}
 			}
 			.active {
