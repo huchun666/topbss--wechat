@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.topbaby.bss" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.topbaby.bss" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>topbss-mobile</name>
     <description>淘璞官方门店导购服务平台，在这里，您可以随时了解到最新福利政策，掌握最佳的赚钱攻略.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <author email="dev@61topbaby.com" href="https://www.61topbaby.com">Topbaby Dev Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
