@@ -1073,7 +1073,6 @@ var AddAccount = (function () {
             this.loadingShow = true;
             var editCurrentUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.current;
             var editParameters = {
-                id: this.userId,
                 salesName: this.salesName,
                 cellphone: this.cellphone,
                 idcard: this.IDcard
@@ -1209,9 +1208,9 @@ var AddAccount = (function () {
     };
     AddAccount.prototype.ionViewDidEnter = function () {
         var _this = this;
-        this.userId = this.navParams.get("userId");
         //重定向判断
-        if (this.userId && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+        if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+            console.log("inter");
             this.accountContent = false;
             var loading_1 = this.appService.loading();
             loading_1.present();
@@ -4896,26 +4895,10 @@ var Personl = (function () {
             console.log(error);
         });
     };
-    Personl.prototype.getAccountCreat = function () {
-        var _this = this;
-        var url = __WEBPACK_IMPORTED_MODULE_10__app_app_service__["a" /* AppConfig */].API.account;
-        this.appService.httpGet(url)
-            .then(function (data) {
-            var pageModal = _this.modalCtrl.create(_this.pageList.addAccount, { 'userId': data.userId });
-            pageModal.present();
-        })
-            .catch(function (error) {
-            _this.appService.getToken(error, function () {
-                _this.getAccountCreat();
-            });
-            console.log(error);
-            var pageModal = _this.modalCtrl.create(_this.pageList.addAccount, { 'userId': null });
-            pageModal.present();
-        });
-    };
     Personl.prototype.ionViewDidEnter = function () {
         if ((this.appService.getItem("stopReturn") != "have") && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
-            this.getAccountCreat();
+            var pageModal = this.modalCtrl.create(this.pageList.addAccount);
+            pageModal.present();
         }
     };
     return Personl;
