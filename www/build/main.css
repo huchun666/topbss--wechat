@@ -26504,6 +26504,167 @@ award-tabs .tabs-list[tabsPlacement=top] .tabbar {
   border-bottom: solid 1px #f0f0f0;
 }
 
+award-tabs .filter-box {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  width: 100%;
+  padding: 0;
+}
+
+award-tabs .filter-box .toolbar-background {
+  background: #fff;
+  border-bottom: solid 1px #f5f5f5;
+}
+
+award-tabs .filter-box .toolbar-content {
+  line-height: 44px;
+  padding: 0;
+  color: #333;
+  position: static;
+}
+
+award-tabs .filter-box .search-title {
+  width: 60px;
+  position: absolute;
+  left: 1rem;
+}
+
+award-tabs .filter-box .search-list {
+  margin-left: 60px;
+}
+
+award-tabs .filter-box .search-list .time-start,
+award-tabs .filter-box .search-list .time-end {
+  width: calc(50% - 10px);
+  float: left;
+  position: relative;
+  margin-top: 5px;
+}
+
+award-tabs .filter-box .search-list .datetime {
+  padding: 0;
+}
+
+award-tabs .filter-box .search-list .datetime-text {
+  background: #fff;
+  height: 32px;
+  line-height: 32px;
+  border: solid 1px #ccc;
+  border-radius: 16px;
+  width: 100%;
+  display: block;
+  color: #5e9eff;
+  padding: 0 1rem;
+}
+
+award-tabs .filter-box .search-list .go {
+  width: 20px;
+  display: block;
+  float: left;
+  text-align: center;
+  line-height: 32px;
+  margin-top: 5px;
+}
+
+award-tabs .filter-box .search-list .clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 32px;
+  padding: 0 10px;
+  color: #999;
+}
+
+award-tabs .filter-box .time-box,
+award-tabs .filter-box .status-box {
+  padding: 0 .8rem;
+}
+
+award-tabs .filter-box .status-box {
+  border-top: solid 1px #f5f5f5;
+}
+
+award-tabs .filter-box .status-box ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+}
+
+award-tabs .filter-box .status-box ul li {
+  color: #999;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+}
+
+award-tabs .filter-box .status-box ul .active {
+  border-bottom: solid 4px #5e9efe;
+  color: #5e9efe;
+}
+
+award-tabs .withdraw-record {
+  color: #333;
+  font-size: 1.5rem;
+}
+
+award-tabs .withdraw-total {
+  line-height: 46px;
+  min-height: 16px;
+  padding: 0 1rem;
+  margin-top: 44px;
+}
+
+award-tabs .record-list2 {
+  padding: 0 1rem;
+}
+
+award-tabs .record-list2 .withdraw-item {
+  background: #fff;
+  line-height: 24px;
+  margin-bottom: 5px;
+  padding: 12px 1rem;
+  position: relative;
+}
+
+award-tabs .record-list2 .withdraw-item .money {
+  color: #5e9efe;
+}
+
+award-tabs .record-list2 .withdraw-item .order-number,
+award-tabs .record-list2 .withdraw-item .date {
+  color: #999;
+}
+
+award-tabs .record-list1 {
+  padding: 0 1rem;
+}
+
+award-tabs .record-list1 .withdraw-item {
+  background: #fff;
+  line-height: 24px;
+  margin-bottom: 5px;
+  padding: 12px 1rem;
+  position: relative;
+}
+
+award-tabs .record-list1 .withdraw-item .money {
+  color: #5e9efe;
+}
+
+award-tabs .record-list1 .withdraw-item .order-number,
+award-tabs .record-list1 .withdraw-item .date {
+  color: #999;
+}
+
+award-tabs .record-list1 .withdraw-item .order-number span {
+  float: right;
+  color: #96dd91;
+  margin-right: 1rem;
+}
+
 creat-order .back-button {
   display: block !important;
 }
@@ -26662,6 +26823,167 @@ withdraw-detailTabs .tabs-list .tab-button {
 
 withdraw-detailTabs .tabs-list[tabsPlacement=top] .tabbar {
   border-bottom: solid 1px #f0f0f0;
+}
+
+withdraw-detailTabs .filter-box {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  width: 100%;
+  padding: 0;
+}
+
+withdraw-detailTabs .filter-box .toolbar-background {
+  background: #fff;
+  border-bottom: solid 1px #f5f5f5;
+}
+
+withdraw-detailTabs .filter-box .toolbar-content {
+  line-height: 44px;
+  padding: 0;
+  color: #333;
+  position: static;
+}
+
+withdraw-detailTabs .filter-box .search-title {
+  width: 60px;
+  position: absolute;
+  left: 1rem;
+}
+
+withdraw-detailTabs .filter-box .search-list {
+  margin-left: 60px;
+}
+
+withdraw-detailTabs .filter-box .search-list .time-start,
+withdraw-detailTabs .filter-box .search-list .time-end {
+  width: calc(50% - 10px);
+  float: left;
+  position: relative;
+  margin-top: 5px;
+}
+
+withdraw-detailTabs .filter-box .search-list .datetime {
+  padding: 0;
+}
+
+withdraw-detailTabs .filter-box .search-list .datetime-text {
+  background: #fff;
+  height: 32px;
+  line-height: 32px;
+  border: solid 1px #ccc;
+  border-radius: 16px;
+  width: 100%;
+  display: block;
+  color: #5e9eff;
+  padding: 0 1rem;
+}
+
+withdraw-detailTabs .filter-box .search-list .go {
+  width: 20px;
+  display: block;
+  float: left;
+  text-align: center;
+  line-height: 32px;
+  margin-top: 5px;
+}
+
+withdraw-detailTabs .filter-box .search-list .clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 32px;
+  padding: 0 10px;
+  color: #999;
+}
+
+withdraw-detailTabs .filter-box .time-box,
+withdraw-detailTabs .filter-box .status-box {
+  padding: 0 .8rem;
+}
+
+withdraw-detailTabs .filter-box .status-box {
+  border-top: solid 1px #f5f5f5;
+}
+
+withdraw-detailTabs .filter-box .status-box ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+}
+
+withdraw-detailTabs .filter-box .status-box ul li {
+  color: #999;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+}
+
+withdraw-detailTabs .filter-box .status-box ul .active {
+  border-bottom: solid 4px #5e9efe;
+  color: #5e9efe;
+}
+
+withdraw-detailTabs .withdraw-record {
+  color: #333;
+  font-size: 1.5rem;
+}
+
+withdraw-detailTabs .withdraw-total {
+  line-height: 46px;
+  min-height: 16px;
+  padding: 0 1rem;
+  margin-top: 44px;
+}
+
+withdraw-detailTabs .record-list2 {
+  padding: 0 1rem;
+}
+
+withdraw-detailTabs .record-list2 .withdraw-item {
+  background: #fff;
+  line-height: 24px;
+  margin-bottom: 5px;
+  padding: 12px 1rem;
+  position: relative;
+}
+
+withdraw-detailTabs .record-list2 .withdraw-item .money {
+  color: #5e9efe;
+}
+
+withdraw-detailTabs .record-list2 .withdraw-item .order-number,
+withdraw-detailTabs .record-list2 .withdraw-item .date {
+  color: #999;
+}
+
+withdraw-detailTabs .record-list1 {
+  padding: 0 1rem;
+}
+
+withdraw-detailTabs .record-list1 .withdraw-item {
+  background: #fff;
+  line-height: 24px;
+  margin-bottom: 5px;
+  padding: 12px 1rem;
+  position: relative;
+}
+
+withdraw-detailTabs .record-list1 .withdraw-item .money {
+  color: #5e9efe;
+}
+
+withdraw-detailTabs .record-list1 .withdraw-item .order-number,
+withdraw-detailTabs .record-list1 .withdraw-item .date {
+  color: #999;
+}
+
+withdraw-detailTabs .record-list1 .withdraw-item .order-number span {
+  float: right;
+  color: #96dd91;
+  margin-right: 1rem;
 }
 
 forget .btn-forget {
