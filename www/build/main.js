@@ -2586,6 +2586,7 @@ var GiftInfo = (function () {
             if (error.type) {
                 var alert_1 = _this.alertCtrl.create({
                     message: error.message,
+                    enableBackdropDismiss: false,
                     buttons: [
                         {
                             text: '确定',
@@ -2741,6 +2742,7 @@ var OrderInfo = (function () {
             if (error.type) {
                 var alert_1 = _this.alertCtrl.create({
                     message: error.message,
+                    enableBackdropDismiss: false,
                     buttons: [
                         {
                             text: '确定',

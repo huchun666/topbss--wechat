@@ -61,6 +61,7 @@ export class OrderInfo {
 			if (error.type) {
 				const alert = this.alertCtrl.create({
 					message: error.message,
+					enableBackdropDismiss: false,
 					buttons: [
 						{
 							text: '确定',
