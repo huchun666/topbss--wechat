@@ -2626,6 +2626,7 @@ var GiftInfo = (function () {
         var _this = this;
         var alert = this.alertCtrl.create({
             message: '确认兑换完成',
+            enableBackdropDismiss: false,
             buttons: [
                 {
                     text: '查看赠品',
@@ -2777,6 +2778,7 @@ var OrderInfo = (function () {
         var _this = this;
         var alert = this.alertCtrl.create({
             message: '确认提货完成',
+            enableBackdropDismiss: false,
             buttons: [
                 {
                     text: '查看订单',
