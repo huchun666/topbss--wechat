@@ -62,20 +62,19 @@ export class OrderList {
     this.dateStartMax = this.appService.reserveDate();
     this.dateEndMax = this.appService.reserveDate();
     this.currentStatus = this.orderStatusList[0].status;
-    this.events.subscribe('order:status', (orderStatus) => {
-      console.log('subscribe events');
-      this.currentStatus = orderStatus;
-      this.paramsStatus += '&status=' + orderStatus;
-    });
+    // this.events.subscribe('order:status', (orderStatus) => {
+    //   this.currentStatus = orderStatus;
+    //   this.paramsStatus += '&status=' + orderStatus;
+    // });
     this.orderList = [];
     this.getOrderList();
   }
   // 每次离开页面的时候执行
-  ionViewDidLeave(){
-    this.events.unsubscribe('order:status', () => {
-      console.log('did unsubscribe');
-    });
-  }
+  // ionViewDidLeave(){
+  //   this.events.unsubscribe('order:status', () => {
+  //     console.log('did unsubscribe');
+  //   });
+  // }
   // 获取订单列表
   getOrderList() {
     this.loadingShow = true;
