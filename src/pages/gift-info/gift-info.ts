@@ -65,6 +65,7 @@ export class GiftInfo {
   alertLayer() {
     const alert = this.alertCtrl.create({
       message: '确认兑换完成',
+      enableBackdropDismiss: false,
       buttons: [
         {
           text: '查看赠品',
@@ -96,6 +97,7 @@ export class GiftInfo {
         if (error.type) {
           const alert = this.alertCtrl.create({
             message: error.message,
+            enableBackdropDismiss: false,
             buttons: [
               {
                 text: '确定',
