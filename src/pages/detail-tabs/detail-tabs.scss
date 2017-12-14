@@ -35,4 +35,143 @@ withdraw-detailTabs {
 			border-bottom: solid 1px #f0f0f0;
 		}
   }
-}
+  // 固定时间
+  .filter-box {
+		position: fixed;
+		top: 44px;
+		left: 0;
+		width: 100%;
+		padding: 0;
+		.toolbar-background {
+			background: #fff;
+			border-bottom: solid 1px #f5f5f5;
+		}
+		.toolbar-content {
+			line-height: 44px;
+			padding: 0;
+			color: #333;
+			position: static;
+		}
+		.search-title {
+			width: 60px;
+			position: absolute;
+			left: 1rem;
+		}
+		.search-list {
+			margin-left: 60px; 
+			.time-start,
+			.time-end {
+				width:-moz-calc(50% - 10px); 
+				width:-webkit-calc(50% - 10px);
+				width: calc(50% - 10px); 
+				float: left;
+				position: relative;
+				margin-top: 5px;
+			}
+			.datetime {
+				padding: 0;
+			}
+			.datetime-text {
+				background: #fff;
+				height: 32px;
+				line-height: 32px;
+				border: solid 1px #ccc;
+				border-radius: 16px;
+				width: 100%;
+				display: block;
+				color: #5e9eff;
+				padding: 0 1rem;
+			}
+			.go {
+				width: 20px;
+				display: block;
+				float: left;
+				text-align: center;
+				line-height: 32px;
+				margin-top: 5px;
+			}
+			.clear {
+				position: absolute;
+				right: 0;
+				top: 0;
+				line-height: 32px;
+				padding: 0 10px;
+				color: #999;
+			}
+		}
+		.time-box,
+		.status-box {
+			padding: 0 .8rem;
+		}
+		.status-box {
+			border-top: solid 1px #f5f5f5;
+			ul {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				li {
+					color: #999;
+					-webkit-box-flex: 1;
+					-webkit-flex: 1;
+					-ms-flex: 1;
+					flex: 1;
+					text-align: center;
+				}
+				.active {
+					border-bottom: solid 4px #5e9efe;
+					color: #5e9efe;
+				}
+			}
+		}
+  }
+  .withdraw-record {
+		color: #333;
+		font-size: 1.5rem;
+  }
+  .withdraw-total {
+		line-height: 46px;
+		min-height: 16px;
+    padding: 0 1rem;
+    margin-top: 44px;
+  }
+  .record-list2 {
+    padding: 0 1rem;
+    .withdraw-item {
+		background: #fff;
+		line-height: 24px;
+		margin-bottom: 5px;
+		padding: 12px 1rem;
+		position: relative;
+		.money {
+			color: #5e9efe;
+		}
+		.order-number,
+		.date {
+			color: #999;
+		}
+    }
+	}
+	.record-list1 {
+		padding: 0 1rem;
+  .withdraw-item {
+		background: #fff;
+		line-height: 24px;
+		margin-bottom: 5px;
+		padding: 12px 1rem;
+		position: relative;
+		.money {
+			color: #5e9efe;
+		}
+		.order-number,
+		.date {
+			color: #999;
+		}
+		.order-number span{
+			float: right;
+			color: #96dd91;
+			margin-right: 1rem;
+		}
+   }
+
+
+	}}
