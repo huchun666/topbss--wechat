@@ -40,7 +40,6 @@ export class AddAccount {
       this.loadingShow = true;
       let editCurrentUrl = AppConfig.API.current;
       let editParameters = {
-        id: this.userId,
         salesName: this.salesName,
         cellphone: this.cellphone,
         idcard: this.IDcard
@@ -168,9 +167,8 @@ export class AddAccount {
       });
   }
   ionViewDidEnter() {
-    this.userId = this.navParams.get("userId");
     //重定向判断
-    if (this.userId && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+    if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
       this.accountContent = false;
       let loading = this.appService.loading();
       loading.present();

@@ -137,25 +137,10 @@ export class Personl {
         console.log(error);
       });
   }
-  getAccountCreat() {
-    let url = AppConfig.API.account;
-    this.appService.httpGet(url)
-    .then( data => {
-      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': data.userId});
-      pageModal.present();
-    })
-    .catch(error => {
-      this.appService.getToken(error, () => {
-        this.getAccountCreat();
-      });
-      console.log(error);
-      let pageModal = this.modalCtrl.create(this.pageList.addAccount,{'userId': null});
-      pageModal.present();
-    });
-  }
   ionViewDidEnter() {
     if ((this.appService.getItem("stopReturn") != "have") && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
-      this.getAccountCreat();
+      let pageModal = this.modalCtrl.create(this.pageList.addAccount);
+      pageModal.present();
     }
   }
 }
