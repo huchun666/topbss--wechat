@@ -131,8 +131,9 @@ export class Home {
                   self.qrCodeScan();
                 } else if (data.type === '0') {
                   self.navCtrl.parent.select(1);
-                  let orderStatus = 'C';
-                  self.events.publish('order:status', orderStatus);
+                  // 注册事件-订单状态(扫码取货传订单状态)
+                  // let orderStatus = 'C';
+                  // self.events.publish('order:status', orderStatus);
                 }
               });
               myCodeModal.present();

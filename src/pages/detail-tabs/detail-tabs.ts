@@ -258,11 +258,11 @@ export class DetailTabs {
     this.requestDefeat = false;
     setTimeout(() => {
       if (this.currentStatus == 0) {
-        this.orderDetail = [];
         this.getOrderDetail();
+        this.getBonusSum1();
       } else {
-        this.awardDetail = [];
         this.getAwardDetail();
+        this.getBonusSum2();
       }
       refresher.complete();
     }, AppConfig.LOAD_TIME);
