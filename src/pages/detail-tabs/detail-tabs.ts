@@ -258,10 +258,8 @@ export class DetailTabs {
     this.requestDefeat = false;
     setTimeout(() => {
       if (this.currentStatus == 0) {
-        this.orderDetail = [];
         this.getOrderDetail();
       } else {
-        this.awardDetail = [];
         this.getAwardDetail();
       }
       refresher.complete();
