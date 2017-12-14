@@ -11,8 +11,8 @@ services:
     image: nginx
     restart: always
     environment:
-      - VIRTUAL_HOST=mobile.91topbaby.com
-      - LETSENCRYPT_HOST=mobile.91topbaby.com
+      - VIRTUAL_HOST=mobile.61topbaby.com
+      - LETSENCRYPT_HOST=mobile.61topbaby.com
       - LETSENCRYPT_EMAIL=qing.wang@61topbaby.com
     ports:
       - 10088:80

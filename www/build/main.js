@@ -80,7 +80,7 @@ var Login = (function () {
             this.isPwd = false;
             var loading_1 = this.appService.loading();
             loading_1.present();
-            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"]('testClient:secret').toString('base64');
+            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"]('topBssClient:client@topbaby').toString('base64');
             this.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Headers */]({
                 'Authorization': 'Basic ' + base64encode,
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -1081,7 +1081,7 @@ var AddAccount = (function () {
             this.appService.httpPut(editCurrentUrl, editParameters).then(function (data) {
                 if (data.type == "success") {
                     _this.loadingShow = false;
-                    var redirectUri = "https://mobile.91topbaby.com";
+                    var redirectUri = "https://mobile.61topbaby.com";
                     var encodeUrl = encodeURIComponent(redirectUri);
                     var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + encodeUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                     window.location.href = getCodeUrl;
@@ -6317,12 +6317,14 @@ MyApp = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return HandleGiftImagePipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return ReasonTypePipe; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(4);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 // 订单状态的转换
 // pass:通过，字体颜色为绿  audit：字体为红色 (根据状态为其显示添加css)
@@ -6585,7 +6587,7 @@ var ProductSkuDTOImagePipe = (function () {
     function ProductSkuDTOImagePipe() {
     }
     ProductSkuDTOImagePipe.prototype.transform = function (productSkuDTOImage) {
-        return productSkuDTOImage ? "https://www.91topbaby.com/evercos/common/file/content/" + productSkuDTOImage : "./assets/image/nodata.png";
+        return productSkuDTOImage ? "https://www." + __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppConfig */].mainUrl + "/evercos/common/file/content/" + productSkuDTOImage : "./assets/image/nodata.png";
     };
     return ProductSkuDTOImagePipe;
 }());
@@ -6598,7 +6600,7 @@ var HandleGiftImagePipe = (function () {
     function HandleGiftImagePipe() {
     }
     HandleGiftImagePipe.prototype.transform = function (handleGiftImage) {
-        return handleGiftImage ? "https://images.91topbaby.com/" + handleGiftImage : "./assets/image/nodata.png";
+        return handleGiftImage ? "" + (__WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppConfig */].imgUrl + handleGiftImage) : "./assets/image/nodata.png";
     };
     return HandleGiftImagePipe;
 }());
@@ -7704,8 +7706,9 @@ var AppConfig = AppConfig_1 = (function () {
     return AppConfig;
 }());
 //域名基地址
-AppConfig.hostUrl = "https://rest.91topbaby.com";
-AppConfig.mainUrl = "91topbaby.com";
+AppConfig.hostUrl = "https://rest.61topbaby.com";
+AppConfig.mainUrl = "61topbaby.com";
+AppConfig.imgUrl = "https://images.61topbaby.com/";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
@@ -7717,7 +7720,7 @@ AppConfig.client_id = "topbss";
 //secret  生产client_pwd
 AppConfig.grant_type = "password";
 //appid
-AppConfig.appID = "wxadf96ade9aed2e45"; //后面需改
+AppConfig.appID = "wxa7257af9de640f52"; //后面需改
 //appSecret
 AppConfig.appSecret = "83af89b678690d2b8e12ecb693485308"; //后面需改
 //接口url

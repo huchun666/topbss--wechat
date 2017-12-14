@@ -9,8 +9,10 @@ import { Buffer } from 'buffer';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://rest.91topbaby.com";
-  static mainUrl : string = "91topbaby.com";
+  static hostUrl: string = "https://rest.61topbaby.com";
+  static mainUrl : string = "61topbaby.com";
+  static imgUrl: string = "https://images.61topbaby.com/";
+
   
   //请求超时时间
   static TIME_OUT: number = 30000;
@@ -28,7 +30,7 @@ export class AppConfig {
   static grant_type: string = "password";
 
   //appid
-  static appID: string = "wxadf96ade9aed2e45";//后面需改
+  static appID: string = "wxa7257af9de640f52";//后面需改
 
   //appSecret
   static appSecret: string = "83af89b678690d2b8e12ecb693485308";//后面需改
