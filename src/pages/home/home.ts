@@ -114,8 +114,9 @@ export class Home {
               this.qrCodeScan();
             } else if (data.type === '0') {
               this.navCtrl.parent.select(1);
-              let orderStatus = 'C';
-              this.events.publish('order:status', orderStatus);
+              // 注册事件-订单状态(扫码取货传订单状态)
+              // let orderStatus = 'C';
+              // this.events.publish('order:status', orderStatus);
             }
           });
           myCodeModal.present();
