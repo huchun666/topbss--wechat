@@ -1575,7 +1575,7 @@ var Home = (function () {
     Home.prototype.ionViewDidEnter = function () {
         var _this = this;
         this.events.subscribe('check: status', function (data) {
-            if (data) {
+            if (data == true) {
                 _this.navCtrl.parent.select(1);
             }
         });
@@ -2441,7 +2441,8 @@ var PaymentCode = (function () {
         this.appService = appService;
         this.events = events;
         this.myCode = "";
-        this.isStatus = true;
+        this.isStatus = false;
+        this.isOrderAgain = false;
         this.myCode = this.navParams.get('returnUrl');
         this.totalPriceFloat = this.navParams.get('totalPriceFloat');
         this.warehouseId = this.navParams.get('warehouseId');
@@ -2454,13 +2455,13 @@ var PaymentCode = (function () {
     // 再来一单
     PaymentCode.prototype.orderAgain = function () {
         var _this = this;
+        this.isOrderAgain = true;
         var loading = this.appService.loading();
         loading.present();
         var url = "" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.warehouseEmpty;
         this.appService.httpPut(url, null).then(function (data) {
             if (data.type == "success") {
                 loading.dismiss();
-                console.log(_this.navCtrl.length());
                 _this.navCtrl.remove(_this.navCtrl.length() - 2, 2);
             }
         }).catch(function (error) {
@@ -2482,7 +2483,7 @@ var PaymentCode = (function () {
         var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.checkStatus + "?warehouseId=" + this.warehouseId;
         this.timer = window.setInterval(function () {
             self.appService.httpGet(url).then(function (data) {
-                if (data.status == 0) {
+                if (data.status == 0 && !self.isOrderAgain) {
                     self.isStatus = true;
                     window.clearInterval(self.timer);
                     self.navCtrl.remove(0, self.navCtrl.length());
