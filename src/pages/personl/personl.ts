@@ -92,13 +92,6 @@ export class Personl {
     pageModal.onDidDismiss(data => {
       this.getCurrent();
       this.getAccount();
-      let componentName = pageModal['_component'].name; //获取返回页面名
-      if (data) {
-        if (data.isRefash){
-          this.getCurrent();
-          this.getAccount();
-        }
-      }
     });
     pageModal.present();
   }
