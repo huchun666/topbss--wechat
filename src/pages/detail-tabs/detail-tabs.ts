@@ -259,8 +259,10 @@ export class DetailTabs {
     setTimeout(() => {
       if (this.currentStatus == 0) {
         this.getOrderDetail();
+        this.getBonusSum1();
       } else {
         this.getAwardDetail();
+        this.getBonusSum2();
       }
       refresher.complete();
     }, AppConfig.LOAD_TIME);
