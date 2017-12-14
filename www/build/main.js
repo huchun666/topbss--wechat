@@ -1512,8 +1512,9 @@ var Home = (function () {
                             }
                             else if (data.type === '0') {
                                 self.navCtrl.parent.select(1);
-                                var orderStatus = 'C';
-                                self.events.publish('order:status', orderStatus);
+                                // 注册事件-订单状态(扫码取货传订单状态)
+                                // let orderStatus = 'C';
+                                // self.events.publish('order:status', orderStatus);
                             }
                         });
                         myCodeModal.present();
@@ -4332,7 +4333,6 @@ var OrderList = (function () {
     }
     // 每次进入页面的时候都会执行
     OrderList.prototype.ionViewDidEnter = function () {
-        var _this = this;
         this.start = 0;
         this.paramsDate = '';
         this.paramsStatus = '';
@@ -4341,20 +4341,19 @@ var OrderList = (function () {
         this.dateStartMax = this.appService.reserveDate();
         this.dateEndMax = this.appService.reserveDate();
         this.currentStatus = this.orderStatusList[0].status;
-        this.events.subscribe('order:status', function (orderStatus) {
-            console.log('subscribe events');
-            _this.currentStatus = orderStatus;
-            _this.paramsStatus += '&status=' + orderStatus;
-        });
+        // this.events.subscribe('order:status', (orderStatus) => {
+        //   this.currentStatus = orderStatus;
+        //   this.paramsStatus += '&status=' + orderStatus;
+        // });
         this.orderList = [];
         this.getOrderList();
     };
     // 每次离开页面的时候执行
-    OrderList.prototype.ionViewDidLeave = function () {
-        this.events.unsubscribe('order:status', function () {
-            console.log('did unsubscribe');
-        });
-    };
+    // ionViewDidLeave(){
+    //   this.events.unsubscribe('order:status', () => {
+    //     console.log('did unsubscribe');
+    //   });
+    // }
     // 获取订单列表
     OrderList.prototype.getOrderList = function () {
         var _this = this;
