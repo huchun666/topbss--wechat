@@ -9,8 +9,9 @@ export class PaymentCode {
   myCode: string = "";
   totalPriceFloat: any;
   warehouseId: number;
-  isStatus: Boolean = true;
+  isStatus: Boolean = false;
   timer: any;
+  isOrderAgain: Boolean = false;
   constructor(
     public navCtrl: NavController,
     public app: App,
@@ -29,13 +30,13 @@ export class PaymentCode {
   }
   // 再来一单
   orderAgain() {
+    this.isOrderAgain = true;
     let loading = this.appService.loading();
     loading.present();
     let url = `${AppConfig.API.warehouseEmpty}`
     this.appService.httpPut(url, null).then( data => {
       if (data.type=="success") {
         loading.dismiss();
-        console.log(this.navCtrl.length())
         this.navCtrl.remove(this.navCtrl.length()-2, 2);
       }
     }).catch(error=>{
@@ -57,7 +58,7 @@ export class PaymentCode {
     let url = `${AppConfig.API.checkStatus}?warehouseId=${this.warehouseId}`;
     this.timer = window.setInterval(function() {
       self.appService.httpGet(url).then(data => {
-      if (data.status == 0) {
+      if (data.status == 0 && !self.isOrderAgain) {
         self.isStatus = true;
         window.clearInterval(self.timer);
         self.navCtrl.remove(0, self.navCtrl.length());
