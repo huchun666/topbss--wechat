@@ -273,3 +273,12 @@ ion-loading {
 		width: calc(100% - 2rem);
   }
 }
+@media only screen and (min-height: 600px) and (min-width: 768px) {
+  .modal-wrapper {
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+  }
+}
