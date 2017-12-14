@@ -96,7 +96,8 @@ export class OrderInfo {
   }
   alertLayer() {
     const alert = this.alertCtrl.create({
-      message: '确认提货完成',
+			message: '确认提货完成',
+			enableBackdropDismiss: false,
       buttons: [
         {
           text: '查看订单',  //type: 0
