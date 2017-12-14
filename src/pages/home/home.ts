@@ -108,7 +108,7 @@ export class Home {
   }
   ionViewDidEnter() {
     this.events.subscribe('check: status', (data) => {
-      if (data) {
+      if (data == true) {
         this.navCtrl.parent.select(1);
       }
     });
