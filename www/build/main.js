@@ -2506,13 +2506,10 @@ PaymentCode = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'payment-code',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\payment-code\payment-code.html"*/'<ion-header>\n\n  <ion-navbar hideBackButton>\n\n    <ion-title text-center>收款码</ion-title>\n\n    <div class="btn-close" (touchstart)="goTabs()">关闭</div>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n	<div class="qrcode-box">\n\n		<div class=\'qrcode\'>\n\n			<qr-code [value]="myCode" [size]="200"></qr-code>\n\n			<span>扫码完成支付</span>\n\n			<div class="total">￥{{ totalPriceFloat }}</div>\n\n		</div>\n\n	</div>\n\n	<div class="btn-list">\n\n		<button class="btn-update" ion-button outline (touchstart)="updateOrder()">修改此单</button>\n\n		<button class="order-again" ion-button (touchstart)="orderAgain()">再来一单</button>\n\n	</div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\payment-code\payment-code.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _e || Object])
 ], PaymentCode);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=payment-code.js.map
 
 /***/ }),
