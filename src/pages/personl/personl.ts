@@ -80,6 +80,7 @@ export class Personl {
   /* 退出登录 */
   logOut() {
     this.appService.setItem("tpb_token","");
+    this.appService.setItem("refresh_token","");
     let appNav = this.app.getRootNav();
     appNav.setRoot(Login);
   }
