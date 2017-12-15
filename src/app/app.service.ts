@@ -189,7 +189,11 @@ export class AppService {
         self.toast('登录已过期，请重新登录', 1000, 'middle');
         self.setItem("tpb_token","");
         self.setItem("refresh_token","");
-        setTimeout(history.go(0), 1000);
+        if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
+          window.location.href = window.location.href.split("?")[0];
+        }else {
+          setTimeout(history.go(0), 1000);
+        }
       })
     }
   }
