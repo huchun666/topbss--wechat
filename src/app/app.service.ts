@@ -177,7 +177,10 @@ export class AppService {
         callback();
       }).catch(err => {
         console.log(err);
-        self.toast('网络异常，请稍后重试', 1000, 'middle');
+        self.toast('登录已过期，请重新登录', 1000, 'middle');
+        self.setItem("tpb_token","");
+        self.setItem("refresh_token","");
+        setTimeout(history.go(0), 1000);
       })
     }
   }
