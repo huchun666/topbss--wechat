@@ -7850,7 +7850,7 @@ var AppService = (function () {
     AppService.prototype.getToken = function (error, callback) {
         var self = this;
         if (error.error == "invalid_token") {
-            var base64encode = new __WEBPACK_IMPORTED_MODULE_5_buffer__["Buffer"]('testClient:secret').toString('base64');
+            var base64encode = new __WEBPACK_IMPORTED_MODULE_5_buffer__["Buffer"]('topBssClient:client@topbaby').toString('base64');
             self.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({
                 'Authorization': 'Basic ' + base64encode,
                 'Content-Type': 'application/x-www-form-urlencoded'

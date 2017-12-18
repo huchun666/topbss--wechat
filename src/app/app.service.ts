@@ -173,7 +173,7 @@ export class AppService {
   getToken(error, callback) {
     let self = this;
     if (error.error == "invalid_token") {
-      let base64encode = new Buffer('testClient:secret').toString('base64');
+      let base64encode = new Buffer('topBssClient:client@topbaby').toString('base64');
       self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
