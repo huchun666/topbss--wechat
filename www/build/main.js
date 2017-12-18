@@ -80,7 +80,7 @@ var Login = (function () {
             this.isPwd = false;
             var loading_1 = this.appService.loading();
             loading_1.present();
-            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"]('topBssClient:client@topbaby').toString('base64');
+            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"](__WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].client_id + ":" + __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].secret).toString('base64');
             this.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Headers */]({
                 'Authorization': 'Basic ' + base64encode,
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -125,22 +125,7 @@ var Login = (function () {
             }).catch(function (error) {
                 loading_1.dismiss();
                 console.log("\u8BBF\u95EE\u9519\u8BEF:" + error);
-                if (error.status == 401 && error.json().error == "invalid_token") {
-                    var base64encode_1 = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"]('testClient:secret').toString('base64');
-                    _this.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Headers */]({
-                        'Authorization': 'Basic ' + base64encode_1,
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    });
-                    var oauthTokenUrl_1 = __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].oauthTokenUrl;
-                    var body_1 = "grant_type=" + __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].grant_type + "&refresh_token=" + _this.appService.getItem("refresh_token");
-                    return _this.appService.httpPostHeader(oauthTokenUrl_1, body_1, _this.oauthTokenHeaders).then(function (data) {
-                        _this.appService.setItem("tpb_token", data.access_token);
-                        _this.appService.setItem("refresh_token", data.refresh_token);
-                    }).catch(function (err) {
-                        console.log(err);
-                    });
-                }
-                else if (error.status == 400 && error.json().error == "invalid_grant") {
+                if (error.status == 400 && error.json().error == "invalid_grant") {
                     _this.appService.toast('用户名或密码错误', 1000, 'middle');
                 }
                 else {
@@ -7716,9 +7701,10 @@ AppConfig.TIME_OUT = 30000;
 AppConfig.LOAD_TIME = 500;
 //获取token的url
 AppConfig.oauthTokenUrl = AppConfig_1.hostUrl + "/uaa/oauth/token";
-//testClient  生产client_id
-AppConfig.client_id = "topbss";
-//secret  生产client_pwd
+//测试client_id
+AppConfig.client_id = "topBssClient";
+//测试secret
+AppConfig.secret = "client@topbaby";
 AppConfig.grant_type = "password";
 //appid
 AppConfig.appID = "wxa7257af9de640f52"; //后面需改
@@ -7850,7 +7836,7 @@ var AppService = (function () {
     AppService.prototype.getToken = function (error, callback) {
         var self = this;
         if (error.error == "invalid_token") {
-            var base64encode = new __WEBPACK_IMPORTED_MODULE_5_buffer__["Buffer"]('topBssClient:client@topbaby').toString('base64');
+            var base64encode = new __WEBPACK_IMPORTED_MODULE_5_buffer__["Buffer"](AppConfig.client_id + ":" + AppConfig.secret).toString('base64');
             self.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({
                 'Authorization': 'Basic ' + base64encode,
                 'Content-Type': 'application/x-www-form-urlencoded'
