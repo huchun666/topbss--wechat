@@ -23,8 +23,11 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
-  //testClient  生产client_id
-  static client_id: string = "topbss";
+  //测试client_id
+  static client_id: string = "topBssClient";
+  
+  //测试secret
+  static secret: string = "client@topbaby";
 
   //secret  生产client_pwd
   static grant_type: string = "password";
@@ -164,7 +167,7 @@ export class AppService {
   getToken(error, callback) {
     let self = this;
     if (error.error == "invalid_token") {
-      let base64encode = new Buffer('topBssClient:client@topbaby').toString('base64');
+      let base64encode = new Buffer(`${AppConfig.client_id}:${AppConfig.secret}`).toString('base64');
       self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
