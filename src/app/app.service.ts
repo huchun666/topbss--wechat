@@ -9,9 +9,9 @@ import { Buffer } from 'buffer';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://rest.61topbaby.com";
-  static mainUrl : string = "61topbaby.com";
-  static imgUrl: string = "https://images.61topbaby.com/";
+  static hostUrl: string = "https://rest.91topbaby.com";
+  static mainUrl : string = "91topbaby.com";
+  static imgUrl: string = "https://images.91topbaby.com/";
 
   
   //请求超时时间
@@ -23,10 +23,12 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
-  //testClient  生产client_id
-  static client_id: string = "topbss";
+  //测试client_id
+  static client_id: string = "testClient";
 
-  //secret  生产client_pwd
+  //测试secret
+  static secret: string = "secret";
+
   static grant_type: string = "password";
 
   //appid
@@ -173,7 +175,7 @@ export class AppService {
   getToken(error, callback) {
     let self = this;
     if (error.error == "invalid_token") {
-      let base64encode = new Buffer('topBssClient:client@topbaby').toString('base64');
+      let base64encode = new Buffer(`${AppConfig.client_id}:${AppConfig.secret}`).toString('base64');
       self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'

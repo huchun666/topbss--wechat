@@ -80,7 +80,7 @@ var Login = (function () {
             this.isPwd = false;
             var loading_1 = this.appService.loading();
             loading_1.present();
-            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"]('topBssClient:client@topbaby').toString('base64');
+            var base64encode = new __WEBPACK_IMPORTED_MODULE_6_buffer__["Buffer"](__WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].client_id + ":" + __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].secret).toString('base64');
             this.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Headers */]({
                 'Authorization': 'Basic ' + base64encode,
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -7707,18 +7707,19 @@ var AppConfig = AppConfig_1 = (function () {
     return AppConfig;
 }());
 //域名基地址
-AppConfig.hostUrl = "https://rest.61topbaby.com";
-AppConfig.mainUrl = "61topbaby.com";
-AppConfig.imgUrl = "https://images.61topbaby.com/";
+AppConfig.hostUrl = "https://rest.91topbaby.com";
+AppConfig.mainUrl = "91topbaby.com";
+AppConfig.imgUrl = "https://images.91topbaby.com/";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
 AppConfig.LOAD_TIME = 500;
 //获取token的url
 AppConfig.oauthTokenUrl = AppConfig_1.hostUrl + "/uaa/oauth/token";
-//testClient  生产client_id
-AppConfig.client_id = "topbss";
-//secret  生产client_pwd
+//测试client_id
+AppConfig.client_id = "testClient";
+//测试secret
+AppConfig.secret = "secret";
 AppConfig.grant_type = "password";
 //appid
 AppConfig.appID = "wxa7257af9de640f52"; //后面需改
@@ -7850,7 +7851,7 @@ var AppService = (function () {
     AppService.prototype.getToken = function (error, callback) {
         var self = this;
         if (error.error == "invalid_token") {
-            var base64encode = new __WEBPACK_IMPORTED_MODULE_5_buffer__["Buffer"]('topBssClient:client@topbaby').toString('base64');
+            var base64encode = new __WEBPACK_IMPORTED_MODULE_5_buffer__["Buffer"](AppConfig.client_id + ":" + AppConfig.secret).toString('base64');
             self.oauthTokenHeaders = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({
                 'Authorization': 'Basic ' + base64encode,
                 'Content-Type': 'application/x-www-form-urlencoded'

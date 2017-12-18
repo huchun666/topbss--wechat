@@ -58,7 +58,7 @@ export class Login{
       this.isPwd = false;
       let loading = this.appService.loading();
       loading.present();
-      let base64encode = new Buffer('topBssClient:client@topbaby').toString('base64');
+      let base64encode = new Buffer(`${AppConfig.client_id}:${AppConfig.secret}`).toString('base64');
       this.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
