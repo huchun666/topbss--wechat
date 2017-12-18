@@ -7862,7 +7862,7 @@ var AppService = (function () {
                     window.location.href = window.location.href.split("?")[0];
                 }
                 else {
-                    setTimeout(history.go(0), 1000);
+                    window.location.href = window.location.href;
                 }
             });
         }
