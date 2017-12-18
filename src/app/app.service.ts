@@ -9,9 +9,9 @@ import { Buffer } from 'buffer';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://rest.61topbaby.com";
-  static mainUrl : string = "61topbaby.com";
-  static imgUrl: string = "https://images.61topbaby.com/";
+  static hostUrl: string = "https://rest.91topbaby.com";
+  static mainUrl : string = "91topbaby.com";
+  static imgUrl: string = "https://images.91topbaby.com/";
 
   
   //请求超时时间
@@ -24,10 +24,10 @@ export class AppConfig {
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
   //测试client_id
-  static client_id: string = "topBssClient";
-  
+  static client_id: string = "testClient";
+
   //测试secret
-  static secret: string = "client@topbaby";
+  static secret: string = "secret";
 
   static grant_type: string = "password";
 

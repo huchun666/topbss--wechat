@@ -5612,7 +5612,7 @@ var AwardTabs = (function () {
                 var _a;
             }).catch(function (error) {
                 _this.appService.getToken(error, function () {
-                    _this.getAwardDetail();
+                    _this.loadMore(infiniteScroll);
                 });
                 console.log(error);
                 _this.requestFail = true;
@@ -7698,9 +7698,9 @@ var AppConfig = AppConfig_1 = (function () {
     return AppConfig;
 }());
 //域名基地址
-AppConfig.hostUrl = "https://rest.61topbaby.com";
-AppConfig.mainUrl = "61topbaby.com";
-AppConfig.imgUrl = "https://images.61topbaby.com/";
+AppConfig.hostUrl = "https://rest.91topbaby.com";
+AppConfig.mainUrl = "91topbaby.com";
+AppConfig.imgUrl = "https://images.91topbaby.com/";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
@@ -7708,9 +7708,9 @@ AppConfig.LOAD_TIME = 500;
 //获取token的url
 AppConfig.oauthTokenUrl = AppConfig_1.hostUrl + "/uaa/oauth/token";
 //测试client_id
-AppConfig.client_id = "topBssClient";
+AppConfig.client_id = "testClient";
 //测试secret
-AppConfig.secret = "client@topbaby";
+AppConfig.secret = "secret";
 AppConfig.grant_type = "password";
 //appid
 AppConfig.appID = "wxa7257af9de640f52"; //后面需改
