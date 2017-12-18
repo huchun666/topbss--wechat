@@ -211,7 +211,7 @@ export class Home {
         this.getUnHandleCount();
       });
        console.log(error);
-       this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
+      //  this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
      })
   }
 }

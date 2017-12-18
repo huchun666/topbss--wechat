@@ -1479,7 +1479,7 @@ var Home = (function () {
                     return;
                 }
                 if (url.indexOf(__WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].mainUrl) < 0) {
-                    var alert_1 = self.alertCtrl.create({
+                    var alert = self.alertCtrl.create({
                         title: '提示',
                         subTitle: '请扫描淘璞系统内二维码',
                         buttons: ['确定']
@@ -1521,12 +1521,12 @@ var Home = (function () {
                         myCodeModal.present();
                     }
                     else {
-                        var alert_2 = self.alertCtrl.create({
+                        var alert = self.alertCtrl.create({
                             title: '提示',
                             subTitle: '请扫描订单或者赠品二维码',
                             buttons: ['确定']
                         });
-                        alert_2.present();
+                        alert.present();
                     }
                 }
             },
@@ -1581,7 +1581,7 @@ var Home = (function () {
                 _this.getUnHandleCount();
             });
             console.log(error);
-            _this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
+            //  this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
         });
     };
     return Home;
@@ -1590,13 +1590,10 @@ Home = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'home',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\home\home.html"*/'<ion-header class="header-title-hidden">\n\n  <ion-navbar>\n\n    <ion-title text-center>首页</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-toolbar>\n\n	  <img class="logo-img" src="./assets/image/top.png" alt="淘璞帮">\n\n		<img class="logo-text" src="./assets/image/tpb.png" alt="淘璞帮">\n\n		<!-- <img class="logo-info" src="./assets/image/info.png" alt="淘璞帮"> -->\n\n  </ion-toolbar>\n\n  <div class="menu-list">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col (touchstart)="qrCodeScan()">\n\n          <img class="logo-img" src="./assets/image/scan.png" alt="扫码确认">\n\n          <span>扫一扫</span>\n\n        </ion-col>\n\n        <ion-col (touchstart)="goMyCode()">\n\n          <img class="logo-img" src="./assets/image/mycode.png" alt="我的二维码">\n\n          <span>我的二维码</span>\n\n        </ion-col>\n\n        <ion-col (touchstart)="goCreatOrder()">\n\n          <img class="logo-img" src="./assets/image/order.png" alt="生成订单">\n\n          <span>生成订单</span>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="order-unaudit">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <dl>\n\n            <dt class="order-title">待审核订单<span>{{ cancelOrderCount + returnOrderCount }}</span></dt>\n\n            <dd>取消订单<span>({{ cancelOrderCount }})</span></dd>\n\n            <dd>退货订单<span>({{ returnOrderCount }})</span></dd>\n\n          </dl>\n\n        </ion-col>\n\n        <ion-col>\n\n          <button ion-button outline round color="light" (touchstart)="goUnAudit()">立即处理</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="gift-unhandle">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <dl>\n\n            <dt class="gift-title">待处理赠品<span>{{ selfGiftCount + expressgiftCount }}</span></dt>\n\n            <dd>自提赠品<span>({{ selfGiftCount }})</span></dd>\n\n            <dd>快递赠品<span>({{ expressgiftCount }})</span></dd>\n\n          </dl>\n\n        </ion-col>\n\n        <ion-col>\n\n          <button ion-button outline round color="light" (touchstart)="goUnHandle()">立即处理</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _e || Object])
 ], Home);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
