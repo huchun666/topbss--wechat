@@ -64,12 +64,18 @@ export class UnhandleTabs {
       this.expressGiftCount = data.count;
       this.statusList[0].num = data.count;
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getTabCount();
+      });
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
     this.appService.httpGet(urlSelf).then(data => {
       this.selfGiftCount = data.count;
       this.statusList[1].num = data.count;
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getTabCount();
+      });
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
   }
