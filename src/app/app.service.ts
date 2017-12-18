@@ -23,8 +23,11 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
-  //testClient  生产client_id
-  static client_id: string = "topbss";
+  //测试client_id
+  static client_id: string = "topBssClient";
+  
+  //测试secret
+  static secret: string = "client@topbaby";
 
   //secret  生产client_pwd
   static grant_type: string = "password";
@@ -164,7 +167,7 @@ export class AppService {
   getToken(error, callback) {
     let self = this;
     if (error.error == "invalid_token") {
-      let base64encode = new Buffer('testClient:secret').toString('base64');
+      let base64encode = new Buffer(`${AppConfig.client_id}:${AppConfig.secret}`).toString('base64');
       self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -177,7 +180,10 @@ export class AppService {
         callback();
       }).catch(err => {
         console.log(err);
-        self.toast('网络异常，请稍后重试', 1000, 'middle');
+        self.toast('登录已过期，请重新登录', 1000, 'middle');
+        self.setItem("tpb_token","");
+        self.setItem("refresh_token","");
+        setTimeout(history.go(0), 1000);
       })
     }
   }
