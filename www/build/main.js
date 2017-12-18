@@ -3871,12 +3871,18 @@ var UnhandleTabs = (function () {
             _this.expressGiftCount = data.count;
             _this.statusList[0].num = data.count;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getTabCount();
+            });
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
         });
         this.appService.httpGet(urlSelf).then(function (data) {
             _this.selfGiftCount = data.count;
             _this.statusList[1].num = data.count;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getTabCount();
+            });
             _this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
         });
     };
@@ -5260,7 +5266,7 @@ var DetailTabs = (function () {
                 var _a;
             }).catch(function (error) {
                 _this.appService.getToken(error, function () {
-                    _this.getOrderDetail();
+                    _this.loadMore(infiniteScroll);
                 });
                 console.log(error);
                 _this.requestFail = true;
@@ -5289,7 +5295,7 @@ var DetailTabs = (function () {
                 var _a;
             }).catch(function (error) {
                 _this.appService.getToken(error, function () {
-                    _this.getAwardDetail();
+                    _this.loadMore(infiniteScroll);
                 });
                 console.log(error);
                 _this.requestFail = true;
@@ -5577,7 +5583,7 @@ var AwardTabs = (function () {
                 var _a;
             }).catch(function (error) {
                 _this.appService.getToken(error, function () {
-                    _this.getOrderDetail();
+                    _this.loadMore(infiniteScroll);
                 });
                 console.log(error);
                 _this.requestFail = true;

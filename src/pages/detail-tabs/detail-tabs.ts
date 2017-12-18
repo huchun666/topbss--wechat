@@ -214,7 +214,7 @@ export class DetailTabs {
           }
         }).catch(error => {
           this.appService.getToken(error, () => {
-            this.getOrderDetail();
+            this.loadMore(infiniteScroll);
           });
           console.log(error);
           this.requestFail = true;
@@ -240,7 +240,7 @@ export class DetailTabs {
           }
         }).catch(error => {
           this.appService.getToken(error, () => {
-            this.getAwardDetail();
+            this.loadMore(infiniteScroll);
           });
           console.log(error);
           this.requestFail = true;
