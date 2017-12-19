@@ -11,9 +11,9 @@ export class HandleExpressgift {
   start: number = 0;
   limit: number = 10;
   showNoMore: Boolean = false;
-  noData: Boolean;
-  up: Boolean;//上拉刷新和第一次进入页面时
-  down: Boolean;//下拉刷新和返回上一级页面时
+  up: Boolean = true;//上拉刷新和第一次进入页面时
+  down: Boolean = false;//下拉刷新和返回上一级页面时
+  noData: Boolean = false;
   load: any = {};
   loadingShow: Boolean = true;
   requestDefeat: Boolean = false;
@@ -27,10 +27,12 @@ export class HandleExpressgift {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.getHandleExpressGiftList()
+  }
+  ionViewDidEnter(){
+    setTimeout(this.getHandleExpressGiftList(),100);
   }
   getHandleExpressGiftList() {
-    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
+    let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (data.count == 0) {
@@ -53,6 +55,9 @@ export class HandleExpressgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getHandleExpressGiftList();
+      });
       this.handleExpressGiftArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -66,7 +71,9 @@ export class HandleExpressgift {
     this.start = 0;
     this.down = true;
     this.up = false;
-    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
+    this.showNoMore = false;
+    this.showInfinite = true;
+    let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       refresher.complete();
       if (data.count == 0) {
@@ -83,6 +90,9 @@ export class HandleExpressgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetHandleExpressGiftList(refresher);
+      });
       this.handleExpressGiftArray = [];
       refresher.complete();
       console.log(error);
@@ -95,7 +105,7 @@ export class HandleExpressgift {
   infiniteGetHandleExpressGiftList(infiniteScroll) {
     this.down = false;
     this.up = true;
-    let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
       if (data.count == 0) {
@@ -111,6 +121,9 @@ export class HandleExpressgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetHandleExpressGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

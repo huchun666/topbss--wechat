@@ -52,6 +52,9 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getAuditCancelorder();
+      });
       this.auditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -65,6 +68,8 @@ export class AuditCancelorder {
     this.start = 0;
     this.down = true;
     this.up = false;
+    this.showNoMore = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
       refresher.complete();
@@ -82,6 +87,9 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetSelfGiftList(refresher);
+      });
       this.auditCancelorderArray = [];
       refresher.complete();
       console.log(error);
@@ -110,6 +118,9 @@ export class AuditCancelorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetSelfGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

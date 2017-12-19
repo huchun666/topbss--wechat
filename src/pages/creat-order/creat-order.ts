@@ -65,6 +65,9 @@ export class CreatOrder {
       }
       
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getCreatOrderList();
+      });
       this.showInfinite = false;
       this.loadingShow = false;
       this.requestDefeat = true;
@@ -94,7 +97,6 @@ export class CreatOrder {
     this.up = false;
     this.start = 0;
     this.requestDefeat = false;
-    this.searchKeyWord = event.target.value;
     if (this.searchKeyWord){
       this.loadingShow = true;
       let url = `${AppConfig.API.getBrandshopProducts}?searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
@@ -119,16 +121,21 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.onInput(event);
+        });
         console.log(error);
         this.creatOrderArray = [];
         this.requestDefeat = true;
         this.showInfinite = false;
         this.loadingShow = false;
       });
-    }else {
+    } else {
       this.start = 0;
       this.down = true;
       this.up = false;
+      this.showInfinite = true;
+      this.showNoMore = false;
       this.getCreatOrderList();
     }
   }
@@ -139,9 +146,10 @@ export class CreatOrder {
     this.down = true;
     this.up = false;
     this.requestDefeat = false;
+    this.showNoMore = false;
     let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
     // 下拉刷新时，判断当前搜索框的关键字是否为空 
-    if(this.searchKeyWord != '') {
+    if(this.searchKeyWord) {
       url = url + `&searchKeyWord=${this.searchKeyWord}`
     }
     this.appService.httpGet(url).then( data => {
@@ -160,6 +168,9 @@ export class CreatOrder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetCreatOrderList(refresher);
+      });
       this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
@@ -188,8 +199,11 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.infiniteGetCreatOrderList(infiniteScroll);
+        });
         console.log(error);
-        this.requestDefeat = true;
+        this.appService.toast("网络不好，请稍后重试", 1000, "middle")
       });
     }else {
       let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
@@ -208,9 +222,12 @@ export class CreatOrder {
           }
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.infiniteGetCreatOrderList(infiniteScroll);
+        });
         infiniteScroll.complete();
         console.log(error);
-        this.requestDefeat = true;
+        this.appService.toast("网络不好，请稍后重试", 1000, "middle")
       });
     }
   }
@@ -222,6 +239,9 @@ export class CreatOrder {
       this.warehouseCount = number;
       this.showInfinite = true;
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getWarehouseCount();
+      });
       console.log(error);
       this.showInfinite = false;
       this.requestDefeat = true;

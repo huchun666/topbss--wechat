@@ -103,6 +103,9 @@ export class AddAccount {
         this.IDcard = data.idcard;
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getCurrent();
+        });
         console.log(error);
         this.loadingShow = false;
         this.requestDefeat = true;

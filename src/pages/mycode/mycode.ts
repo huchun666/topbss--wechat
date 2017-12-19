@@ -30,21 +30,27 @@ export class MyCode {
     let url = AppConfig.API.qrcode;
     this.appService.httpGet(url)
       .then(data => {
-        this.brandshopIndexUrl = data.brandshopIndexUrl;
+        this.brandshopIndexUrl = `${data.brandshopIndexUrl}?id=${data.brandshopId}`;
         let myCodeUrl = `${data.userRecommendWechatQrCodeUrl}?type=U&userId=${data.brandshopUserId}&accessKeyId=topbabyBs&signature=${obj.signature}&expires=${obj.expires}`;
         this.getMyQRcode(myCodeUrl);
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getParams();
+        });
         console.log(error);
       });
   }
   // 获取导购员带参二维码
   getMyQRcode(paramUrl) {
-    this.appService.httpGet(paramUrl)
+    this.appService.httpGetNoAuthor(paramUrl)
       .then(data => {
         this.myCode = data.url;
       })
       .catch(error => {
+        this.appService.getToken(error, () => {
+          this.getMyQRcode(paramUrl);
+        });
         console.log(error);
       });
   }

@@ -36,6 +36,8 @@ export class Login{
       this.pwd = user.pwd;
       if (this.pwd) {
         this.rememberPassword = true;
+      }else {
+        this.rememberPassword = false;
       }
     }
   }
@@ -56,7 +58,7 @@ export class Login{
       this.isPwd = false;
       let loading = this.appService.loading();
       loading.present();
-      let base64encode = new Buffer('testClient:secret').toString('base64');
+      let base64encode = new Buffer(`${AppConfig.client_id}:${AppConfig.secret}`).toString('base64');
       this.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -100,21 +102,7 @@ export class Login{
       }).catch(error => {
         loading.dismiss();
         console.log(`访问错误:${error}`);
-        if (error.status == 401 && error.json().error == "invalid_token") {
-          let base64encode = new Buffer('testClient:secret').toString('base64');
-          this.oauthTokenHeaders = new Headers({
-            'Authorization': 'Basic '+ base64encode,
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
-          let oauthTokenUrl = AppConfig.oauthTokenUrl;
-          let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.appService.getItem("refresh_token")}`;
-          return this.appService.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
-            this.appService.setItem("tpb_token", data.access_token);
-            this.appService.setItem("refresh_token", data.refresh_token);
-          }).catch(err => {
-            console.log(err);
-          })
-        }else if (error.status == 400 && error.json().error == "invalid_grant") {
+        if (error.status == 400 && error.json().error == "invalid_grant") {
           this.appService.toast('用户名或密码错误', 1000, 'middle');
         }else {
           this.appService.toast('网络异常，请稍后重试', 1000, 'middle');

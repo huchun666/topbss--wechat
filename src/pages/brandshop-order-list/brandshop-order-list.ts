@@ -26,6 +26,8 @@ export class BrandshopOrderList {
   dateStartMax: string = ''; //开始日期的最大值
   requestDefeat: Boolean = false;
   showInfinite: Boolean = true;
+  up: Boolean = false;//上拉刷新和第一次进入页面时
+  down: Boolean = true;//下拉刷新和返回上一级页面时
   constructor(
     public navCtrl: NavController,
     public appService: AppService) {
@@ -70,12 +72,33 @@ export class BrandshopOrderList {
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (this.start < data.count) {
+        this.showNoMore = false;
+        this.noData = false;
         this.start += this.pageSize;
-        this.orderList.push(...data.data);
+        this.showInfinite = true;
+        if (this.up) {
+          this.orderList.push(...data.data);
+          for (let i = 0; i < this.orderList.length; i++) {
+            this.isShowDetail[i] = false;
+          }  
+        } else if (this.down) {
+          this.orderList = data.data;
+          for (let i = 0; i < this.orderList.length; i++) {
+            this.isShowDetail[i] = false;
+          }  
+        }
       } else if (data.count == 0) {
         this.noData = true;
+        this.showNoMore = false;
+        this.orderList = [];
+      } else if (data.data.length == 0) {
+        this.noData = false;
+        this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getOrderList();
+      });
       this.orderList = [];
       this.loadingShow = false;
       this.requestDefeat = true;
@@ -88,11 +111,11 @@ export class BrandshopOrderList {
     this.paramsDate = '';
     this.orderList = [];
     if (this.dateStart != '') {
-      this.paramsDate += `&dateStart=${this.dateStart}`;
+      this.paramsDate += `&startTime=${this.dateStart}`;
       this.dateEndMin = this.dateStart;
     }
     if (this.dateEnd != '') {
-      this.paramsDate += `&dateEnd=${this.dateEnd}`;
+      this.paramsDate += `&endTime=${this.dateEnd}`;
       this.dateStartMax = this.dateEnd;
     }
     this.content.scrollTo(0, 0, 0);
@@ -131,15 +154,15 @@ export class BrandshopOrderList {
 
   // 下拉刷新请求数据
   doRefresh(refresher) {
-    this.showNoMore = false;
-    this.requestDefeat = false;
-    this.noData = false;
     this.start = 0;
-    this.orderList = [];
+    this.down = true;
+    this.up = false;
+    this.requestDefeat = false;
     setTimeout(() => {
       this.getOrderList();
       refresher.complete();
     }, AppConfig.LOAD_TIME);
+    this.showNoMore = false;
   }
 
   // 上拉加载更多 请求数据
@@ -154,11 +177,17 @@ export class BrandshopOrderList {
       if (this.start < data.count) {
         this.orderList.push(...data.data);
         this.start += this.pageSize;
+        for (let i = 0; i < this.orderList.length; i++) {
+          this.isShowDetail[i] = false;
+        }
       } else if (data.data.length == 0) {
         this.showInfinite = false;
         this.showNoMore = true;
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.loadMore(infiniteScroll);
+      });
       infiniteScroll.complete();
       this.showInfinite = false;
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

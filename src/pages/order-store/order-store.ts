@@ -69,6 +69,9 @@ export class OrderStore {
         }
       
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getOrderStore();
+        });
         this.loadingShow = false;
         this.requestDefeat = true;
         console.log(error);
@@ -76,7 +79,7 @@ export class OrderStore {
   }
 
   //更新的函数
-  warehouseUpdate(index) {
+  warehouseUpdate(index, addOrRemove) {
     let body = [];
     let url = AppConfig.API.warehouseUpdate;
     let loading = this.appService.loading();
@@ -84,6 +87,7 @@ export class OrderStore {
     this.orderStoreDataArray.map(function(item) {
       let order = {};
       order['warehouseItemId'] = item.warehouseItemId;
+      order['warehouseId'] = item.warehouseId;
       order['itemPrice'] = item.itemPrice;
       order['productNum'] = item.productNum;
       order['remark'] = item.remark;
@@ -99,6 +103,14 @@ export class OrderStore {
         this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
       }
     }).catch(error=>{
+      this.appService.getToken(error, () => {
+        this.warehouseUpdate(index, addOrRemove);
+      });
+      if (addOrRemove == "add") {
+        this.orderStoreDataArray[index].productNum--;
+      }else if (addOrRemove == "remove") {
+        this.orderStoreDataArray[index].productNum++;
+      }
       loading.dismiss();
       console.log(error);
       this.appService.toast('更新失败，请稍后再试', 1000, 'middle');
@@ -109,7 +121,7 @@ export class OrderStore {
   addCount(index) {
     if (this.orderStoreDataArray[index].productSkuDTO.stock > this.orderStoreDataArray[index].productNum) {
       this.orderStoreDataArray[index].productNum++;
-      this.warehouseUpdate(index);
+      this.warehouseUpdate(index, "add");
     }else {
       this.appService.toast('不能添加更多宝贝了哦！', 1000, 'middle');
     }
@@ -118,7 +130,7 @@ export class OrderStore {
   removeCount(index) {
     if (this.orderStoreDataArray[index].productNum > 1) {
       this.orderStoreDataArray[index].productNum--;
-      this.warehouseUpdate(index);
+      this.warehouseUpdate(index, "remove");
     }
   }
   //删除
@@ -141,6 +153,9 @@ export class OrderStore {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.delete(index);
+      });
       loading.dismiss();
       console.log(error);
       this.appService.toast('删除失败，请稍后再试', 1000, 'middle');
@@ -148,14 +163,23 @@ export class OrderStore {
   }
   //失去焦点
   resetCount(index) {
-    this.warehouseUpdate(index);
+    if(this.orderStoreDataArray[index].itemPrice == null){
+      this.orderStoreDataArray[index].itemPrice = 0;
+      this.appService.toast('商品总额不能为空', 1000, 'middle');
+    } 
+    this.warehouseUpdate(index, "reset");
   }
   resetProductNum(index) {
+    if(this.orderStoreDataArray[index].productNum <= 0){
+      this.orderStoreDataArray[index].productNum = 1;
+      this.appService.toast('商品数量不能为空', 1000, 'middle');
+    } 
     if (this.orderStoreDataArray[index].productSkuDTO.stock >= this.orderStoreDataArray[index].productNum) {
-      this.warehouseUpdate(index);
+      this.warehouseUpdate(index, "reset");
     }else {
       this.appService.toast('不能超出库存哦', 1000, 'middle');
       this.orderStoreDataArray[index].productNum = this.orderStoreDataArray[index].productSkuDTO.stock;
+      this.warehouseUpdate(index, "reset");
     }
   }
   //确认订单
@@ -168,9 +192,13 @@ export class OrderStore {
       this.returnUrl = data['_body'];
       this.navCtrl.push(PaymentCode,{
         returnUrl: this.returnUrl,
-        totalPriceFloat: this.totalPriceFloat
+        totalPriceFloat: this.totalPriceFloat,
+        warehouseId: this.orderStoreDataArray[0].warehouseId
       });
     }).catch(error=>{
+      this.appService.getToken(error, () => {
+        this.addProductModal();
+      });
       loading.dismiss();
       console.log(error);
       this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
@@ -197,6 +225,9 @@ export class OrderStore {
       }
     
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetOrderStoreList(refresher);
+      });
       this.orderStoreDataArray = [];
       refresher.complete();
       console.log(error);

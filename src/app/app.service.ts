@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
 import { Http, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import { Buffer } from 'buffer';
@@ -10,8 +9,11 @@ import { Buffer } from 'buffer';
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "http://192.168.31.202:6333";
+  static hostUrl: string = "https://rest.61topbaby.com";
+  static mainUrl : string = "61topbaby.com";
+  static imgUrl: string = "https://images.61topbaby.com/";
 
+  
   //请求超时时间
   static TIME_OUT: number = 30000;
 
@@ -21,17 +23,14 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
-  //testClient  生产client_id
-  static client_id: string = "topbss";
+  //测试client_id
+  static client_id: string = "topBssClient";
+  
+  //测试secret
+  static secret: string = "client@topbaby";
 
   //secret  生产client_pwd
   static grant_type: string = "password";
-
-  //appid
-  static appID: "wx11cc7b3a1a190796";//后面需改
-
-  //appSecret
-  static appSecret: "3c943a6a700db44e1bb7475e83c4bb17";//后面需改
 
   //接口url
   static API: any = {
@@ -57,6 +56,7 @@ export class AppConfig {
     warehouseDeleteById: `${AppConfig.hostUrl}/order/warehouse/item/deleteById`,//删除单个配单行
     warehouseUpdate: `${AppConfig.hostUrl}/order/warehouse/item/update`,//修改配单行接口
     warehouseEmpty: `${AppConfig.hostUrl}/order/warehouse/empty`,//清空配单仓接口
+    checkStatus: `${AppConfig.hostUrl}/order/warehouse/checkStatus`,//检测配单仓状态接口
     current: `${AppConfig.hostUrl}/account/brandshop/user/current`, //更新当前导购员基本信息
     account: `${AppConfig.hostUrl}/account/brandshop/user/account`, //查询当前导购员基本信息
     withdraw: `${AppConfig.hostUrl}/account/brandshop/user/withdraw/`, //提现
@@ -65,9 +65,6 @@ export class AppConfig {
     bonusList: `${AppConfig.hostUrl}/account/brandshop/user/bonus/list`, //查询可提现余额明显、审核中余额明细
     bonusSum: `${AppConfig.hostUrl}/account/brandshop/user/bonus/sum`,
     untreatedCount: `${AppConfig.hostUrl}/order/untreatedCount`,//查看待处理订单总数
-    connect: `${AppConfig.hostUrl}/connect/oauth2/authorize`,//获取code
-    sns: `${AppConfig.hostUrl}/sns/oauth2/access_token`,//获取access_token
-    signature: `${AppConfig.hostUrl}/evercos/wechat/jsapiticket/signature.json`,//JSSDK签名
     orderReceive: `${AppConfig.hostUrl}/order/receive/received`, //确定订单
     receiveGift: `${AppConfig.hostUrl}/promotion/member/gift/account/receiveGift`,
     firstLogin: `${AppConfig.hostUrl}/uaa/getInfo`,//查询是否第一次登录
@@ -92,17 +89,20 @@ export class AppService {
   ) {
   }
 
-  //get request
+  //get request with Authorization
   httpGet(url: string) {
     this.withTokenHeaders = new Headers({
       'Authorization': 'Bearer '+ this.getItem('tpb_token')
     });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
+  }
+  //get request with No Authorization
+  httpGetNoAuthor(url: string) {
+    return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
   }
 
   //get request
@@ -112,33 +112,25 @@ export class AppService {
     });
     return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res)
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //get request with headers
   httpGetHeader(url: string, header: any) {
     return this.http.get(url, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
   
   //post request
   httpPost(url: string, body: any) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer '+ this.getItem('tpb_token'),
+      'content-type' : 'application/json'
     });
     return this.http.post(url, body, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //post 带有headers 
@@ -154,10 +146,7 @@ export class AppService {
     });
     return this.http.put(url, parameters, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //delete request
@@ -167,31 +156,35 @@ export class AppService {
     });
     return this.http.delete(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
-      .catch(error => {
-        console.log(`访问错误:${error}`);
-        this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
   //access_token过期
-  private handleError(error: Response) {
-    if (error.status == 401 && error.json().error == "invalid_token") {
-      let base64encode = new Buffer('testClient:secret').toString('base64');
-      this.oauthTokenHeaders = new Headers({
+  private handleError(error: any) {
+    return Promise.reject(error.json() || error);
+  }
+
+  getToken(error, callback) {
+    let self = this;
+    if (error.error == "invalid_token") {
+      let base64encode = new Buffer(`${AppConfig.client_id}:${AppConfig.secret}`).toString('base64');
+      self.oauthTokenHeaders = new Headers({
         'Authorization': 'Basic '+ base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
-      let body = `grant_type=${AppConfig.grant_type}&refresh_token=${this.getItem("refresh_token")}`;
-      this.httpPostHeader(oauthTokenUrl, body, this.oauthTokenHeaders).then(data => {
-        this.setItem("tpb_token", data.access_token);
-        this.setItem("refresh_token", data.refresh_token);
+      let body = `grant_type=refresh_token&refresh_token=${self.getItem("refresh_token")}`;
+      self.httpPostHeader(oauthTokenUrl, body, self.oauthTokenHeaders).then(data => {
+        self.setItem("tpb_token", data.access_token);
+        self.setItem("refresh_token", data.refresh_token);
+        callback();
       }).catch(err => {
         console.log(err);
-        this.toast('网络异常，请稍后重试', 1000, 'middle');
+        self.toast('登录已过期，请重新登录', 1000, 'middle');
+        self.setItem("tpb_token","");
+        self.setItem("refresh_token","");
+        setTimeout(history.go(0), 1000);
       })
-    }else {
-      return Observable.throw(error.status || "服务错误");
     }
   }
 

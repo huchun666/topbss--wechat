@@ -91,6 +91,9 @@ export class ReturnDetail {
         this.imageArray = this.returnDetail.orderReturn.imageIds.split(",");
       }
     }).catch( error=>{
+      this.appService.getToken(error, () => {
+        this.getReturnDetailList();
+      });
       this.loadingShow = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
@@ -131,7 +134,7 @@ export class ReturnDetail {
 	}
 	refuseReturn() {
 		let alert = this.alertCtrl.create({
-			message: `确认拒绝会员${this.returnDetail.orderReturn.name}的订单${this.returnDetail.orderReturn.returnOrderId}退货申请？`,
+			message: `确认拒绝会员${this.returnDetail.orderReturn.mobile}的订单${this.returnDetail.orderReturn.returnOrderId}退货申请？`,
 			buttons: [
 			  {
 			    text: '取消',

@@ -62,33 +62,26 @@
           <dd class="sku-list">
             <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>
           </dd>
-          <dd class='price'>￥{{ product.unitPrice }}</dd>
+          <dd class='price' *ngIf="order.userType != 'B'">￥{{ product.unitPrice }}</dd>
+          <dd class='price' *ngIf="order.userType == 'B'">商品总额：￥{{ product.unitPrice }}</dd>
           <dd class="count">X{{ product.number }}</dd>
         </dl>
       </div>
 
-      <!-- 待支付订单 -->
-      <div *ngIf="order.status==0" class="orderOperate">
-        <div class="pay-money-left">
-          订单总金额
-          <span>￥{{ order.settAmount }}</span>
-        </div>
-      </div>
-
       <!-- 已完成订单 -->
-      <div *ngIf="order.status!=0" class="orderOperate">
+      <div class="orderOperate">
         <dl>
           <dt>
-            <a href="'tel:'+order.memberMobile">
+            <a href="tel:{{order.memberMobile}}">
               <img src="./assets/image/phone.png" alt="">
             </a>
           </dt>
           <dd class="total">会员手机：{{ order.memberMobile }}</dd>
-          <dd class="member-phone" *ngIf="order.status == 3 || order.status == 4 || order.status == 6 || order.status == 'C'">收货时间：{{ order.receiptTime }}</dd>
-          <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime }}</dd>
+          <dd class="member-phone" *ngIf="order.status == 3 || order.status == 6 || order.status == 'C'">收货时间：{{ order.receiptTime | date:'yyyy-MM-dd HH:mm:ss' }}</dd>
+          <!-- <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime | date:'yyyy-MM-dd HH:mm:ss' }}</dd> -->
         </dl>
       </div>
-      <div *ngIf="order.status!=0" class="order-dtail-box">
+      <div class="order-dtail-box">
         <div class="order-detail" *ngIf="isShowDetail[i]">
           <ul>
             <li>订单总额：￥{{ order.totalAmount }}</li>
@@ -101,9 +94,11 @@
         <div class="pay-money">
           会员实付金额
           <span>￥{{ order.payAmount }}</span>
+          
         </div>
         <div class="btn-show" (click)="showDetail(i)">
-          点击查看明细
+          <span *ngIf="isShowDetail[i] == false">点击查看明细</span>
+          <span *ngIf="isShowDetail[i] == true">点击收起明细</span>
           <span [ngClass]="{'icon-triangle':true, 'icon-bottom': isShowDetail[i]}"></span>
         </div>
       </div>

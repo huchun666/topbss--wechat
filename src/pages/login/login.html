@@ -1,9 +1,14 @@
+<ion-header class="header-title-hidden">
+  <ion-navbar>
+    <ion-title text-center>登录</ion-title>
+  </ion-navbar>
+</ion-header>
 <ion-content>
   <h1 class="logo" ><img src="./assets/image/logo.png" alt="淘璞帮"></h1>
   <div class="login-content">
     <ion-list>
       <ion-item>
-        <ion-input [(ngModel)]="username" type="tel" placeholder="账号或手机号码" maxlength=11 required clearInput=true (ionBlur)="onblurAffirm()"></ion-input>
+        <ion-input [(ngModel)]="username" type="text" placeholder="账号或手机号码" required clearInput=true (ionBlur)="onblurAffirm()"></ion-input>
       </ion-item>
       <div class='login-error' *ngIf="isUserName">{{userNameValue}}</div>
       <ion-item>

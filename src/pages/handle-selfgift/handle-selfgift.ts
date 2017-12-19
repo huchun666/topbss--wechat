@@ -25,7 +25,9 @@ export class HandleSelfgift {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    this.getHandleSelfGiftList();
+  }
+  ionViewDidEnter(){
+    setTimeout(this.getHandleSelfGiftList(),100);
   }
   
   //进入页面，请求接口，得到数据
@@ -53,6 +55,9 @@ export class HandleSelfgift {
 				}
 			}
 		}).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getHandleSelfGiftList();
+      });
 			this.loadingShow = false;
 			console.log(error);
       this.showInfinite = false;
@@ -65,6 +70,8 @@ export class HandleSelfgift {
     this.start = 0;
     this.down = true;
 	  this.up = false;
+    this.showNoMore = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       refresher.complete();
@@ -82,6 +89,9 @@ export class HandleSelfgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refreshGetHandleSelfGiftList(refresher);
+      });
       this.handleSeflGiftArray = [];
       refresher.complete();
       console.log(error);
@@ -94,7 +104,7 @@ export class HandleSelfgift {
   infiniteGetHandleSelfGiftList(infiniteScroll) {
     this.down = false;
 	  this.up = true;
-    let url = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
+    let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
       infiniteScroll.complete();
       if (data.count == 0) {
@@ -110,6 +120,9 @@ export class HandleSelfgift {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetHandleSelfGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);      
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');      

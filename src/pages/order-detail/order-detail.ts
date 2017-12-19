@@ -31,7 +31,7 @@ export class OrderDetail{
         if (data.data.length > 0) {
           data.data.map(item => {
             item.baseAmount = item.baseAmount.toFixed(2);
-            item.percent = item.percent.toFixed(2);
+            item.percent = item.percent;
             item.amount = item.amount.toFixed(2);
             item.returnAmount = item.returnAmount.toFixed(2);
           });
@@ -42,6 +42,9 @@ export class OrderDetail{
         this.requestFail = false;
         this.isLoadingShow = false;
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getOrderDetail();
+        });
         console.log(error);
         this.requestFail = true;
         this.isEmpty = false;
@@ -56,6 +59,9 @@ export class OrderDetail{
         this.sum = data.sum;
         this.setIsShow(this.sum);
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.getBonusSum();
+        });
         console.log(error);
       });
   }

@@ -56,6 +56,9 @@ export class AuditReturnorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getAuditReturnorderList();
+      });
       this.auditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -70,6 +73,7 @@ export class AuditReturnorder {
     this.down = true;
     this.up = false;
     this.showNoMore = false;
+    this.showInfinite = true;
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
       refresher.complete();
@@ -87,6 +91,9 @@ export class AuditReturnorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.doRefresh(refresher);
+      });
       this.auditReturnorderArray = [];
       refresher.complete();
       console.log(error);
@@ -115,6 +122,9 @@ export class AuditReturnorder {
         }
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.infiniteGetSelfGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
