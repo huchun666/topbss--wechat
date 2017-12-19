@@ -213,7 +213,7 @@ export class AwardTabs {
           }
         }).catch(error => {
           this.appService.getToken(error, () => {
-            this.getOrderDetail();
+            this.loadMore(infiniteScroll);
           });
           console.log(error);
           this.requestFail = true;
@@ -239,7 +239,7 @@ export class AwardTabs {
           }
         }).catch(error => {
           this.appService.getToken(error, () => {
-            this.getAwardDetail();
+            this.loadMore(infiniteScroll);
           });
           console.log(error);
           this.requestFail = true;
