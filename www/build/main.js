@@ -482,6 +482,7 @@ var AuditReturnorder = (function () {
         this.modalCtrl = modalCtrl;
         this.alertCtrl = alertCtrl;
         this.appService = appService;
+        this.auditReturnorderArray = [];
         this.limit = 10;
         this.up = true; //上拉刷新和第一次进入页面时
         this.down = false; //下拉刷新和返回上一级页面时
