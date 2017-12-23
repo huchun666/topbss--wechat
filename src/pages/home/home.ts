@@ -208,7 +208,7 @@ export class Home {
     })
     .catch(error => {
       this.appService.getToken(error, () => {
-        this.getUnHandleCount();
+        this.ionViewDidEnter();
       });
        console.log(error);
       //  this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');

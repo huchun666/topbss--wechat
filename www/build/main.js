@@ -1579,7 +1579,7 @@ var Home = (function () {
         })
             .catch(function (error) {
             _this.appService.getToken(error, function () {
-                _this.getUnHandleCount();
+                _this.ionViewDidEnter();
             });
             console.log(error);
             //  this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
