@@ -22,16 +22,12 @@
 			<div class="sku-attr" *ngFor = "let item of attrMap;let i = index">
 				<div class="sku-key">{{ item[0].attrName }}</div>
 				<div class="sku-value">
-					<label class="labelTag" [ngClass]="{active: skuAttrValue[i] === skuAttr.attrValue, invalidAttrValueClass: skuAttr.invalidAttrValue | invalidAttrValueClass}" *ngFor="let skuAttr of item">
-						<input 
-						[(ngModel)]="skuAttrValue[i]" 
-						name="Fruit" 
-						type="radio" 
-						[value]="skuAttr.attrValue" 
-						[disabled]="skuAttr.invalidAttrValue | isOrIsnotInvalidAttrValue"
-						(click)="changeRadio($event, i, skuAttr.attrValue)"
-						/>{{ skuAttr.attrValue }}
-					</label>
+					<ul>
+						<li class="labelTag" [ngClass]="{active: skuAttrValue[i] === skuAttr.attrValue, invalidAttrValueClass: skuAttr.invalidAttrValue | invalidAttrValueClass}" *ngFor="let skuAttr of item">
+							<span (click)="changeRadio($event, i, skuAttr.attrValue)">{{ skuAttr.attrValue }}</span>
+							<span *ngIf="skuAttr.invalidAttrValue == 'invalidAttrValue'" class="modal">{{ skuAttr.attrValue }}</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 			
