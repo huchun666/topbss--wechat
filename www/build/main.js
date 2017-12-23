@@ -2568,6 +2568,9 @@ var GiftInfo = (function () {
             console.log(data);
             _this.giftInfo = data;
         }).catch(function (error) {
+            _this.appService.getToken(error, function () {
+                _this.getGiftDetail();
+            });
             console.log(error);
             if (error.type) {
                 var alert_1 = _this.alertCtrl.create({
@@ -2725,6 +2728,9 @@ var OrderInfo = (function () {
             _this.orderDetail = data;
         }).catch(function (error) {
             console.log(error);
+            _this.appService.getToken(error, function () {
+                _this.getOrderDetail();
+            });
             if (error.type) {
                 var alert_1 = _this.alertCtrl.create({
                     message: error.message,
