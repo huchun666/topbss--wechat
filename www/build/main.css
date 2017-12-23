@@ -28027,7 +28027,7 @@ order-layer .sku-attr .sku-value li.labelTag span.modal {
 order-layer .sku-attr .sku-value .active {
   background: #5e9efe;
   color: #fff;
-  border-color: #5e9efe;
+  border-color: #5e9efe !important;
 }
 
 order-layer .sku-attr .sku-value .invalidAttrValueClass {
