@@ -13,14 +13,17 @@ $ ionic serve --lab
 ```
 
 Environment Variables:
+
 1.File 'src/environments/environment.ts' will be used for the Production environment.
+
 2.File 'src/environments/environment.dev.ts' will be used for the Development environment.
+
 With this configuration, you can import environment variables anywhere.
 ```bash
 import { ENV } from '@app/env'
 ```
 
-###Android Devices:
+### Android Devices:
 To build your app for production or development, run
 
 ```bash
@@ -31,7 +34,7 @@ or
 ```bash
 $ ionic cordova build android --dev --release
 ```
-###ios:
+### ios:
 To build your app for production or development, run
 
 ```bash
