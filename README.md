@@ -12,7 +12,7 @@ $ npm install
 $ ionic serve --lab
 ```
 
-Environment Variables:
+## Environment Variables:
 
 1.File 'src/environments/environment.ts' will be used for the Production environment.
 
