@@ -28,21 +28,16 @@ To build your app for production or development, run
 
 ```bash
 $ ionic cordova build android --prod --release
-```
 or
-
-```bash
 $ ionic cordova build android --dev --release
 ```
+
 ### ios:
 To build your app for production or development, run
 
 ```bash
 $ ionic cordova build ios --prod --release
-```
 or
-
-```bash
 $ ionic cordova build ios --dev --release
 ```
 
