@@ -4,14 +4,15 @@ import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import { Buffer } from 'buffer';
+import { ENV } from '@app/env'
 
 @Injectable()
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://rest.61topbaby.com";
-  static mainUrl : string = "61topbaby.com";
-  static imgUrl: string = "https://images.61topbaby.com/";
+  static mainUrl : string = ENV.mode;
+  static hostUrl: string = `https://rest.${AppConfig.mainUrl}`;
+  static imgUrl: string = `https://images.${AppConfig.mainUrl}/`;
 
   
   //请求超时时间
