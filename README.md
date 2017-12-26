@@ -42,7 +42,7 @@ ionic cordova platform add ios
 cordova-hcp init
 ```
 用于动态生成chcp.json和chcp.manifest文件的模板(不用每次手动更改chcp.json和chcp.manifest)
-* #### 可以选择只配置下面三个选项
+* 可以选择只配置下面三个选项
 
 ```
 ...
@@ -54,7 +54,7 @@ Enter full URL: 远程域名地址/updates
 Update method(required)有三种方式： now，start，resume
 远程地址用来放app build后的www内部的所有文件
 
-* #### 生成后的cordova-hcp.json文件(在根目录中)
+* 生成后的cordova-hcp.json文件(在根目录中)
 
 ```
 {
