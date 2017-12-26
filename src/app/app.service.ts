@@ -24,13 +24,10 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
-  //测试client_id
-  static client_id: string = "topBssClient";
+  static client_id: string = ENV.client_id;
   
-  //测试secret
-  static secret: string = "client@topbaby";
+  static secret: string = ENV.secret;
 
-  //secret  生产client_pwd
   static grant_type: string = "password";
 
   //接口url
