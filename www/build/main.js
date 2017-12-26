@@ -172,9 +172,9 @@ Login = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_app_service__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_crypto_js__ = __webpack_require__(322);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_crypto_js__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_crypto_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_crypto_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_js_base64__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_js_base64__ = __webpack_require__(347);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_js_base64___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_js_base64__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1067,7 +1067,7 @@ var AddAccount = (function () {
             this.appService.httpPut(editCurrentUrl, editParameters).then(function (data) {
                 if (data.type == "success") {
                     _this.loadingShow = false;
-                    var redirectUri = "https://mobile.61topbaby.com";
+                    var redirectUri = "https://mobile." + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].mainUrl;
                     var encodeUrl = encodeURIComponent(redirectUri);
                     var getCodeUrl = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.connect + "?appid=" + __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].appID + "&redirect_uri=" + encodeUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                     window.location.href = getCodeUrl;
@@ -4369,10 +4369,16 @@ var OrderList = (function () {
         this.appService.httpGet(url).then(function (data) {
             _this.loadingShow = false;
             if (_this.start < data.count) {
-                _this.showNoMore = false;
+                if (_this.pageSize >= data.count) {
+                    _this.showNoMore = true;
+                    _this.showInfinite = false;
+                }
+                else {
+                    _this.showNoMore = false;
+                    _this.showInfinite = true;
+                }
                 _this.noData = false;
                 _this.start += _this.pageSize;
-                _this.showInfinite = true;
                 if (_this.up) {
                     (_a = _this.orderList).push.apply(_a, data.data);
                     for (var i = 0; i < _this.orderList.length; i++) {
@@ -4389,11 +4395,13 @@ var OrderList = (function () {
             else if (data.count == 0) {
                 _this.noData = true;
                 _this.showNoMore = false;
+                _this.showInfinite = false;
                 _this.orderList = [];
             }
-            else if (data.data.length == 0) {
+            else if (data.data.length == 0 && data.count != 0) {
                 _this.noData = false;
                 _this.showNoMore = true;
+                _this.showInfinite = false;
             }
             var _a;
         }).catch(function (error) {
@@ -4512,17 +4520,16 @@ var OrderList = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], OrderList.prototype, "content", void 0);
 OrderList = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-list',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>订单列表</ion-title>\n\n    <span class=\'brandshop-order\' (touchstart)="goBrandshoOrder()">\n\n      门店所有订单\n\n    </span>\n\n  </ion-navbar>\n\n  <ion-toolbar class="filter-box">\n\n    <div class="time-box">\n\n      <div class="search-title">选择日期</div>\n\n      <div class="search-list">\n\n        <div class="time-start">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">\n\n          </ion-datetime>\n\n          <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>\n\n        </div>\n\n        <span class="go">到</span>\n\n        <div class="time-end">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateEndMin}}" max="{{dateEndMax}}" [(ngModel)]="dateEnd">\n\n          </ion-datetime> \n\n          <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n    <div class="status-box">\n\n      <ul>\n\n        <li *ngFor="let orderStatus of orderStatusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>\n\n      </ul>\n\n    </div>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="order-list">\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-refresher *ngIf="!loadingShow" (ionRefresh)="doRefresh($event)">\n\n      <ion-refresher-content>\n\n      </ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <div class="order-items" *ngFor="let order of orderList; let i = index">\n\n      <!-- 订单编号 -->\n\n      <div class="order-title">\n\n        <h2>订单编号：\n\n          <span>{{ order.orderId }}</span>\n\n        </h2>\n\n        <!-- 订单状态-->\n\n        <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>\n\n      </div>\n\n      <!-- 商品1 -->\n\n      <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">\n\n        <dl>\n\n          <dt>\n\n            <img class="my-picture" src="{{product.productSkuDTO.fileSeq | productSkuDTOImage}}" [alt]="product.productSkuDTO.productName">\n\n          </dt>\n\n          <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>\n\n          <dd class="sku-list">\n\n            <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n          </dd>\n\n          <dd class=\'price\' *ngIf="order.userType != \'B\'">￥{{ product.unitPrice }}</dd>\n\n          <dd class=\'price\' *ngIf="order.userType == \'B\'">商品总额：￥{{ product.unitPrice }}</dd>\n\n          <dd class="count">X{{ product.number }}</dd>\n\n        </dl>\n\n      </div>\n\n\n\n      <!-- 已完成订单 -->\n\n      <div class="orderOperate">\n\n        <dl>\n\n          <dt>\n\n            <a href="tel:{{order.memberMobile}}">\n\n              <img src="./assets/image/phone.png" alt="">\n\n            </a>\n\n          </dt>\n\n          <dd class="total">会员手机：{{ order.memberMobile }}</dd>\n\n          <dd class="member-phone" *ngIf="order.status == 3 || order.status == 6 || order.status == \'C\'">收货时间：{{ order.receiptTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd>\n\n          <!-- <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd> -->\n\n        </dl>\n\n      </div>\n\n      <div class="order-dtail-box">\n\n        <div class="order-detail" *ngIf="isShowDetail[i]">\n\n          <ul>\n\n            <li>订单总额：￥{{ order.totalAmount }}</li>\n\n            <li>促销抵扣：￥{{ order.discountAmount }}</li>\n\n            <li>淘璞券折扣：￥{{ order.couponAmount }}</li>\n\n            <li>商户券抵扣：￥{{ order.merchantCouponAmount }}</li>\n\n            <li>积分抵扣：￥{{ order.integralAmount }}</li>\n\n          </ul>\n\n        </div>\n\n        <div class="pay-money">\n\n          会员实付金额\n\n          <span>￥{{ order.payAmount }}</span>\n\n          \n\n        </div>\n\n        <div class="btn-show" (click)="showDetail(i)">\n\n          <span *ngIf="isShowDetail[i] == false">点击查看明细</span>\n\n          <span *ngIf="isShowDetail[i] == true">点击收起明细</span>\n\n          <span [ngClass]="{\'icon-triangle\':true, \'icon-bottom\': isShowDetail[i]}"></span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="showInfinite && !loadingShow">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n  <div class="no-data" *ngIf="noData">\n\n    <img src="./assets/image/nodata.png" alt="">\n\n    <p>空空如也</p>\n\n  </div>\n\n  <div class="btn-noMore" *ngIf="showNoMore">\n\n    <span>—— 没有更多信息了 ——</span>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _d || Object])
 ], OrderList);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=order-list.js.map
 
 /***/ }),
@@ -5911,14 +5918,12 @@ var UpdatePwd = (function () {
         this.initialPwdBlur();
         this.newPwdBlur();
         if (!this.isInitialPwd && !this.isNewPwd && !this.isRepeatPwd && this.initialPwd != "" && this.newPwd != "" && this.repeatPwd != "") {
-            console.log("inter01");
             var loading_1 = this.appService.loading();
             loading_1.present();
             var url = __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].API.editPassword;
             var body = {
                 password: this.newPwd
             };
-            console.log(this.withTokenHeaders);
             this.appService.httpPostHeader(url, body, this.withTokenHeaders).then(function (data) {
                 loading_1.dismiss();
                 _this.user = {
@@ -6025,12 +6030,12 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_barcode_scanner__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_dialogs__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_barcode_scanner__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_dialogs__ = __webpack_require__(321);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(321);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_pipe__ = __webpack_require__(347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_qrcode__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(322);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_pipe__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_qrcode__ = __webpack_require__(349);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_login_login__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_forget_forget__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_update_pwd_update_pwd__ = __webpack_require__(234);
@@ -6052,23 +6057,23 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_audit_returnorder_audit_returnorder__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_return_detail_return_detail__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_returned_detail_returned_detail__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_unhandle_expressgift_unhandle_expressgift__ = __webpack_require__(350);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_unhandle_selfgift_unhandle_selfgift__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_unhandle_expressgift_unhandle_expressgift__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_unhandle_selfgift_unhandle_selfgift__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_handle_selfgift_handle_selfgift__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_handle_expressgift_handle_expressgift__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_withdraw_withdraw__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_withdraw_record_withdraw_record__ = __webpack_require__(231);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_mycode_mycode__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_award_tabs_award_tabs__ = __webpack_require__(230);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_award_activity_award_activity__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__pages_award_order_award_order__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__pages_account_bind_account_bind_account__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_award_activity_award_activity__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__pages_award_order_award_order__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__pages_account_bind_account_bind_account__ = __webpack_require__(355);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__pages_account_add_account_add_account__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__pages_account_edit_account_edit_account__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__pages_order_list_order_list__ = __webpack_require__(225);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__pages_brandshop_order_list_brandshop_order_list__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__pages_order_detail_order_detail__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__pages_award_detail_award_detail__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__pages_order_detail_order_detail__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__pages_award_detail_award_detail__ = __webpack_require__(357);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__pages_detail_tabs_detail_tabs__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__ionic_native_status_bar__ = __webpack_require__(235);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__ionic_native_splash_screen__ = __webpack_require__(236);
@@ -6223,7 +6228,21 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 321:
+/***/ 311:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ENV; });
+var ENV = {
+    mode: '91topbaby.com',
+    client_id: 'testClient',
+    secret: 'secret'
+};
+//# sourceMappingURL=environment.dev.js.map
+
+/***/ }),
+
+/***/ 322:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6298,7 +6317,7 @@ MyApp = __decorate([
 
 /***/ }),
 
-/***/ 347:
+/***/ 348:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6635,7 +6654,7 @@ ReasonTypePipe = __decorate([
 
 /***/ }),
 
-/***/ 350:
+/***/ 351:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6865,7 +6884,7 @@ UnhandleExpressgift = __decorate([
 
 /***/ }),
 
-/***/ 351:
+/***/ 352:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7096,7 +7115,7 @@ UnhandleSelfgift = __decorate([
 
 /***/ }),
 
-/***/ 352:
+/***/ 353:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7229,7 +7248,7 @@ AwardActivity = __decorate([
 
 /***/ }),
 
-/***/ 353:
+/***/ 354:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7362,7 +7381,7 @@ AwardOrder = __decorate([
 
 /***/ }),
 
-/***/ 354:
+/***/ 355:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7408,7 +7427,7 @@ BindAccount = __decorate([
 
 /***/ }),
 
-/***/ 355:
+/***/ 356:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7538,7 +7557,7 @@ OrderDetail = __decorate([
 
 /***/ }),
 
-/***/ 356:
+/***/ 357:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7684,6 +7703,7 @@ AwardDetail = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_timeout__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_buffer__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_env__ = __webpack_require__(311);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7699,25 +7719,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AppConfig = AppConfig_1 = (function () {
     function AppConfig() {
     }
     return AppConfig;
 }());
 //域名基地址
-AppConfig.hostUrl = "https://rest.61topbaby.com";
-AppConfig.mainUrl = "61topbaby.com";
-AppConfig.imgUrl = "https://images.61topbaby.com/";
+AppConfig.mainUrl = __WEBPACK_IMPORTED_MODULE_6__app_env__["a" /* ENV */].mode;
+AppConfig.hostUrl = "https://rest." + AppConfig_1.mainUrl;
+AppConfig.imgUrl = "https://images." + AppConfig_1.mainUrl + "/";
 //请求超时时间
 AppConfig.TIME_OUT = 30000;
 // 上拉加载、下拉刷新的定时器时间
 AppConfig.LOAD_TIME = 500;
 //获取token的url
 AppConfig.oauthTokenUrl = AppConfig_1.hostUrl + "/uaa/oauth/token";
-//测试client_id
-AppConfig.client_id = "topBssClient";
-//测试secret
-AppConfig.secret = "client@topbaby";
+AppConfig.client_id = __WEBPACK_IMPORTED_MODULE_6__app_env__["a" /* ENV */].client_id;
+AppConfig.secret = __WEBPACK_IMPORTED_MODULE_6__app_env__["a" /* ENV */].secret;
 AppConfig.grant_type = "password";
 //appid
 AppConfig.appID = "wxa7257af9de640f52"; //后面需改
