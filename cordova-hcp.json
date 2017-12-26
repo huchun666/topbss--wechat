@@ -1,0 +1,7 @@
+{
+  "name": "TopBss",
+  "ios_identifier": "",
+  "android_identifier": "",
+  "update": "resume",
+  "content_url": "http://192.168.31.202:3000/updates"
+}

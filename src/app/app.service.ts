@@ -4,14 +4,15 @@ import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import { Buffer } from 'buffer';
+import { ENV } from '@app/env'
 
 @Injectable()
 export class AppConfig {
 
   //域名基地址
-  static hostUrl: string = "https://rest.61topbaby.com";
-  static mainUrl : string = "61topbaby.com";
-  static imgUrl: string = "https://images.61topbaby.com/";
+  static mainUrl : string = ENV.mode;
+  static hostUrl: string = `https://rest.${AppConfig.mainUrl}`;
+  static imgUrl: string = `https://images.${AppConfig.mainUrl}/`;
 
   
   //请求超时时间
@@ -23,13 +24,10 @@ export class AppConfig {
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
 
-  //测试client_id
-  static client_id: string = "topBssClient";
+  static client_id: string = ENV.client_id;
   
-  //测试secret
-  static secret: string = "client@topbaby";
+  static secret: string = ENV.secret;
 
-  //secret  生产client_pwd
   static grant_type: string = "password";
 
   //接口url
