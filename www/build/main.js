@@ -4369,10 +4369,16 @@ var OrderList = (function () {
         this.appService.httpGet(url).then(function (data) {
             _this.loadingShow = false;
             if (_this.start < data.count) {
-                _this.showNoMore = false;
+                if (_this.pageSize >= data.count) {
+                    _this.showNoMore = true;
+                    _this.showInfinite = false;
+                }
+                else {
+                    _this.showNoMore = false;
+                    _this.showInfinite = true;
+                }
                 _this.noData = false;
                 _this.start += _this.pageSize;
-                _this.showInfinite = true;
                 if (_this.up) {
                     (_a = _this.orderList).push.apply(_a, data.data);
                     for (var i = 0; i < _this.orderList.length; i++) {
@@ -4389,11 +4395,13 @@ var OrderList = (function () {
             else if (data.count == 0) {
                 _this.noData = true;
                 _this.showNoMore = false;
+                _this.showInfinite = false;
                 _this.orderList = [];
             }
-            else if (data.data.length == 0) {
+            else if (data.data.length == 0 && data.count != 0) {
                 _this.noData = false;
                 _this.showNoMore = true;
+                _this.showInfinite = false;
             }
             var _a;
         }).catch(function (error) {
@@ -4512,17 +4520,16 @@ var OrderList = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], OrderList.prototype, "content", void 0);
 OrderList = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-list',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>订单列表</ion-title>\n\n    <span class=\'brandshop-order\' (touchstart)="goBrandshoOrder()">\n\n      门店所有订单\n\n    </span>\n\n  </ion-navbar>\n\n  <ion-toolbar class="filter-box">\n\n    <div class="time-box">\n\n      <div class="search-title">选择日期</div>\n\n      <div class="search-list">\n\n        <div class="time-start">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" max="{{dateStartMax}}" [(ngModel)]="dateStart">\n\n          </ion-datetime>\n\n          <span class="clear" *ngIf="dateStart" (click)="clearDateStart()">X</span>\n\n        </div>\n\n        <span class="go">到</span>\n\n        <div class="time-end">\n\n          <ion-datetime (ionChange)="getOrderListByDate()" placeholder="请选择日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" min="{{dateEndMin}}" max="{{dateEndMax}}" [(ngModel)]="dateEnd">\n\n          </ion-datetime> \n\n          <span class="clear" *ngIf="dateEnd" (click)="clearDateEnd()">X</span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n    <div class="status-box">\n\n      <ul>\n\n        <li *ngFor="let orderStatus of orderStatusList, let i = index" [ngClass]="{active:currentStatus == orderStatus.status}" (click)="getCurrentStatus(i)">{{ orderStatus.label }}</li>\n\n      </ul>\n\n    </div>\n\n  </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div class="order-list">\n\n    <!-- loading -->\n\n    <div class="loading-wrapper" *ngIf="loadingShow">\n\n      <div>\n\n        <ion-spinner item-start [name]="load.spinner"></ion-spinner>\n\n      </div>\n\n      <div [innerHTML]="load.content"></div>\n\n    </div>\n\n    <ion-refresher *ngIf="!loadingShow" (ionRefresh)="doRefresh($event)">\n\n      <ion-refresher-content>\n\n      </ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <div class="order-items" *ngFor="let order of orderList; let i = index">\n\n      <!-- 订单编号 -->\n\n      <div class="order-title">\n\n        <h2>订单编号：\n\n          <span>{{ order.orderId }}</span>\n\n        </h2>\n\n        <!-- 订单状态-->\n\n        <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>\n\n      </div>\n\n      <!-- 商品1 -->\n\n      <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">\n\n        <dl>\n\n          <dt>\n\n            <img class="my-picture" src="{{product.productSkuDTO.fileSeq | productSkuDTOImage}}" [alt]="product.productSkuDTO.productName">\n\n          </dt>\n\n          <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>\n\n          <dd class="sku-list">\n\n            <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }} </span>\n\n          </dd>\n\n          <dd class=\'price\' *ngIf="order.userType != \'B\'">￥{{ product.unitPrice }}</dd>\n\n          <dd class=\'price\' *ngIf="order.userType == \'B\'">商品总额：￥{{ product.unitPrice }}</dd>\n\n          <dd class="count">X{{ product.number }}</dd>\n\n        </dl>\n\n      </div>\n\n\n\n      <!-- 已完成订单 -->\n\n      <div class="orderOperate">\n\n        <dl>\n\n          <dt>\n\n            <a href="tel:{{order.memberMobile}}">\n\n              <img src="./assets/image/phone.png" alt="">\n\n            </a>\n\n          </dt>\n\n          <dd class="total">会员手机：{{ order.memberMobile }}</dd>\n\n          <dd class="member-phone" *ngIf="order.status == 3 || order.status == 6 || order.status == \'C\'">收货时间：{{ order.receiptTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd>\n\n          <!-- <dd class="member-phone" *ngIf="order.status == 4">退款时间：{{ order.cancelTime | date:\'yyyy-MM-dd HH:mm:ss\' }}</dd> -->\n\n        </dl>\n\n      </div>\n\n      <div class="order-dtail-box">\n\n        <div class="order-detail" *ngIf="isShowDetail[i]">\n\n          <ul>\n\n            <li>订单总额：￥{{ order.totalAmount }}</li>\n\n            <li>促销抵扣：￥{{ order.discountAmount }}</li>\n\n            <li>淘璞券折扣：￥{{ order.couponAmount }}</li>\n\n            <li>商户券抵扣：￥{{ order.merchantCouponAmount }}</li>\n\n            <li>积分抵扣：￥{{ order.integralAmount }}</li>\n\n          </ul>\n\n        </div>\n\n        <div class="pay-money">\n\n          会员实付金额\n\n          <span>￥{{ order.payAmount }}</span>\n\n          \n\n        </div>\n\n        <div class="btn-show" (click)="showDetail(i)">\n\n          <span *ngIf="isShowDetail[i] == false">点击查看明细</span>\n\n          <span *ngIf="isShowDetail[i] == true">点击收起明细</span>\n\n          <span [ngClass]="{\'icon-triangle\':true, \'icon-bottom\': isShowDetail[i]}"></span>\n\n        </div>\n\n      </div>\n\n    </div>\n\n\n\n    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="showInfinite && !loadingShow">\n\n      <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n  </div>\n\n  <div class="no-data" *ngIf="noData">\n\n    <img src="./assets/image/nodata.png" alt="">\n\n    <p>空空如也</p>\n\n  </div>\n\n  <div class="btn-noMore" *ngIf="showNoMore">\n\n    <span>—— 没有更多信息了 ——</span>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefresh()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-list\order-list.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_app_service__["b" /* AppService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _d || Object])
 ], OrderList);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=order-list.js.map
 
 /***/ }),
