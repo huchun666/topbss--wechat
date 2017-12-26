@@ -88,13 +88,17 @@ export class OrderList {
     if (this.paramsStatus != '')
       url += this.paramsStatus;
     this.appService.httpGet(url).then(data => {
-      console.log(data)
       this.loadingShow = false;
       if (this.start < data.count) {
-        this.showNoMore = false;
+        if (this.pageSize >= data.count) {
+          this.showNoMore = true;
+          this.showInfinite = false;
+        }else {
+          this.showNoMore = false;
+          this.showInfinite = true;
+        }
         this.noData = false;
         this.start += this.pageSize;
-        this.showInfinite = true;
         if (this.up) {
           this.orderList.push(...data.data);
           for (let i = 0; i < this.orderList.length; i++) {
