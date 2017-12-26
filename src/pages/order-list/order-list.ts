@@ -88,6 +88,7 @@ export class OrderList {
     if (this.paramsStatus != '')
       url += this.paramsStatus;
     this.appService.httpGet(url).then(data => {
+      console.log(data)
       this.loadingShow = false;
       if (this.start < data.count) {
         this.showNoMore = false;
@@ -108,10 +109,12 @@ export class OrderList {
       } else if (data.count == 0) {
         this.noData = true;
         this.showNoMore = false;
+        this.showInfinite = false;
         this.orderList = [];
-      } else if (data.data.length == 0) {
+      } else if (data.data.length == 0 && data.count != 0) {
         this.noData = false;
         this.showNoMore = true;
+        this.showInfinite = false;
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
