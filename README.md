@@ -77,3 +77,12 @@ cordova-hcp build
 * config.xml和cordova-hcp.json中的服务器地址需要自己开个服务器存放www内的文件。
 
 使用Cordova Hot Code Push进行Ionic App热更新 [参考网址](https://codepureandsimple.com/implementing-cordova-hot-code-push-in-your-ionic-app-247cda24d6d4)
+
+
+## 部署流程
+
+* cordova-hcp build
+
+此命令会生成各个平台(iOS 和Android)上的config.xml 文件
+
+* build 
