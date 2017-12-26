@@ -79,7 +79,7 @@ Enter full URL: 远程域名地址/updates
 * auto-download 设置为true时，则为自动下载远程需要更新的文件
 * auto-install 设置为true时，则为自动安装
 
-### 修改完后，重新打包签名APP，并重新生成chcp.json和chcp.manifest(生成的两个文件在www文件夹中)
+### 修改完后，重新编译APP，并重新生成chcp.json和chcp.manifest(生成的两个文件在www文件夹中)
 
 ```
 ionic cordova build android --prod --release
