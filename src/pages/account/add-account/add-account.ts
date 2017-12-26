@@ -1,7 +1,6 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams, ViewController, App, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../../app/app.service';
-import { TabsPage } from '../../tabs/tabs';
 @Component({
   selector: 'add-account',
   templateUrl: 'add-account.html'
@@ -142,7 +141,6 @@ export class AddAccount {
           wi = factor[i];
           sum += ai * wi;
         }
-        var last = parity[sum % 11];
         if(parity[sum % 11] != code[17]){
           pass =false;
         }
