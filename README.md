@@ -51,8 +51,8 @@ Update method(required): resume
 Enter full URL: 远程域名地址/updates
 ...
 ```
-Update method(required)有三种方式： now，start，resume
-远程地址用来放app build后的www内部的所有文件
+1. Update method(required)有三种方式： now，start，resume
+2. 远程地址用来放app build后的www内部的所有文件
 
 * 生成后的cordova-hcp.json文件(在根目录中)
 
