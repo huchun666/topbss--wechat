@@ -97,6 +97,9 @@ export class OrderInfo {
         this.orderDetail = data;
       }).catch(error => {
         console.log(error);
+        this.appService.getToken(error, () => {
+          this.getOrderDetail();
+        });
         if (error.type) {
           const alert = this.alertCtrl.create({
             message: error.message,
