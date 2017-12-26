@@ -66,7 +66,8 @@
                 "CAMERA_USAGE_DESCRIPTION": "扫码取货"
             },
             "cordova-plugin-dialogs": {},
-            "cordova-plugin-compat": {}
+            "cordova-plugin-compat": {},
+            "cordova-hot-code-push-plugin": {}
         },
         "platforms": [
             "android",
@@ -75,5 +76,5 @@
     },
     "config": {
         "ionic_webpack": "./config/webpack.config.js"
-    }    
+    }
 }
