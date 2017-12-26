@@ -47,14 +47,12 @@ export class UpdatePwd {
     this.initialPwdBlur();
     this.newPwdBlur();
     if (!this.isInitialPwd && !this.isNewPwd && !this.isRepeatPwd && this.initialPwd != "" && this.newPwd != "" && this.repeatPwd != "") {
-      console.log("inter01")
       let loading = this.appService.loading();
       loading.present();
       let url = AppConfig.API.editPassword;
       let body = {
         password: this.newPwd
       };
-      console.log(this.withTokenHeaders)
       this.appService.httpPostHeader(url, body, this.withTokenHeaders).then(data => {
         loading.dismiss();
         this.user = {

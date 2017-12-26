@@ -48,7 +48,7 @@ export class AddAccount {
       this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
         if (data.type == "success") {
           this.loadingShow = false;
-          let redirectUri = "https://mobile.61topbaby.com";
+          let redirectUri = `https://mobile.${AppConfig.mainUrl}`;
           let encodeUrl = encodeURIComponent(redirectUri);
           let getCodeUrl = `${AppConfig.API.connect}?appid=${AppConfig.appID}&redirect_uri=${encodeUrl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
           window.location.href = getCodeUrl;
