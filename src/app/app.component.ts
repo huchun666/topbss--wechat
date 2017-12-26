@@ -7,7 +7,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AppService, AppConfig } from './app.service';
+import { AppService } from './app.service';
 
 
 @Component({
