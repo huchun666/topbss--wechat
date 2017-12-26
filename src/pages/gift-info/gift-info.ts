@@ -94,6 +94,9 @@ export class GiftInfo {
         this.giftInfo = data;
       }).catch(error => {
         console.log(error);
+        this.appService.getToken(error, () => {
+          this.getGiftDetail();
+        });
         if (error.type) {
           const alert = this.alertCtrl.create({
             message: error.message,
