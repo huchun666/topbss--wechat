@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import { Buffer } from 'buffer';
