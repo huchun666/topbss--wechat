@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, ToastController } from 'ionic-angular';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import { Buffer } from 'buffer';
@@ -20,6 +20,9 @@ export class AppConfig {
 
   // 上拉加载、下拉刷新的定时器时间
   static LOAD_TIME: number = 500;
+
+  // 请求token预留时间1800000毫秒（半小时）
+  static RESERVED_TIME: number = 1800000;
 
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
@@ -178,6 +181,8 @@ export class AppService {
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
       let body = `grant_type=refresh_token&refresh_token=${self.getItem("refresh_token")}`;
       self.httpPostHeader(oauthTokenUrl, body, self.oauthTokenHeaders).then(data => {
+        let newDateMS = (new Date()).getTime() + data.expires_in*1000 - AppConfig.RESERVED_TIME;
+        self.setItem("newDateMS", newDateMS);
         self.setItem("tpb_token", data.access_token);
         self.setItem("refresh_token", data.refresh_token);
         callback();
