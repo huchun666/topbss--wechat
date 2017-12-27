@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
 import { CreatOrder } from '../creat-order/creat-order';
 import { GiftInfo } from '../gift-info/gift-info';
