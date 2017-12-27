@@ -62,6 +62,8 @@ export class UpdatePwd {
         if (!this.rememberPassword) {
           this.user.pwd = ""; 
         };
+        let newDateMS = (new Date()).getTime() + data.expires_in*1000 - AppConfig.RESERVED_TIME;
+        this.appService.setItem("newDateMS", newDateMS);
         this.appService.setItem("user", JSON.stringify(this.user));
         this.appService.setItem("tpb_token", this.tpb_token);
         this.appService.setItem("refresh_token", this.refresh_token);
