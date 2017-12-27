@@ -85,6 +85,8 @@ export class Login{
               let appNav = this.app.getRootNav();
               appNav.setRoot(UpdatePwd, {initialPwd: this.pwd, tpb_token: data.access_token, refresh_token: data.refresh_token, user: user, rememberPassword: this.rememberPassword});
             }else if (firstLoginData.firstLogin == 0) {
+              let newDateMS = (new Date()).getTime() + data.expires_in*1000 - AppConfig.RESERVED_TIME;
+              this.appService.setItem("newDateMS", newDateMS);
               this.appService.setItem("user", JSON.stringify(user));
               this.appService.setItem("tpb_token",data.access_token);//测试一下看结果
               this.appService.setItem("refresh_token",data.refresh_token);
