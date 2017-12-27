@@ -37,8 +37,8 @@ var Login = (function () {
         this.app = app;
         this.appService = appService;
         this.http = http;
-        this.username = ""; //15618146206
-        this.pwd = ""; //123456
+        this.username = "";
+        this.pwd = "";
         this.isUserName = false;
         this.isPwd = false;
         this.rememberPassword = true;
@@ -110,7 +110,7 @@ var Login = (function () {
                             var newDateMS = (new Date()).getTime() + data.expires_in * 1000 - __WEBPACK_IMPORTED_MODULE_3__app_app_service__["a" /* AppConfig */].RESERVED_TIME;
                             _this.appService.setItem("newDateMS", newDateMS);
                             _this.appService.setItem("user", JSON.stringify(user));
-                            _this.appService.setItem("tpb_token", data.access_token); //测试一下看结果
+                            _this.appService.setItem("tpb_token", data.access_token);
                             _this.appService.setItem("refresh_token", data.refresh_token);
                             var appNav = _this.app.getRootNav();
                             appNav.setRoot(__WEBPACK_IMPORTED_MODULE_5__tabs_tabs__["a" /* TabsPage */]);
@@ -154,7 +154,7 @@ var Login = (function () {
 }());
 Login = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'login',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/'<ion-header class="header-title-hidden">\n\n  <ion-navbar>\n\n    <ion-title text-center>登录</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <h1 class="logo" ><img src="./assets/image/logo.png" alt="淘璞帮"></h1>\n\n  <div class="login-content">\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="username" type="text" placeholder="账号或手机号码" required clearInput=true (ionBlur)="onblurAffirm()"></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isUserName">{{userNameValue}}</div>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="pwd" type="password" placeholder="密码" required clearInput=true></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isPwd">{{userPwdValue}}</div>\n\n      <ion-item>\n\n        <ion-label>记住密码</ion-label>\n\n        <ion-checkbox [(ngModel)]="rememberPassword"></ion-checkbox>\n\n      </ion-item>\n\n      <!-- <ion-item  class="forget" (click)="forget()">\n\n        <span>忘记密码?</span>s\n\n      </ion-item> -->\n\n    </ion-list>\n\n    <button class="btn-login" ion-button block round (click)="login()">登录</button>\n\n    <!-- <div class="error3" *ngIf="isNameAndPwd">账号或密码不正确，请确认后重新输入</div> -->\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/
+        selector: 'login',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/'<ion-header class="header-title-hidden">\n\n  <ion-navbar>\n\n    <ion-title text-center>登录</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <h1 class="logo" ><img src="./assets/image/logo.png" alt="淘璞帮"></h1>\n\n  <div class="login-content">\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="username" type="text" placeholder="账号或手机号码" required clearInput=true (ionBlur)="onblurAffirm()"></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isUserName">{{userNameValue}}</div>\n\n      <ion-item>\n\n        <ion-input [(ngModel)]="pwd" type="password" placeholder="密码" required clearInput=true></ion-input>\n\n      </ion-item>\n\n      <div class=\'login-error\' *ngIf="isPwd">{{userPwdValue}}</div>\n\n      <ion-item>\n\n        <ion-label>记住密码</ion-label>\n\n        <ion-checkbox [(ngModel)]="rememberPassword"></ion-checkbox>\n\n      </ion-item>\n\n      <!-- <ion-item  class="forget" (click)="forget()">\n\n        <span>忘记密码?</span>s\n\n      </ion-item> -->\n\n    </ion-list>\n\n    <button class="btn-login" ion-button block round (click)="login()">登录</button>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\login\login.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* App */],
