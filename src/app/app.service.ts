@@ -30,11 +30,7 @@ export class AppConfig {
 
   static grant_type: string = "password";
 
-  //appid
-  static appID: string = "wxa7257af9de640f52";//后面需改
-
-  //appSecret
-  static appSecret: string = "83af89b678690d2b8e12ecb693485308";//后面需改
+  static appID: string = ENV.appID;
 
   //接口url
   static API: any = {
