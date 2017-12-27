@@ -1486,6 +1486,7 @@ var Home = (function () {
                         subTitle: '请扫描淘璞系统内二维码',
                         buttons: ['确定']
                     });
+                    alert_1.present();
                 }
                 else {
                     if (url.indexOf('id') > 0) {

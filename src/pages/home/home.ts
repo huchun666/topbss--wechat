@@ -119,6 +119,7 @@ export class Home {
               subTitle: '请扫描淘璞系统内二维码',
               buttons: ['确定']
             });
+            alert.present();
           }else {
             if (url.indexOf('id') > 0) {
               let myCodeModal = self.modalCtrl.create(OrderInfo, {'url': url});
