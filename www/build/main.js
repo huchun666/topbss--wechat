@@ -6314,7 +6314,6 @@ var MyApp = (function () {
                     _this.rootPage = __WEBPACK_IMPORTED_MODULE_3__pages_tabs_tabs__["a" /* TabsPage */];
                 }).catch(function (err) {
                     console.log(err);
-                    _this.appService.toast('登录已过期，请重新登录', 1000, 'middle');
                     _this.appService.setItem("tpb_token", "");
                     _this.appService.setItem("refresh_token", "");
                     _this.rootPage = __WEBPACK_IMPORTED_MODULE_2__pages_login_login__["a" /* Login */];

@@ -56,7 +56,6 @@ export class MyApp {
           this.rootPage = TabsPage;
         }).catch(err => {
           console.log(err);
-          this.appService.toast('登录已过期，请重新登录', 1000, 'middle');
           this.appService.setItem("tpb_token","");
           this.appService.setItem("refresh_token","");
           this.rootPage = Login;
