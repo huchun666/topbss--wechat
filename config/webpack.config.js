@@ -4,13 +4,19 @@ var path = require('path');
 var useDefaultConfig = require('@ionic/app-scripts/config/webpack.config.js');
 
 var env = process.env.IONIC_ENV;
+var pathConfig = path.resolve(environmentPath('dev'));
 
-useDefaultConfig.prod.resolve.alias = {
-  "@app/env": path.resolve(environmentPath('prod'))
-};
+if (process.env.npm_config_argv) {  //通过npm run方式编译微信项目时
+  var npmConfigJson = JSON.parse(process.env.npm_config_argv).original;
+  if (npmConfigJson.indexOf('--production') > -1) {
+    pathConfig = path.resolve(environmentPath('prod'));
+  }
+} else { //通过ionic build 编译微信项目时
+  pathConfig = path.resolve(environmentPath(env));
+}
 
-useDefaultConfig.dev.resolve.alias = {
-  "@app/env": path.resolve(environmentPath('dev'))
+useDefaultConfig[env].resolve.alias = {
+  "@app/env": pathConfig
 };
 
 if (env !== 'prod' && env !== 'dev') {
