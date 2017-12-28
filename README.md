@@ -23,6 +23,22 @@ With this configuration, you can import environment variables anywhere.
 import { ENV } from '@app/env'
 ```
 
+### Wechat
+
+#### 测试执行命令
+```
+npm run build --prod
+```
+未带--production参数或者参数为非--production时，为测试环境变量
+
+#### 生产执行命令 
+```
+npm run build --prod --production
+```
+带--production参数时，为生产环境变量
+
+
+
 ### Android Devices:
 To build your app for production or development, run
 
