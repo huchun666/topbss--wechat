@@ -64,6 +64,7 @@
     "platforms": []
   },
   "config": {
-    "ionic_webpack": "./config/webpack.config.js"
+    "ionic_webpack": "./config/webpack.config.js",
+    "ionic_copy": "./config/copy.config.js"
   }
 }
