@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
-import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'gift-info',
@@ -94,6 +93,9 @@ export class GiftInfo {
         this.giftInfo = data;
       }).catch(error => {
         console.log(error);
+        this.appService.getToken(error, () => {
+          this.getGiftDetail();
+        });
         if (error.type) {
           const alert = this.alertCtrl.create({
             message: error.message,
