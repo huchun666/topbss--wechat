@@ -184,6 +184,12 @@ export class OrderStore {
   }
   //确认订单
   addProductModal() {
+    this.totalPrice = 0;
+    let totalArr: any = document.getElementsByClassName("total-input-count");
+    for (let i=0;i<totalArr.length;i++) {
+      this.totalPrice += Number(totalArr[i].value);
+    }
+    this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
     let loading = this.appService.loading();
     loading.present();
     let url = `${AppConfig.API.warehouseGenerateCode}?warehouseId=${this.orderStoreDataArray[0].warehouseId}`;
