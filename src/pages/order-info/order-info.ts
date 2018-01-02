@@ -53,8 +53,7 @@ export class OrderInfo {
   getOrderDetail() {
 		let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
 		alert("QRCode content" + url);
-    this.appService.httpGet(url)
-		.then(data => {
+    this.appService.httpGet(url).then(data => {
 			console.log(data);
 			this.orderDetail.orderSeq = data.orderSeq;
 			this.orderDetail.orderId = data.orderId;
