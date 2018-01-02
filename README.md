@@ -12,6 +12,13 @@ $ npm install
 $ ionic serve --lab
 ```
 
+
+## 安装html-webpack-plugin插件
+```
+npm install --save-dev html-webpack-plugin
+```
+给index.html页面js添加hash值进行版本控制
+
 ## Environment Variables:
 
 1.File 'src/environments/environment.ts' will be used for the Production environment.
@@ -36,7 +43,6 @@ npm run build --prod
 npm run build --prod --production
 ```
 带--production参数时，为生产环境变量
-
 
 
 ### Android Devices:
