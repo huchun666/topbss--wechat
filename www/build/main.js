@@ -2727,7 +2727,11 @@ var OrderInfo = (function () {
         this.appService.httpGet(url)
             .then(function (data) {
             console.log(data);
+            alert(data);
             _this.orderDetail = data;
+            alert(_this.orderDetail);
+            _this.orderDetail.orderDetail = data.orderDetail;
+            alert(_this.orderDetail.orderDetail);
         }).catch(function (error) {
             console.log(error);
             _this.appService.getToken(error, function () {
@@ -6240,7 +6244,7 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ENV; });
 var ENV = {
     mode: '91topbaby.com',
-    client_id: 'testClient',
+    client_id: 'shortClient',
     secret: 'secret',
     appID: 'wxadf96ade9aed2e45'
 };
