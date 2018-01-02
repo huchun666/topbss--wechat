@@ -186,7 +186,7 @@ export class OrderStore {
   addProductModal() {
     this.totalPrice = 0;
     let totalArr: any = document.getElementsByClassName("total-input-count");
-    for (let i=0;i<totalArr.length;i++) {
+    for (let i = 0; i < totalArr.length; i++) {
       this.totalPrice += Number(totalArr[i].value);
     }
     this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
