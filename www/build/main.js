@@ -2727,11 +2727,11 @@ var OrderInfo = (function () {
         this.appService.httpGet(url)
             .then(function (data) {
             console.log(data);
-            alert(data);
+            alert(JSON.stringify(data));
             _this.orderDetail = data;
-            alert(_this.orderDetail);
+            alert(JSON.stringify(_this.orderDetail));
             _this.orderDetail.orderSeq = data.orderSeq;
-            alert(_this.orderDetail.orderDetail);
+            alert(_this.orderDetail.orderSeq);
         }).catch(function (error) {
             console.log(error);
             _this.appService.getToken(error, function () {

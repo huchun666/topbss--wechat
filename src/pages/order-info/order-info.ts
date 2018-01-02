@@ -55,11 +55,11 @@ export class OrderInfo {
     this.appService.httpGet(url)
 		.then(data => {
 			console.log(data);
-			alert(data);
+			alert(JSON.stringify(data));
 			this.orderDetail = data;
-			alert(this.orderDetail);
+			alert(JSON.stringify(this.orderDetail));
 			this.orderDetail.orderSeq = data.orderSeq;
-			alert(this.orderDetail.orderDetail);
+			alert(this.orderDetail.orderSeq);
 		}).catch(error => {
 			console.log(error);
 			this.appService.getToken(error, () => {
