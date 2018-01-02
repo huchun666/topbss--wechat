@@ -2738,7 +2738,7 @@ var OrderInfo = (function () {
                 _this.getOrderDetail();
             });
             if (error.type) {
-                var alert = _this.alertCtrl.create({
+                var alert_1 = _this.alertCtrl.create({
                     message: error.message,
                     enableBackdropDismiss: false,
                     buttons: [
@@ -2750,7 +2750,7 @@ var OrderInfo = (function () {
                         }
                     ]
                 });
-                alert.present();
+                alert_1.present();
             }
         });
     };
@@ -2804,10 +2804,13 @@ OrderInfo = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-info',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-info\order-info.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>订单信息</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div *ngIf="orderDetail.orderSeq">\n\n    <div class="order-title">\n\n      <img class="my-picture" src="./assets/image/store.png" alt="店铺">\n\n      <h2>{{ orderDetail.brandshopName }}</h2>\n\n      <span>{{ orderDetail.orderId }}</span>\n\n    </div>\n\n    <div class="order-list">\n\n\n\n      <div class="order-item" *ngFor="let product of orderDetail.orderItemProductSkuDTOS">\n\n        <dl>\n\n          <dt>\n\n            <img class="my-picture" [src]="product.productSkuDTO.fileSeq | productSkuDTOImage" alt="小裙子">\n\n          </dt>\n\n          <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>\n\n          <dd class="sku-list">\n\n            <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }}</span>\n\n          </dd>\n\n          <dd class=\'price\'>{{ product.unitPrice }}</dd>\n\n          <dd class="count">X {{ product.number }}</dd>\n\n        </dl>\n\n      </div>\n\n    </div>\n\n    <button class="btn-confirm" ion-button (click)="presentConfirm()">确认提货</button>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="getOrderDetail()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-info\order-info.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
 ], OrderInfo);
 
-var _a, _b, _c, _d, _e;
 //# sourceMappingURL=order-info.js.map
 
 /***/ }),
