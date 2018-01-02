@@ -58,7 +58,7 @@ export class OrderInfo {
 			alert(data);
 			this.orderDetail = data;
 			alert(this.orderDetail);
-			this.orderDetail.orderDetail = data.orderDetail;
+			this.orderDetail.orderSeq = data.orderSeq;
 			alert(this.orderDetail.orderDetail);
 		}).catch(error => {
 			console.log(error);
