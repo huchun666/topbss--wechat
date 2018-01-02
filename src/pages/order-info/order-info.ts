@@ -60,6 +60,7 @@ export class OrderInfo {
 			this.orderDetail.orderId = data.orderId;
 			this.orderDetail.brandshopName = data.brandshopName;
 			this.orderDetail.orderItemProductSkuDTOS.push(...data.orderItemProductSkuDTOS);
+			alert("Data information:" + JSON.stringify(data));
 			alert("Order Detail information:" + JSON.stringify(this.orderDetail));
 		}).catch(error => {
 			alert("get order detail error, call getOrderDetail again");
