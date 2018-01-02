@@ -83,28 +83,7 @@ export class Home {
     })
   }
   qrCodeScan() {
-    // let signUrl = window.location.href;
-    // let encodeUrl = encodeURIComponent(signUrl);
-    // let url = `${AppConfig.API.signature}?url=${encodeUrl}`;
     var self = this;
-    // self.appService.httpGet(url).then(data => {
-    //   wx.config({
-    //     debug: false,
-    //     appId: data.appId,
-    //     timestamp: data.timestamp,
-    //     nonceStr: data.noncestr,
-    //     signature: data.signature,
-    //     jsApiList: ['scanQRCode']
-    //   });
-    //   // wx.error(function(res){
-    //   //   console.log("微信验证失败"+res);
-    //   //   let alert = self.alertCtrl.create({
-    //   //     title: '提示',
-    //   //     subTitle: '扫描失败，请重新再试',
-    //   //     buttons: ['确定']
-    //   //   });
-    //   //   alert.present();
-    //   // });
       wx.scanQRCode({
         needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
         scanType: ["qrCode","barCode"],
@@ -171,13 +150,6 @@ export class Home {
           alert.present();
         }
       });
-    // }).catch(error => {
-    //   self.appService.getToken(error, () => {
-    //     self.qrCodeScan();
-    //   });
-    //   console.log(error);
-    //   self.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-    // })
   }
   goMyCode() {
     let myCodeModal = this.modalCtrl.create(MyCode);
@@ -193,10 +165,13 @@ export class Home {
         this.navCtrl.parent.select(1);
       }
     });
+    let loading = this.appService.loading();
+    loading.present();
     let signUrl = window.location.href;
     let encodeUrl = encodeURIComponent(signUrl);
     let url = `${AppConfig.API.signature}?url=${encodeUrl}`;
     this.appService.httpGet(url).then(data => {
+      loading.dismiss();
       wx.config({
         debug: false,
         appId: data.appId,
@@ -210,8 +185,9 @@ export class Home {
       this.appService.getToken(error, () => {
         this.ionViewDidEnter();
       });
-       console.log(error);
-      //  this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
+      loading.dismiss();
+      this.appService.toast('网络阻塞，请稍后重试', 1000, 'middle');
+      console.log(error);
      })
   }
 }

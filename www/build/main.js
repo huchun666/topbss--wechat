@@ -1450,28 +1450,7 @@ var Home = (function () {
         });
     };
     Home.prototype.qrCodeScan = function () {
-        // let signUrl = window.location.href;
-        // let encodeUrl = encodeURIComponent(signUrl);
-        // let url = `${AppConfig.API.signature}?url=${encodeUrl}`;
         var self = this;
-        // self.appService.httpGet(url).then(data => {
-        //   wx.config({
-        //     debug: false,
-        //     appId: data.appId,
-        //     timestamp: data.timestamp,
-        //     nonceStr: data.noncestr,
-        //     signature: data.signature,
-        //     jsApiList: ['scanQRCode']
-        //   });
-        //   // wx.error(function(res){
-        //   //   console.log("微信验证失败"+res);
-        //   //   let alert = self.alertCtrl.create({
-        //   //     title: '提示',
-        //   //     subTitle: '扫描失败，请重新再试',
-        //   //     buttons: ['确定']
-        //   //   });
-        //   //   alert.present();
-        //   // });
         wx.scanQRCode({
             needResult: 1,
             scanType: ["qrCode", "barCode"],
@@ -1481,12 +1460,12 @@ var Home = (function () {
                     return;
                 }
                 if (url.indexOf(__WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].mainUrl) < 0) {
-                    var alert_1 = self.alertCtrl.create({
+                    var alert = self.alertCtrl.create({
                         title: '提示',
                         subTitle: '请扫描淘璞系统内二维码',
                         buttons: ['确定']
                     });
-                    alert_1.present();
+                    alert.present();
                 }
                 else {
                     if (url.indexOf('id') > 0) {
@@ -1524,12 +1503,12 @@ var Home = (function () {
                         myCodeModal.present();
                     }
                     else {
-                        var alert_2 = self.alertCtrl.create({
+                        var alert = self.alertCtrl.create({
                             title: '提示',
                             subTitle: '请扫描订单或者赠品二维码',
                             buttons: ['确定']
                         });
-                        alert_2.present();
+                        alert.present();
                     }
                 }
             },
@@ -1543,13 +1522,6 @@ var Home = (function () {
                 alert.present();
             }
         });
-        // }).catch(error => {
-        //   self.appService.getToken(error, () => {
-        //     self.qrCodeScan();
-        //   });
-        //   console.log(error);
-        //   self.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-        // })
     };
     Home.prototype.goMyCode = function () {
         var myCodeModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__mycode_mycode__["a" /* MyCode */]);
@@ -1566,10 +1538,13 @@ var Home = (function () {
                 _this.navCtrl.parent.select(1);
             }
         });
+        var loading = this.appService.loading();
+        loading.present();
         var signUrl = window.location.href;
         var encodeUrl = encodeURIComponent(signUrl);
         var url = __WEBPACK_IMPORTED_MODULE_2__app_app_service__["a" /* AppConfig */].API.signature + "?url=" + encodeUrl;
         this.appService.httpGet(url).then(function (data) {
+            loading.dismiss();
             wx.config({
                 debug: false,
                 appId: data.appId,
@@ -1583,8 +1558,9 @@ var Home = (function () {
             _this.appService.getToken(error, function () {
                 _this.ionViewDidEnter();
             });
+            loading.dismiss();
+            _this.appService.toast('网络阻塞，请稍后重试', 1000, 'middle');
             console.log(error);
-            //  this.appService.toast('网络阻塞，请稍后重试。', 1000, 'middle');
         });
     };
     return Home;
@@ -1593,13 +1569,10 @@ Home = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'home',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\home\home.html"*/'<ion-header class="header-title-hidden">\n\n  <ion-navbar>\n\n    <ion-title text-center>首页</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-toolbar>\n\n	  <img class="logo-img" src="./assets/image/top.png" alt="淘璞帮">\n\n		<img class="logo-text" src="./assets/image/tpb.png" alt="淘璞帮">\n\n		<!-- <img class="logo-info" src="./assets/image/info.png" alt="淘璞帮"> -->\n\n  </ion-toolbar>\n\n  <div class="menu-list">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col (touchstart)="qrCodeScan()">\n\n          <img class="logo-img" src="./assets/image/scan.png" alt="扫码确认">\n\n          <span>扫一扫</span>\n\n        </ion-col>\n\n        <ion-col (touchstart)="goMyCode()">\n\n          <img class="logo-img" src="./assets/image/mycode.png" alt="我的二维码">\n\n          <span>我的二维码</span>\n\n        </ion-col>\n\n        <ion-col (touchstart)="goCreatOrder()">\n\n          <img class="logo-img" src="./assets/image/order.png" alt="生成订单">\n\n          <span>生成订单</span>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="order-unaudit">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <dl>\n\n            <dt class="order-title">待审核订单<span>{{ cancelOrderCount + returnOrderCount }}</span></dt>\n\n            <dd>取消订单<span>({{ cancelOrderCount }})</span></dd>\n\n            <dd>退货订单<span>({{ returnOrderCount }})</span></dd>\n\n          </dl>\n\n        </ion-col>\n\n        <ion-col>\n\n          <button ion-button outline round color="light" (touchstart)="goUnAudit()">立即处理</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="gift-unhandle">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col>\n\n          <dl>\n\n            <dt class="gift-title">待处理赠品<span>{{ selfGiftCount + expressgiftCount }}</span></dt>\n\n            <dd>自提赠品<span>({{ selfGiftCount }})</span></dd>\n\n            <dd>快递赠品<span>({{ expressgiftCount }})</span></dd>\n\n          </dl>\n\n        </ion-col>\n\n        <ion-col>\n\n          <button ion-button outline round color="light" (touchstart)="goUnHandle()">立即处理</button>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _e || Object])
 ], Home);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -2727,18 +2700,17 @@ var OrderInfo = (function () {
         this.appService.httpGet(url)
             .then(function (data) {
             console.log(data);
-            alert(JSON.stringify(data));
-            _this.orderDetail = data;
-            alert(JSON.stringify(_this.orderDetail));
             _this.orderDetail.orderSeq = data.orderSeq;
             alert(_this.orderDetail.orderSeq);
+            _this.orderDetail = data;
+            alert(_this.orderDetail);
         }).catch(function (error) {
             console.log(error);
             _this.appService.getToken(error, function () {
                 _this.getOrderDetail();
             });
             if (error.type) {
-                var alert_1 = _this.alertCtrl.create({
+                var alert = _this.alertCtrl.create({
                     message: error.message,
                     enableBackdropDismiss: false,
                     buttons: [
@@ -2750,7 +2722,7 @@ var OrderInfo = (function () {
                         }
                     ]
                 });
-                alert_1.present();
+                alert.present();
             }
         });
     };
@@ -2804,13 +2776,10 @@ OrderInfo = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'order-info',template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-info\order-info.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title text-center>订单信息</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <div *ngIf="orderDetail.orderSeq">\n\n    <div class="order-title">\n\n      <img class="my-picture" src="./assets/image/store.png" alt="店铺">\n\n      <h2>{{ orderDetail.brandshopName }}</h2>\n\n      <span>{{ orderDetail.orderId }}</span>\n\n    </div>\n\n    <div class="order-list">\n\n\n\n      <div class="order-item" *ngFor="let product of orderDetail.orderItemProductSkuDTOS">\n\n        <dl>\n\n          <dt>\n\n            <img class="my-picture" [src]="product.productSkuDTO.fileSeq | productSkuDTOImage" alt="小裙子">\n\n          </dt>\n\n          <dd class="product-title">{{ product.productSkuDTO.productName }}</dd>\n\n          <dd class="sku-list">\n\n            <span *ngFor="let sku of product.productSkuDTO.attrValueList">{{ sku.attrValue }}</span>\n\n          </dd>\n\n          <dd class=\'price\'>{{ product.unitPrice }}</dd>\n\n          <dd class="count">X {{ product.number }}</dd>\n\n        </dl>\n\n      </div>\n\n    </div>\n\n    <button class="btn-confirm" ion-button (click)="presentConfirm()">确认提货</button>\n\n  </div>\n\n  <div class="request-defeat" *ngIf = "requestDefeat">\n\n    <img src="./assets/image/requestDefeat.png" alt="">\n\n    <p>啊哦！页面走丢了</p>\n\n    <button class="btn-request-defeat" ion-button full (touchstart)="getOrderDetail()">\n\n      刷新再找一找\n\n    </button>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\pages\order-info\order-info.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_app_service__["b" /* AppService */]) === "function" && _e || Object])
 ], OrderInfo);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=order-info.js.map
 
 /***/ }),
@@ -6348,18 +6317,15 @@ var MyApp = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Nav */]) === "function" && _a || Object)
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\think\huchunGit\tpb02\tpb\src\app\app.html"*/'<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"C:\Users\think\huchunGit\tpb02\tpb\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* MenuController */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
-        __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__["a" /* SplashScreen */],
-        __WEBPACK_IMPORTED_MODULE_6__app_service__["b" /* AppService */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* MenuController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__app_service__["b" /* AppService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__app_service__["b" /* AppService */]) === "function" && _f || Object])
 ], MyApp);
 
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
