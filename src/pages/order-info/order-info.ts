@@ -51,16 +51,18 @@ export class OrderInfo {
 		this.getOrderDetail();
 	}
   getOrderDetail() {
-    let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
+		let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
+		alert("QRCode content" + url);
     this.appService.httpGet(url)
 		.then(data => {
 			console.log(data);
 			this.orderDetail.orderSeq = data.orderSeq;
-			alert(this.orderDetail.orderSeq);
-			this.orderDetail = data;
-			alert(this.orderDetail);
+			this.orderDetail.orderId = data.orderId;
+			this.orderDetail.brandshopName = data.brandshopName;
+			this.orderDetail.orderItemProductSkuDTOS.push(...data.orderItemProductSkuDTOS);
+			alert("Order Detail information:" + JSON.stringify(this.orderDetail));
 		}).catch(error => {
-			console.log(error);
+			alert("get order detail error, call getOrderDetail again");
 			this.appService.getToken(error, () => {
 				this.getOrderDetail();
 			});
