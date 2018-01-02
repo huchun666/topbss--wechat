@@ -49,13 +49,16 @@ export class OrderInfo {
 	public navParams: NavParams,
 	public appService: AppService) {
 		this.getOrderDetail();
-  }
+	}
   getOrderDetail() {
     let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
     this.appService.httpGet(url)
 		.then(data => {
 			console.log(data);
+			this.orderDetail.orderSeq = data.orderSeq;
+			alert(this.orderDetail.orderSeq);
 			this.orderDetail = data;
+			alert(this.orderDetail);
 		}).catch(error => {
 			console.log(error);
 			this.appService.getToken(error, () => {
