@@ -2,6 +2,8 @@ var chalk = require("chalk");
 var fs = require('fs');
 var path = require('path');
 var useDefaultConfig = require('@ionic/app-scripts/config/webpack.config.js');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 var env = process.env.IONIC_ENV;
 var pathConfig = path.resolve(environmentPath('dev'));
@@ -35,6 +37,16 @@ function environmentPath(env) {
     return filePath;
   }
 }
+
+useDefaultConfig[env].plugins.push(
+  new HtmlWebpackPlugin({
+    template:'./src/index.html',
+    filename: '../index.html',
+    hash: true,
+    cache: true
+  })
+);
+
 
 module.exports = function () {
   return useDefaultConfig;
