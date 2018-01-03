@@ -55,10 +55,7 @@ export class OrderInfo {
 		alert("QRCode content" + url);
     this.appService.httpGet(url).then(data => {
 			console.log(data);
-			this.orderDetail.orderSeq = data.orderSeq;
-			this.orderDetail.orderId = data.orderId;
-			this.orderDetail.brandshopName = data.brandshopName;
-			this.orderDetail.orderItemProductSkuDTOS.push(...data.orderItemProductSkuDTOS);
+			this.orderDetail = data;
 			alert("Data information:" + JSON.stringify(data));
 			alert("Order Detail information:" + JSON.stringify(this.orderDetail));
 		}).catch(error => {
