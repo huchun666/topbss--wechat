@@ -1,8 +1,8 @@
 {
-  "name": "tpb",
+  "name": "TopBss",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "61Topbaby Dev Team",
+  "homepage": "https://www.61topbaby.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -55,7 +55,7 @@
     "crypto-js": "^3.1.9-1",
     "typescript": "2.3.4"
   },
-  "description": "An Ionic project",
+  "description": "淘璞官方门店导购服务平台，在这里，您可以随时了解到最新福利政策，掌握最佳的赚钱攻略.",
   "cordova": {
     "plugins": {
       "cordova-plugin-device": {},
