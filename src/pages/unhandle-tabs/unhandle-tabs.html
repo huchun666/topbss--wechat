@@ -72,9 +72,6 @@
           刷新再找一找
         </button>
       </div>
-      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
-        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
     </div>
     <div class="toTop" (click)="scrollTo()" *ngIf="toTop">
       <img src="./assets/image/toTop.png" alt="">
@@ -137,13 +134,13 @@
           刷新再找一找
         </button>
       </div>
-      <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
-        <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
     </div>
     
     
   </div>
 
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
+    <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
   
 </ion-content>
