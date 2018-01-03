@@ -48,6 +48,8 @@ export class OrderInfo {
 	public viewCtrl: ViewController,
 	public navParams: NavParams,
 	public appService: AppService) {
+	}
+	ionViewDidEnter () {
 		this.getOrderDetail();
 	}
   getOrderDetail() {
