@@ -16,7 +16,7 @@ if (process.env.npm_config_argv) {  //通过npm run方式编译微信项目时
     pathConfig = path.resolve(environmentPath('prod'));
     console.log(colors.yellow("Production:", "Environment variables in file: "+ pathConfig + " using for production build."));
   }else{
-    console.log(colors.yellow("Test:", "Environment variables in file: "+ pathConfig + " using for test build.".yellow));
+    console.log(colors.yellow("Test:", "Environment variables in file: "+ pathConfig + " using for test build."));
   }
   
 } else { //通过ionic build 编译微信项目时
