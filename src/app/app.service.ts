@@ -166,8 +166,7 @@ export class AppService {
   }
 
   //access_token过期
-  private handleError(error: any) {
-    alert(JSON.stringify(error));
+  private handleError(error: any): Promise<any> {
     return Promise.reject(error.json() || error);
   }
 
