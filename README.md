@@ -12,6 +12,12 @@ $ npm install
 $ ionic serve --lab
 ```
 
+## 安装colors插件
+```
+npm install --save-dev colors
+```
+生产或者测试build时候，设置console提示文字的颜色
+
 ## 安装intl插件
 ```
 npm install --save intl
