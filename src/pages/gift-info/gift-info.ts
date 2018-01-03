@@ -41,7 +41,9 @@ export class GiftInfo {
 		public navParams: NavParams,
 		public appService: AppService
 	) {
-    this.getGiftDetail();
+	}
+	ionViewDidEnter () {
+		this.getGiftDetail();
 	}
 	getGiftDetail() {
 		let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
