@@ -50,6 +50,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "3.0.0",
     "crypto-js": "^3.1.9-1",
+    "html-webpack-plugin": "^2.30.1",
     "typescript": "2.3.4"
   },
   "description": "淘璞官方门店导购服务平台，在这里，您可以随时了解到最新福利政策，掌握最佳的赚钱攻略.",
