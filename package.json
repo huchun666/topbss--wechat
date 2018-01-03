@@ -1,8 +1,8 @@
 {
-  "name": "tpb",
+  "name": "TopBss",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "61Topbaby Dev Team",
+  "homepage": "https://www.61topbaby.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -33,7 +33,8 @@
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-dialogs": "^1.3.3",
     "cordova-plugin-ionic-webview": "^1.1.11",
-    "cordova-plugin-statusbar": "https://github.com/apache/cordova-plugin-statusbar.git",
+    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-statusbar": "git+https://github.com/apache/cordova-plugin-statusbar.git",
     "cordova-plugin-whitelist": "^1.3.1",
     "crypto-js": "^3.1.9-1",
     "html-webpack-plugin": "^2.30.1",
@@ -51,7 +52,7 @@
     "crypto-js": "^3.1.9-1",
     "typescript": "2.3.4"
   },
-  "description": "An Ionic project",
+  "description": "淘璞官方门店导购服务平台，在这里，您可以随时了解到最新福利政策，掌握最佳的赚钱攻略.",
   "cordova": {
     "plugins": {
       "cordova-plugin-device": {},
