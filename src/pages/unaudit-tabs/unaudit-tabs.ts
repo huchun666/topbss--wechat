@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, AlertController, Content, ModalController } from 'ionic-angular';
-import { UnauditCancelorder } from '../unaudit-cancelorder/unaudit-cancelorder';
-import { UnauditReturnorder } from '../unaudit-returnorder/unaudit-returnorder';
 import { AppService, AppConfig } from '../../app/app.service';
 import { AuditCancelorder } from '../audit-cancelorder/audit-cancelorder';
 import { AuditReturnorder } from '../audit-returnorder/audit-returnorder';
@@ -12,8 +10,6 @@ import { ReturnDetail } from '../return-detail/return-detail';
 })
 export class UnauditTabs {
   @ViewChild(Content) content: Content;
-  orderCancel = UnauditCancelorder;
-  orderReturn = UnauditReturnorder;
   cancelCount: string;
   returnCount: string;
   cancelOrderCount: number;
