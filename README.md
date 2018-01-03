@@ -12,6 +12,11 @@ $ npm install
 $ ionic serve --lab
 ```
 
+## 安装intl插件
+```
+npm install --save intl
+```
+解决ios9下，时间显示不出来，并且报错cant't find variable: Intl
 
 ## 安装html-webpack-plugin插件
 ```
