@@ -59,7 +59,6 @@ export class OrderInfo {
 			alert("Data information:" + JSON.stringify(data));
 			alert("Order Detail information:" + JSON.stringify(this.orderDetail));
 		}).catch(error => {
-			alert("get order detail error, call getOrderDetail again");
 			this.appService.getToken(error, () => {
 				this.getOrderDetail();
 			});
