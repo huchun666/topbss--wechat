@@ -54,12 +54,9 @@ export class OrderInfo {
 	}
   getOrderDetail() {
 		let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
-		alert("QRCode content" + url);
     this.appService.httpGet(url).then(data => {
 			console.log(data);
 			this.orderDetail = data;
-			alert("Data information:" + JSON.stringify(data));
-			alert("Order Detail information:" + JSON.stringify(this.orderDetail));
 		}).catch(error => {
 			this.appService.getToken(error, () => {
 				this.getOrderDetail();
