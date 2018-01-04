@@ -15,7 +15,7 @@
       <!-- 订单编号 -->
       <div class="order-title">
         <h2>订单编号：
-          <span>{{returnedDetail.orderReturn.returnOrderId}}</span>
+          <span>{{returnedDetail.order.orderId}}</span>
         </h2>
         <!--color auditing or pass -->
         <span [ngClass]="{auditStatus: true, pass:(orderStatus | setReturnOrderStatus).pass , auditing:(orderStatus | setReturnOrderStatus).audit} ">{{(orderStatus | setReturnOrderStatus).status}}</span>
