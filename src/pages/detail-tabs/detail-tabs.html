@@ -92,13 +92,6 @@
     </div>
 
   </div>
-  <div class="request-defeat" *ngIf="requestFail">
-    <img src="./assets/image/requestDefeat.png" alt="">
-    <p>啊哦！页面走丢了</p>
-    <button class="btn-request-defeat" ion-button full (touchstart)="refresh()">
-      刷新再找一找
-    </button>
-  </div>
   <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="orderDetail.length < count">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载中">
     </ion-infinite-scroll-content>
