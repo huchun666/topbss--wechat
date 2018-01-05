@@ -67,7 +67,7 @@ export class DetailTabs {
     this.showNoMore = false;
     this.noData = false;
     this.requestDefeat = false;
-    let url = `${AppConfig.API.bonusList}?typeList=1&statusList=2&start=${this.start}&limit=${this.pageSize}`;
+    let url = `${AppConfig.API.bonusList}?typeList=1,6&statusList=2&start=${this.start}&limit=${this.pageSize}`;
     this.appService.httpGet(url)
       .then(data => {
         this.loadingShow = false;
@@ -113,7 +113,7 @@ export class DetailTabs {
   }
   /** 获取总金额 **/
   getBonusSum1() {
-    let url = `${AppConfig.API.bonusSum}?typeList=1&statusList=2`;
+    let url = `${AppConfig.API.bonusSum}?typeList=1,6&statusList=2`;
     this.appService.httpGet(url)
       .then(data => {
         this.sum = data.sum;
@@ -196,7 +196,7 @@ export class DetailTabs {
   /** 上拉翻页 **/
   loadMore(infiniteScroll) {
     if (this.currentStatus == 0) {
-      let url = `${AppConfig.API.bonusList}?typeList=1&statusList=2&start=${this.start}&limit=${this.pageSize}`;
+      let url = `${AppConfig.API.bonusList}?typeList=1,6&statusList=2&start=${this.start}&limit=${this.pageSize}`;
       this.appService.httpGet(url)
         .then(data => {
           infiniteScroll.complete();
