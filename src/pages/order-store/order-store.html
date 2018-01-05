@@ -27,13 +27,13 @@
           <span class="btn-add" (touchstart)="addCount(i,$event)">+</span>
           <span class="btn-remove" [ngClass]="{changeGray: single.productNum | changeGray}" (touchstart)="removeCount(i,$event)">-</span>
           <div class="add-count">
-            <input (change)="resetProductNum(i)" [(ngModel)]="single.productNum"  type="number">
+            <input class="total-input-number" (change)="resetProductNum(i)" [(ngModel)]="single.productNum"  type="number">
           </div>
         </div>
         <div class="total">
             <div class="total-text">商品总额</div>
             <div class="total-input">
-              <input (change)="resetCount(i,$event)" [(ngModel)]="single.itemPrice"  type="number">
+              <input class="total-input-count" (change)="resetCount(i,$event)" [(ngModel)]="single.itemPrice"  type="number">
             </div>
         </div>
         <div class="remark">
@@ -68,6 +68,3 @@
   </button>
 
 </ion-content>
-
-
-        
