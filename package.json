@@ -69,8 +69,7 @@
       },
       "cordova-plugin-dialogs": {},
       "cordova-plugin-compat": {},
-      "cordova-hot-code-push-plugin": {},
-      "cordova-plugin-network-information": {}
+      "cordova-hot-code-push-plugin": {}
     },
     "platforms": [
       "android",
