@@ -40,8 +40,10 @@ export class GiftInfo {
     public navParams: NavParams,
 		public appService: AppService
   ) {
-    this.getGiftDetail();
   }
+  ionViewDidEnter () {
+		this.getGiftDetail();
+	}
   presentConfirm() {
     if (!this.isAllow) {
       return;
