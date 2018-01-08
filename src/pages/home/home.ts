@@ -9,6 +9,7 @@ import { OrderInfo } from '../order-info/order-info';
 import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
+import { Network } from '@ionic-native/network';
 @Component({
   selector: 'home',
   templateUrl: 'home.html'
@@ -24,7 +25,8 @@ export class Home {
     public alertCtrl: AlertController,
     public appService: AppService,
     public barcodeScanner: BarcodeScanner,
-    public events: Events
+    public events: Events,
+    public network: Network
   ) {
   }
   ionViewDidEnter(){
@@ -35,6 +37,7 @@ export class Home {
         this.navCtrl.parent.select(1);
       }
     });
+    this.watchNetwork();
   }
   // 每次离开页面的时候执行
   ionViewDidLeave(){
@@ -163,5 +166,21 @@ export class Home {
   goCreatOrder() {
     let creatOrderModal = this.modalCtrl.create(CreatOrder);
     creatOrderModal.present();
+  }
+  /** Network检查网络状态 **/
+  watchNetwork() {
+    this.network.onDisconnect().subscribe(() => {
+      console.log('network disconnected!');
+    });
+    this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
+      setTimeout(() => {
+        if (this.network.type === 'wifi') {
+          console.log('您当前使用的是WiFi');
+        }else if (this.network.type === '4g') {
+          console.log('您当前使用的是4g');
+        }
+      }, 3000);
+    });
   }
 }
