@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { ModalController, NavController, AlertController } from 'ionic-angular';
+import { Component, ViewChild} from '@angular/core';
+import { ModalController, NavController, AlertController, Content, Keyboard } from 'ionic-angular';
 import { OrderLayer } from '../order-layer/order-layer';
 import { OrderStore } from '../order-store/order-store';
 import { AppService, AppConfig } from '../../app/app.service';
@@ -9,6 +9,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'creat-order.html',
 })
 export class CreatOrder {
+  @ViewChild(Content) content: Content;
   creatOrderArray: any;
   noData: Boolean;
   start: number = 0;
@@ -26,7 +27,8 @@ export class CreatOrder {
   constructor(public modalCtrl: ModalController, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController,
-    public appService: AppService,
+    public appService: AppService,    
+    public keyboard: Keyboard
   ) {
     this.down = true;
     this.up = false;
@@ -38,6 +40,7 @@ export class CreatOrder {
   //进入页面，请求接口，得到数据
   getCreatOrderList() {
     this.loadingShow = true;
+    this.start = 0;
     let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
     // 网络状况不好时，点击刷新按钮，保留搜索栏的关键字进行刷新
     if(this.searchKeyWord != '' && this.searchKeyWord != undefined) {
@@ -92,11 +95,12 @@ export class CreatOrder {
   }
 
   // 搜索
-  onInput(event) {
+  searchEvent() {
     this.down = true;
     this.up = false;
     this.start = 0;
     this.requestDefeat = false;
+    this.content.scrollTo(0, 0, 0);
     if (this.searchKeyWord){
       this.loadingShow = true;
       let url = `${AppConfig.API.getBrandshopProducts}?searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
@@ -122,7 +126,7 @@ export class CreatOrder {
         }
       }).catch(error => {
         this.appService.getToken(error, () => {
-          this.onInput(event);
+          this.searchEvent();
         });
         console.log(error);
         this.creatOrderArray = [];
@@ -139,6 +143,7 @@ export class CreatOrder {
       this.getCreatOrderList();
     }
   }
+
 
   // 下拉刷新请求数据
   refreshGetCreatOrderList(refresher) {
@@ -262,5 +267,13 @@ export class CreatOrder {
     this.up = false;
     this.requestDefeat = false;
     this.getCreatOrderList();
+  }
+  // 点击‘搜索键’进行搜索，关闭键盘
+  keypress(event) {
+    let key = event.keyCode;
+    if(key == 13)  {
+      this.keyboard.close();
+      this.searchEvent();
+    }
   }
 }
