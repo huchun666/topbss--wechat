@@ -8,6 +8,7 @@ import { OrderInfo } from '../order-info/order-info';
 import { UnauditTabs } from '../unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../unhandle-tabs/unhandle-tabs';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
+import { Network } from '@ionic-native/network';
 declare var wx: any;
 @Component({
   selector: 'home',
@@ -23,7 +24,8 @@ export class Home {
     public navCtrl: NavController,
     public appService: AppService,
     public alertCtrl: AlertController,
-    public events: Events
+    public events: Events,
+    private network: Network
   ) {
     this.getUnAuditCount();
     this.getUnHandleCount();
@@ -160,6 +162,7 @@ export class Home {
     creatOrderModal.present();
   }
   ionViewDidEnter() {
+    this.watchNetwork();
     this.events.subscribe('check: status', (data) => {
       if (data == true) {
         this.navCtrl.parent.select(1);
@@ -186,8 +189,15 @@ export class Home {
         this.ionViewDidEnter();
       });
       loading.dismiss();
-      this.appService.toast('网络阻塞，请稍后重试', 1000, 'middle');
       console.log(error);
      })
   }
+
+  //network检查网络连接状态
+  watchNetwork() {
+    this.network.onDisconnect().subscribe(() => {
+      this.appService.toast('当前网络不可用', 1000, 'middle');
+    });
+  }
+
 }
