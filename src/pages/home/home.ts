@@ -196,21 +196,7 @@ export class Home {
   //network检查网络连接状态
   watchNetwork() {
     this.network.onDisconnect().subscribe(() => {
-      this.appService.toast('请检查您的网络连接状况', 1000, 'middle');
-    });
-    this.network.onConnect().subscribe(() => {
-      console.log('network connected!');
-      setTimeout(() => {
-        if (this.network.type === 'wifi') {
-          this.appService.toast('您当前使用的是WiFi', 1000, 'middle');
-        }else if (this.network.type === '4g') {
-          this.appService.toast('您当前使用的是4g', 1000, 'middle');
-        }else if (this.network.type === '3g') {
-          this.appService.toast('您当前使用的是3g', 1000, 'middle');
-        }else if (this.network.type === '2g') {
-          this.appService.toast('您当前使用的是2g', 1000, 'middle');
-        }
-      }, 3000);
+      this.appService.toast('当前网络不可用', 1000, 'middle');
     });
   }
 
