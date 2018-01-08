@@ -170,17 +170,7 @@ export class Home {
   /** Network检查网络状态 **/
   watchNetwork() {
     this.network.onDisconnect().subscribe(() => {
-      console.log('network disconnected!');
-    });
-    this.network.onConnect().subscribe(() => {
-      console.log('network connected!');
-      setTimeout(() => {
-        if (this.network.type === 'wifi') {
-          console.log('您当前使用的是WiFi');
-        }else if (this.network.type === '4g') {
-          console.log('您当前使用的是4g');
-        }
-      }, 3000);
+      this.appService.toast('当前网络不可用', 1000, 'middle');
     });
   }
 }

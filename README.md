@@ -1,3 +1,10 @@
+## 安装network插件
+```
+ionic cordova plugin add cordova-plugin-network-information
+
+npm install --save @ionic-native/network
+```
+
 # 使用Cordova Hot Code Push进行Ionic App热更新
 
 ## 安装Cordova Hot Code Push

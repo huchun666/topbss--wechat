@@ -23,6 +23,7 @@
     "@ionic-native/barcode-scanner": "^4.3.2",
     "@ionic-native/core": "4.3.0",
     "@ionic-native/dialogs": "^4.3.2",
+    "@ionic-native/network": "^4.5.2",
     "@ionic-native/splash-screen": "4.3.0",
     "@ionic-native/status-bar": "^4.3.0",
     "@ionic/storage": "2.0.1",
@@ -69,7 +70,8 @@
       },
       "cordova-plugin-dialogs": {},
       "cordova-plugin-compat": {},
-      "cordova-hot-code-push-plugin": {}
+      "cordova-hot-code-push-plugin": {},
+      "cordova-plugin-network-information": {}
     },
     "platforms": [
       "android",
