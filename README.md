@@ -1,3 +1,10 @@
+## 安装network插件
+```
+ionic cordova plugin add cordova-plugin-network-information
+
+npm install --save @ionic-native/network
+```
+
 ### With the Ionic CLI:
 
 ```bash
