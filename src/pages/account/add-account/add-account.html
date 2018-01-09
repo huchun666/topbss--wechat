@@ -16,7 +16,8 @@
       填写收款人信息并绑定微信作为收款账户
     </div>
     <div class="account-title" *ngIf="!noBind">
-      <div class="binded"><img src="./assets/image/OK.png" alt="">已绑定微信</div>
+      <div class="binded">
+        <img src="./assets/image/OK.png" alt="">已绑定微信</div>
     </div>
     <div class="form-list">
       <ion-list>
@@ -33,12 +34,12 @@
         </ion-item>
         <div class='bind-error' *ngIf="isIDCard">*请输入正确的身份证号</div>
       </ion-list>
-    <button class="btn-bind" ion-button (click)="bindWX()" *ngIf="noBind">绑定微信</button>
-    <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="!noBind">确定</button>
-    <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>
+      <button class="btn-bind" ion-button (click)="bindWX()" *ngIf="noBind">绑定微信</button>
+      <button class="btn-bind" ion-button (click)="editCurrent()" *ngIf="!noBind">确定</button>
+      <div class="message" *ngIf="noBind">*微信账户一旦绑定不能改，请谨慎操作</div>
     </div>
   </div>
-  <div class="request-defeat" *ngIf = "requestDefeat">
+  <div class="request-defeat" *ngIf="requestDefeat">
     <img src="./assets/image/requestDefeat.png" alt="">
     <p>啊哦！页面走丢了</p>
     <button class="btn-request-defeat" ion-button full (touchstart)="getCurrent()">

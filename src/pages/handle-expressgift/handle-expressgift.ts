@@ -28,8 +28,8 @@ export class HandleExpressgift {
     this.up = false;
     this.load = AppConfig.load;
   }
-  ionViewDidEnter(){
-    setTimeout(this.getHandleExpressGiftList(),100);
+  ionViewDidEnter() {
+    setTimeout(this.getHandleExpressGiftList(), 100);
   }
   getHandleExpressGiftList() {
     let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;
@@ -56,8 +56,8 @@ export class HandleExpressgift {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.getHandleExpressGiftList();
-			});
+        this.getHandleExpressGiftList();
+      });
       this.handleExpressGiftArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -91,8 +91,8 @@ export class HandleExpressgift {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.refreshGetHandleExpressGiftList(refresher);
-			});
+        this.refreshGetHandleExpressGiftList(refresher);
+      });
       this.handleExpressGiftArray = [];
       refresher.complete();
       console.log(error);
@@ -122,8 +122,8 @@ export class HandleExpressgift {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.infiniteGetHandleExpressGiftList(infiniteScroll);
-			});
+        this.infiniteGetHandleExpressGiftList(infiniteScroll);
+      });
       infiniteScroll.complete();
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');

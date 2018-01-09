@@ -79,12 +79,12 @@ export class BrandshopOrderList {
           this.orderList.push(...data.data);
           for (let i = 0; i < this.orderList.length; i++) {
             this.isShowDetail[i] = false;
-          }  
+          }
         } else if (this.down) {
           this.orderList = data.data;
           for (let i = 0; i < this.orderList.length; i++) {
             this.isShowDetail[i] = false;
-          }  
+          }
         }
       } else if (data.count == 0) {
         this.noData = true;

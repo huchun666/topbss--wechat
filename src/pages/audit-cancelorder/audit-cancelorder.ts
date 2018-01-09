@@ -31,7 +31,7 @@ export class AuditCancelorder {
   getAuditCancelorder() {
     // 待审核已取消订单 请求数据
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`;
-    this.appService.httpGet(url).then( data => {
+    this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (data.count == 0 && this.auditCancelorderArray.length == 0) {
         this.noData = true;
@@ -73,13 +73,13 @@ export class AuditCancelorder {
       refresher.complete();
       if (data.count == 0) {
         this.noData = true;
-      }else {
+      } else {
         this.noData = false;
         this.showInfinite = true;
         if (data.data.length != 0) {
           this.auditCancelorderArray = data.data;
           this.start += this.limit;
-        }else {
+        } else {
           this.showNoMore = true;
         }
       }
@@ -103,12 +103,12 @@ export class AuditCancelorder {
       infiniteScroll.complete();
       if (data.count == 0) {
         this.noData = true;
-      }else {
+      } else {
         this.noData = false;
         if (data.data.length != 0) {
           this.auditCancelorderArray.push(...data.data);
           this.start += this.limit;
-        }else {
+        } else {
           this.showNoMore = true;
         }
       }
@@ -121,8 +121,8 @@ export class AuditCancelorder {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
-	//请求失败后刷新
-	requestDefeatRefresh() {
+  //请求失败后刷新
+  requestDefeatRefresh() {
     this.requestDefeat = false;
     this.loadingShow = true;
     this.start = 0;

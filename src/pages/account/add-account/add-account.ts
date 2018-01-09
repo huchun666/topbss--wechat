@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, App, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../../app/app.service';
 @Component({
@@ -16,7 +16,7 @@ export class AddAccount {
   boundWechat: Boolean;//是否绑定微信
   requestDefeat: Boolean = false;
   loadingShow: Boolean = false;
-  load: any = {}; 
+  load: any = {};
   userId: number;
   isName: Boolean = false;//校验姓名
   isPhone: Boolean = false;//校验手机
@@ -24,12 +24,12 @@ export class AddAccount {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public viewCtrl : ViewController,
+    public viewCtrl: ViewController,
     public appService: AppService,
     public app: App,
     public alertCtrl: AlertController
   ) {
-    
+
   }
   bindWX() {
     if (this.salesName != "" && this.cellphone.length == 11 && this.IdentityCodeValid(this.IDcard)) {
@@ -60,20 +60,19 @@ export class AddAccount {
         console.log(error);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       });
-    }else if (this.salesName == "") {
+    } else if (this.salesName == "") {
       this.isName = true;
       this.isPhone = false;
       this.isIDCard = false;
-    }else if (this.cellphone.length != 11) {
+    } else if (this.cellphone.length != 11) {
       this.isName = false;
       this.isPhone = true;
       this.isIDCard = false;
-    }else if (!this.IdentityCodeValid(this.IDcard)) {
+    } else if (!this.IdentityCodeValid(this.IDcard)) {
       this.isName = false;
       this.isPhone = false;
       this.isIDCard = true;
     }
-    
   }
   //修改收款人信息
   editCurrent() {
@@ -84,7 +83,6 @@ export class AddAccount {
           {
             text: '取消',
             handler: () => {
-              
             }
           },
           {
@@ -120,15 +118,15 @@ export class AddAccount {
         ]
       });
       confirm.present();
-    }else if (this.salesName == "") {
+    } else if (this.salesName == "") {
       this.isName = true;
       this.isPhone = false;
       this.isIDCard = false;
-    }else if (this.cellphone.length != 11) {
+    } else if (this.cellphone.length != 11) {
       this.isName = false;
       this.isPhone = true;
       this.isIDCard = false;
-    }else if (!this.IdentityCodeValid(this.IDcard)) {
+    } else if (!this.IdentityCodeValid(this.IDcard)) {
       this.isName = false;
       this.isPhone = false;
       this.isIDCard = true;
@@ -140,21 +138,20 @@ export class AddAccount {
     this.loadingShow = true;
     this.accountContent = false;
     let getCurrentUrl = AppConfig.API.current;
-    this.appService.httpGet(getCurrentUrl)
-      .then( data => {
-        this.loadingShow = false;
-        this.requestDefeat = false;
-        this.accountContent = true;
-        this.boundWechat = data.boundWechat;
-        this.salesName = data.salesName;
-        this.cellphone = data.cellphone;
-        this.IDcard = data.idcard;
-        if (this.boundWechat) {
-          this.noBind = false;
-        }else {
-          this.noBind = true;
-        }
-      })
+    this.appService.httpGet(getCurrentUrl).then(data => {
+      this.loadingShow = false;
+      this.requestDefeat = false;
+      this.accountContent = true;
+      this.boundWechat = data.boundWechat;
+      this.salesName = data.salesName;
+      this.cellphone = data.cellphone;
+      this.IDcard = data.idcard;
+      if (this.boundWechat) {
+        this.noBind = false;
+      } else {
+        this.noBind = true;
+      }
+    })
       .catch(error => {
         this.appService.getToken(error, () => {
           this.getCurrent();
@@ -187,39 +184,37 @@ export class AddAccount {
         console.log(error);
         this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
       })
-    }else {
+    } else {
       this.getCurrent();
     }
   }
-
   //身份证校验
-  IdentityCodeValid(code) { 
-    var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
-    var pass= true;
-    if(!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)){
+  IdentityCodeValid(code) {
+    var city = { 11: "北京", 12: "天津", 13: "河北", 14: "山西", 15: "内蒙古", 21: "辽宁", 22: "吉林", 23: "黑龙江 ", 31: "上海", 32: "江苏", 33: "浙江", 34: "安徽", 35: "福建", 36: "江西", 37: "山东", 41: "河南", 42: "湖北 ", 43: "湖南", 44: "广东", 45: "广西", 46: "海南", 50: "重庆", 51: "四川", 52: "贵州", 53: "云南", 54: "西藏 ", 61: "陕西", 62: "甘肃", 63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾", 81: "香港", 82: "澳门", 91: "国外 " };
+    var pass = true;
+    if (!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)) {
       pass = false;
-    }else if(!city[code.substr(0,2)]){
+    } else if (!city[code.substr(0, 2)]) {
       pass = false;
-    }else{
+    } else {
       //18位身份证需要验证最后一位校验位
-      if(code.length == 18){
+      if (code.length == 18) {
         code = code.split('');
         //∑(ai×Wi)(mod 11)
         //加权因子
-        var factor = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 ];
+        var factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
         //校验位
-        var parity = [ 1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2 ];
+        var parity = [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2];
         var sum = 0;
         var ai = 0;
         var wi = 0;
-        for (var i = 0; i < 17; i++)
-        {
+        for (var i = 0; i < 17; i++) {
           ai = code[i];
           wi = factor[i];
           sum += ai * wi;
         }
-        if(parity[sum % 11] != code[17]){
-          pass =false;
+        if (parity[sum % 11] != code[17]) {
+          pass = false;
         }
       }
     }

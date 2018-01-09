@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -18,7 +18,7 @@ export class AwardOrder {
   load: any;
   isLoadingShow: boolean = false;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public alertCtrl: AlertController,
     public appService: AppService
   ) {

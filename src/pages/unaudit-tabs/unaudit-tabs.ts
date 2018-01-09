@@ -82,8 +82,8 @@ export class UnauditTabs {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.getUnauditCancelorder();
-			});
+        this.getUnauditCancelorder();
+      });
       this.unauditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -148,7 +148,6 @@ export class UnauditTabs {
     const orderModal = this.modalCtrl.create(AuditCancelorder);
     orderModal.present();
   }
-
   // 获取待审核退货订单列表
   getUnauditReturnorderList() {
     this.loadingShow = true;
@@ -179,8 +178,8 @@ export class UnauditTabs {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.getUnauditReturnorderList();
-			});
+        this.getUnauditReturnorderList();
+      });
       this.unauditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -287,7 +286,6 @@ export class UnauditTabs {
       this.appService.httpGet(url).then(data => {
         infiniteScroll.complete();
         if (data.count == 0) {
-          //空空如也
           this.noData = true;
         } else {
           this.noData = false;

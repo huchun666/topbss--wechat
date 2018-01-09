@@ -1,5 +1,5 @@
 import { Headers } from '@angular/http';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, AlertController, NavParams, App } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { TabsPage } from '../tabs/tabs';
@@ -26,8 +26,8 @@ export class UpdatePwd {
     pwd: ''
   };
   rememberPassword: Boolean;
-  constructor(public navCtrl: NavController, 
-    public alertCtrl: AlertController, 
+  constructor(public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public navParams: NavParams,
     public appService: AppService,
     public app: App,
@@ -39,7 +39,7 @@ export class UpdatePwd {
     this.rememberPassword = this.navParams.get("rememberPassword");
     console.log(this.user)
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.tpb_token
+      'Authorization': 'Bearer ' + this.tpb_token
     });
   }
   confirm() {
@@ -60,9 +60,9 @@ export class UpdatePwd {
           pwd: this.newPwd
         };
         if (!this.rememberPassword) {
-          this.user.pwd = ""; 
+          this.user.pwd = "";
         };
-        let newDateMS = (new Date()).getTime() + data.expires_in*1000 - AppConfig.RESERVED_TIME;
+        let newDateMS = (new Date()).getTime() + data.expires_in * 1000 - AppConfig.RESERVED_TIME;
         this.appService.setItem("newDateMS", newDateMS);
         this.appService.setItem("user", JSON.stringify(this.user));
         this.appService.setItem("tpb_token", this.tpb_token);
@@ -86,10 +86,10 @@ export class UpdatePwd {
     if (this.initialPwd == "") {
       this.isInitialPwd = true;
       this.initialPwdValue = "*请输入出示密码";
-    }else if (this.initialPwd != this.prevInitialPwd) {
+    } else if (this.initialPwd != this.prevInitialPwd) {
       this.isInitialPwd = true;
       this.initialPwdValue = "*初始密码不正确，请重新输入";
-    }else {
+    } else {
       this.isInitialPwd = false;
       this.initialPwdValue = "";
     }
@@ -98,7 +98,7 @@ export class UpdatePwd {
     if (this.newPwd == "") {
       this.isNewPwd = true;
       this.newPwdValue = "*请输入新密码";
-    }else {
+    } else {
       this.isNewPwd = false;
       this.newPwdValue = "";
     }
@@ -107,10 +107,10 @@ export class UpdatePwd {
     if (this.repeatPwd == "") {
       this.isRepeatPwd = true;
       this.repeatPwdValue = "*请输入密码";
-    }else if (this.repeatPwd != this.newPwd) {
+    } else if (this.repeatPwd != this.newPwd) {
       this.isRepeatPwd = true;
       this.repeatPwdValue = "*两次密码不一致";
-    }else {
+    } else {
       this.isRepeatPwd = false;
       this.repeatPwdValue = "";
     }

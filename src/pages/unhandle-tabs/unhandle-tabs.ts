@@ -24,7 +24,7 @@ export class UnhandleTabs {
   load: any = {};
   loadingShow: Boolean = true;
   currentIndex = 1;
-  reserveShopTimeMin: string =  '';
+  reserveShopTimeMin: string = '';
   toTop: Boolean;//是否显示返回顶部按钮
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
@@ -55,7 +55,7 @@ export class UnhandleTabs {
     this.getUnhandleExpressGiftList();
   }
   // 获取tab上显示的数量
-  getTabCount () {
+  getTabCount() {
     let urlExpress = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
     let urlSelf = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(urlExpress).then(data => {

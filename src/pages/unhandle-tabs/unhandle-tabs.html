@@ -63,7 +63,7 @@
       <div class="btn-noMore" *ngIf="showNoMore">
         <span>—— 没有更多赠品了 ——</span>
       </div>
-      <div class="request-defeat" *ngIf = "requestDefeat">
+      <div class="request-defeat" *ngIf="requestDefeat">
         <img src="./assets/image/requestDefeat.png" alt="">
         <p>啊哦！页面走丢了</p>
         <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshSelfGift()">
@@ -75,7 +75,6 @@
       <img src="./assets/image/toTop.png" alt="">
     </div>
   </div>
-
   <div class="expressGiftList" *ngIf="currentIndex == 1">
     <div class="gift-list">
       <!-- loading -->
@@ -124,7 +123,7 @@
       <div class="btn-noMore" *ngIf="showNoMore">
         <span>—— 没有更多赠品了 ——</span>
       </div>
-      <div class="request-defeat" *ngIf = "requestDefeat">
+      <div class="request-defeat" *ngIf="requestDefeat">
         <img src="./assets/image/requestDefeat.png" alt="">
         <p>啊哦！页面走丢了</p>
         <button class="btn-request-defeat" ion-button full (touchstart)="requestDefeatRefreshExpressGift()">

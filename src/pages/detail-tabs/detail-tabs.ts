@@ -1,7 +1,6 @@
 import { NavController, NavParams, ViewController, Platform, Content } from 'ionic-angular';
 import { Component ,ViewChild, } from '@angular/core';
 import { AppService, AppConfig } from '../../app/app.service';
-
 @Component({
   templateUrl: 'detail-tabs.html',
   selector: 'withdraw-detailTabs'
@@ -45,7 +44,6 @@ export class DetailTabs {
     this.getOrderDetail();
     this.getBonusSum1();
   }
-
   getCurrentStatus(i) {
     this.start = 0;
     this.up = false;
@@ -61,7 +59,6 @@ export class DetailTabs {
       this.getBonusSum2();
     }
   }
-
   getOrderDetail() {
     this.loadingShow = true;
     this.showNoMore = false;
@@ -125,7 +122,6 @@ export class DetailTabs {
         console.log(error);
       });
   }
-
   getAwardDetail() {
     this.loadingShow = true;
     this.showNoMore = false;
@@ -249,7 +245,6 @@ export class DetailTabs {
         });
     }
   }
-
   /** 下拉刷新页面 **/
   pullRefresh(refresher) {
     this.start = 0;
@@ -268,6 +263,4 @@ export class DetailTabs {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
-
 }

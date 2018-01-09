@@ -124,6 +124,5 @@ export class Login{
       this.isUserName = false;
       this.userNameValue = '*账号不正确，请确认后重新输入'
     }
-    
   }
 }

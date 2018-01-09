@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -10,7 +10,7 @@ export class Withdraw {
   balance: string = '';
   isAllow: boolean = true;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public appService: AppService
@@ -18,8 +18,7 @@ export class Withdraw {
     this.getBalance();
   }
   /* 获取可提现金额 */
-  getBalance () {
-    console.log(this.navParams.get("param1"));
+  getBalance() {
     this.balance = this.navParams.get("param1");
   }
   /* 提现 */
