@@ -1,29 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav } from 'ionic-angular';
-
 import { Login } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppService, AppConfig } from './app.service';
 import { Buffer } from 'buffer';
 import { Headers } from '@angular/http';
-
-
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   // make TabsPage the root (or first) page
-
   rootPage: any;
   oauthTokenHeaders: any;
-
-
   constructor(
     public platform: Platform,
     public menu: MenuController,
@@ -34,7 +25,6 @@ export class MyApp {
     this.initializeApp();
     this.initializePage();
   }
-
   initializePage() {
     if (this.appService.getItem("tpb_token")) {
       let getItemNewDateMs = this.appService.getItem("newDateMS");
@@ -65,11 +55,8 @@ export class MyApp {
       this.rootPage = Login;
     }
   }
-
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
