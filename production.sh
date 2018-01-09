@@ -1,1 +1,1 @@
-set BUILD=production&&ionic cordova build --prod
+export BUILD=production&&ionic cordova build --prod
