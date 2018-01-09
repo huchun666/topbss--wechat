@@ -1,0 +1,1 @@
+set BUILD=test&&ionic cordova build --prod

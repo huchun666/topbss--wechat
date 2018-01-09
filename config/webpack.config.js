@@ -2,15 +2,22 @@ var chalk = require("chalk");
 var fs = require('fs');
 var path = require('path');
 var useDefaultConfig = require('@ionic/app-scripts/config/webpack.config.js');
+var colors = require('colors');
+
+var Build = process.env.BUILD;
 
 var env = process.env.IONIC_ENV;
+var pathConfig = path.resolve(environmentPath('dev'));
 
-useDefaultConfig.prod.resolve.alias = {
-  "@app/env": path.resolve(environmentPath('prod'))
-};
+if (Build === "production") {  //通过环境变量判断
+  pathConfig = path.resolve(environmentPath('prod'));
+  console.log(colors.yellow("Production:", "Environment variables in file: "+ pathConfig + " using for production build."));
+}else {
+  console.log(colors.yellow("Test:", "Environment variables in file: "+ pathConfig + " using for test build."));
+}
 
-useDefaultConfig.dev.resolve.alias = {
-  "@app/env": path.resolve(environmentPath('dev'))
+useDefaultConfig[env].resolve.alias = {
+  "@app/env": pathConfig
 };
 
 if (env !== 'prod' && env !== 'dev') {
