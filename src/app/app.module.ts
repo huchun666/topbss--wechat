@@ -38,14 +38,10 @@ import { OrderStore } from '../pages/order-store/order-store';
 import { PaymentCode } from '../pages/payment-code/payment-code';
 import { UnauditTabs } from '../pages/unaudit-tabs/unaudit-tabs';
 import { UnhandleTabs } from '../pages/unhandle-tabs/unhandle-tabs';
-import { UnauditCancelorder } from '../pages/unaudit-cancelorder/unaudit-cancelorder';
-import { UnauditReturnorder } from '../pages/unaudit-returnorder/unaudit-returnorder';
 import { AuditCancelorder } from '../pages/audit-cancelorder/audit-cancelorder';
 import { AuditReturnorder } from '../pages/audit-returnorder/audit-returnorder';
 import { ReturnDetail } from '../pages/return-detail/return-detail';
 import { ReturnedDetail } from '../pages/returned-detail/returned-detail';
-import { UnhandleExpressgift } from '../pages/unhandle-expressgift/unhandle-expressgift';
-import { UnhandleSelfgift } from '../pages/unhandle-selfgift/unhandle-selfgift';
 import { HandleSelfgift } from '../pages/handle-selfgift/handle-selfgift';
 import { HandleExpressgift } from '../pages/handle-expressgift/handle-expressgift';
 import { Withdraw } from '../pages/withdraw/withdraw';
@@ -80,15 +76,11 @@ let componentsList = [
   OrderStore,
   PaymentCode,
   UnauditTabs,
-  UnauditCancelorder,
-  UnauditReturnorder,
   AuditCancelorder,
   AuditReturnorder,
   ReturnDetail,
   ReturnedDetail,
   UnhandleTabs,
-  UnhandleSelfgift,
-  UnhandleExpressgift,
   HandleSelfgift,
   HandleExpressgift,
   Withdraw,
