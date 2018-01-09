@@ -29,7 +29,7 @@ export class Home {
     public network: Network
   ) {
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.getUnAuditCount();
     this.getUnHandleCount();
     this.events.subscribe('check: status', (data) => {
@@ -40,7 +40,7 @@ export class Home {
     this.watchNetwork();
   }
   // 每次离开页面的时候执行
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     this.events.unsubscribe('check: status', () => {
       console.log('did unsubscribe');
     });
@@ -48,11 +48,10 @@ export class Home {
   //获取取消订单、退货订单数量
   getUnAuditCount() {
     let url = AppConfig.API.untreatedCount
-    this.appService.httpGet(url).then( data => {
+    this.appService.httpGet(url).then(data => {
       this.cancelOrderCount = data.cancelCount;
       this.returnOrderCount = data.returnCount;
-    })
-    .catch(error => {
+    }).catch(error => {
       this.appService.getToken(error, () => {
         this.getUnAuditCount();
       });
@@ -62,19 +61,18 @@ export class Home {
   //获取自提赠品、快递赠品数量
   getUnHandleCount() {
     let url = `${AppConfig.API.getUnhandleGiftCount}`;
-    this.appService.httpGet(url).then( data => {
-       this.selfGiftCount = data.reserved;
-       this.expressgiftCount = data.undelivered;
-     })
-     .catch(error => {
+    this.appService.httpGet(url).then(data => {
+      this.selfGiftCount = data.reserved;
+      this.expressgiftCount = data.undelivered;
+    }).catch(error => {
       this.appService.getToken(error, () => {
         this.getUnHandleCount();
       });
-       console.log(error);
-     });
+      console.log(error);
+    });
   }
   goUnAudit() {
-    let unAuditModal = this.modalCtrl.create(UnauditTabs,{
+    let unAuditModal = this.modalCtrl.create(UnauditTabs, {
       cancelOrderCount: this.cancelOrderCount,
       returnOrderCount: this.returnOrderCount
     });
@@ -84,7 +82,7 @@ export class Home {
     });
   }
   goUnHandle() {
-    let unHandleModal = this.modalCtrl.create(UnhandleTabs,{
+    let unHandleModal = this.modalCtrl.create(UnhandleTabs, {
       selfGiftCount: this.selfGiftCount,
       expressGiftCount: this.expressgiftCount
     });
@@ -94,7 +92,7 @@ export class Home {
     })
   }
   qrCodeScan() {
-    this.barcodeScanner.scan().then((barcodeData) => { 
+    this.barcodeScanner.scan().then((barcodeData) => {
       let url = barcodeData.text;
       if (!url) {
         return;
@@ -108,7 +106,7 @@ export class Home {
         alert.present();
       } else {
         if (url.indexOf('id') > 0) {
-          let myCodeModal = this.modalCtrl.create(OrderInfo, {'url': url});
+          let myCodeModal = this.modalCtrl.create(OrderInfo, { 'url': url });
           myCodeModal.onDidDismiss(data => {
             if (!data) {
               return;
@@ -117,14 +115,11 @@ export class Home {
               this.qrCodeScan();
             } else if (data.type === '0') {
               this.navCtrl.parent.select(1);
-              // 注册事件-订单状态(扫码取货传订单状态)
-              // let orderStatus = 'C';
-              // this.events.publish('order:status', orderStatus);
             }
           });
           myCodeModal.present();
         } else if (url.indexOf('giftCode') > 0) {
-          let myCodeModal = this.modalCtrl.create(GiftInfo, {'url': url});
+          let myCodeModal = this.modalCtrl.create(GiftInfo, { 'url': url });
           myCodeModal.onDidDismiss(data => {
             if (!data) {
               return;

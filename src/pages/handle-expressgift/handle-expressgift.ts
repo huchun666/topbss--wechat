@@ -28,15 +28,14 @@ export class HandleExpressgift {
     this.up = false;
     this.load = AppConfig.load;
   }
-  ionViewDidEnter(){
-    setTimeout(this.getHandleExpressGiftList(),100);
+  ionViewDidEnter() {
+    setTimeout(this.getHandleExpressGiftList(), 100);
   }
   getHandleExpressGiftList() {
     let url = `${AppConfig.API.getGiftList}?type=3&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (data.count == 0) {
-        //空空如也
         this.noData = true;
       } else {
         this.noData = false;
@@ -65,7 +64,6 @@ export class HandleExpressgift {
       this.requestDefeat = true;
     });
   }
-
   // 下拉刷新请求数据
   refreshGetHandleExpressGiftList(refresher) {
     this.start = 0;
@@ -77,7 +75,6 @@ export class HandleExpressgift {
     this.appService.httpGet(url).then(data => {
       refresher.complete();
       if (data.count == 0) {
-        //空空如也
         this.noData = true;
       } else {
         this.noData = false;
@@ -100,7 +97,6 @@ export class HandleExpressgift {
       this.requestDefeat = true;
     });
   }
-
   // 上拉刷新请求数据
   infiniteGetHandleExpressGiftList(infiniteScroll) {
     this.down = false;
@@ -109,7 +105,6 @@ export class HandleExpressgift {
     this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
       if (data.count == 0) {
-        //空空如也
         this.noData = true;
       } else {
         this.noData = false;
@@ -129,7 +124,6 @@ export class HandleExpressgift {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
-
   //请求失败后刷新
   requestDefeatRefresh() {
     this.requestDefeat = false;
