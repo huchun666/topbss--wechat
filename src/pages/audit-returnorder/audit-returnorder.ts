@@ -38,7 +38,6 @@ export class AuditReturnorder {
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (data.count == 0 && this.auditReturnorderArray.length == 0) {
-        //空空如也
         this.noData = true;
       } else {
         this.noData = false;
@@ -66,7 +65,6 @@ export class AuditReturnorder {
       this.requestDefeat = true;
     });
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -78,7 +76,6 @@ export class AuditReturnorder {
     this.appService.httpGet(url).then(data => {
       refresher.complete();
       if (data.count == 0) {
-        //空空如也
         this.noData = true;
       }else {
         this.noData = false;
@@ -101,7 +98,6 @@ export class AuditReturnorder {
       this.requestDefeat = true;
     });
   }
-
   // 上拉刷新请求数据
   infiniteGetSelfGiftList(infiniteScroll) {
     this.down = false;
@@ -110,7 +106,6 @@ export class AuditReturnorder {
     this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
       if (data.count == 0) {
-        //空空如也
         this.noData = true;
       }else {
         this.noData = false;
@@ -130,7 +125,6 @@ export class AuditReturnorder {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
-    	
 	//请求失败后刷新
 	requestDefeatRefresh() {
     this.requestDefeat = false;

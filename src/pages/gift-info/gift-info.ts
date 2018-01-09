@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -8,48 +8,48 @@ import { AppService, AppConfig } from '../../app/app.service';
 export class GiftInfo {
   isAllow: boolean = true;
   giftInfo: any = {
-		"memberGiftAccountSeq": null,
-		"giftSeq": null,
-		"giftCode": "",
-		"giftName": "",
-		"giftType": "",
-		"imageName": "",   //赠品图片
-		"giftRemark": "",
-		"brandshopSeq": null,
-		"brandshopName": "",    //门店名称
-		"startDate": null,
-		"endDate": null,
-		"status": "",
-		"receiveDate": null,         //领取时间
-		"useDate": null,
-		"memberSeq": null,
-		"memberPhone": null,
-		"reservePhone": "",
-		"reserveShopTime": null,
-		"expressCompany": null,
-		"expressNo": null,
-		"deliveryTime": null,
-		"brandshopUserSeq": null,
-		"brandshopUserName": null,
-		"attrValueList": null
-	};
+    "memberGiftAccountSeq": null,
+    "giftSeq": null,
+    "giftCode": "",
+    "giftName": "",
+    "giftType": "",
+    "imageName": "",   //赠品图片
+    "giftRemark": "",
+    "brandshopSeq": null,
+    "brandshopName": "",    //门店名称
+    "startDate": null,
+    "endDate": null,
+    "status": "",
+    "receiveDate": null,         //领取时间
+    "useDate": null,
+    "memberSeq": null,
+    "memberPhone": null,
+    "reservePhone": "",
+    "reserveShopTime": null,
+    "expressCompany": null,
+    "expressNo": null,
+    "deliveryTime": null,
+    "brandshopUserSeq": null,
+    "brandshopUserName": null,
+    "attrValueList": null
+  };
   constructor(
-		public navCtrl: NavController,
-		public alertCtrl: AlertController,
-		public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    public alertCtrl: AlertController,
+    public viewCtrl: ViewController,
     public navParams: NavParams,
-		public appService: AppService
+    public appService: AppService
   ) {
   }
-  ionViewDidEnter () {
-		this.getGiftDetail();
-	}
+  ionViewDidEnter() {
+    this.getGiftDetail();
+  }
   presentConfirm() {
     if (!this.isAllow) {
       return;
     }
     this.isAllow = false;
-		let url = `${AppConfig.API.receiveGift}`;
+    let url = `${AppConfig.API.receiveGift}`;
     let body = {
       giftCode: this.giftInfo.giftCode
     }
@@ -86,12 +86,12 @@ export class GiftInfo {
       ]
     });
     alert.present();
-	}
-	getGiftDetail() {
-		let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
+  }
+  getGiftDetail() {
+    let url = this.navParams.get("url"); //提现总计，从当前账户传入过来;
     this.appService.httpGet(url)
       .then(data => {
-				console.log(data);
+        console.log(data);
         this.giftInfo = data;
       }).catch(error => {
         console.log(error);

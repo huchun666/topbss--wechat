@@ -7,16 +7,15 @@ import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Network } from '@ionic-native/network';
-
-import { 
-  FilterStatusPipe, 
+import {
+  FilterStatusPipe,
   FilterReturnStatusPipe,
   FilterCancelStatusPipe,
   FilterWithdrawStatusPipe,
   FilterGiftTypePipe,
-  FilterHandleGiftTypePipe, 
-  IsOrIsnotInvalidAttrValuePipe, 
-  InvalidAttrValueClassPipe, 
+  FilterHandleGiftTypePipe,
+  IsOrIsnotInvalidAttrValuePipe,
+  InvalidAttrValueClassPipe,
   ChangeGrayPipe,
   OverStockPipe,
   ProductSkuDTOImagePipe,
@@ -24,7 +23,6 @@ import {
   HandleGiftImagePipe
 } from './app.pipe';
 import { QRCodeModule } from 'angular2-qrcode';
-
 import { Login } from '../pages/login/login';
 import { Forget } from '../pages/forget/forget';
 import { UpdatePwd } from '../pages/update-pwd/update-pwd';
@@ -64,7 +62,6 @@ import { BrandshopOrderList } from '../pages/brandshop-order-list/brandshop-orde
 import { OrderDetail } from '../pages/order-detail/order-detail';
 import { AwardDetail } from '../pages/award-detail/award-detail';
 import { DetailTabs } from '../pages/detail-tabs/detail-tabs';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 let componentsList = [
@@ -111,12 +108,12 @@ let componentsList = [
 ];
 @NgModule({
   declarations: [
-    ...componentsList, 
-    FilterStatusPipe, 
+    ...componentsList,
+    FilterStatusPipe,
     FilterReturnStatusPipe,
     FilterCancelStatusPipe,
     FilterWithdrawStatusPipe,
-    FilterGiftTypePipe, 
+    FilterGiftTypePipe,
     FilterHandleGiftTypePipe,
     IsOrIsnotInvalidAttrValuePipe,
     InvalidAttrValueClassPipe,
@@ -146,8 +143,8 @@ let componentsList = [
     AppConfig,
     Dialogs,
     BarcodeScanner,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     Network
   ]
 })
-export class AppModule {}
+export class AppModule { }

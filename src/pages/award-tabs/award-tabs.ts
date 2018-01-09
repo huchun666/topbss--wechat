@@ -1,12 +1,12 @@
 import { NavController, NavParams, ViewController, Platform, Content } from 'ionic-angular';
-import { Component ,ViewChild, } from '@angular/core';
+import { Component, ViewChild, } from '@angular/core';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'award-tabs',
   templateUrl: 'award-tabs.html'
 })
 export class AwardTabs {
-	@ViewChild(Content) content: Content;
+  @ViewChild(Content) content: Content;
   statusList = [];
   pageSize: number = 10;
   currentPage: number = 1;
@@ -44,7 +44,6 @@ export class AwardTabs {
     this.getOrderDetail();
     this.getBonusSum1();
   }
-
   getCurrentStatus(i) {
     this.start = 0;
     this.up = false;
@@ -60,7 +59,6 @@ export class AwardTabs {
       this.getBonusSum2();
     }
   }
-
   getOrderDetail() {
     this.loadingShow = true;
     this.showNoMore = false;
@@ -124,7 +122,6 @@ export class AwardTabs {
         console.log(error);
       });
   }
-
   getAwardDetail() {
     this.loadingShow = true;
     this.showNoMore = false;
@@ -248,7 +245,6 @@ export class AwardTabs {
         });
     }
   }
-
   /** 下拉刷新页面 **/
   pullRefresh(refresher) {
     this.start = 0;
@@ -267,6 +263,4 @@ export class AwardTabs {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
-
 }
