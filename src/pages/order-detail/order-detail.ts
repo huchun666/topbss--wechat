@@ -4,7 +4,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'order-detail.html',
   selector: 'withdraw-orderDetail'
 })
-export class OrderDetail{
+export class OrderDetail {
   /* pageSize, currentPage, orderDetail, sum, isShow
   *  每一页数量，当前页，处理订单列表，总金额，有无列表明细时的判断
   */
@@ -19,7 +19,7 @@ export class OrderDetail{
   isRefresh: boolean = true;
   load: any;
   isLoadingShow: boolean = false;
-  constructor(public appService: AppService){
+  constructor(public appService: AppService) {
     this.load = AppConfig.load;
     this.getAllData();
   }
@@ -71,7 +71,7 @@ export class OrderDetail{
   }
   /** 上拉翻页 **/
   loadMore(infiniteScroll) {
-    this.currentPage ++;
+    this.currentPage++;
     this.refreshPage(infiniteScroll);
   }
   /** 请求错误时，刷新页面 **/

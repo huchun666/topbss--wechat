@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -17,7 +17,7 @@ export class WithdrawRecord {
   load: any;
   isLoadingShow: boolean = false;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public alertCtrl: AlertController,
     public navParams: NavParams,
     public appService: AppService
@@ -53,10 +53,10 @@ export class WithdrawRecord {
         this.isEmpty = false;
         this.isLoadingShow = false;
       }
-    );
+      );
   }
   loadMore(infiniteScroll) {
-    this.currentPage ++;
+    this.currentPage++;
     this.refreshPage(infiniteScroll);
   }
   refresh() {

@@ -45,7 +45,6 @@ export class OrderLayer {
     this.load = AppConfig.load;
     this.getProductSkuWithDefault();
   }
-
   //初始化sku属性
   getProductSkuWithDefault() {
     let url = `${AppConfig.API.getProductSkuWithDefault}?brandshopSeq=${this.brandshopSeq}&productSeq=${this.productSeq}`;
@@ -79,20 +78,18 @@ export class OrderLayer {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.getProductSkuWithDefault();
-			});
+        this.getProductSkuWithDefault();
+      });
       this.loadingShow = false;
       this.isShowAddNumber = false;
       console.log(error);
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
-
   dismiss() {
     let data = { 'warehouseCount': this.warehouseCount };
     this.viewCtrl.dismiss(data);
   }
-
   addCount() {
     if (this.overStock == true) {
       return;
@@ -100,28 +97,25 @@ export class OrderLayer {
     if (this.orderLayerData.stock > this.count) {
       this.overStock = false;
       this.count++;
-    }else {
+    } else {
       this.overStock = true;
       this.appService.toast('不能添加更多宝贝了哦', 1000, 'middle');
     }
   }
-
   removeCount() {
     this.overStock = false;
     this.count = this.count === 1 ? 1 : (this.count - 1);
   }
-
   //输入数字为负数时重置为1
   resetCount() {
     this.count = this.count <= 0 ? 1 : this.count;
     if (this.count >= this.orderLayerData.stock) {
       this.count = this.orderLayerData.stock;
       this.appService.toast('不能超出库存哦', 1000, 'middle');
-    }else {
+    } else {
       this.count = this.count;
     }
   }
-
   // 切换sku属性时
   changeRadio(event, index, currentValue) {
     if (this.attrValueArr[index] != currentValue) {
@@ -163,7 +157,6 @@ export class OrderLayer {
       this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
     });
   }
-
   //确认添加
   warehouseAdd() {
     let olabel = document.getElementsByClassName('labelTag');
