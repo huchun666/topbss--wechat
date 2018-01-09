@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { AddAccount } from '../add-account/add-account';
 @Component({
@@ -8,14 +8,14 @@ import { AddAccount } from '../add-account/add-account';
 export class BindAccount {
   userId: any;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public modalCtrl: ModalController,
     public navParams: NavParams
   ) {
     this.userId = this.navParams.get('param');
   }
   goAccount() {
-    let accountModal = this.modalCtrl.create(AddAccount, {userId: this.userId});
+    let accountModal = this.modalCtrl.create(AddAccount, { userId: this.userId });
     accountModal.present();
   }
 }

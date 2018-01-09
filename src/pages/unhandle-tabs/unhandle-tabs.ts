@@ -24,7 +24,7 @@ export class UnhandleTabs {
   load: any = {};
   loadingShow: Boolean = true;
   currentIndex = 1;
-  reserveShopTimeMin: string =  '';
+  reserveShopTimeMin: string = '';
   toTop: Boolean;//是否显示返回顶部按钮
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
@@ -54,10 +54,8 @@ export class UnhandleTabs {
     // 获取快递到家赠品
     this.getUnhandleExpressGiftList();
   }
-
   // 获取tab上显示的数量
-
-  getTabCount () {
+  getTabCount() {
     let urlExpress = `${AppConfig.API.getGiftList}?type=0&start=${this.start}&limit=${this.limit}`;
     let urlSelf = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(urlExpress).then(data => {
@@ -79,7 +77,6 @@ export class UnhandleTabs {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     })
   }
-
   // 获取自提赠品
   getUnhandleSelfGiftList() {
     this.loadingShow = true;
@@ -120,7 +117,6 @@ export class UnhandleTabs {
       this.requestDefeat = true;
     })
   }
-
   addOrderStatusClass(param: any) {
     param.map(function (item) {
       if (item.giftType == '0' && item.status == '2') {
@@ -144,11 +140,9 @@ export class UnhandleTabs {
     })
     orderModal.present();
   }
-
   clearReserveArriveTime(index) {
     this.unhandleSeflGiftArray[index].reserveShopTime = "";
   }
-
   reserveAffirm(index) {
     if (this.unhandleSeflGiftArray[index].reserveShopTime != null) {
       // 预约确认更改数据
@@ -180,7 +174,6 @@ export class UnhandleTabs {
       this.appService.toast('请选择会员预约到店时间', 1000, 'middle');
     }
   }
-
   //回到顶部
   scrollTo() {
     this.content.scrollTo(0, 0, 300);
@@ -195,7 +188,6 @@ export class UnhandleTabs {
       }
     })
   }
-
   // 获取快递赠品
   getUnhandleExpressGiftList() {
     this.loadingShow = true;
@@ -236,7 +228,6 @@ export class UnhandleTabs {
       this.requestDefeat = true;
     })
   }
-
   goExpressgift() {
     const orderModal = this.modalCtrl.create(HandleExpressgift);
     orderModal.onDidDismiss(() => {
@@ -305,7 +296,6 @@ export class UnhandleTabs {
     });
     alert.present();
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -322,7 +312,6 @@ export class UnhandleTabs {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
   // 上拉刷新请求数据
   loadMore(infiniteScroll) {
     if (this.currentIndex == 0) {
@@ -349,7 +338,6 @@ export class UnhandleTabs {
       this.appService.httpGet(url).then(data => {
         infiniteScroll.complete();
         if (data.count == 0) {
-          //空空如也
           this.noData = true;
         } else {
           this.noData = false;
@@ -370,7 +358,6 @@ export class UnhandleTabs {
       });
     }
   }
-
   // 切换tab标签
   getCurrentStatus(index) {
     this.start = 0;
@@ -385,7 +372,6 @@ export class UnhandleTabs {
       this.getUnhandleExpressGiftList();
     }
   }
-
   //请求失败后刷新
   requestDefeatRefresh() {
     this.requestDefeat = false;
@@ -395,7 +381,6 @@ export class UnhandleTabs {
     this.up = false;
     this.getUnhandleExpressGiftList();
   }
-
   //请求失败后刷新
   requestDefeatRefreshSelfGift() {
     this.requestDefeat = false;
@@ -405,7 +390,6 @@ export class UnhandleTabs {
     this.up = false;
     this.getUnhandleSelfGiftList();
   }
-
   requestDefeatRefreshExpressGift() {
     this.requestDefeat = false;
     this.loadingShow = true;

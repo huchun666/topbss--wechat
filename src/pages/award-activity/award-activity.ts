@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -73,7 +73,7 @@ export class AwardActivity {
   }
   /** 上拉翻页 **/
   loadMore(infiniteScroll) {
-    this.currentPage ++;
+    this.currentPage++;
     this.refreshPage(infiniteScroll);
   }
   /** 请求错误时，刷新页面 **/

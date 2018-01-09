@@ -8,7 +8,7 @@ import { AppService, AppConfig } from '../../app/app.service';
 })
 export class AuditReturnorder {
   auditReturnorderArray: any = [];
-  limit: number = 10; 
+  limit: number = 10;
   up: Boolean = true;//上拉刷新和第一次进入页面时
   down: Boolean = false;//下拉刷新和返回上一级页面时
   noData: Boolean = false;
@@ -23,10 +23,10 @@ export class AuditReturnorder {
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public appService: AppService) {
-      this.up = false;
-      this.down = true;
-      this.load = AppConfig.load;
-      this.getAuditReturnorderList();
+    this.up = false;
+    this.down = true;
+    this.load = AppConfig.load;
+    this.getAuditReturnorderList();
   }
   goReturnedDetail(index) {
     let contactModal = this.modalCtrl.create(ReturnedDetail, { indexId: this.auditReturnorderArray[index].orderReturnSeq, status: this.auditReturnorderArray[index].status });
@@ -38,7 +38,6 @@ export class AuditReturnorder {
     this.appService.httpGet(url).then(data => {
       this.loadingShow = false;
       if (data.count == 0 && this.auditReturnorderArray.length == 0) {
-        //空空如也
         this.noData = true;
       } else {
         this.noData = false;
@@ -66,7 +65,6 @@ export class AuditReturnorder {
       this.requestDefeat = true;
     });
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -78,15 +76,14 @@ export class AuditReturnorder {
     this.appService.httpGet(url).then(data => {
       refresher.complete();
       if (data.count == 0) {
-        //空空如也
         this.noData = true;
-      }else {
+      } else {
         this.noData = false;
         this.showInfinite = true;
         if (data.data.length != 0) {
           this.auditReturnorderArray = data.data;
           this.start += this.limit;
-        }else {
+        } else {
           this.showNoMore = true;
         }
       }
@@ -101,7 +98,6 @@ export class AuditReturnorder {
       this.requestDefeat = true;
     });
   }
-
   // 上拉刷新请求数据
   infiniteGetSelfGiftList(infiniteScroll) {
     this.down = false;
@@ -110,14 +106,13 @@ export class AuditReturnorder {
     this.appService.httpGet(url).then(data => {
       infiniteScroll.complete();
       if (data.count == 0) {
-        //空空如也
         this.noData = true;
-      }else {
+      } else {
         this.noData = false;
         if (data.data.length != 0) {
           this.auditReturnorderArray.push(...data.data);
           this.start += this.limit;
-        }else {
+        } else {
           this.showNoMore = true;
         }
       }
@@ -130,9 +125,8 @@ export class AuditReturnorder {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
     });
   }
-    	
-	//请求失败后刷新
-	requestDefeatRefresh() {
+  //请求失败后刷新
+  requestDefeatRefresh() {
     this.requestDefeat = false;
     this.loadingShow = true;
     this.start = 0;

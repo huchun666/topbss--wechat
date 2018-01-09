@@ -63,9 +63,7 @@ export class MyCode {
 	  let nowHour   = date.getHours();
 	  let nowMinute = date.getMinutes();
 	  let nowSecond = date.getSeconds();
-	  // console.log(Date.UTC(nowYear, nowMoth, nowDay, nowHour,nowMinute + 10,nowSecond));
 	  let expired = Date.UTC(nowYear, nowMoth, nowDay, nowHour, nowMinute + 10, nowSecond) + '';
-	  // console.log(Number(expired.substr(0,10)));
 	  return Number(expired.substr(0, 10));
   }
   // 加密

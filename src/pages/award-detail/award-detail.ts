@@ -5,7 +5,7 @@ import { AppService, AppConfig } from '../../app/app.service';
   templateUrl: 'award-detail.html',
   selector: 'withdraw-awardDetail'
 })
-export class AwardDetail{
+export class AwardDetail {
   pageSize: number = 10;
   currentPage: number = 1;
   awardDetail: any = [];
@@ -20,7 +20,7 @@ export class AwardDetail{
   constructor(
     public navParams: NavParams,
     public appService: AppService
-  ){
+  ) {
     this.load = AppConfig.load;
     this.getAllData();
   }
@@ -72,7 +72,7 @@ export class AwardDetail{
   }
   /** 上拉翻页 **/
   loadMore(infiniteScroll) {
-    this.currentPage ++;
+    this.currentPage++;
     this.refreshPage(infiniteScroll);
   }
   /** 请求错误时，刷新页面 **/

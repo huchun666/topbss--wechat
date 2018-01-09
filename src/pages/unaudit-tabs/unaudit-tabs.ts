@@ -40,7 +40,6 @@ export class UnauditTabs {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    // 获取待审核取消订单
     this.currentStatus = '待审核取消订单'
     this.cancelOrderCount = navParams.get('cancelOrderCount'); //待审核取消订单数量
     this.returnOrderCount = navParams.get('returnOrderCount'); //待审核退货订单数量
@@ -83,8 +82,8 @@ export class UnauditTabs {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.getUnauditCancelorder();
-			});
+        this.getUnauditCancelorder();
+      });
       this.unauditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -149,7 +148,6 @@ export class UnauditTabs {
     const orderModal = this.modalCtrl.create(AuditCancelorder);
     orderModal.present();
   }
-
   // 获取待审核退货订单列表
   getUnauditReturnorderList() {
     this.loadingShow = true;
@@ -180,8 +178,8 @@ export class UnauditTabs {
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
-				this.getUnauditReturnorderList();
-			});
+        this.getUnauditReturnorderList();
+      });
       this.unauditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
@@ -240,7 +238,6 @@ export class UnauditTabs {
     const orderModal = this.modalCtrl.create(AuditReturnorder);
     orderModal.present();
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -257,7 +254,6 @@ export class UnauditTabs {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
   // 上拉刷新请求数据
   loadMore(infiniteScroll) {
     if (this.currentIndex == 0) {
@@ -290,7 +286,6 @@ export class UnauditTabs {
       this.appService.httpGet(url).then(data => {
         infiniteScroll.complete();
         if (data.count == 0) {
-          //空空如也
           this.noData = true;
         } else {
           this.noData = false;
@@ -311,9 +306,7 @@ export class UnauditTabs {
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     }
-
   }
-
   // 切换tab标签
   getCurrentStatus(index) {
     this.start = 0;
@@ -329,7 +322,6 @@ export class UnauditTabs {
       this.getUnauditReturnorderList();
     }
   }
-
   //请求失败后刷新
   requestDefeatRefreshReturnorder() {
     this.requestDefeat = false;
@@ -339,7 +331,6 @@ export class UnauditTabs {
     this.up = false;
     this.getUnauditReturnorderList();
   }
-
   requestDefeatRefreshCancelorder() {
     this.requestDefeat = false;
     this.loadingShow = true;

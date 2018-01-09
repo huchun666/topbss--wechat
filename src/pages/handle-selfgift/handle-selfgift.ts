@@ -29,7 +29,6 @@ export class HandleSelfgift {
   ionViewDidEnter(){
     setTimeout(this.getHandleSelfGiftList(),100);
   }
-  
   //进入页面，请求接口，得到数据
   getHandleSelfGiftList() {
 		let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;//brandshopSeq=${this.brandshopSeqId}
@@ -64,7 +63,6 @@ export class HandleSelfgift {
       this.requestDefeat = true;
 		});
   }
-
   // 下拉刷新请求数据
 	refreshGetHandleSelfGiftList(refresher) {
     this.start = 0;
@@ -99,7 +97,6 @@ export class HandleSelfgift {
       this.requestDefeat = true;
     });
   }
-
   // 上拉刷新请求数据
   infiniteGetHandleSelfGiftList(infiniteScroll) {
     this.down = false;
@@ -128,7 +125,6 @@ export class HandleSelfgift {
       this.appService.toast('网络异常，请稍后再试', 1000, 'middle');      
     });
   }
-      	
 	//请求失败后刷新
 	requestDefeatRefresh() {
     this.requestDefeat = false;

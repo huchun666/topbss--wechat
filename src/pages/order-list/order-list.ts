@@ -62,19 +62,9 @@ export class OrderList {
     this.dateStartMax = this.appService.reserveDate();
     this.dateEndMax = this.appService.reserveDate();
     this.currentStatus = this.orderStatusList[0].status;
-    // this.events.subscribe('order:status', (orderStatus) => {
-    //   this.currentStatus = orderStatus;
-    //   this.paramsStatus += '&status=' + orderStatus;
-    // });
     this.orderList = [];
     this.getOrderList();
   }
-  // 每次离开页面的时候执行
-  // ionViewDidLeave(){
-  //   this.events.unsubscribe('order:status', () => {
-  //     console.log('did unsubscribe');
-  //   });
-  // }
   // 获取订单列表
   getOrderList() {
     this.loadingShow = true;
@@ -178,7 +168,6 @@ export class OrderList {
     this.dateEnd = '';
     this.dateStartMax = this.appService.reserveDate();;
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -191,7 +180,6 @@ export class OrderList {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
   // 上拉加载更多 请求数据
   loadMore(infiniteScroll) {
     let url = `${AppConfig.API.getOrderList}?userType=B&start=${this.start}&limit=${this.pageSize}`;
@@ -221,7 +209,6 @@ export class OrderList {
       console.log(error);
     })
   }
-
   //请求失败后刷新
   requestDefeatRefresh() {
     this.requestDefeat = false;
@@ -230,5 +217,4 @@ export class OrderList {
     this.orderList = [];
     this.getOrderList();
   }
-
 }

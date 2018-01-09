@@ -8,33 +8,22 @@ import { ENV } from '@app/env'
 
 @Injectable()
 export class AppConfig {
-
   //域名基地址
-  static mainUrl : string = ENV.mode;
+  static mainUrl: string = ENV.mode;
   static hostUrl: string = `https://rest.${AppConfig.mainUrl}`;
   static imgUrl: string = `https://images.${AppConfig.mainUrl}/`;
-
-  
   //请求超时时间
   static TIME_OUT: number = 30000;
-
   // 上拉加载、下拉刷新的定时器时间
   static LOAD_TIME: number = 500;
-
   // 请求token预留时间1800000毫秒（半小时）
   static RESERVED_TIME: number = 1800000;
-
   //获取token的url
   static oauthTokenUrl: string = `${AppConfig.hostUrl}/uaa/oauth/token`;
-
   static client_id: string = ENV.client_id;
-  
   static secret: string = ENV.secret;
-
   static grant_type: string = "password";
-
   static appID: string = ENV.appID;
-
   //接口url
   static API: any = {
     login: `${AppConfig.hostUrl}/uaa/user`,
@@ -76,13 +65,11 @@ export class AppConfig {
     editPassword: `${AppConfig.hostUrl}/uaa/password`,//更改密码
     callback: `${AppConfig.hostUrl}/account/wechat/callback`,//微信授权接口回调
   };
-
   // ion-spinner
   static load: any = {
     spinner: 'dots',
     content: '加载中'
   }
-
 }
 @Injectable()
 export class AppService {
@@ -94,16 +81,17 @@ export class AppService {
     private toastCtrl: ToastController
   ) {
   }
-
+  
   //get request with Authorization
   httpGet(url: string) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer ' + this.getItem('tpb_token')
     });
-    return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.get(url, { headers: this.withTokenHeaders }).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(this.handleError);
   }
+
   //get request with No Authorization
   httpGetNoAuthor(url: string) {
     return this.http.get(url).timeout(AppConfig.TIME_OUT).toPromise()
@@ -114,43 +102,43 @@ export class AppService {
   //get request
   httpGetReturnData(url: string) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer ' + this.getItem('tpb_token')
     });
-    return this.http.get(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.get(url, { headers: this.withTokenHeaders }).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res)
       .catch(this.handleError);
   }
 
   //get request with headers
   httpGetHeader(url: string, header: any) {
-    return this.http.get(url, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.get(url, { headers: header }).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(this.handleError);
   }
-  
+
   //post request
   httpPost(url: string, body: any) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token'),
-      'content-type' : 'application/json'
+      'Authorization': 'Bearer ' + this.getItem('tpb_token'),
+      'content-type': 'application/json'
     });
-    return this.http.post(url, body, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.post(url, body, { headers: this.withTokenHeaders }).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(this.handleError);
   }
 
   //post 带有headers 
   httpPostHeader(url: string, body: any, header: any) {
-    return this.http.post(url, body, {headers: header}).timeout(AppConfig.TIME_OUT).toPromise()
-    .then(res => res.json());
+    return this.http.post(url, body, { headers: header }).timeout(AppConfig.TIME_OUT).toPromise()
+      .then(res => res.json());
   }
-  
+
   //put request
   httpPut(url: string, parameters: any) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer ' + this.getItem('tpb_token')
     });
-    return this.http.put(url, parameters, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.put(url, parameters, { headers: this.withTokenHeaders }).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(this.handleError);
   }
@@ -158,9 +146,9 @@ export class AppService {
   //delete request
   httpDelete(url: string) {
     this.withTokenHeaders = new Headers({
-      'Authorization': 'Bearer '+ this.getItem('tpb_token')
+      'Authorization': 'Bearer ' + this.getItem('tpb_token')
     });
-    return this.http.delete(url, {headers: this.withTokenHeaders}).timeout(AppConfig.TIME_OUT).toPromise()
+    return this.http.delete(url, { headers: this.withTokenHeaders }).timeout(AppConfig.TIME_OUT).toPromise()
       .then(res => res.json())
       .catch(this.handleError);
   }
@@ -175,13 +163,13 @@ export class AppService {
     if (error.error == "invalid_token") {
       let base64encode = new Buffer(`${AppConfig.client_id}:${AppConfig.secret}`).toString('base64');
       self.oauthTokenHeaders = new Headers({
-        'Authorization': 'Basic '+ base64encode,
+        'Authorization': 'Basic ' + base64encode,
         'Content-Type': 'application/x-www-form-urlencoded'
       });
       let oauthTokenUrl = AppConfig.oauthTokenUrl;
       let body = `grant_type=refresh_token&refresh_token=${self.getItem("refresh_token")}`;
       self.httpPostHeader(oauthTokenUrl, body, self.oauthTokenHeaders).then(data => {
-        let newDateMS = (new Date()).getTime() + data.expires_in*1000 - AppConfig.RESERVED_TIME;
+        let newDateMS = (new Date()).getTime() + data.expires_in * 1000 - AppConfig.RESERVED_TIME;
         self.setItem("newDateMS", newDateMS);
         self.setItem("tpb_token", data.access_token);
         self.setItem("refresh_token", data.refresh_token);
@@ -189,11 +177,11 @@ export class AppService {
       }).catch(err => {
         console.log(err);
         self.toast('登录已过期，请重新登录', 1000, 'middle');
-        self.setItem("tpb_token","");
-        self.setItem("refresh_token","");
+        self.setItem("tpb_token", "");
+        self.setItem("refresh_token", "");
         if (window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
           window.location.href = window.location.href.split("?")[0];
-        }else {
+        } else {
           window.location.href = window.location.href;
         }
       })
@@ -210,6 +198,7 @@ export class AppService {
     });
     return loader;
   }
+
   // 提示信息
   toast(message: string, duration: number, position: string) {
     let toast = this.toastCtrl.create({
@@ -241,7 +230,7 @@ export class AppService {
   }
 
   // 将日期格式化为yyyy-mm-dd
-  reserveDate(){
+  reserveDate() {
     let fillZero = (n) => {
       let result = (n).toString().length === 1 ? ('0' + n) : n;
       return result;
@@ -255,7 +244,6 @@ export class AppService {
       return result;
     }
     let res = formatTime();
-    return res;    
+    return res;
   }
-
 }
