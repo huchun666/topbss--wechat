@@ -56,7 +56,6 @@ export class BrandshopOrderList {
     this.dateEndMax = this.appService.reserveDate();
     this.getOrderList();
   }
-
   // 获取订单列表
   getOrderList() {
     this.loadingShow = true;
@@ -151,7 +150,6 @@ export class BrandshopOrderList {
     this.dateEnd = '';
     this.dateStartMax = this.appService.reserveDate();
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -164,7 +162,6 @@ export class BrandshopOrderList {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
   // 上拉加载更多 请求数据
   loadMore(infiniteScroll) {
     var url = `${AppConfig.API.getOrderList}?start=${this.start}&limit=${this.pageSize}`;
@@ -194,7 +191,6 @@ export class BrandshopOrderList {
       console.log(error);
     })
   }
-
   //请求失败后刷新
   requestDefeatRefresh() {
     this.requestDefeat = false;

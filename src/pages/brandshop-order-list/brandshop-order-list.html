@@ -49,7 +49,7 @@
           <!--color auditing or pass -->
           <span [ngClass]="{auditStatus: true, pass:(order.status | setOrderStatus).pass , auditing:(order.status | setOrderStatus).audit} ">{{(order.status | setOrderStatus).status}}</span>
         </div>
-        <!-- 商品1 -->
+        <!-- 商品 -->
         <div class="order-item" *ngFor="let product of order.orderItemProductSkuDTOS">
           <dl>
             <dt>
@@ -64,7 +64,6 @@
             <dd class="count">X{{ product.number }}</dd>
           </dl>
         </div>
-
         <div class="orderOperate">
           <dl>
             <dt>
@@ -75,7 +74,6 @@
             <dd class="total">会员手机：{{ order.memberMobile }}</dd>
             <dd class="member-phone" *ngIf="order.status == 3 || order.status == 'C'">收货时间：{{ order.receiptTime | date:'yyyy-MM-dd HH:mm:ss' }}</dd>
             <dd class="member-phone" *ngIf="order.status == 4 && order.userType != 'B'" >退款时间：{{ order.refundTime | date:'yyyy-MM-dd HH:mm:ss' }}</dd>
-
           </dl>
         </div>
         <div class="order-dtail-box">
@@ -99,11 +97,9 @@
           </div>
         </div>
     </div>
-
     <ion-infinite-scroll (ionInfinite)="loadMore($event)"  *ngIf="showInfinite && !loadingShow && !requestDefeat">
       <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
   </div>
   <div class="no-data" *ngIf="noData">
     <img src="./assets/image/nodata.png" alt="">

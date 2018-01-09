@@ -40,7 +40,6 @@ export class UnauditTabs {
     this.down = true;
     this.up = false;
     this.load = AppConfig.load;
-    // 获取待审核取消订单
     this.currentStatus = '待审核取消订单'
     this.cancelOrderCount = navParams.get('cancelOrderCount'); //待审核取消订单数量
     this.returnOrderCount = navParams.get('returnOrderCount'); //待审核退货订单数量
@@ -240,7 +239,6 @@ export class UnauditTabs {
     const orderModal = this.modalCtrl.create(AuditReturnorder);
     orderModal.present();
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -257,7 +255,6 @@ export class UnauditTabs {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
   // 上拉刷新请求数据
   loadMore(infiniteScroll) {
     if (this.currentIndex == 0) {
@@ -311,9 +308,7 @@ export class UnauditTabs {
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     }
-
   }
-
   // 切换tab标签
   getCurrentStatus(index) {
     this.start = 0;
@@ -329,7 +324,6 @@ export class UnauditTabs {
       this.getUnauditReturnorderList();
     }
   }
-
   //请求失败后刷新
   requestDefeatRefreshReturnorder() {
     this.requestDefeat = false;
@@ -339,7 +333,6 @@ export class UnauditTabs {
     this.up = false;
     this.getUnauditReturnorderList();
   }
-
   requestDefeatRefreshCancelorder() {
     this.requestDefeat = false;
     this.loadingShow = true;

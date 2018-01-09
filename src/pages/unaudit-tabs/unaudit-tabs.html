@@ -30,7 +30,6 @@
           </h2>
           <span [ngClass]="{auditStatus: true, pass:(item.status | setCancelOrderStatus).pass , auditing:(item.status | setCancelOrderStatus).audit} ">{{(item.status | setCancelOrderStatus).status}}</span>
         </div>
-  
         <div class="order-item" *ngFor="let single of item.itemList">
           <dl>
             <dt>
@@ -44,7 +43,6 @@
             <dd class="count">X{{ single.number }}</dd>
           </dl>
         </div>
-  
         <div class="orderOperate">
           <dl>
             <dt>
@@ -90,7 +88,6 @@
           </h2>
           <span [ngClass]="{auditStatus: true, pass:(item.status | setReturnOrderStatus).pass , auditing:(item.status | setReturnOrderStatus).audit} ">{{(item.status | setReturnOrderStatus).status}}</span>
         </div>
-  
         <div class="order-item">
           <dl>
             <dt>
@@ -104,7 +101,6 @@
             <dd class="count">X{{ item.buyNumber }}</dd>
           </dl>
         </div>
-  
         <div class="orderOperate">
           <dl>
             <dt>
@@ -134,7 +130,6 @@
         </button>
       </div>
     </div>
-    
     <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
       <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>

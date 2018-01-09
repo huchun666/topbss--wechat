@@ -22,7 +22,6 @@
           </h2>
           <span [ngClass]="{auditStatus: true, pass:(item.status | setReturnOrderStatus).pass , auditing:(item.status | setReturnOrderStatus).audit} ">{{(item.status | setReturnOrderStatus).status}}</span>
         </div>
-    
         <div class="order-item">
           <dl>
             <dt>
@@ -36,18 +35,14 @@
             <dd class="count">X{{ item.number }}</dd>
           </dl>
         </div>
-			
 			<div class="orderOperate">
 				<dl>
-					<dt>
-						
-					</dt>
+					<dt></dt>
 					<dd class="total">退货数量: {{item.number}}</dd>
 					<dd class="member-phone">会员手机：{{item.mobile}}</dd>
 				</dl>
 			</div>
     </div>
-    
 		<div class="no-data" *ngIf = "noData">
       <img src="./assets/image/nodata.png" alt="">
       <p>空空如也</p>
@@ -66,5 +61,4 @@
       <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 	</div>
-
 </ion-content>

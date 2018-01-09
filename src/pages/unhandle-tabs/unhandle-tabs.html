@@ -12,7 +12,6 @@
   <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!loadingShow">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
   <div class="selfGiftList" *ngIf="currentIndex == 0">
     <div class="gift-list">
       <!-- loading -->
@@ -53,7 +52,6 @@
         <div class="reserve-time" *ngIf="item.giftType=='0' && item.status=='3'">
           <div class="show-time">预约到店时间：{{ item.reserveShopTime | date:'yyyy-MM-dd HH:mm:ss' }}</div>
         </div>
-
       </div>
       <div class="no-data" *ngIf="noData">
         <img src="./assets/image/nodata.png" alt="">
@@ -76,7 +74,6 @@
     <div class="toTop" (click)="scrollTo()" *ngIf="toTop">
       <img src="./assets/image/toTop.png" alt="">
     </div>
-    
   </div>
 
   <div class="expressGiftList" *ngIf="currentIndex == 1">
@@ -135,12 +132,8 @@
         </button>
       </div>
     </div>
-    
-    
   </div>
-
   <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="!showNoMore && showInfinite">
     <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  
 </ion-content>

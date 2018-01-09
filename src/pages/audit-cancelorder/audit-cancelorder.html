@@ -23,7 +23,6 @@
         </h2>
         <span [ngClass]="{auditStatus: true, pass:(item.status | setCancelOrderStatus).pass , auditing:(item.status | setCancelOrderStatus).audit} ">{{(item.status | setCancelOrderStatus).status}}</span>
       </div>
-
       <div class="order-item" *ngFor="let single of item.itemList">
         <dl>
           <dt>
@@ -37,7 +36,6 @@
           <dd class="count">X{{ single.number }}</dd>
         </dl>
       </div>
-
       <div class="orderOperate">
         <dl>
           <dd class="total">{{item.totalNumber}}件商品，实付￥{{item.payAmount}}</dd>
@@ -46,7 +44,6 @@
         </dl>
       </div>
     </div>
-
     <div class="no-data" *ngIf = "noData">
       <img src="./assets/image/nodata.png" alt="">
       <p>空空如也</p>
@@ -64,7 +61,5 @@
     <ion-infinite-scroll (ionInfinite)="infiniteGetSelfGiftList($event)" *ngIf = "!showNoMore && showInfinite">
       <ion-infinite-scroll-content loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
   </div>
-
 </ion-content>
