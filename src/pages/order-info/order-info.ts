@@ -48,8 +48,10 @@ export class OrderInfo {
     public navParams: NavParams,
     public appService: AppService
   ) {
-    this.getOrderDetail();
   }
+  ionViewDidEnter () {
+		this.getOrderDetail();
+	}
   presentConfirm() {
     if (!this.isAllow) {
       return;

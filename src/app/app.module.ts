@@ -6,6 +6,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Dialogs } from '@ionic-native/dialogs';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Network } from '@ionic-native/network';
 
 import { 
   FilterStatusPipe, 
@@ -145,7 +146,8 @@ let componentsList = [
     AppConfig,
     Dialogs,
     BarcodeScanner,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Network
   ]
 })
 export class AppModule {}

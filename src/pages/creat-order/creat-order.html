@@ -9,10 +9,10 @@
   </ion-navbar>
   <!-- 搜索框 -->
   <div class="search-box">
-    <ion-item>
-      <ion-input [(ngModel)]="searchKeyWord" (ionBlur)="onInput($event)" type="search" clearInput=true placeholder="请输入商品名称" >
-    </ion-input>
-    </ion-item>  
+    <form action="">
+      <input type="search" class="search" [(ngModel)]="searchKeyWord" name="searchKeyWord"  (keypress)="keypress($event)" autocomplete="off" placeholder="请输入商品名称">
+      <ion-icon name="close" *ngIf="searchKeyWord!=''" class="clear" (click)="searchKeyWord = '';searchEvent()"></ion-icon>
+    </form>
   </div>
 </ion-header>
 <ion-content>
@@ -31,7 +31,8 @@
 <div class="product-list" *ngIf = "!noData">
   <ul>
     <li *ngFor = "let item of creatOrderArray;let i = index">
-      <img [src]="item.fileSeq | productSkuDTOImage" alt="产品">
+      <img class="nodata-image" src="./assets/image/nodata.png" alt="">
+      <img class="product-image" [src]="item.fileSeq | productSkuDTOImage" alt="产品">
       <p>{{item.productName}}</p>
       <div class="btn-add"><button ion-button round (click)="addProductModal(i)">加入配单仓</button></div>
     </li>

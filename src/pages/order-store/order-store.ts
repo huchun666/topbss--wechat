@@ -22,6 +22,8 @@ export class OrderStore {
   totalPriceFloat: any;
   overStock: Boolean;
   requestDefeat: Boolean = false;
+  totalPriceIsOrNull: Boolean = true;
+  totalNumberIsOrNull: Boolean = true;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -186,6 +188,7 @@ export class OrderStore {
   addProductModal() {
     this.totalPrice = 0;
     let totalArr: any = document.getElementsByClassName("total-input-count");
+<<<<<<< HEAD
     for (let i = 0; i < totalArr.length; i++) {
       this.totalPrice += Number(totalArr[i].value);
     }
@@ -209,6 +212,51 @@ export class OrderStore {
       console.log(error);
       this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
     })
+=======
+    let totalNumberArr: any = document.getElementsByClassName("total-input-number");
+    for (let i = 0; i < totalArr.length; i++) {
+      this.totalPrice += Number(totalArr[i].value);
+    }
+    for (let i = 0; i < totalArr.length; i++) {
+      if (totalArr[i].value === '') {
+        this.totalPriceIsOrNull = false;
+        return;
+      }else {
+        this.totalPriceIsOrNull = true;
+      }
+    }
+    for (let i = 0; i < totalNumberArr.length; i++) {
+      if (totalNumberArr[i].value === '') {
+        this.totalNumberIsOrNull = false;
+        return;
+      }else {
+        this.totalNumberIsOrNull = true;
+      }
+    }
+    if (this.totalPriceIsOrNull && this.totalNumberIsOrNull) {
+      this.totalPriceFloat = parseFloat(`${this.totalPrice.toString()}`).toFixed(2);
+      let loading = this.appService.loading();
+      loading.present();
+      let url = `${AppConfig.API.warehouseGenerateCode}?warehouseId=${this.orderStoreDataArray[0].warehouseId}`;
+      this.appService.httpGetReturnData(url).then( data => {
+        loading.dismiss();
+        this.returnUrl = data['_body'];
+        this.navCtrl.push(PaymentCode,{
+          returnUrl: this.returnUrl,
+          totalPriceFloat: this.totalPriceFloat,
+          warehouseId: this.orderStoreDataArray[0].warehouseId
+        });
+      }).catch(error=>{
+        this.appService.getToken(error, () => {
+          this.addProductModal();
+        });
+        loading.dismiss();
+        console.log(error);
+        this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
+      })
+    }
+    
+>>>>>>> upstream/app
   }
 
   // 下拉刷新请求数据
