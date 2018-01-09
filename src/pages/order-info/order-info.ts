@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -12,33 +12,33 @@ export class OrderInfo {
     "orderId": "",//订单ID
     "brandshopName": "",//门店名称
     "orderItemProductSkuDTOS": [//子订单以及商品SKU信息
-        {
-            "orderItemSeq": null,//子订单Seq
-            "prodSeq": null,//商品Seq
-            "skuSeq": null,//SkuSeq
-            "unitPrice": 0,//商品单价
-            "number": 0,//购买数量
-            "productSkuDTO": {
-                "productSeq": null,//商品Seq
-                "skuSeq": null,//SKUseq
-                "productName": "",//商品名称
-                "fileSeq": null,//主图ID
-                "attrValueList": [//SKU信息
-                    {
-                        "skuSeq": null,
-                        "attrSeq": null,
-                        "attrName": "",
-                        "attrValue": "",
-                        "type": null,
-                        "fileSeq": null,
-                        "price": null,
-                        "selectedAttrValue": null,
-                        "invalidAttrValue": null
-                    }
-                ],
-                "fallback": null
+      {
+        "orderItemSeq": null,//子订单Seq
+        "prodSeq": null,//商品Seq
+        "skuSeq": null,//SkuSeq
+        "unitPrice": 0,//商品单价
+        "number": 0,//购买数量
+        "productSkuDTO": {
+          "productSeq": null,//商品Seq
+          "skuSeq": null,//SKUseq
+          "productName": "",//商品名称
+          "fileSeq": null,//主图ID
+          "attrValueList": [//SKU信息
+            {
+              "skuSeq": null,
+              "attrSeq": null,
+              "attrName": "",
+              "attrValue": "",
+              "type": null,
+              "fileSeq": null,
+              "price": null,
+              "selectedAttrValue": null,
+              "invalidAttrValue": null
             }
+          ],
+          "fallback": null
         }
+      }
     ]
   };
   constructor(
@@ -49,9 +49,9 @@ export class OrderInfo {
     public appService: AppService
   ) {
   }
-  ionViewDidEnter () {
-		this.getOrderDetail();
-	}
+  ionViewDidEnter() {
+    this.getOrderDetail();
+  }
   presentConfirm() {
     if (!this.isAllow) {
       return;

@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, AlertController, Content, ModalController } from 'ionic-angular';
-import { UnauditCancelorder } from '../unaudit-cancelorder/unaudit-cancelorder';
-import { UnauditReturnorder } from '../unaudit-returnorder/unaudit-returnorder';
 import { AppService, AppConfig } from '../../app/app.service';
 import { AuditCancelorder } from '../audit-cancelorder/audit-cancelorder';
 import { AuditReturnorder } from '../audit-returnorder/audit-returnorder';
@@ -12,8 +10,6 @@ import { ReturnDetail } from '../return-detail/return-detail';
 })
 export class UnauditTabs {
   @ViewChild(Content) content: Content;
-  orderCancel = UnauditCancelorder;
-  orderReturn = UnauditReturnorder;
   cancelCount: string;
   returnCount: string;
   cancelOrderCount: number;
@@ -153,7 +149,6 @@ export class UnauditTabs {
     const orderModal = this.modalCtrl.create(AuditCancelorder);
     orderModal.present();
   }
-
   // 获取待审核退货订单列表
   getUnauditReturnorderList() {
     this.loadingShow = true;
@@ -244,7 +239,6 @@ export class UnauditTabs {
     const orderModal = this.modalCtrl.create(AuditReturnorder);
     orderModal.present();
   }
-
   // 下拉刷新请求数据
   doRefresh(refresher) {
     this.start = 0;
@@ -261,7 +255,6 @@ export class UnauditTabs {
     }, AppConfig.LOAD_TIME);
     this.showNoMore = false;
   }
-
   // 上拉刷新请求数据
   loadMore(infiniteScroll) {
     if (this.currentIndex == 0) {
@@ -315,9 +308,7 @@ export class UnauditTabs {
         this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
       });
     }
-
   }
-
   // 切换tab标签
   getCurrentStatus(index) {
     this.start = 0;
@@ -333,7 +324,6 @@ export class UnauditTabs {
       this.getUnauditReturnorderList();
     }
   }
-
   //请求失败后刷新
   requestDefeatRefreshReturnorder() {
     this.requestDefeat = false;
@@ -343,7 +333,6 @@ export class UnauditTabs {
     this.up = false;
     this.getUnauditReturnorderList();
   }
-
   requestDefeatRefreshCancelorder() {
     this.requestDefeat = false;
     this.loadingShow = true;
