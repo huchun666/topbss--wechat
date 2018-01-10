@@ -49,9 +49,11 @@ export class WithdrawRecord {
           this.getWithdrawList();
         });
         console.log(error);
-        this.requestFail = true;
         this.isEmpty = false;
         this.isLoadingShow = false;
+        if(error.error != "invalid_token") {
+          this.requestFail = true;
+        }
       }
       );
   }

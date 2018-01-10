@@ -48,9 +48,11 @@ export class AwardActivity {
           this.getAwardActivity();
         });
         console.log(error);
-        this.requestFail = true;
         this.isEmpty = false;
         this.isLoadingShow = false;
+        if(error.error != "invalid_token") {
+          this.requestFail = true;
+        }
       });
   }
   /** 获取总金额 **/

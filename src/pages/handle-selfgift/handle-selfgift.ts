@@ -59,8 +59,10 @@ export class HandleSelfgift {
 			});
 			this.loadingShow = false;
 			console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
 		});
   }
   // 下拉刷新请求数据
@@ -72,7 +74,6 @@ export class HandleSelfgift {
     this.showInfinite = true;
     let url = `${AppConfig.API.getGiftList}?type=2&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then( data => {
-      refresher.complete();
       if (data.count == 0) {
         //空空如也
         this.noData = true;
@@ -86,6 +87,7 @@ export class HandleSelfgift {
           this.showNoMore = true;
         }
       }
+      refresher.complete();
     }).catch(error => {
       this.appService.getToken(error, () => {
 				this.refreshGetHandleSelfGiftList(refresher);
@@ -93,8 +95,10 @@ export class HandleSelfgift {
       this.handleSeflGiftArray = [];
       refresher.complete();
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      } 
     });
   }
   // 上拉刷新请求数据
@@ -120,9 +124,11 @@ export class HandleSelfgift {
       this.appService.getToken(error, () => {
 				this.infiniteGetHandleSelfGiftList(infiniteScroll);
 			});
-      infiniteScroll.complete();
       console.log(error);      
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');      
+      if(error.error != "invalid_token") {
+        infiniteScroll.complete();
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle'); 
+      }    
     });
   }
 	//请求失败后刷新
