@@ -71,7 +71,9 @@ export class OrderStore {
         this.getOrderStore();
       });
       this.loadingShow = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.requestDefeat = true;
+      }
       console.log(error);
     });
   }
@@ -108,9 +110,12 @@ export class OrderStore {
       } else if (addOrRemove == "remove") {
         this.orderStoreDataArray[index].productNum++;
       }
-      loading.dismiss();
       console.log(error);
-      this.appService.toast('更新失败，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        loading.dismiss();
+        this.appService.toast('更新失败，请稍后再试', 1000, 'middle');
+      }
+      
     })
   }
 
@@ -153,9 +158,11 @@ export class OrderStore {
       this.appService.getToken(error, () => {
         this.delete(index);
       });
-      loading.dismiss();
       console.log(error);
-      this.appService.toast('删除失败，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        this.appService.toast('删除失败，请稍后再试', 1000, 'middle');
+        loading.dismiss();
+      }
     })
   }
   //失去焦点
@@ -220,9 +227,12 @@ export class OrderStore {
         this.appService.getToken(error, () => {
           this.addProductModal();
         });
-        loading.dismiss();
         console.log(error);
-        this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
+        if(error.error != "invalid_token") {
+          loading.dismiss();
+          this.appService.toast('操作失败，请稍后再试', 1000, 'middle');
+        }
+        
       })
     }
   }
@@ -248,9 +258,11 @@ export class OrderStore {
         this.refreshGetOrderStoreList(refresher);
       });
       this.orderStoreDataArray = [];
-      refresher.complete();
       console.log(error);
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.requestDefeat = true;
+        refresher.complete();
+      }
     });
   }
   //请求失败后刷新
