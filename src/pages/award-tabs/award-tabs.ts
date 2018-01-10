@@ -103,9 +103,11 @@ export class AwardTabs {
           this.getOrderDetail();
         });
         console.log(error);
-        this.requestFail = true;
         this.isEmpty = false;
         this.isLoadingShow = false;
+        if(error.error != "invalid_token") {
+          this.requestFail = true;
+        }
       });
   }
   /** 获取总金额 **/
@@ -166,9 +168,11 @@ export class AwardTabs {
           this.getAwardDetail();
         });
         console.log(error);
-        this.requestFail = true;
         this.isEmpty = false;
         this.isLoadingShow = false;
+        if(error.error != "invalid_token") {
+          this.requestFail = true;
+        }
       });
   }
   /** 获取总金额 **/
@@ -195,7 +199,6 @@ export class AwardTabs {
       let url = `${AppConfig.API.bonusList}?typeList=1,6&statusList=0,1&start=${this.start}&limit=${this.pageSize}`;
       this.appService.httpGet(url)
         .then(data => {
-          infiniteScroll.complete();
           if (data.data.length != 0) {
             data.data.map(item => {
               item.baseAmount = item.baseAmount.toFixed(2);
@@ -208,20 +211,22 @@ export class AwardTabs {
           } else {
             this.showNoMore = true;
           }
+          infiniteScroll.complete();
         }).catch(error => {
           this.appService.getToken(error, () => {
             this.loadMore(infiniteScroll);
           });
           console.log(error);
-          this.requestFail = true;
           this.isEmpty = false;
           this.isLoadingShow = false;
+          if(error.error != "invalid_token") {
+            this.requestFail = true;
+          }
         });
     } else {
       let url = `${AppConfig.API.bonusList}?typeList=3,4&statusList=0,1&start=${this.start}&limit=${this.pageSize}`;
       this.appService.httpGet(url)
         .then(data => {
-          infiniteScroll.complete();
           if (data.data.length != 0) {
             data.data.map(item => {
               item.baseAmount = item.baseAmount.toFixed(2);
@@ -234,14 +239,17 @@ export class AwardTabs {
           } else {
             this.showNoMore = true;
           }
+          infiniteScroll.complete();
         }).catch(error => {
           this.appService.getToken(error, () => {
             this.loadMore(infiniteScroll);
           });
           console.log(error);
-          this.requestFail = true;
           this.isEmpty = false;
           this.isLoadingShow = false;
+          if(error.error != "invalid_token") {
+            this.requestFail = true;
+          }
         });
     }
   }
