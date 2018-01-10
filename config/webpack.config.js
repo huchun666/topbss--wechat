@@ -43,13 +43,13 @@ function environmentPath(env) {
     return filePath;
   }
 }
-
+useDefaultConfig[env].output.filename = '[name].[hash].js';
 useDefaultConfig[env].plugins.push(
   new HtmlWebpackPlugin({
     template:'./src/index.html',
     filename: '../index.html',
-    hash: true,
-    cache: true
+    hash: false,
+    cache: false
   })
 );
 
