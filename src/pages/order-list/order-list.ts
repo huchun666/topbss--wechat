@@ -116,8 +116,10 @@ export class OrderList {
       });
       this.orderList = [];
       this.loadingShow = false;
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
       console.log(error);
     })
   }
@@ -188,7 +190,6 @@ export class OrderList {
     if (this.paramsStatus != '')
       url += this.paramsStatus;
     this.appService.httpGet(url).then(data => {
-      infiniteScroll.complete();
       if (this.start < data.count) {
         this.orderList.push(...data.data);
         this.start += this.pageSize;
@@ -199,13 +200,15 @@ export class OrderList {
         this.showInfinite = false;
         this.showNoMore = true;
       }
+      infiniteScroll.complete();
     }).catch(error => {
       this.appService.getToken(error, () => {
         this.loadMore(infiniteScroll);
       });
-      this.showInfinite = false;
-      infiniteScroll.complete();
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        infiniteScroll.complete();
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      }
       console.log(error);
     })
   }
