@@ -61,8 +61,10 @@ export class AuditReturnorder {
       this.auditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     });
   }
   // 下拉刷新请求数据
@@ -74,7 +76,6 @@ export class AuditReturnorder {
     this.showInfinite = true;
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`;
     this.appService.httpGet(url).then(data => {
-      refresher.complete();
       if (data.count == 0) {
         this.noData = true;
       } else {
@@ -87,6 +88,7 @@ export class AuditReturnorder {
           this.showNoMore = true;
         }
       }
+      refresher.complete();
     }).catch(error => {
       this.appService.getToken(error, () => {
         this.doRefresh(refresher);
@@ -94,8 +96,10 @@ export class AuditReturnorder {
       this.auditReturnorderArray = [];
       refresher.complete();
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     });
   }
   // 上拉刷新请求数据
@@ -104,7 +108,6 @@ export class AuditReturnorder {
     this.up = true;
     let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
-      infiniteScroll.complete();
       if (data.count == 0) {
         this.noData = true;
       } else {
@@ -116,13 +119,16 @@ export class AuditReturnorder {
           this.showNoMore = true;
         }
       }
+      infiniteScroll.complete();
     }).catch(error => {
       this.appService.getToken(error, () => {
         this.infiniteGetSelfGiftList(infiniteScroll);
       });
-      infiniteScroll.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        infiniteScroll.complete();
+      }
     });
   }
   //请求失败后刷新

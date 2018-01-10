@@ -258,10 +258,10 @@ export class OrderStore {
         this.refreshGetOrderStoreList(refresher);
       });
       this.orderStoreDataArray = [];
+      refresher.complete();
       console.log(error);
       if(error.error != "invalid_token") {
         this.requestDefeat = true;
-        refresher.complete();
       }
     });
   }
