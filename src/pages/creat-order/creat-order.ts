@@ -212,7 +212,6 @@ export class CreatOrder {
       this.appService.httpGet(url).then(data => {
         if (data.count == 0) {
           this.noData = true;
-          infiniteScroll.complete();
         } else {
           this.noData = false;
           if (data.data.length != 0) {
@@ -222,6 +221,7 @@ export class CreatOrder {
             this.showNoMore = true;
           }
         }
+        infiniteScroll.complete();
       }).catch(error => {
         this.appService.getToken(error, () => {
           this.infiniteGetCreatOrderList(infiniteScroll);
