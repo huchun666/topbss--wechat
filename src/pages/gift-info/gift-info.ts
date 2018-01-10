@@ -70,6 +70,8 @@ export class GiftInfo {
 					]
 				});
 				alert.present();
+			}else {
+				this.appService.toast("系统繁忙，请稍后重试", 1000, "middle");
 			}
 		});
 	}
