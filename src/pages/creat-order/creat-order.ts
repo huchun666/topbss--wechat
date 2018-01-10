@@ -69,7 +69,7 @@ export class CreatOrder {
         this.getCreatOrderList();
       });
       this.loadingShow = false;
-      if(error.error != "invalid_token") {
+      if (error.error != "invalid_token") {
         this.showInfinite = false;
         this.requestDefeat = true;
       }
@@ -127,7 +127,7 @@ export class CreatOrder {
         });
         console.log(error);
         this.creatOrderArray = [];
-        if(error.error != "invalid_token") {
+        if (error.error != "invalid_token") {
           this.requestDefeat = true;
           this.showInfinite = false;
         }
@@ -155,7 +155,6 @@ export class CreatOrder {
       url = url + `&searchKeyWord=${this.searchKeyWord}`
     }
     this.appService.httpGet(url).then(data => {
-      refresher.complete();
       if (data.count == 0) {
         //空空如也
         this.noData = true;
@@ -169,6 +168,7 @@ export class CreatOrder {
           this.showNoMore = true;
         }
       }
+      refresher.complete();
     }).catch(error => {
       this.appService.getToken(error, () => {
         this.refreshGetCreatOrderList(refresher);
@@ -176,7 +176,7 @@ export class CreatOrder {
       this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
-      if(error.error != "invalid_token") {
+      if (error.error != "invalid_token") {
         this.showInfinite = false;
         this.requestDefeat = true;
       }
@@ -189,7 +189,6 @@ export class CreatOrder {
     if (this.searchKeyWord) {
       let url = `${AppConfig.API.getBrandshopProducts}?searchKeyWord=${this.searchKeyWord}&start=${this.start}&limit=${this.limit}`;
       this.appService.httpGet(url).then(data => {
-        infiniteScroll.complete();
         if (data.count == 0) {
           this.noData = true;
         } else {
@@ -200,12 +199,16 @@ export class CreatOrder {
             this.showNoMore = true;
           }
         }
+        infiniteScroll.complete();
       }).catch(error => {
         this.appService.getToken(error, () => {
           this.infiniteGetCreatOrderList(infiniteScroll);
         });
         console.log(error);
-        this.appService.toast("网络不好，请稍后重试", 1000, "middle")
+        if (error.error != "invalid_token") {
+          infiniteScroll.complete();
+          this.appService.toast("网络不好，请稍后重试", 1000, "middle")
+        }
       });
     } else {
       let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
@@ -227,7 +230,7 @@ export class CreatOrder {
           this.infiniteGetCreatOrderList(infiniteScroll);
         });
         console.log(error);
-        if(error.error != "invalid_token") {
+        if (error.error != "invalid_token") {
           infiniteScroll.complete();
           this.appService.toast("网络不好，请稍后重试", 1000, "middle")
         }
