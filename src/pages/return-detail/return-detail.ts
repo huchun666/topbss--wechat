@@ -152,6 +152,9 @@ export class ReturnDetail {
         this.viewCtrl.dismiss();
       }
     }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.refuseReturnPost();
+      });
       loading.dismiss();
       console.log(error);
       if (error.error != "invalid_token") {
