@@ -172,9 +172,9 @@ export class UnhandleTabs {
         this.appService.getToken(error, () => {
           this.reserveAffirm(index);
         });
-        loading.dismiss();
         if(error.error != "invalid_token") {
           this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+          loading.dismiss();
         }
         console.log(error.message);
       });
@@ -293,7 +293,9 @@ export class UnhandleTabs {
               }).catch(error => {
                 loading.dismiss();
                 console.log(error);
-                this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+                if (error.error != "invalid_token") {
+                  this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+                }
               });
             } else if (data.companyName != "") {
               this.appService.toast('请填写快递单号', 1000, 'middle');

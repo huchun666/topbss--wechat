@@ -116,7 +116,7 @@ export class OrderInfo {
             ]
           });
           alert.present();
-        }else {
+        }else if (error.error != "invalid_token") {
           this.appService.toast("系统繁忙，请稍后重试", 1000, "middle");
         }
       });

@@ -62,7 +62,9 @@ export class AddAccount {
               }).catch(error => {
                 this.loadingShow = false;
                 console.log(error);
-                this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+                if (error.error != "invalid_token") {
+                  this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+                }
               });
             }
           }
@@ -105,8 +107,10 @@ export class AddAccount {
         });
         console.log(error);
         this.loadingShow = false;
-        this.requestDefeat = true;
         this.accountContent = false;
+        if (error.error != "invalid_token") {
+          this.requestDefeat = true;
+        }
       });
   }
   ionViewDidEnter() {
