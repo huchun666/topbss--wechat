@@ -58,8 +58,10 @@ export class AuditCancelorder {
       this.auditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     });
   }
   // 下拉刷新请求数据
@@ -92,8 +94,10 @@ export class AuditCancelorder {
       this.auditCancelorderArray = [];
       refresher.complete();
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     });
   }
   // 上拉刷新请求数据
@@ -102,7 +106,6 @@ export class AuditCancelorder {
     this.up = true;
     let url = `${AppConfig.API.getCancelorder}?deliveryType=1&status=1&start=${this.start}&limit=${this.limit}`
     this.appService.httpGet(url).then(data => {
-      infiniteScroll.complete();
       if (data.count == 0) {
         //空空如也
         this.noData = true;
@@ -115,13 +118,16 @@ export class AuditCancelorder {
           this.showNoMore = true;
         }
       }
+      infiniteScroll.complete();
     }).catch(error => {
       this.appService.getToken(error, () => {
         this.infiniteGetSelfGiftList(infiniteScroll);
       });
-      infiniteScroll.complete();
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        infiniteScroll.complete();
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      }
     });
   }
   //请求失败后刷新
