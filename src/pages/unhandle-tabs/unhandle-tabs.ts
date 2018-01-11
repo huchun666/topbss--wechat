@@ -65,7 +65,9 @@ export class UnhandleTabs {
       this.appService.getToken(error, () => {
         this.getTabCount();
       });
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      }
     });
     this.appService.httpGet(urlSelf).then(data => {
       this.selfGiftCount = data.count;
@@ -74,7 +76,9 @@ export class UnhandleTabs {
       this.appService.getToken(error, () => {
         this.getTabCount();
       });
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      }
     })
   }
   // 获取自提赠品
@@ -113,8 +117,10 @@ export class UnhandleTabs {
       this.unhandleSeflGiftArray = [];
       this.loadingShow = false;
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     })
   }
   addOrderStatusClass(param: any) {
@@ -167,8 +173,10 @@ export class UnhandleTabs {
           this.reserveAffirm(index);
         });
         loading.dismiss();
+        if(error.error != "invalid_token") {
+          this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+        }
         console.log(error.message);
-        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       });
     } else {
       this.appService.toast('请选择会员预约到店时间', 1000, 'middle');
@@ -224,8 +232,10 @@ export class UnhandleTabs {
       this.unhandleExpressGiftArray = [];
       this.loadingShow = false;
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     })
   }
   goExpressgift() {
@@ -329,9 +339,11 @@ export class UnhandleTabs {
         this.appService.getToken(error, () => {
           this.loadMore(infiniteScroll);
         });
-        infiniteScroll.complete();
         console.log(error);
-        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        if(error.error != "invalid_token") {
+          infiniteScroll.complete();
+          this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        }
       });
     } else {
       let url = `${AppConfig.API.getGiftList}?type=1&start=${this.start}&limit=${this.limit}`;
@@ -353,9 +365,11 @@ export class UnhandleTabs {
         this.appService.getToken(error, () => {
           this.loadMore(infiniteScroll);
         });
-        infiniteScroll.complete();
         console.log(error);
-        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        if(error.error != "invalid_token") {
+          infiniteScroll.complete();
+          this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        }
       });
     }
   }

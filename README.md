@@ -1,9 +1,91 @@
-## 安装network插件
-```
-ionic cordova plugin add cordova-plugin-network-information
+# 安装开发环境
 
-npm install --save @ionic-native/network
+## 安装ionic和cordova
 ```
+npm install -g cordova ionic
+```
+cordova官方文档: [Cordova](https://cordova.apache.org/)
+
+ionic官方文档：[Ionic](https://ionicframework.com/)
+
+# 配置开发环境
+
+## git下载代码
+先克隆一份代码到自己git上，然后通过git下载代码
+
+如：
+```
+git clone ssh://git@git.91topbaby.com:10022/front/tpb.git
+```
+## 安装node插件和依赖
+```
+npm install
+```
+
+## 添加platform
+```
+ionic cordova platform add ios
+ionic cordova platform add android
+```
+
+## Cordova插件介绍
+
+### phonegap-plugin-barcodescanner 插件
+* 插件功能：此项目中功能为扫描二维码
+* 插件地址：[phonegap-plugin-barcodescanner](https://github.com/apache/cordova-plugin-statusbar.git)
+* 适配platform: Android/IOS
+* 安装方法:
+  ```
+   ionic cordova plugin add phonegap-plugin-barcodescanner
+   npm install --save @ionic-native/barcode-scanner
+  ```
+
+### cordova-hot-code-push-plugin 插件
+* 插件功能：App热更新
+* 插件地址：[cordova-hot-code-push-plugin](https://github.com/nordnet/cordova-hot-code-push)
+* 适配platform: Android/IOS
+* 安装方法:
+  ```
+   ionic cordova plugin add cordova-hot-code-push-plugin
+   npm install -g cordova-hot-code-push-cli
+  ```
+
+### cordova-plugin-network-information 插件
+* 插件功能：检测平台连接的网络类型以及是否断网
+* 插件地址：[cordova-hot-code-push-plugin](https://github.com/apache/cordova-plugin-network-information)
+* 适配platform: Android/IOS
+* 安装方法:
+  ```
+   ionic cordova plugin add cordova-plugin-network-information
+   npm install --save @ionic-native/network
+
+  ```
+  
+## 在Android上运行APK
+```
+ionic cordova run  android --prod
+```
+### 谷歌浏览器查看连接的设备
+url中输入
+```
+chrome://inspect/#devices
+```
+或者命令行中
+```
+adb
+```
+
+## 签名
+根目录下有个build.json文件，里面配置的是签名信息
+在发布时，会根据这个文件的信息自动进行签名
+
+### 发布App版本
+```
+ionic cordova build android --prod --release
+```
+
+
+_____________________________________________________________________________
 
 # 使用Cordova Hot Code Push进行Ionic App热更新
 

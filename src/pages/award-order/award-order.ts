@@ -48,24 +48,25 @@ export class AwardOrder {
           this.getAwardOrder();
         });
         console.log(error);
-        this.requestFail = true;
         this.isEmpty = false;
         this.isLoadingShow = false;
+        if (error.error != "invalid_token") {
+          this.requestFail = true;
+        }
       });
   }
   /** 获取总金额 **/
   getBonusSum() {
     let url = `${AppConfig.API.bonusSum}?typeList=1&statusList=0,1`;
-    this.appService.httpGet(url)
-      .then(data => {
-        this.sum = data.sum;
-        this.setIsShow(this.sum);
-      }).catch(error => {
-        this.appService.getToken(error, () => {
-          this.getBonusSum();
-        });
-        console.log(error);
+    this.appService.httpGet(url).then(data => {
+      this.sum = data.sum;
+      this.setIsShow(this.sum);
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getBonusSum();
       });
+      console.log(error);
+    });
   }
   /** 有无明细列表时的判断（判断总金额是否为0）**/
   setIsShow(sum) {

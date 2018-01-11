@@ -99,8 +99,10 @@ export class BrandshopOrderList {
         this.getOrderList();
       });
       this.orderList = [];
-      this.loadingShow = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.loadingShow = false;
+        this.requestDefeat = true;
+      }
       console.log(error);
     })
   }
@@ -185,9 +187,10 @@ export class BrandshopOrderList {
       this.appService.getToken(error, () => {
         this.loadMore(infiniteScroll);
       });
-      infiniteScroll.complete();
-      this.showInfinite = false;
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        infiniteScroll.complete();
+      }
       console.log(error);
     })
   }
