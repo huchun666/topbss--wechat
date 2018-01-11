@@ -58,7 +58,9 @@ export class AddAccount {
         });
         this.loadingShow = false;
         console.log(error);
-        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+        if (error.error != "invalid_token") {
+          this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+        }
       });
     } else if (this.salesName == "") {
       this.isName = true;
@@ -111,7 +113,9 @@ export class AddAccount {
                 });
                 this.loadingShow = false;
                 console.log(error);
-                this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+                if (error.error != "invalid_token") {
+                  this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+                }
               });
             }
           }
@@ -158,8 +162,10 @@ export class AddAccount {
         });
         console.log(error);
         this.loadingShow = false;
-        this.requestDefeat = true;
-        this.accountContent = false;
+        if (error.error != "invalid_token") {
+          this.requestDefeat = true;
+          this.accountContent = false;
+        }
       });
   }
   ionViewDidEnter() {
