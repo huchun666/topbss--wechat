@@ -28,6 +28,35 @@ export class AddAccount {
     public alertCtrl: AlertController
   ) {
   }
+  updateCurrent () {
+    this.isName = false;
+    this.isPhone = false;
+    this.isIDCard = false;
+    this.loadingShow = true;
+    let editCurrentUrl = AppConfig.API.current;
+    let editParameters = {
+      salesName: this.salesName,
+      cellphone: this.cellphone,
+      idcard: this.IDcard
+    }
+    //更新导购员账户
+    this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
+      if (data.type == "success") {
+        this.loadingShow = false;
+        this.getCurrent();
+        this.appService.toast('更新成功', 1000, 'middle');
+      }
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.updateCurrent();
+      });
+      this.loadingShow = false;
+      console.log(error);
+      if (error.error != "invalid_token") {
+        this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+      }
+    });
+  }
   //修改收款人信息
   editCurrent() {
     if (this.salesName != "" && this.cellphone.length == 11 && this.IdentityCodeValid(this.IDcard)) {
@@ -42,30 +71,7 @@ export class AddAccount {
           {
             text: '确定',
             handler: () => {
-              this.isName = false;
-              this.isPhone = false;
-              this.isIDCard = false;
-              this.loadingShow = true;
-              let editCurrentUrl = AppConfig.API.current;
-              let editParameters = {
-                salesName: this.salesName,
-                cellphone: this.cellphone,
-                idcard: this.IDcard
-              }
-              //更新导购员账户
-              this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
-                if (data.type == "success") {
-                  this.loadingShow = false;
-                  this.getCurrent();
-                  this.appService.toast('更新成功', 1000, 'middle');
-                }
-              }).catch(error => {
-                this.loadingShow = false;
-                console.log(error);
-                if (error.error != "invalid_token") {
-                  this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
-                }
-              });
+              this.updateCurrent();
             }
           }
         ]

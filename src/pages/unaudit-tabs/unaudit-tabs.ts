@@ -95,6 +95,29 @@ export class UnauditTabs {
     })
   }
   //审核点击事件
+  auditOrderPost(index, isAgree) {
+    this.start = 0;
+    this.down = true;
+    this.up = false;
+    let loading = this.appService.loading();
+    loading.present();
+    let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=${isAgree}`;
+    this.appService.httpPost(url, null).then(data => {
+      if (data.type == 'success') {
+        loading.dismiss();
+        this.getUnauditCancelorder();
+      }
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.auditOrderPost(index, isAgree);
+      });
+      loading.dismiss();
+      console.log(error);
+      if (error.error != "invalid_token") {
+        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+      }
+    });
+  }
   auditOrder(index) {
     const alert = this.alertCtrl.create({
       message: `同意会员${this.unauditCancelorderArray[index].memberMobile}的订单${this.unauditCancelorderArray[index].orderId}取消申请？`,
@@ -102,49 +125,13 @@ export class UnauditTabs {
         {
           text: '拒绝',
           handler: () => {
-            this.start = 0;
-            this.down = true;
-            this.up = false;
-            // 点击拒绝后的执行代码
-            let loading = this.appService.loading();
-            loading.present();
-            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=0`;
-            this.appService.httpPost(url, null).then(data => {
-              if (data.type == 'success') {
-                loading.dismiss();
-                this.getUnauditCancelorder();
-              }
-            }).catch(error => {
-              loading.dismiss();
-              console.log(error);
-              if (error.error != "invalid_token") {
-                this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-              }
-            });
+            this.auditOrderPost(index, 0);
           }
         },
         {
           text: '通过',
           handler: () => {
-            this.start = 0;
-            this.down = true;
-            this.up = false;
-            // 点击同意后的执行代码
-            let loading = this.appService.loading();
-            loading.present();
-            let url = `${AppConfig.API.auditCancelOrder}?id=${this.unauditCancelorderArray[index].orderSeq}&isAgree=1`;
-            this.appService.httpPost(url, null).then(data => {
-              if (data.type == 'success') {
-                loading.dismiss();
-                this.getUnauditCancelorder();
-              }
-            }).catch(error => {
-              loading.dismiss();
-              console.log(error);
-              if (error.error != "invalid_token") {
-                this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-              }
-            });
+            this.auditOrderPost(index, 1);
           }
         }
       ]
@@ -196,6 +183,29 @@ export class UnauditTabs {
       }
     })
   }
+  confirmReturnPost(index) {
+    let loading = this.appService.loading();
+    loading.present();
+    let url = `${AppConfig.API.returnReceived}?id=${this.unauditReturnorderArray[index].orderReturnSeq}`;
+    this.appService.httpPost(url, null).then(data => {
+      loading.dismiss();
+      if (data.type == 'success') {
+        this.start = 0;
+        this.up = false;
+        this.down = true;
+        this.getUnauditReturnorderList();
+      }
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.confirmReturnPost(index);
+      });
+      loading.dismiss();
+      console.log(error);
+      if (error.error != "invalid_token") {
+        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+      }
+    });
+  }
   // 处理订单操作
   confirmReturn(index) {
     const alert = this.alertCtrl.create({
@@ -210,25 +220,7 @@ export class UnauditTabs {
         {
           text: '确认',
           handler: () => {
-            // 点击确认后的执行代码
-            let loading = this.appService.loading();
-            loading.present();
-            let url = `${AppConfig.API.returnReceived}?id=${this.unauditReturnorderArray[index].orderReturnSeq}`;
-            this.appService.httpPost(url, null).then(data => {
-              loading.dismiss();
-              if (data.type == 'success') {
-                this.start = 0;
-                this.up = false;
-                this.down = true;
-                this.getUnauditReturnorderList();
-              }
-            }).catch(error => {
-              loading.dismiss();
-              console.log(error);
-              if (error.error != "invalid_token") {
-                this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
-              }
-            });
+            this.confirmReturnPost(index);
           }
         }
       ]
