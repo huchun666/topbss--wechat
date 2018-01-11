@@ -83,7 +83,9 @@ export class OrderLayer {
       this.loadingShow = false;
       this.isShowAddNumber = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if (error.error != "invalid_token") {
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      }
     });
   }
   dismiss() {
@@ -154,7 +156,9 @@ export class OrderLayer {
         this.changeRadio(event, index, currentValue);
       });
       console.log(error);
-      this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+      if (error.error != "invalid_token") {
+        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+      }
     });
   }
   //确认添加
@@ -190,7 +194,9 @@ export class OrderLayer {
           this.warehouseAdd();
         });
         console.log(error.message);
-        this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+        if (error.error != "invalid_token") {
+          this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
+        }
       })
     } else if (this.attrMap.length != classLength) {
       this.appService.toast('请选择商品参数信息', 1000, 'middle');

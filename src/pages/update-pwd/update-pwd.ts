@@ -78,7 +78,9 @@ export class UpdatePwd {
         });
         loading.dismiss();
         console.log(error);
-        this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
+        if (error.error != "invalid_token") {
+          this.appService.toast('网络错误，请稍后重试', 1000, 'middle');
+        }
       })
     }
   }
