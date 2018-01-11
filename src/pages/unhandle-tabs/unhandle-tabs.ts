@@ -268,6 +268,9 @@ export class UnhandleTabs {
           this.getUnhandleExpressGiftList();
         }
       }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.sendProductPost(index, data);
+        });
         loading.dismiss();
         console.log(error);
         if (error.error != "invalid_token") {
