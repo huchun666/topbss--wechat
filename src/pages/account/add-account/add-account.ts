@@ -90,33 +90,7 @@ export class AddAccount {
           {
             text: '确定',
             handler: () => {
-              this.isName = false;
-              this.isPhone = false;
-              this.isIDCard = false;
-              this.loadingShow = true;
-              let editCurrentUrl = AppConfig.API.current;
-              let editParameters = {
-                salesName: this.salesName,
-                cellphone: this.cellphone,
-                idcard: this.IDcard
-              }
-              //更新导购员账户
-              this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
-                if (data.type == "success") {
-                  this.loadingShow = false;
-                  this.getCurrent();
-                  this.appService.toast('更新成功', 1000, 'middle');
-                }
-              }).catch(error => {
-                this.appService.getToken(error, () => {
-                  this.editCurrent();
-                });
-                this.loadingShow = false;
-                console.log(error);
-                if (error.error != "invalid_token") {
-                  this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
-                }
-              });
+              this.updateCurrent();
             }
           }
         ]
@@ -135,6 +109,35 @@ export class AddAccount {
       this.isPhone = false;
       this.isIDCard = true;
     }
+  }
+  //更新导购员账户
+  updateCurrent() {
+    this.isName = false;
+    this.isPhone = false;
+    this.isIDCard = false;
+    this.loadingShow = true;
+    let editCurrentUrl = AppConfig.API.current;
+    let editParameters = {
+      salesName: this.salesName,
+      cellphone: this.cellphone,
+      idcard: this.IDcard
+    }
+    this.appService.httpPut(editCurrentUrl, editParameters).then(data => {
+      if (data.type == "success") {
+        this.loadingShow = false;
+        this.getCurrent();
+        this.appService.toast('更新成功', 1000, 'middle');
+      }
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.updateCurrent();
+      });
+      this.loadingShow = false;
+      console.log(error);
+      if (error.error != "invalid_token") {
+        this.appService.toast('更新失败，请稍后重试', 1000, 'middle');
+      }
+    });
   }
   //查询当前导购员信息
   getCurrent() {

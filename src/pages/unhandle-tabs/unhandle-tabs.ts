@@ -273,38 +273,46 @@ export class UnhandleTabs {
         {
           text: '确认',
           handler: data => {
-            if (data.companyName != "" && data.orderNum != "") {
-              let body = {
-                memberGiftAccountSeq: this.unhandleExpressGiftArray[index].memberGiftAccountSeq,
-                expressCompany: data.companyName,
-                expressNo: data.orderNum
-              }
-              let loading = this.appService.loading();
-              loading.present();
-              let url = AppConfig.API.confirmExpressInfo;
-              this.appService.httpPost(url, body).then(data => {
-                if (data.type == "success") {
-                  this.start = 0;
-                  this.down = true;
-                  this.up = false;
-                  loading.dismiss();
-                  this.getUnhandleExpressGiftList();
-                }
-              }).catch(error => {
-                loading.dismiss();
-                console.log(error);
-                this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
-              });
-            } else if (data.companyName != "") {
-              this.appService.toast('请填写快递单号', 1000, 'middle');
-            } else if (data.orderNum != "") {
-              this.appService.toast('请填写公司名称', 1000, 'middle');
-            }
+            this.sendProductPost(index, data);
           }
         }
       ]
     });
     alert.present();
+  }
+  sendProductPost(index, data) {
+    if (data.companyName != "" && data.orderNum != "") {
+      let body = {
+        memberGiftAccountSeq: this.unhandleExpressGiftArray[index].memberGiftAccountSeq,
+        expressCompany: data.companyName,
+        expressNo: data.orderNum
+      }
+      let loading = this.appService.loading();
+      loading.present();
+      let url = AppConfig.API.confirmExpressInfo;
+      this.appService.httpPost(url, body).then(data => {
+        if (data.type == "success") {
+          this.start = 0;
+          this.down = true;
+          this.up = false;
+          loading.dismiss();
+          this.getUnhandleExpressGiftList();
+        }
+      }).catch(error => {
+        this.appService.getToken(error, () => {
+          this.sendProductPost(index, data);
+        });
+        loading.dismiss();
+        console.log(error);
+        if(error.error != "invalid_token") {
+          this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        }
+      });
+    } else if (data.companyName != "") {
+      this.appService.toast('请填写快递单号', 1000, 'middle');
+    } else if (data.orderNum != "") {
+      this.appService.toast('请填写公司名称', 1000, 'middle');
+    }
   }
   // 下拉刷新请求数据
   doRefresh(refresher) {
