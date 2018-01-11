@@ -109,7 +109,7 @@ export class OrderLayer {
   //输入数字为负数时重置为1
   resetCount() {
     this.count = this.count <= 0 ? 1 : this.count;
-    if (this.count >= this.orderLayerData.stock) {
+    if (this.count > this.orderLayerData.stock) {
       this.count = this.orderLayerData.stock;
       this.appService.toast('不能超出库存哦', 1000, 'middle');
     } else {
@@ -166,7 +166,12 @@ export class OrderLayer {
         classLength++;
       }
     }
-    if (this.attrMap.length == classLength) {
+    if (this.orderLayerData.stock >= this.count) {
+      this.overStock = false;
+    } else {
+      this.overStock = true;
+    }
+    if (this.attrMap.length === classLength && !this.overStock) {
       let url = AppConfig.API.warehouseAdd;
       let body = {
         "productId": this.orderLayerData.productSeq,
@@ -187,7 +192,7 @@ export class OrderLayer {
         console.log(error.message);
         this.appService.toast('操作失败，请稍后重试', 1000, 'middle');
       })
-    } else {
+    } else if (this.attrMap.length != classLength) {
       this.appService.toast('请选择商品参数信息', 1000, 'middle');
     }
   }
