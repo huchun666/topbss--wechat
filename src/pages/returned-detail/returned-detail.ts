@@ -97,7 +97,9 @@ export class ReturnedDetail {
       });
       this.loadingShow = false;
       console.log(error);
-      this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      if(error.error != "invalid_token") {
+        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+      }
     })
   }
 }

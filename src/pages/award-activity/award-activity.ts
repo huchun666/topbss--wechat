@@ -28,30 +28,31 @@ export class AwardActivity {
   getAwardActivity() {
     this.isLoadingShow = true;
     let url = `${AppConfig.API.bonusList}?typeList=3,4&statusList=0,1&start=${(this.currentPage - 1) * this.pageSize}&limit=${this.pageSize}`;
-    this.appService.httpGet(url)
-      .then(data => {
-        if (data.data.length > 0) {
-          data.data.map(item => {
-            item.baseAmount = item.baseAmount.toFixed(2);
-            item.percent = item.percent;
-            item.amount = item.amount.toFixed(2);
-            item.returnAmount = item.returnAmount.toFixed(2);
-          });
-          this.awardActivity.push(...data.data);
-        }
-        this.count = data.count;
-        this.isEmpty = data.count === 0 ? true : false;
-        this.requestFail = false;
-        this.isLoadingShow = false;
-      }).catch(error => {
-        this.appService.getToken(error, () => {
-          this.getAwardActivity();
+    this.appService.httpGet(url).then(data => {
+      if (data.data.length > 0) {
+        data.data.map(item => {
+          item.baseAmount = item.baseAmount.toFixed(2);
+          item.percent = item.percent;
+          item.amount = item.amount.toFixed(2);
+          item.returnAmount = item.returnAmount.toFixed(2);
         });
-        console.log(error);
-        this.requestFail = true;
-        this.isEmpty = false;
-        this.isLoadingShow = false;
+        this.awardActivity.push(...data.data);
+      }
+      this.count = data.count;
+      this.isEmpty = data.count === 0 ? true : false;
+      this.requestFail = false;
+      this.isLoadingShow = false;
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getAwardActivity();
       });
+      this.isLoadingShow = false;
+      this.isEmpty = false;
+      console.log(error);
+      if (error.error != "invalid_token") {
+        this.requestFail = true;
+      }
+    });
   }
   /** 获取总金额 **/
   getBonusSum() {

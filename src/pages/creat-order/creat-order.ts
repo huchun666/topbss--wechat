@@ -64,14 +64,15 @@ export class CreatOrder {
           this.showNoMore = true;
         }
       }
-
     }).catch(error => {
       this.appService.getToken(error, () => {
         this.getCreatOrderList();
       });
-      this.showInfinite = false;
       this.loadingShow = false;
-      this.requestDefeat = true;
+      if (error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
       console.log(error);
     });
   }
@@ -126,8 +127,10 @@ export class CreatOrder {
         });
         console.log(error);
         this.creatOrderArray = [];
-        this.requestDefeat = true;
-        this.showInfinite = false;
+        if (error.error != "invalid_token") {
+          this.requestDefeat = true;
+          this.showInfinite = false;
+        }
         this.loadingShow = false;
       });
     } else {
@@ -172,8 +175,10 @@ export class CreatOrder {
       this.creatOrderArray = [];
       refresher.complete();
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if (error.error != "invalid_token") {
+        this.requestDefeat = true;
+        this.showInfinite = false;
+      }
     });
   }
   // 上拉刷新请求数据
@@ -199,7 +204,10 @@ export class CreatOrder {
           this.infiniteGetCreatOrderList(infiniteScroll);
         });
         console.log(error);
-        this.appService.toast("网络不好，请稍后重试", 1000, "middle")
+        if (error.error != "invalid_token") {
+          infiniteScroll.complete();
+          this.appService.toast("网络不好，请稍后重试", 1000, "middle")
+        }
       });
     } else {
       let url = `${AppConfig.API.getBrandshopProducts}?start=${this.start}&limit=${this.limit}`;
@@ -220,14 +228,17 @@ export class CreatOrder {
         this.appService.getToken(error, () => {
           this.infiniteGetCreatOrderList(infiniteScroll);
         });
-        infiniteScroll.complete();
         console.log(error);
-        this.appService.toast("网络不好，请稍后重试", 1000, "middle")
+        if (error.error != "invalid_token") {
+          infiniteScroll.complete();
+          this.appService.toast("网络不好，请稍后重试", 1000, "middle")
+        }
       });
     }
   }
   //查看配单仓订单总数
   getWarehouseCount() {
+    this.requestDefeat = false;
     let url = `${AppConfig.API.warehouseGetCount}`;
     this.appService.httpGet(url).then(number => {
       this.warehouseCount = number;
@@ -237,8 +248,6 @@ export class CreatOrder {
         this.getWarehouseCount();
       });
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
     });
   }
   //再来一单按钮进来后，更新配单仓数量

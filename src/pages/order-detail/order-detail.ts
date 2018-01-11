@@ -26,30 +26,31 @@ export class OrderDetail {
   getOrderDetail() {
     this.isLoadingShow = true;
     let url = `${AppConfig.API.bonusList}?typeList=1&statusList=2&start=${(this.currentPage - 1) * this.pageSize}&limit=${this.pageSize}`;
-    this.appService.httpGet(url)
-      .then(data => {
-        if (data.data.length > 0) {
-          data.data.map(item => {
-            item.baseAmount = item.baseAmount.toFixed(2);
-            item.percent = item.percent;
-            item.amount = item.amount.toFixed(2);
-            item.returnAmount = item.returnAmount.toFixed(2);
-          });
-          this.orderDetail.push(...data.data);
-        }
-        this.count = data.count;
-        this.isEmpty = data.count === 0 ? true : false;
-        this.requestFail = false;
-        this.isLoadingShow = false;
-      }).catch(error => {
-        this.appService.getToken(error, () => {
-          this.getOrderDetail();
+    this.appService.httpGet(url).then(data => {
+      if (data.data.length > 0) {
+        data.data.map(item => {
+          item.baseAmount = item.baseAmount.toFixed(2);
+          item.percent = item.percent;
+          item.amount = item.amount.toFixed(2);
+          item.returnAmount = item.returnAmount.toFixed(2);
         });
-        console.log(error);
-        this.requestFail = true;
-        this.isEmpty = false;
-        this.isLoadingShow = false;
+        this.orderDetail.push(...data.data);
+      }
+      this.count = data.count;
+      this.isEmpty = data.count === 0 ? true : false;
+      this.requestFail = false;
+      this.isLoadingShow = false;
+    }).catch(error => {
+      this.appService.getToken(error, () => {
+        this.getOrderDetail();
       });
+      console.log(error);
+      this.isEmpty = false;
+      this.isLoadingShow = false;
+      if (error.error != "invalid_token") {
+        this.requestFail = true;
+      }
+    });
   }
   /** 获取总金额 **/
   getBonusSum() {

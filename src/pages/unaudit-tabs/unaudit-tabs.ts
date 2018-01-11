@@ -88,8 +88,10 @@ export class UnauditTabs {
       this.unauditCancelorderArray = [];
       this.loadingShow = false;
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     })
   }
   //审核点击事件
@@ -184,8 +186,10 @@ export class UnauditTabs {
       this.unauditReturnorderArray = [];
       this.loadingShow = false;
       console.log(error);
-      this.showInfinite = false;
-      this.requestDefeat = true;
+      if(error.error != "invalid_token") {
+        this.showInfinite = false;
+        this.requestDefeat = true;
+      }
     })
   }
   // 处理订单操作
@@ -278,9 +282,11 @@ export class UnauditTabs {
         this.appService.getToken(error, () => {
           this.loadMore(infiniteScroll);
         });
-        infiniteScroll.complete();
         console.log(error);
-        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        if(error.error != "invalid_token") {
+          infiniteScroll.complete();
+          this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        }
       });
     } else {
       let url = `${AppConfig.API.getReturnorderList}?deliveryType=1&status=0&start=${this.start}&limit=${this.limit}`;
@@ -303,9 +309,11 @@ export class UnauditTabs {
         this.appService.getToken(error, () => {
           this.loadMore(infiniteScroll);
         });
-        infiniteScroll.complete();
         console.log(error);
-        this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        if(error.error != "invalid_token") {
+          infiniteScroll.complete();
+          this.appService.toast('网络异常，请稍后再试', 1000, 'middle');
+        }
       });
     }
   }
