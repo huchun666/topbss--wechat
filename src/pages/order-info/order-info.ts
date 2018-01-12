@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
+import { NavParams, AlertController, ViewController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'order-info',
@@ -42,7 +42,6 @@ export class OrderInfo {
     ]
   };
   constructor(
-    public navCtrl: NavController,
     public alertCtrl: AlertController,
     public viewCtrl: ViewController,
     public navParams: NavParams,

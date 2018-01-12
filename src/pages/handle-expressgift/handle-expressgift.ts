@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, Content } from 'ionic-angular';
+import { Content } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'handle-expressgift',
@@ -19,8 +19,6 @@ export class HandleExpressgift {
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
   constructor(
-    public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public appService: AppService,
   ) {
     // 获取已兑换快递赠品列表

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'order-layer',
@@ -31,7 +31,6 @@ export class OrderLayer {
   isShowAddNumber: Boolean = false;
   brandshopSeq: number;
   constructor(
-    public navCtrl: NavController,
     public viewCtrl: ViewController,
     public navParams: NavParams,
     public appService: AppService,
