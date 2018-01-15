@@ -67,12 +67,4 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-
-  //点击事件出发页面切换
-  openPage(page) {
-    // close the menu when clicking a link from the menu
-    this.menu.close();
-    // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
-  }
 }
