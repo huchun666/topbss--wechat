@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, Nav, NavController, ModalController, ViewController } from 'ionic-angular';
+import { App, Nav, ModalController } from 'ionic-angular';
 import { Withdraw } from '../withdraw/withdraw';
 import { Login } from '../login/login';
 import { MyCode } from '../mycode/mycode';
@@ -49,9 +49,7 @@ export class Personl {
   pageList: any = null;
   constructor(
     public nav: Nav,
-    public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public viewCtrl: ViewController,
     private app: App,
     public appService: AppService,
   ) {

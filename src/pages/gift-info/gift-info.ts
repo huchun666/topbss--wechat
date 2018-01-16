@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, AlertController, ViewController, NavParams } from 'ionic-angular';
+import { AlertController, ViewController, NavParams } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'gift-info',
@@ -35,7 +35,6 @@ export class GiftInfo {
 	};
 	requestDefeat: Boolean = false;
 	constructor(
-		public navCtrl: NavController, 
 		public alertCtrl: AlertController, 
 		public viewCtrl: ViewController,
 		public navParams: NavParams,

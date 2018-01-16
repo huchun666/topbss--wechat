@@ -1,5 +1,5 @@
 import { Component, ViewChild} from '@angular/core';
-import { NavController, AlertController, Content } from 'ionic-angular';
+import { Content } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'handle-selfgift',
@@ -18,8 +18,7 @@ export class HandleSelfgift {
   loadingShow: Boolean = true;
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
-  constructor(public navCtrl: NavController, 
-    public alertCtrl: AlertController, 
+  constructor(
     public appService: AppService,
   ) {
     this.down = true;

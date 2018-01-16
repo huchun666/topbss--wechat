@@ -1,5 +1,5 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { NavController, NavParams, AlertController, Content, ModalController } from 'ionic-angular';
+import { NavParams, AlertController, Content, ModalController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { HandleExpressgift } from '../handle-expressgift/handle-expressgift';
@@ -29,7 +29,6 @@ export class UnhandleTabs {
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
   constructor(
-    public navCtrl: NavController,
     public alertCtrl: AlertController,
     public navParams: NavParams,
     public appService: AppService,

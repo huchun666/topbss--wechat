@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ModalController, NavController, AlertController, Content, Keyboard } from 'ionic-angular';
+import { ModalController, NavController, Content, Keyboard } from 'ionic-angular';
 import { OrderLayer } from '../order-layer/order-layer';
 import { OrderStore } from '../order-store/order-store';
 import { AppService, AppConfig } from '../../app/app.service';
@@ -25,7 +25,6 @@ export class CreatOrder {
   brandshopSeq: number;
   constructor(public modalCtrl: ModalController,
     public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public appService: AppService,
     public keyboard: Keyboard
   ) {

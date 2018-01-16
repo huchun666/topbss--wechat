@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavParams, ModalController } from 'ionic-angular';
 import { AddAccount } from '../add-account/add-account';
 @Component({
   selector: 'bind-account',
@@ -8,7 +8,6 @@ import { AddAccount } from '../add-account/add-account';
 export class BindAccount {
   userId: any;
   constructor(
-    public navCtrl: NavController,
     public modalCtrl: ModalController,
     public navParams: NavParams
   ) {

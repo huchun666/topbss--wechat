@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, ModalController, AlertController, Content } from 'ionic-angular';
+import { NavController,  Content } from 'ionic-angular';
 import { PaymentCode } from '../payment-code/payment-code';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -26,8 +26,6 @@ export class OrderStore {
   totalNumberIsOrNull: Boolean = true;
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController,
-    public alertCtrl: AlertController,
     public appService: AppService,
   ) {
     this.start = 0;
