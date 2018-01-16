@@ -22,7 +22,7 @@ export class AddAccount {
   isPhone: Boolean = false;//校验手机
   isIDCard: Boolean = false;//校验身份证
   constructor(
-    public navParams: NavParams,\
+    public navParams: NavParams,
     public appService: AppService,
     public app: App,
     public alertCtrl: AlertController
