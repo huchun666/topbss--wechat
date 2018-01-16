@@ -43,9 +43,11 @@ export class PaymentCode {
       this.appService.getToken(error, () => {
         this.orderAgain();
       });
-      loading.dismiss();
       console.log(error);
-      this.appService.toast('操作失败', 1000, 'middle');
+      if (error.error != "invalid_token") {
+        this.appService.toast('操作失败', 1000, 'middle');
+        loading.dismiss();
+      }
     })
   }
   //关闭(完成)移除所有的view,直接显示home
