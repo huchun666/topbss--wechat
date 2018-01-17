@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, AlertController, Events } from 'ionic-angular';
+import { ModalController, NavController, AlertController, Events, App } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { MyCode } from '../mycode/mycode';
 import { CreatOrder } from '../creat-order/creat-order';
@@ -25,7 +25,8 @@ export class Home {
     public appService: AppService,
     public alertCtrl: AlertController,
     public events: Events,
-    private network: Network
+    private network: Network,
+    public app: App
   ) {
     this.getUnAuditCount();
     this.getUnHandleCount();
@@ -69,6 +70,7 @@ export class Home {
     });
     unAuditModal.present();
     unAuditModal.onDidDismiss(() => {
+      this.app.setTitle(this.appService.getItem('homeTitle'));
       this.getUnAuditCount();
     })
   }
@@ -79,6 +81,7 @@ export class Home {
     });
     unHandleModal.present();
     unHandleModal.onDidDismiss(() => {
+      this.app.setTitle(this.appService.getItem('homeTitle'));
       this.getUnHandleCount();
     })
   }
@@ -154,12 +157,19 @@ export class Home {
   goMyCode() {
     let myCodeModal = this.modalCtrl.create(MyCode);
     myCodeModal.present();
+    myCodeModal.onDidDismiss(() => {
+      this.app.setTitle(this.appService.getItem('homeTitle'));
+    })
   }
   goCreatOrder() {
     let creatOrderModal = this.modalCtrl.create(CreatOrder);
     creatOrderModal.present();
+    creatOrderModal.onDidDismiss(() => {
+      this.app.setTitle(this.appService.getItem('homeTitle'));
+    })
   }
   ionViewDidEnter() {
+    this.appService.setItem('homeTitle', document.title);
     this.watchNetwork();
     this.events.subscribe('check: status', (data) => {
       if (data == true) {
