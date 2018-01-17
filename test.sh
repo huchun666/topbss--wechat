@@ -1,1 +1,1 @@
-export BUILD=test&&ionic cordova build --prod --debug --device --buildConfig build.json
+export BUILD=test&&ionic cordova build ios --prod --debug --device --buildConfig=build.json -- -- chcp-QA
