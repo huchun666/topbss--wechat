@@ -281,8 +281,8 @@ order-list {
 		}
   }
   .filter-box.toolbar-ios {
-    top: 44px + $cordova-ios-statusbar-padding!important;
-    height: 7rem;
+    top: 34px + $cordova-ios-statusbar-padding!important;
+    height: 9rem;
   }
 }
 .has-refresher > .scroll-content {
