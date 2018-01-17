@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, AlertController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { ReturnedDetail } from '../returned-detail/returned-detail';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -19,9 +19,7 @@ export class AuditReturnorder {
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
   constructor(
-    public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public alertCtrl: AlertController,
     public appService: AppService) {
       this.up = false;
       this.down = true;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { NavParams, ViewController, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'return-detail',
@@ -72,7 +72,6 @@ export class ReturnDetail {
   load: any = {};
   loadingShow: Boolean = true;
   constructor(
-    public navCtrl: NavController,
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
     public navParams: NavParams,

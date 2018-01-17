@@ -1,6 +1,6 @@
 import { Headers } from '@angular/http';
 import { Component} from '@angular/core';
-import { NavController, AlertController, NavParams, App } from 'ionic-angular';
+import { NavParams, App } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { TabsPage } from '../tabs/tabs';
 @Component({
@@ -26,8 +26,7 @@ export class UpdatePwd {
     pwd: ''
   };
   rememberPassword: Boolean;
-  constructor(public navCtrl: NavController, 
-    public alertCtrl: AlertController, 
+  constructor( 
     public navParams: NavParams,
     public appService: AppService,
     public app: App,

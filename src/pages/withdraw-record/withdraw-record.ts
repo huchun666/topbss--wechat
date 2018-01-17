@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'withdraw-record',
@@ -17,8 +17,6 @@ export class WithdrawRecord {
   load: any;
   isLoadingShow: boolean = false;
   constructor(
-    public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public navParams: NavParams,
     public appService: AppService
   ) {
