@@ -12,12 +12,14 @@
         "debug": {
             "codeSignIdentity": "iPhone Developer",
             "developmentTeam": "DBL58R3A2B",
-            "packageType": "development"
+            "packageType": "development",
+            "provisioningProfile": "78dc3085-418e-49c8-be2d-06f628188d66"
         },
         "release": {
-            "codeSignIdentity": "iPhone Developer",
+            "codeSignIdentity": "iPhone Distribution",
             "developmentTeam": "DBL58R3A2B",
-            "packageType": "app-store"
+            "packageType": "app-store",
+            "provisioningProfile": "2be51567-bd6f-4b9c-bb1e-ac0982e8806a"
         }
     }
 }

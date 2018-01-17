@@ -1,1 +1,1 @@
-export BUILD=production&&ionic cordova build --prod --release
+export BUILD=production&&ionic cordova build --prod --release --device --buildConfig build.json
