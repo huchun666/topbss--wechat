@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'returned-detail',
@@ -73,8 +73,6 @@ export class ReturnedDetail {
     returnAmount: null
   };
   constructor(
-    public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public navParams: NavParams,
     public appService: AppService) {
     this.listIndexId = this.navParams.get('indexId')  //传上个页面当前点击的id来获取详情页信息

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'award-order',
@@ -18,8 +17,6 @@ export class AwardOrder {
   load: any;
   isLoadingShow: boolean = false;
   constructor(
-    public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public appService: AppService
   ) {
     this.load = AppConfig.load;

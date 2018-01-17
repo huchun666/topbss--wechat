@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, App, AlertController } from 'ionic-angular';
+import { NavParams, App, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../../app/app.service';
 @Component({
   selector: 'add-account',
@@ -22,9 +22,7 @@ export class AddAccount {
   isPhone: Boolean = false;//校验手机
   isIDCard: Boolean = false;//校验身份证
   constructor(
-    public navCtrl: NavController,
     public navParams: NavParams,
-    public viewCtrl: ViewController,
     public appService: AppService,
     public app: App,
     public alertCtrl: AlertController

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'audit-cancelorder',
@@ -19,8 +18,6 @@ export class AuditCancelorder {
   requestDefeat: Boolean = false;
   showInfinite: Boolean = false;
   constructor(
-    public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public appService: AppService) {
     this.start = 0;
     this.down = true;

@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
 import { AppService, AppConfig } from '../../app/app.service';
-import { NavController, ViewController } from 'ionic-angular';
 import CryptoJS  from 'crypto-js';
 import Base64 from 'js-base64';
 @Component({
@@ -13,8 +12,6 @@ export class MyCode {
   myCode: string = "";
   brandshopIndexUrl: string = "";
   constructor(
-    public navCtrl: NavController,
-    public viewCtrl: ViewController,
     public appService: AppService
   ) {
     this.getParams();
