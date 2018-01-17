@@ -124,6 +124,10 @@ withdraw-detailTabs {
 			}
 		}
   }
+  .filter-box.toolbar-ios {
+    top: 44px + $cordova-ios-statusbar-padding!important;
+    height: 3.6rem;
+  }
   .withdraw-record {
 		color: #333;
 		font-size: 1.5rem;
