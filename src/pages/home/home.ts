@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, AlertController, Events } from 'ionic-angular';
+import { ModalController, NavController, AlertController, Events, App } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { MyCode } from '../mycode/mycode';
 import { CreatOrder } from '../creat-order/creat-order';
@@ -19,13 +19,15 @@ export class Home {
   returnOrderCount: number = 0;
   selfGiftCount: number = 0;
   expressgiftCount: number = 0;
+  pageTitle: string = '首页';
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     public appService: AppService,
     public alertCtrl: AlertController,
     public events: Events,
-    private network: Network
+    private network: Network,
+    public app: App
   ) {
     this.getUnAuditCount();
     this.getUnHandleCount();
@@ -69,6 +71,7 @@ export class Home {
     });
     unAuditModal.present();
     unAuditModal.onDidDismiss(() => {
+      this.app.setTitle(this.pageTitle);
       this.getUnAuditCount();
     })
   }
@@ -79,6 +82,7 @@ export class Home {
     });
     unHandleModal.present();
     unHandleModal.onDidDismiss(() => {
+      this.app.setTitle(this.pageTitle);
       this.getUnHandleCount();
     })
   }
@@ -154,10 +158,16 @@ export class Home {
   goMyCode() {
     let myCodeModal = this.modalCtrl.create(MyCode);
     myCodeModal.present();
+    myCodeModal.onDidDismiss(() => {
+      this.app.setTitle(this.pageTitle);
+    })
   }
   goCreatOrder() {
     let creatOrderModal = this.modalCtrl.create(CreatOrder);
     creatOrderModal.present();
+    creatOrderModal.onDidDismiss(() => {
+      this.app.setTitle(this.pageTitle);
+    })
   }
   ionViewDidEnter() {
     this.watchNetwork();
