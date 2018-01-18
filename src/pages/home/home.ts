@@ -19,6 +19,7 @@ export class Home {
   returnOrderCount: number = 0;
   selfGiftCount: number = 0;
   expressgiftCount: number = 0;
+  pageTitle: string = '首页';
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -70,7 +71,7 @@ export class Home {
     });
     unAuditModal.present();
     unAuditModal.onDidDismiss(() => {
-      this.app.setTitle(this.appService.getItem('homeTitle'));
+      this.app.setTitle(this.pageTitle);
       this.getUnAuditCount();
     })
   }
@@ -81,7 +82,7 @@ export class Home {
     });
     unHandleModal.present();
     unHandleModal.onDidDismiss(() => {
-      this.app.setTitle(this.appService.getItem('homeTitle'));
+      this.app.setTitle(this.pageTitle);
       this.getUnHandleCount();
     })
   }
@@ -158,18 +159,17 @@ export class Home {
     let myCodeModal = this.modalCtrl.create(MyCode);
     myCodeModal.present();
     myCodeModal.onDidDismiss(() => {
-      this.app.setTitle(this.appService.getItem('homeTitle'));
+      this.app.setTitle(this.pageTitle);
     })
   }
   goCreatOrder() {
     let creatOrderModal = this.modalCtrl.create(CreatOrder);
     creatOrderModal.present();
     creatOrderModal.onDidDismiss(() => {
-      this.app.setTitle(this.appService.getItem('homeTitle'));
+      this.app.setTitle(this.pageTitle);
     })
   }
   ionViewDidEnter() {
-    this.appService.setItem('homeTitle', document.title);
     this.watchNetwork();
     this.events.subscribe('check: status', (data) => {
       if (data == true) {

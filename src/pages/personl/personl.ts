@@ -47,6 +47,7 @@ export class Personl {
   showImg: string = 'hide.png';
   showText: string = '隐藏';
   pageList: any = null;
+  pageTitle: string = '我的';
   constructor(
     public nav: Nav,
     public modalCtrl: ModalController,
@@ -94,7 +95,7 @@ export class Personl {
     }
     let pageModal = this.modalCtrl.create(page, { 'param1': param1, 'param2': param2 });
     pageModal.onDidDismiss(data => {
-      this.app.setTitle(this.appService.getItem('personTitle'));
+      this.app.setTitle(this.pageTitle);
       this.getCurrent();
       this.getAccount();
     });
@@ -132,7 +133,6 @@ export class Personl {
     });
   }
   ionViewDidEnter() {
-    this.appService.setItem('personTitle', document.title);
     if ((this.appService.getItem("stopReturn") != "have") && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
       let pageModal = this.modalCtrl.create(this.pageList.addAccount);
       pageModal.present();
