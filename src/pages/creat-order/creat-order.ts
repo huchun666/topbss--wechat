@@ -26,7 +26,7 @@ export class CreatOrder {
   constructor(public modalCtrl: ModalController,
     public navCtrl: NavController,
     public appService: AppService,
-    public keyboard: Keyboard
+    public keyboard: Keyboard,
   ) {
     this.down = true;
     this.up = false;

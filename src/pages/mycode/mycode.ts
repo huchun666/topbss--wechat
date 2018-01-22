@@ -1,3 +1,4 @@
+import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { AppService, AppConfig } from '../../app/app.service';
 import CryptoJS from 'crypto-js';
@@ -12,9 +13,17 @@ export class MyCode {
   myCode: string = "";
   brandshopIndexUrl: string = "";
   constructor(
-    public appService: AppService
+    public appService: AppService,
+    public navCtrl: NavController
   ) {
     this.getParams();
+  }
+  ionViewDidEnter() {
+    // this.navCtrl.swipeBackEnabled = true;
+    console.log('swipeBackEnabled ' + this.navCtrl.swipeBackEnabled);
+    console.log('canGoBack ' + this.navCtrl.canGoBack());
+    this.navCtrl.canSwipeBack()
+    console.log('canSwipeBack ' + this.navCtrl.canSwipeBack());
   }
   // 是否显示门店二维码
   showBrandshopCode() {

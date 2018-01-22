@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, AlertController, Events } from 'ionic-angular';
+import { ModalController, NavController, AlertController, Events, Nav } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { MyCode } from '../mycode/mycode';
@@ -26,10 +26,15 @@ export class Home {
     public appService: AppService,
     public barcodeScanner: BarcodeScanner,
     public events: Events,
-    public network: Network
+    public network: Network,
+    public nav: Nav
   ) {
   }
   ionViewDidEnter() {
+    this.nav.swipeBackEnabled = true;
+    console.log('swipeBackEnabled ' + this.nav.swipeBackEnabled);
+    console.log('canGoBack ' + this.nav.canGoBack());
+    console.log('canSwipeBack ' + this.nav.canSwipeBack());
     this.getUnAuditCount();
     this.getUnHandleCount();
     this.events.subscribe('check: status', (data) => {
