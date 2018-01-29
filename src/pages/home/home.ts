@@ -65,26 +65,16 @@ export class Home {
     });
   }
   goUnAudit() {
-    let unAuditModal = this.modalCtrl.create(UnauditTabs, {
+    this.navCtrl.push(UnauditTabs, {
       cancelOrderCount: this.cancelOrderCount,
       returnOrderCount: this.returnOrderCount
     });
-    unAuditModal.present();
-    unAuditModal.onDidDismiss(() => {
-      this.app.setTitle(this.pageTitle);
-      this.getUnAuditCount();
-    })
   }
   goUnHandle() {
-    let unHandleModal = this.modalCtrl.create(UnhandleTabs, {
+    this.navCtrl.push(UnhandleTabs, {
       selfGiftCount: this.selfGiftCount,
       expressGiftCount: this.expressgiftCount
     });
-    unHandleModal.present();
-    unHandleModal.onDidDismiss(() => {
-      this.app.setTitle(this.pageTitle);
-      this.getUnHandleCount();
-    })
   }
   qrCodeScan() {
     var self = this;
@@ -156,18 +146,10 @@ export class Home {
     });
   }
   goMyCode() {
-    let myCodeModal = this.modalCtrl.create(MyCode);
-    myCodeModal.present();
-    myCodeModal.onDidDismiss(() => {
-      this.app.setTitle(this.pageTitle);
-    })
+    this.navCtrl.push(MyCode);
   }
   goCreatOrder() {
-    let creatOrderModal = this.modalCtrl.create(CreatOrder);
-    creatOrderModal.present();
-    creatOrderModal.onDidDismiss(() => {
-      this.app.setTitle(this.pageTitle);
-    })
+    this.navCtrl.push(CreatOrder);
   }
   ionViewDidEnter() {
     this.watchNetwork();

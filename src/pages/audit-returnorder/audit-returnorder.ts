@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
 import { ReturnedDetail } from '../returned-detail/returned-detail';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
@@ -20,15 +20,16 @@ export class AuditReturnorder {
   showInfinite: Boolean = false;
   constructor(
     public modalCtrl: ModalController,
-    public appService: AppService) {
+    public appService: AppService,
+    public navCtrl: NavController
+  ) {
     this.up = false;
     this.down = true;
     this.load = AppConfig.load;
     this.getAuditReturnorderList();
   }
   goReturnedDetail(index) {
-    let contactModal = this.modalCtrl.create(ReturnedDetail, { indexId: this.auditReturnorderArray[index].orderReturnSeq, status: this.auditReturnorderArray[index].status });
-    contactModal.present();
+    this.navCtrl.push(ReturnedDetail, { indexId: this.auditReturnorderArray[index].orderReturnSeq, status: this.auditReturnorderArray[index].status });
   }
   getAuditReturnorderList() {
     // 已审核退货订单 请求数据

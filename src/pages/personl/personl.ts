@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, Nav, ModalController } from 'ionic-angular';
+import { App, Nav, ModalController, NavController } from 'ionic-angular';
 import { Withdraw } from '../withdraw/withdraw';
 import { Login } from '../login/login';
 import { MyCode } from '../mycode/mycode';
@@ -53,6 +53,7 @@ export class Personl {
     public modalCtrl: ModalController,
     private app: App,
     public appService: AppService,
+    public navCtrl: NavController
   ) {
     /* 设置组件名称，方便跳转参数调用 */
     this.pageList = {
@@ -93,13 +94,7 @@ export class Personl {
     if (!this.userCurrent.boundWechat && page === Withdraw) {
       page = this.pageList.addAccount;
     }
-    let pageModal = this.modalCtrl.create(page, { 'param1': param1, 'param2': param2 });
-    pageModal.onDidDismiss(data => {
-      this.app.setTitle(this.pageTitle);
-      this.getCurrent();
-      this.getAccount();
-    });
-    pageModal.present();
+    this.navCtrl.push(page, { 'param1': param1, 'param2': param2 });
   }
   /* 将电话号码格式化 */
   formatTelphone() {

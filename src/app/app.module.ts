@@ -122,7 +122,10 @@ let componentsList = [
     IonicModule.forRoot(MyApp, {
       backButtonText: '返回',
       modalEnter: 'modal-slide-in',
-      modalLeave: 'modal-slide-out'
+      modalLeave: 'modal-slide-out',
+      swipeBackEnabled: true,
+      tabsHideOnSubPages: true,
+      pageTransition: 'android-transition'
     }),
   ],
   bootstrap: [IonicApp],
