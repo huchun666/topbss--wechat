@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavParams, AlertController, Content, ModalController } from 'ionic-angular';
+import { NavParams, AlertController, Content, ModalController, NavController, Events } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { AuditCancelorder } from '../audit-cancelorder/audit-cancelorder';
 import { AuditReturnorder } from '../audit-returnorder/audit-returnorder';
@@ -34,6 +34,8 @@ export class UnauditTabs {
     public navParams: NavParams,
     public appService: AppService,
     public modalCtrl: ModalController,
+    public navCtrl: NavController,
+    public events: Events
   ) {
     this.start = 0;
     this.down = true;
@@ -50,6 +52,16 @@ export class UnauditTabs {
       num: this.returnOrderCount
     }];
     this.getUnauditCancelorder();
+  }
+  ionViewDidEnter() {
+    this.events.subscribe('agreeOrRefuse', data => {
+      if (data) {
+        this.start = 0;
+        this.down = true;
+        this.up = false;
+        this.getUnauditReturnorderList();
+      }
+    })
   }
   // 获取待审核取消订单列表
   getUnauditCancelorder() {
@@ -162,8 +174,7 @@ export class UnauditTabs {
     });
   }
   goAuditCancel() {
-    const orderModal = this.modalCtrl.create(AuditCancelorder);
-    orderModal.present();
+    this.navCtrl.push(AuditCancelorder);
   }
   // 获取待审核退货订单列表
   getUnauditReturnorderList() {
@@ -252,18 +263,10 @@ export class UnauditTabs {
     });
   }
   auditReturn(index) {
-    const orderModal = this.modalCtrl.create(ReturnDetail, { productId: this.unauditReturnorderArray[index].orderReturnSeq });
-    orderModal.onDidDismiss(() => {
-      this.start = 0;
-      this.down = true;
-      this.up = false;
-      this.getUnauditReturnorderList();
-    })
-    orderModal.present();
+    this.navCtrl.push(ReturnDetail, { productId: this.unauditReturnorderArray[index].orderReturnSeq });
   }
   goAuditReturn() {
-    const orderModal = this.modalCtrl.create(AuditReturnorder);
-    orderModal.present();
+    this.navCtrl.push(AuditReturnorder);
   }
   // 下拉刷新请求数据
   doRefresh(refresher) {

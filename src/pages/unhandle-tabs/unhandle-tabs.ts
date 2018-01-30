@@ -1,5 +1,5 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { NavParams, AlertController, Content, ModalController } from 'ionic-angular';
+import { NavParams, AlertController, Content, ModalController, NavController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { HandleExpressgift } from '../handle-expressgift/handle-expressgift';
@@ -33,7 +33,8 @@ export class UnhandleTabs {
     public navParams: NavParams,
     public appService: AppService,
     public modalCtrl: ModalController,
-    public zone: NgZone
+    public zone: NgZone,
+    public navCtrl: NavController
   ) {
     this.start = 0;
     this.down = true;
@@ -135,15 +136,7 @@ export class UnhandleTabs {
   }
   // 查看已完成的自提
   goSelfgift() {
-    const orderModal = this.modalCtrl.create(HandleSelfgift);
-    orderModal.onDidDismiss(() => {
-      // 返回自提赠品页重新请求接口，渲染页面
-      this.start = 0;
-      this.down = true;
-      this.up = false;
-      this.getUnhandleSelfGiftList();
-    })
-    orderModal.present();
+    this.navCtrl.push(HandleSelfgift);
   }
   clearReserveArriveTime(index) {
     this.unhandleSeflGiftArray[index].reserveShopTime = "";
@@ -238,15 +231,7 @@ export class UnhandleTabs {
     })
   }
   goExpressgift() {
-    const orderModal = this.modalCtrl.create(HandleExpressgift);
-    orderModal.onDidDismiss(() => {
-      // 返回自提赠品页重新请求接口，渲染页面
-      this.start = 0;
-      this.down = true;
-      this.up = false;
-      this.getUnhandleExpressGiftList();
-    })
-    orderModal.present();
+    this.navCtrl.push(HandleExpressgift);
   }
   sendProduct(index) {
     let alert = this.alertCtrl.create({

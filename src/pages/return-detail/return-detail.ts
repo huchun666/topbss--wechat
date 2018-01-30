@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, AlertController } from 'ionic-angular';
+import { NavParams, ViewController, AlertController, Events, NavController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 @Component({
   selector: 'return-detail',
@@ -75,7 +75,9 @@ export class ReturnDetail {
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
     public navParams: NavParams,
-    public appService: AppService
+    public appService: AppService,
+    public events: Events,
+    public navCtrl: NavController
   ) {
     this.productId = this.navParams.get('productId');  //传上个页面当前点击的id来获取详情页信息
     this.load = AppConfig.load;
@@ -128,7 +130,8 @@ export class ReturnDetail {
     this.appService.httpPost(url, null).then(data => {
       if (data.type == "success") {
         loading.dismiss();
-        this.viewCtrl.dismiss();
+        this.navCtrl.pop();
+        this.events.publish('agreeOrRefuse', true);
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
@@ -168,7 +171,8 @@ export class ReturnDetail {
     this.appService.httpPost(url, null).then(data => {
       if (data.type == "success") {
         loading.dismiss();
-        this.viewCtrl.dismiss();
+        this.navCtrl.pop();
+        this.events.publish('agreeOrRefuse', true);
       }
     }).catch(error => {
       this.appService.getToken(error, () => {
