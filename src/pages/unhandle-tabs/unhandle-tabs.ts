@@ -1,5 +1,5 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { NavParams, AlertController, Content, ModalController, NavController } from 'ionic-angular';
+import { NavParams, AlertController, Content, ModalController } from 'ionic-angular';
 import { AppService, AppConfig } from '../../app/app.service';
 import { HandleSelfgift } from '../handle-selfgift/handle-selfgift';
 import { HandleExpressgift } from '../handle-expressgift/handle-expressgift';
@@ -33,11 +33,8 @@ export class UnhandleTabs {
     public navParams: NavParams,
     public appService: AppService,
     public modalCtrl: ModalController,
-    public zone: NgZone,
-    public navCtrl: NavController
+    public zone: NgZone
   ) {
-  }
-  ionViewDidEnter() {
     this.start = 0;
     this.down = true;
     this.up = false;
@@ -55,7 +52,6 @@ export class UnhandleTabs {
     this.getTabCount();
     // 获取快递到家赠品
     this.getUnhandleExpressGiftList();
-    this.getUnhandleSelfGiftList();
   }
   // 获取tab上显示的数量
   getTabCount() {
@@ -139,7 +135,15 @@ export class UnhandleTabs {
   }
   // 查看已完成的自提
   goSelfgift() {
-    this.navCtrl.push(HandleSelfgift);
+    const orderModal = this.modalCtrl.create(HandleSelfgift);
+    orderModal.onDidDismiss(() => {
+      // 返回自提赠品页重新请求接口，渲染页面
+      this.start = 0;
+      this.down = true;
+      this.up = false;
+      this.getUnhandleSelfGiftList();
+    })
+    orderModal.present();
   }
   clearReserveArriveTime(index) {
     this.unhandleSeflGiftArray[index].reserveShopTime = "";
@@ -234,7 +238,15 @@ export class UnhandleTabs {
     })
   }
   goExpressgift() {
-    this.navCtrl.push(HandleExpressgift);
+    const orderModal = this.modalCtrl.create(HandleExpressgift);
+    orderModal.onDidDismiss(() => {
+      // 返回自提赠品页重新请求接口，渲染页面
+      this.start = 0;
+      this.down = true;
+      this.up = false;
+      this.getUnhandleExpressGiftList();
+    })
+    orderModal.present();
   }
   sendProduct(index) {
     let alert = this.alertCtrl.create({
