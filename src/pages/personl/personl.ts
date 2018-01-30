@@ -128,6 +128,8 @@ export class Personl {
     });
   }
   ionViewDidEnter() {
+    this.getCurrent();
+    this.getAccount();
     if ((this.appService.getItem("stopReturn") != "have") && window.location.search && window.location.search.split("?")[1].indexOf("code") > -1) {
       let pageModal = this.modalCtrl.create(this.pageList.addAccount);
       pageModal.present();
