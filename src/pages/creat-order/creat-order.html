@@ -1,10 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-title text-center>配单列表</ion-title>
-    <span class='icon-creat-order' (touchstart)="orderRepertory()">
-      <img src="./assets/image/creatorder.png" alt="配单仓"> 配单仓
-      <ion-badge item-end>{{warehouseCount > 9 ? '9+' : warehouseCount}}</ion-badge>
-    </span>
+    <ion-title text-center>
+      配单列表
+      <span class='icon-creat-order' (touchstart)="orderRepertory()">
+        <img src="./assets/image/creatorder.png" alt="配单仓"> 配单仓
+        <ion-badge item-end>{{warehouseCount > 9 ? '9+' : warehouseCount}}</ion-badge>
+      </span>
+    </ion-title>
   </ion-navbar>
   <!-- 搜索框 -->
   <div class="search-box">
