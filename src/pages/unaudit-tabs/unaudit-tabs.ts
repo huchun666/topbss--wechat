@@ -9,6 +9,13 @@ import { ReturnDetail } from '../return-detail/return-detail';
   templateUrl: 'unaudit-tabs.html'
 })
 export class UnauditTabs {
+  slides = [
+    {
+      title: "Welcome to the Docs!",
+      description: "The <b>Ionic Component Documentation</b> showcases a number of useful components that are included out of the box with Ionic.",
+      image: "assets/img/ica-slidebox-img-1.png",
+    }
+  ];
   @ViewChild(Content) content: Content;
   cancelCount: string;
   returnCount: string;
@@ -54,6 +61,8 @@ export class UnauditTabs {
     this.getUnauditCancelorder();
   }
   ionViewDidEnter() {
+    document.getElementsByTagName('button')[12].innerHTML = `待审核取消订单（${this.cancelOrderCount}）`;
+    document.getElementsByTagName('button')[13].innerHTML = `待审核退货订单（${this.returnOrderCount}）`;
     this.events.subscribe('agreeOrRefuse', data => {
       if (data) {
         this.start = 0;
@@ -62,6 +71,9 @@ export class UnauditTabs {
         this.getUnauditReturnorderList();
       }
     })
+  }
+  ionViewDidLoad() {
+    
   }
   // 获取待审核取消订单列表
   getUnauditCancelorder() {

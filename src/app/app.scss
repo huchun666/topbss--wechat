@@ -285,3 +285,50 @@ ion-loading {
   border-radius: 0 !important;
   }
 }
+.tutorial-page {
+
+  .toolbar-background {
+    background: #fff;
+    border-color: transparent;
+  }
+
+  .slide-zoom {
+    height: 100%;
+    text-align: left;
+    overflow-y: auto;
+  }
+
+  .slide-title {
+    margin-top: 2.8rem;
+  }
+
+  .swiper-container-horizontal > .swiper-pagination-bullets {
+    top: 0px !important;
+    height: 43px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 50%;
+    height: 100%;
+    border-radius: 0;
+    background: #fff;
+    color: #5e9efe;
+    opacity: 1;
+    box-sizing: border-box;
+    border-bottom: solid 4px transparent;
+    font-size: 1.4rem;
+  }
+
+  .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0;
+  }
+  .scroll-content {
+    left: 0.1rem;
+  }
+  .swiper-pagination-bullet-active {
+    background: #fff;
+    border-bottom: solid 4px #5e9efe;
+    color: #5e9efe;
+  }
+
+}
